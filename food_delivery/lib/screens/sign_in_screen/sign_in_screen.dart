@@ -6,15 +6,26 @@ import 'package:food_delivery/screens/sign_in_screen/sign_in_view_widgets.dart';
 
 class SignInScreen extends StatefulWidget {
   // const SignInView({Key? key}) : super(key: key);
+
+  GlobalKey<FormState> loginFormKey;
+  TextEditingController signInEmailFieldController;
+  TextEditingController signInPasswordFieldController;
+  TextEditingController signInPhoneFieldController;
+
+  SignInScreen({
+    required this.loginFormKey,
+    required this.signInEmailFieldController,
+    required this.signInPasswordFieldController,
+    required this.signInPhoneFieldController});
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
 
 class _SignInScreenState extends State<SignInScreen> {
   var _SignInformKey = GlobalKey<FormState>();
-  TextEditingController signInTextEditingController = TextEditingController();
-  TextEditingController mobileNumberTextEditingController = TextEditingController();
-  TextEditingController passwordTextEditingController = TextEditingController();
+  //TextEditingController signInTextEditingController = TextEditingController();
+  //TextEditingController mobileNumberTextEditingController = TextEditingController();
+  //TextEditingController passwordTextEditingController = TextEditingController();
   bool isEmailField = true;
 
   @override
@@ -25,7 +36,7 @@ class _SignInScreenState extends State<SignInScreen> {
       body: Center(
         child: SingleChildScrollView(
           child: Form(
-            key: _SignInformKey,
+            key: widget.loginFormKey,
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
               child: SingleChildScrollView(
@@ -37,12 +48,12 @@ class _SignInScreenState extends State<SignInScreen> {
                     SizedBox(height: 10),
                     isEmailField
                     ? SignInTextField(
-                        signInTextEditingController: signInTextEditingController,
+                      signInEmailFieldController: widget.signInEmailFieldController,
                         //icon: Icons.email,
                       hintText: "Enter Email",
                     )
                     : MobileNumberTextField(
-                      mobileNumberTextEditingController: mobileNumberTextEditingController,
+                      signInPhoneFieldController: widget.signInPhoneFieldController,
                       //icon: Icons.email,
                       hintText: "Enter Mobile Number",
                     ),
@@ -61,7 +72,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     SizedBox(height: 15),
                     PasswordTextField(
-                        passwordTextEditingController: passwordTextEditingController,
+                      signInPasswordFieldController: widget.signInPasswordFieldController,
                         //icon: Icons.password,
                         hintText: "Password",),
                     SizedBox(height: 15),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/field_validation.dart';
 import 'package:food_delivery/screens/sign_up_screen/sign_up_screen.dart';
 //import 'package:food_delivery/views/sign_up_screen/sign_up_screen.dart';
 //import 'package:food_delivery/screens/sign_up_view/sign_up_screen.dart';
@@ -22,13 +23,13 @@ class SignInText extends StatelessWidget {
 class SignInTextField extends StatelessWidget {
   // const SignInTextField({Key? key}) : super(key: key);
 
-  TextEditingController signInTextEditingController;
+  TextEditingController signInEmailFieldController;
   //IconData icon;
 
   String hintText;
 
   SignInTextField({
-    required this.signInTextEditingController,
+    required this.signInEmailFieldController,
     //required this.icon,
 
     required this.hintText,
@@ -36,11 +37,13 @@ class SignInTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('hintText : $hintText && icon && signInTextEditingController $signInTextEditingController');
+    print('hintText : $hintText && icon && signInTextEditingController $signInEmailFieldController');
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      controller: signInTextEditingController,
+      controller: signInEmailFieldController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+
+      validator: (value) => FieldValidator().validateEmail(value!),
     );
   }
 }
@@ -48,25 +51,26 @@ class SignInTextField extends StatelessWidget {
 class MobileNumberTextField extends StatelessWidget {
   // const SignInTextField({Key? key}) : super(key: key);
 
-  TextEditingController mobileNumberTextEditingController;
+  TextEditingController signInPhoneFieldController;
   //IconData icon;
 
   String hintText;
 
   MobileNumberTextField({
-    required this.mobileNumberTextEditingController,
+    required this.signInPhoneFieldController,
     //required this.icon,
-
     required this.hintText,
   });
 
   @override
   Widget build(BuildContext context) {
-    print('hintText : $hintText && icon && signInTextEditingController $mobileNumberTextEditingController');
+    print('hintText : $hintText && icon && signInTextEditingController $signInPhoneFieldController');
     return TextFormField(
       keyboardType: TextInputType.number,
-      controller: mobileNumberTextEditingController,
+      controller: signInPhoneFieldController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+
+      validator: (value) => FieldValidator().validateMobile(value!),
     );
   }
 }
@@ -74,12 +78,12 @@ class MobileNumberTextField extends StatelessWidget {
 
 class PasswordTextField extends StatelessWidget {
   // const PasswordTextField({Key? key}) : super(key: key);
-  TextEditingController ? passwordTextEditingController;
+  TextEditingController ? signInPasswordFieldController;
   //IconData icon;
   String hintText;
 
   PasswordTextField({
-    required TextEditingController passwordTextEditingController,
+    required TextEditingController signInPasswordFieldController,
     //required this.icon,
     required this.hintText,
   });
@@ -88,9 +92,11 @@ class PasswordTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
           keyboardType: TextInputType.visiblePassword,
-          controller: passwordTextEditingController,
+          controller: signInPasswordFieldController,
           obscureText: true,
           decoration: _inputDecoration(hintText: hintText, /*icon: icon,*/),
+
+      validator: (value) => FieldValidator().validatePassword(value!),
 
     );
   }

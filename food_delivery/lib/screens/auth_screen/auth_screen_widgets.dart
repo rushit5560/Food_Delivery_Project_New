@@ -45,13 +45,23 @@ class TabView extends StatelessWidget {
   TextEditingController phoneFieldController;
   File ? file;
 
+  GlobalKey<FormState> loginFormKey;
+  TextEditingController signInEmailFieldController;
+  TextEditingController signInPasswordFieldController;
+  TextEditingController signInPhoneFieldController;
+
   TabView({
     required this.tabController,
     required this.signUpFormKey,
   required this.fullNameFieldController,
   required this.emailFieldController,
   required this.phoneFieldController,
-  this.file});
+  this.file,
+
+  required this.loginFormKey,
+  required this.signInEmailFieldController,
+  required this.signInPasswordFieldController,
+  required this.signInPhoneFieldController});
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +97,12 @@ class TabView extends StatelessWidget {
             child: TabBarView(
               controller: tabController,
               children: [
-                SignInScreen(),
+                SignInScreen(
+                    loginFormKey : loginFormKey,
+                    signInEmailFieldController: signInEmailFieldController,
+                    signInPasswordFieldController: signInPasswordFieldController,
+                    signInPhoneFieldController: signInPhoneFieldController
+                ),
                 SignUpScreen(
                   signUpFormKey: signUpFormKey,
                     fullNameFieldController: fullNameFieldController,
@@ -105,22 +120,21 @@ class TabView extends StatelessWidget {
 }
 
 class ContinueButton extends StatelessWidget {
-  var signUpFormKey;
+  GlobalKey<FormState> signUpFormKey;
+  GlobalKey<FormState> loginFormKey;
   TabController tabController;
   File ? file;
-  ContinueButton({this.signUpFormKey, this.file, required this.tabController});
+  ContinueButton({required this.signUpFormKey,required this.loginFormKey, this.file, required this.tabController});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        /*if (validateInputs()) {
-          Get.offAll(() => IndexScreen());
-
-          //
-        }*/
         if(tabController.index == 0){
           print("0");
+          if(validateInputsLogin()){
+            Get.offAll(() => IndexScreen());
+          }
         }
         else{
           print("1");
@@ -147,8 +161,17 @@ class ContinueButton extends StatelessWidget {
   }
 
   bool validateInputs() {
-    if (signUpFormKey.currentState.validate()) {
-      signUpFormKey.currentState.save();
+    if (signUpFormKey.currentState!.validate()) {
+      signUpFormKey.currentState!.save();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool validateInputsLogin() {
+    if (loginFormKey.currentState!.validate()) {
+      loginFormKey.currentState!.save();
       return true;
     } else {
       return false;

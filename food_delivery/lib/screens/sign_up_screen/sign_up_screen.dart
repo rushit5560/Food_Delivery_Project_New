@@ -452,7 +452,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  signInText(){
+  /*signInText(){
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -472,5 +472,5 @@ class _SignUpScreenState extends State<SignUpScreen> {
         )
       ],
     );
-  }
+  }*/
 }

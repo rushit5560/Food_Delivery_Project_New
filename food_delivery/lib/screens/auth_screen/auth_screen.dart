@@ -26,10 +26,15 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
     scopes: ['email'],
   );
   GlobalKey<FormState> signUpFormKey = GlobalKey();
+  GlobalKey<FormState> loginFormKey = GlobalKey();
   // GlobalKey<FormState> signInFormKey = GlobalKey();
   TextEditingController fullNameFieldController = TextEditingController();
   TextEditingController emailFieldController = TextEditingController();
    TextEditingController phoneFieldController = TextEditingController();
+
+  TextEditingController signInEmailFieldController = TextEditingController();
+  TextEditingController signInPasswordFieldController = TextEditingController();
+  TextEditingController signInPhoneFieldController = TextEditingController();
   File ? file;
 
   @override
@@ -62,7 +67,12 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                     fullNameFieldController: fullNameFieldController,
                     emailFieldController: emailFieldController,
                     phoneFieldController: phoneFieldController,
-                    file: file
+                    file: file,
+
+                    loginFormKey : loginFormKey,
+                    signInEmailFieldController: signInEmailFieldController,
+                    signInPasswordFieldController: signInPasswordFieldController,
+                    signInPhoneFieldController: signInPhoneFieldController
                 ),
               ],
             ),
@@ -72,7 +82,10 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
             ContinueButton(
                 signUpFormKey: signUpFormKey,
                 tabController: _tabController,
-                file : file),
+                file : file,
+
+                loginFormKey: loginFormKey
+            ),
 
             const SizedBox(height: 20),
 

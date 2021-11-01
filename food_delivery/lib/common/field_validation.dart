@@ -23,6 +23,16 @@ class FieldValidator {
     }
   }
 
+  String ? validatePassword(String value) {
+    if (value.isEmpty) {
+      return "Email is Required";
+    } else if (value.length != 6) {
+      return "Length should be 6 character";
+    } else {
+      return null;
+    }
+  }
+
   String ? validateMobile(String value) {
 // Indian Mobile number are of 10 digit only
     if (value.isEmpty) {
