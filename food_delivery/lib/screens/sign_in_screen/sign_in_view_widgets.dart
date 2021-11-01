@@ -133,7 +133,7 @@ class SignUpText extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            Get.to(()=> SignUpScreen());
+            //Get.to(()=> SignUpScreen());
           },
           child: Text(
             "Sign up",

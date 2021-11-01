@@ -33,7 +33,9 @@ PreferredSizeWidget commonAppBarModule({required title, index = 0}) {
               onTap: () => print('Clk Scanner'),
               child: Image.asset(Images.ic_barcode_scan, height: 25, width: 25),
             )
-          : Container(),
+          : index == 2
+          ? Image.asset(Images.ic_scanner, scale: 2,)
+            :Container(),
       SizedBox(width: 20)
     ],
   );

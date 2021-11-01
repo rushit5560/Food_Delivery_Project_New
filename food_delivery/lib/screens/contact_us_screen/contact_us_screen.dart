@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/common_widgets.dart';
 import 'package:food_delivery/common/custom_appbar.dart';
+import 'package:food_delivery/controllers/contact_us_screen_controller/contact_us_screen_controller.dart';
 import 'package:get/get.dart';
 
 import 'contact_us_screen_widgets.dart';
@@ -11,6 +12,8 @@ class ContactUsScreen extends StatelessWidget {
   TextEditingController fullNameFieldController = TextEditingController();
   TextEditingController phoneNoFieldController = TextEditingController();
   TextEditingController messageFieldController = TextEditingController();
+
+  ContactUsScreenController contactScreenController = Get.put(ContactUsScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,8 @@ class ContactUsScreen extends StatelessWidget {
               SizedBox(height: Get.height * 0.05),
               LogoImage(),
               SizedBox(height: Get.height * 0.03),
+              DropDown(contactScreenController: contactScreenController,),
+              SizedBox(height: Get.height * 0.02),
               CallbackTextModule(),
               CallBackButtonModule(),
               FeedbackTextModule(),

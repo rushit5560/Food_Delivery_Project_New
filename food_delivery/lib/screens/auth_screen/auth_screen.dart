@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -19,13 +21,16 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateMixin {
   AuthScreenController authViewController = Get.put(AuthScreenController());
   late TabController _tabController;
- // FacebookAccessToken? _token;
-  //FacebookUserProfile? _profile;
-  String? _imageUrl;
-  String? _email;
+
   GoogleSignIn googleSignInManager = GoogleSignIn(
     scopes: ['email'],
   );
+  GlobalKey<FormState> signUpFormKey = GlobalKey();
+  // GlobalKey<FormState> signInFormKey = GlobalKey();
+  TextEditingController fullNameFieldController = TextEditingController();
+  TextEditingController emailFieldController = TextEditingController();
+   TextEditingController phoneFieldController = TextEditingController();
+  File ? file;
 
   @override
   void initState() {
@@ -41,142 +46,6 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    //final isLogin = _token != null && _profile != null;
-    /*return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
-      child: Scaffold(
-        backgroundColor: AppColors.colorLightPink,
-        resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            backGround(),
-
-            SafeArea(
-              child: Column(
-                children: [
-                  WelcomeText(),
-                  const SizedBox(height: 20),
-
-                  Container(
-                    height: Get.height * 0.55,
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      children: [
-                        TabBar(
-                          indicatorColor: AppColors.colorDarkPink,
-                          indicatorSize: TabBarIndicatorSize.label,
-                          labelColor: AppColors.colorDarkPink,
-                          labelPadding: EdgeInsets.only(top: 10.0, bottom: 10),
-                          unselectedLabelColor: Colors.grey,
-                          controller: _tabController,
-                          labelStyle: TextStyle(fontSize: 20),
-
-                          tabs: [
-                            Container(
-                              child: Tab(
-                                  text: "Login",
-
-                              ),
-                            ),
-                            Container(
-                              child: Tab(
-                                text: "Sign up",
-                              ),
-                            ),
-
-                          ],
-                        ),
-                        Container(
-                          height: Get.height * 0.45,
-                          child: TabBarView(
-                            controller: _tabController,
-                            children: [
-                              SignInView(),
-                              SignUpView(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-                  Container(
-                    height: 40,
-                    width: MediaQuery.of(context).size.width / 3,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColors.colorDarkPink),
-                    child: Center(
-                      child: Text(
-                        "Continue",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap:(){
-                          googleAuthentication();
-                         },
-                        child: Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width / 4,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: AppColors.colorDarkPink),
-                          child: Center(
-                            child: Text(
-                              "G",
-                              style: TextStyle(
-                                  color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10,),
-                      GestureDetector(
-                        onTap: (){
-                          _facebookLogInButton().then((value){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => HomePage()),
-                              );
-                          });
-                        },
-                        child: Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width / 4,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: AppColors.colorDarkPink),
-                          child: Center(
-                            child: Text(
-                              "F",
-                              style: TextStyle(
-                                  color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            )
-
-          ],
-        ),
-      ),
-    );*/
 
     return Scaffold(
       backgroundColor: AppColors.colorLightPink,
@@ -187,13 +56,23 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
             Stack(
               children: [
                 WelcomeText(),
-                TabView(tabController: _tabController,),
+                TabView(
+                    tabController: _tabController,
+                    signUpFormKey: signUpFormKey,
+                    fullNameFieldController: fullNameFieldController,
+                    emailFieldController: emailFieldController,
+                    phoneFieldController: phoneFieldController,
+                    file: file
+                ),
               ],
             ),
 
             const SizedBox(height: 20),
 
-            ContinueButton(),
+            ContinueButton(
+                signUpFormKey: signUpFormKey,
+                tabController: _tabController,
+                file : file),
 
             const SizedBox(height: 20),
 

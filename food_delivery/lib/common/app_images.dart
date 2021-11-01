@@ -54,6 +54,7 @@ class Images{
   static const ic_sms = '$root' + 'message.png';
   static const ic_inapp = '$root' + 'smartphone.png';
   static const ic_email = '$root' + 'envelope.png';
+  static const ic_scanner = '$root' + 'scanner.png';
 
 
   static const ic_bottom_bar_1 = '$root' + 'bottom_bar_1.png';

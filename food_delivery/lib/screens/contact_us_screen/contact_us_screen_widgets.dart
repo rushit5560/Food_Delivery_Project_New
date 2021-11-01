@@ -1,6 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_colors.dart';
+import 'package:food_delivery/controllers/contact_us_screen_controller/contact_us_screen_controller.dart';
 import 'package:get/get.dart';
+
+class DropDown extends StatelessWidget {
+  //const DropDown({Key? key}) : super(key: key);
+  ContactUsScreenController contactScreenController;
+  DropDown({required this.contactScreenController});
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+          () =>
+          Container(
+            padding: const EdgeInsets.only(left: 10),
+            height: 45,  //gives the height of the dropdown button
+            width: MediaQuery.of(context).size.width, //gives the width of the dropdown button
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.grey.shade200
+              //border: Border.all(color: Colors.grey),
+            ),
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                  canvasColor: Colors.grey.shade100, // background color for the dropdown items
+                  buttonTheme: ButtonTheme.of(context).copyWith(
+                    alignedDropdown: true,  //If false (the default), then the dropdown's menu will be wider than its button.
+                  )
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  focusColor:Colors.white,
+                  value: contactScreenController.addressType.value,
+                  //elevation: 5,
+                  style: TextStyle(color: Colors.white),
+                  iconEnabledColor:Colors.black,
+                  items: <String>[
+                    'Surat',
+                    'Ahmedabad',
+                    'Baroda',
+                    'Rajkot',
+                    'Gandhinagar',
+                    'Bhavanagar',
+                    'Junagagh',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value,style:TextStyle(color:Colors.black),),
+                    );
+                  }).toList(),
+                  hint:Text(
+                    "Select Address Type",
+                    /*style: TextStyle(
+                                //color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),*/
+                  ),
+                  onChanged: (String ? value) {
+                    //setState(() {
+                    contactScreenController.addressType.value = value!;
+                    //});
+                  },
+                ),
+              ),
+            ),
+          ),
+    );
+  }
+}
+
 
 class CallbackTextModule extends StatelessWidget {
   const CallbackTextModule({Key? key}) : super(key: key);

@@ -1,3 +1,6 @@
+//import 'dart:html';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/screens/index_screen/index_screen.dart';
@@ -35,15 +38,26 @@ class WelcomeText extends StatelessWidget {
 
 class TabView extends StatelessWidget {
   //const TabView({Key? key}) : super(key: key);
-  late TabController tabController;
-  TabView({required this.tabController});
+  TabController tabController;
+  GlobalKey<FormState> signUpFormKey;
+  TextEditingController fullNameFieldController;
+  TextEditingController emailFieldController;
+  TextEditingController phoneFieldController;
+  File ? file;
+
+  TabView({
+    required this.tabController,
+    required this.signUpFormKey,
+  required this.fullNameFieldController,
+  required this.emailFieldController,
+  required this.phoneFieldController,
+  this.file});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: Get.height * 0.55,
       margin: EdgeInsets.only(left: 20, right: 20, top: 160),
-      //margin: EdgeInsets.symmetric(horizontal: 20, vertical: 100),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -58,18 +72,12 @@ class TabView extends StatelessWidget {
             unselectedLabelColor: Colors.grey,
             controller:  tabController,
             labelStyle: TextStyle(fontSize: 20),
-
             tabs: [
               Container(
-                child: Tab(
-                  text: "Login",
-
-                ),
+                child: Tab(text: "Login"),
               ),
               Container(
-                child: Tab(
-                  text: "Sign up",
-                ),
+                child: Tab(text: "Sign up"),
               ),
 
             ],
@@ -80,7 +88,13 @@ class TabView extends StatelessWidget {
               controller: tabController,
               children: [
                 SignInScreen(),
-                SignUpScreen(),
+                SignUpScreen(
+                  signUpFormKey: signUpFormKey,
+                    fullNameFieldController: fullNameFieldController,
+                  emailFieldController: emailFieldController,
+                    phoneFieldController: phoneFieldController,
+                  file: file
+                ),
               ],
             ),
           ),
@@ -91,14 +105,29 @@ class TabView extends StatelessWidget {
 }
 
 class ContinueButton extends StatelessWidget {
-  ContinueButton({Key? key}) : super(key: key);
-  late TabController tabController;
+  var signUpFormKey;
+  TabController tabController;
+  File ? file;
+  ContinueButton({this.signUpFormKey, this.file, required this.tabController});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Get.offAll(() => IndexScreen());
+      onTap: () {
+        /*if (validateInputs()) {
+          Get.offAll(() => IndexScreen());
+
+          //
+        }*/
+        if(tabController.index == 0){
+          print("0");
+        }
+        else{
+          print("1");
+          if(validateInputs()){
+            Get.offAll(() => IndexScreen());
+          }
+        }
       },
       child: Container(
         height: 40,
@@ -115,6 +144,15 @@ class ContinueButton extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool validateInputs() {
+    if (signUpFormKey.currentState.validate()) {
+      signUpFormKey.currentState.save();
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 

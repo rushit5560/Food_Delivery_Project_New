@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/field_validation.dart';
 import 'package:food_delivery/screens/sign_in_screen/sign_in_screen.dart';
 //import 'package:food_delivery/views/sign_in_screen/sign_in_screen.dart';
 //import 'package:food_delivery/screens/sign_in_view/sign_in_screen.dart';
@@ -19,13 +20,14 @@ class SignUpText extends StatelessWidget {
 
 class NameTextField extends StatelessWidget {
 
-  TextEditingController ? nameTextEditingController;
-  //IconData icon;
+  TextEditingController fullNameFieldController;
+
   String hintText;
+  String name="";
+
 
   NameTextField({
-    required TextEditingController nameTextEditingController,
-    //required this.icon,
+    required this.fullNameFieldController,
     required this.hintText,
   });
 
@@ -33,20 +35,26 @@ class NameTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.text,
-      controller: nameTextEditingController,
+      controller: fullNameFieldController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+      // onSaved: (String ? val) {
+      //   name = val!;
+      // },
+      validator: (value) => FieldValidator().validateFullName(value!),
     );
   }
+
 }
 
 class EmailTextField extends StatelessWidget {
   //const EmailTextField({Key? key}) : super(key: key);
-  TextEditingController ? emailTextEditingController;
+  TextEditingController  emailFieldController;
+  String email="";
   //IconData icon;
   String hintText;
 
   EmailTextField({
-    required TextEditingController emailTextEditingController,
+    required this.emailFieldController,
     //required this.icon,
     required this.hintText,
   });
@@ -55,19 +63,24 @@ class EmailTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      controller: emailTextEditingController,
+      controller: emailFieldController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+      // onSaved: (String ? val) {
+      //   email = val!;
+      // },
+      validator: (value) => FieldValidator().validateEmail(value!),
     );
   }
 }
 
 class PhoneTextField extends StatelessWidget {
-  TextEditingController ? phoneTextEditingController;
+  TextEditingController phoneFieldController;
   //IconData icon;
+  String phone ="";
   String hintText;
 
   PhoneTextField({
-    required TextEditingController phoneTextEditingController,
+    required this.phoneFieldController,
     //required this.icon,
     required this.hintText,
   });
@@ -76,9 +89,13 @@ class PhoneTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.number,
-      controller: phoneTextEditingController,
+      controller: phoneFieldController,
     //  obscureText: true,
        decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+      onSaved: (String ? val) {
+        phone = val!;
+      },
+      validator: (value) => FieldValidator().validateMobile(value!),
     );
   }
 }

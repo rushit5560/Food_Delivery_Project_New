@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/common/app_images.dart';
+import 'package:food_delivery/screens/index_screen/index_screen.dart';
 import 'package:food_delivery/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:food_delivery/screens/sign_up_screen/sign_up_view_widgets.dart';
+import 'package:get/get.dart';
 //import 'package:food_delivery/views/sign_in_screen/sign_in_screen.dart';
 //import 'package:food_delivery/views/sign_up_screen/sign_up_view_widgets.dart';
 //import 'package:food_delivery/screens/sign_in_view/sign_in_screen.dart';
@@ -12,7 +14,18 @@ import 'package:food_delivery/screens/sign_up_screen/sign_up_view_widgets.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  //const SignUpScreen({Key? key}) : super(key: key);
+   GlobalKey<FormState> signUpFormKey;
+   TextEditingController fullNameFieldController;
+   TextEditingController emailFieldController;
+   TextEditingController phoneFieldController;
+   File ? file;
+
+   SignUpScreen({required this.signUpFormKey,
+     required this.fullNameFieldController,
+   required this.emailFieldController,
+   required this.phoneFieldController,
+   this.file});
 
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
@@ -20,15 +33,18 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
 
-  var _SignUpformKey = GlobalKey<FormState>();
-  TextEditingController nameTextEditingController = TextEditingController();
-  TextEditingController emailTextEditingController = TextEditingController();
+  //var _SignUpformKey = GlobalKey<FormState>();
+  // TextEditingController nameTextEditingController = TextEditingController();
+  //TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController phoneTextEditingController = TextEditingController();
   TextEditingController referalCodeTextEditingController = TextEditingController();
   String ? _chosenValue;
   String ? areaValue;
-  File? file;
+  //File? file;
   final ImagePicker imagePicker = ImagePicker();
+  var _logInformKey = GlobalKey<FormState>();
+  //var signUpformKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       //resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Form(
-          key: _SignUpformKey,
+          key: widget.signUpFormKey,
           child: Container(
             margin: EdgeInsets.only(left: 20, right: 20),
             child: Column(
@@ -67,10 +83,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),*/
 
-                    file != null ?
+                    widget.file != null ?
                     ClipRRect(
                       borderRadius: BorderRadius.circular(80.0),
-                      child: Image.file(file!, height: 100 ,width: 100, fit: BoxFit.fill ),
+                      child: Image.file(widget.file!, height: 100 ,width: 100, fit: BoxFit.fill ),
                     )
                         :
                     ClipRRect(
@@ -100,18 +116,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SizedBox(height: 20,),
                 NameTextField(
-                  nameTextEditingController: nameTextEditingController,
+                  fullNameFieldController: widget.fullNameFieldController,
                   //icon: Icons.person,
-                  hintText: "Enter Full Name",),
+                  hintText: "Enter Full Name",
+                ),
                 SizedBox(height: 15,),
                 EmailTextField(
-                    emailTextEditingController: emailTextEditingController,
+                  emailFieldController: widget.emailFieldController,
                   //icon: Icons.email,
                   hintText: "Enter Email",
                 ),
                 SizedBox(height: 15,),
                 PhoneTextField(
-                  phoneTextEditingController: phoneTextEditingController,
+                  phoneFieldController: widget.phoneFieldController,
                     //icon: Icons.password,
                     hintText: "Enter Phone Number",),
                 SizedBox(height: 15,),
@@ -232,7 +249,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
 
-
+            /*GestureDetector(
+              onTap: (){
+                if(validateInputs()){
+                  Get.offAll(() => IndexScreen());
+                }
+                //
+              },
+              child: Container(
+                height: 40,
+                width: MediaQuery.of(context).size.width / 3,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColors.colorDarkPink),
+                child: Center(
+                  child: Text(
+                    "Continue",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            )*/
 
                 /*SizedBox(height: 30,),
                 SignUpButton(),
@@ -245,6 +283,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  bool validateInputs() {
+    if (widget.signUpFormKey.currentState!.validate()) {
+      widget.signUpFormKey.currentState!.save();
+      return true;
+    } else {
+      return false;
+    }
   }
 
   void _showPicker(context) {
@@ -303,7 +350,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final image = await imagePicker.getImage(source: ImageSource.gallery);
     if(image != null){
       setState(() {
-        file = File(image.path);
+        widget.file = File(image.path);
       });
     } else{}
   }
@@ -312,7 +359,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final image = await imagePicker.getImage(source: ImageSource.camera);
     if(image != null){
       setState(() {
-        file = File(image.path);
+        widget.file = File(image.path);
       });
     } else{}
   }
