@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/common/custom_appbar.dart';
 import 'package:food_delivery/controllers/category_screen_controller/category_screen_controller.dart';
 import 'package:get/get.dart';
@@ -13,7 +12,7 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: commonAppBarModule(title: 'Category', index: 1),
+      appBar: commonAppBarModule(title: 'Category'),
 
       body: Padding(
         padding: const EdgeInsets.all(8.0),

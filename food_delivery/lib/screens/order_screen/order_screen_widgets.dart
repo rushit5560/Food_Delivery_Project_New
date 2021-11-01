@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/controllers/order_screen_controller/order_screen_controller.dart';
+import 'package:food_delivery/screens/order_detail_screen/order_detail_screen.dart';
 import 'package:get/get.dart';
 
 class AllOrderListModule extends StatelessWidget {
@@ -16,28 +17,33 @@ class AllOrderListModule extends StatelessWidget {
       itemBuilder: (context, index){
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            height: Get.height * 0.12,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.grey.shade200
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Container(
-                    child: Row(
-                      children: [
-                        _orderItemImageModule(index),
-                        SizedBox(width: 10),
-                        _orderItemNameModule(index),
-                      ],
+          child: GestureDetector(
+            onTap: () {
+              Get.to(()=> OrderDetailScreen());
+            },
+            child: Container(
+              height: Get.height * 0.12,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey.shade200
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Container(
+                      child: Row(
+                        children: [
+                          _orderItemImageModule(index),
+                          SizedBox(width: 10),
+                          _orderItemNameModule(index),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                _orderItemAmountAndStatusModule(index),
-              ],
+                  _orderItemAmountAndStatusModule(index),
+                ],
+              ),
             ),
           ),
         );

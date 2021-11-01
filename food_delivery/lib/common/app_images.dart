@@ -55,4 +55,16 @@ class Images{
   static const ic_inapp = '$root' + 'smartphone.png';
   static const ic_email = '$root' + 'envelope.png';
 
+
+  static const ic_bottom_bar_1 = '$root' + 'bottom_bar_1.png';
+  static const ic_bottom_bar_2 = '$root' + 'bottom_bar_2.png';
+  static const ic_bottom_bar_3 = '$root' + 'bottom_bar_3.png';
+  static const ic_bottom_bar_4 = '$root' + 'bottom_bar_4.png';
+  static const ic_bottom_bar_5 = '$root' + 'bottom_bar_5.png';
+
+  static const ic_bottom_bar_light_1 = '$root' + 'bottom_bar_light_1.png';
+  static const ic_bottom_bar_light_2 = '$root' + 'bottom_bar_light_2.png';
+  static const ic_bottom_bar_light_3 = '$root' + 'bottom_bar_light_3.png';
+  static const ic_bottom_bar_light_4 = '$root' + 'bottom_bar_light_4.png';
+  static const ic_bottom_bar_light_5 = '$root' + 'bottom_bar_light_5.png';
 }

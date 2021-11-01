@@ -2,6 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/common/app_images.dart';
 import 'package:food_delivery/controllers/account_screen_controller/account_screen_controller.dart';
+import 'package:food_delivery/screens/about_us_screen/about_us_screen.dart';
+import 'package:food_delivery/screens/addresses_screen/addresses_screen.dart';
+import 'package:food_delivery/screens/contact_us_screen/contact_us_screen.dart';
+import 'package:food_delivery/screens/index_screen/index_screen.dart';
+import 'package:food_delivery/screens/language_screen/language_screen.dart';
+import 'package:food_delivery/screens/my_settings_screen/my_settings_screen.dart';
+import 'package:food_delivery/screens/notification_screen/notification_screen.dart';
+import 'package:food_delivery/screens/order_screen/order_screen.dart';
+import 'package:food_delivery/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
+import 'package:food_delivery/screens/wallet_screen/wallet_screen.dart';
+import 'package:food_delivery/screens/wishlist_screen/wishlist_screen.dart';
+import 'package:get/get.dart';
 
 class AccountDetailsModule extends StatelessWidget {
   const AccountDetailsModule({Key? key}) : super(key: key);
@@ -191,32 +203,32 @@ class AccountInfoListModule extends StatelessWidget {
   void clickedOnSingleItem(int index) {
     switch (index) {
       case 0:
-        // Get.to(()=> );
-        print('$index');
+        Get.to(()=> AddressesScreen());
+        // print('$index');
         break;
       case 1:
-        // Get.to(()=> );
-        print('$index');
+        Get.to(()=> OrderScreen());
+        // print('$index');
         break;
       case 2:
-        // Get.to(()=> );
-        print('$index');
+        Get.to(()=> WishListScreen());
+        // print('$index');
         break;
       case 3:
-        // Get.to(()=> );
-        print('$index');
+        Get.to(()=> WalletScreen());
+        // print('$index');
         break;
       case 4:
         // Get.to(()=> );
         print('$index');
         break;
       case 5:
-        // Get.to(()=> );
-        print('$index');
+        Get.to(()=> LanguageScreen());
+        // print('$index');
         break;
       case 6:
-        // Get.to(()=> );
-        print('$index');
+        Get.to(()=> NotificationScreen());
+        // print('$index');
         break;
     }
   }
@@ -291,32 +303,24 @@ class OtherInfoListModule extends StatelessWidget {
   void clickedOnSingleItem(int index) {
     switch (index) {
       case 0:
-        // Get.to(()=> );
-        print('$index');
+        Get.to(()=> ContactUsScreen());
+        // print('$index');
         break;
       case 1:
         // Get.to(()=> );
         print('$index');
         break;
       case 2:
-        // Get.to(()=> );
-        print('$index');
+        Get.to(()=> TermsAndConditionScreen());
+        // print('$index');
         break;
       case 3:
-        // Get.to(()=> );
-        print('$index');
+        Get.to(()=> AboutUsScreen());
+        // print('$index');
         break;
       case 4:
-        // Get.to(()=> );
-        print('$index');
-        break;
-      case 5:
-        // Get.to(()=> );
-        print('$index');
-        break;
-      case 6:
-        // Get.to(()=> );
-        print('$index');
+        Get.to(()=> SettingsScreen());
+        // print('$index');
         break;
     }
   }
@@ -356,5 +360,7 @@ class LogoutButtonModule extends StatelessWidget {
 
   void clickedOnLogout() {
     print('Log Out');
+    Get.offAll(()=> IndexScreen());
+    Get.snackbar('User LogOut Successfully', '');
   }
 }

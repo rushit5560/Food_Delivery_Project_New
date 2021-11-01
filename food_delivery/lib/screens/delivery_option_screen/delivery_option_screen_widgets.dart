@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/controllers/delivery_option_screen_controller/delivery_option_screen_controller.dart';
+import 'package:food_delivery/screens/payment_option_screen/payment_option_screen.dart';
 import 'package:get/get.dart';
 
 class DeliveryAddressDetails extends StatelessWidget {
@@ -120,63 +121,68 @@ class SelectTimeModule extends StatelessWidget {
             childAspectRatio: 10/9
         ),
         itemBuilder: (context, index) {
-          return Container(
-            child: Stack(
-              children: [
-                Container(
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 15,
-                        child: Container(),
-                      ),
-                      Expanded(
-                        flex: 85,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 15,
-                              child: Container(),
-                            ),
-                            Expanded(
-                              flex: 85,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Colors.grey.shade200,
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '${deliveryOptionScreenController.timeList[index]}',
-                                      textScaleFactor: 0.9,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text(
-                                      'Free',
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
+          return GestureDetector(
+            onTap: () {
+              Get.to(()=> PaymentOptionScreen());
+            },
+            child: Container(
+              child: Stack(
+                children: [
+                  Container(
+                    child: Column(
+                      children: [
+                        Expanded(
+                          flex: 15,
+                          child: Container(),
+                        ),
+                        Expanded(
+                          flex: 85,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 15,
+                                child: Container(),
+                              ),
+                              Expanded(
+                                flex: 85,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: Colors.grey.shade200,
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '${deliveryOptionScreenController.timeList[index]}',
+                                        textScaleFactor: 0.9,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        'Free',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                CircleAvatar(
-                  backgroundColor: AppColors.colorDarkPink,
-                  child: Icon(
-                    Icons.access_time,
-                    color: Colors.white,
+                  CircleAvatar(
+                    backgroundColor: AppColors.colorDarkPink,
+                    child: Icon(
+                      Icons.access_time,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },

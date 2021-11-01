@@ -197,68 +197,89 @@ class ProductTab extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            //padding: EdgeInsets.only(left: 5, right: 5),
             child: TabBar(
               isScrollable: true,
               indicatorColor: Colors.white,
-              //indicatorSize: TabBarIndicatorSize.label,
               labelColor: AppColors.colorDarkPink,
-              labelPadding: EdgeInsets.only(top: 10.0, bottom: 10),
+              labelPadding: EdgeInsets.only(right: 10, top: 5, bottom: 5),
               unselectedLabelColor: Colors.grey,
               controller:  tabController,
-              labelStyle: TextStyle(fontSize: 18),
+              // labelStyle: TextStyle(fontSize: 18),
+              // automaticIndicatorColorAdjustment: true,
+
               tabs: [
                 Container(
-                  margin: EdgeInsets.only(right: 10),
-                  padding: EdgeInsets.only(left: 5, right: 5),
-                  //width: Get.width,
+                  height: 40,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: AppColors.colorDarkPink),
-                    //color: tabController = 0 ? AppColors.colorDarkPink ? Colors.white
+                    // color: tabController.index == 0 ? AppColors.colorDarkPink : Colors.white,
                   ),
-                  child: Tab(
-                    text: "Recent Selling",
-
-                  ),
-                ),
-
-                Container(
-                 // width: Get.width * 0.2,
-                  margin: EdgeInsets.only(right: 10),
-                  padding: EdgeInsets.only(left: 5, right: 5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: AppColors.colorDarkPink)
-                  ),
-                  child: Tab(
-                    text: "Top Selling",
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Tab(
+                      text: 'Recent Selling',
+                    ),
                   ),
                 ),
 
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  padding: EdgeInsets.only(left: 5, right: 5),
-                  //width: Get.width * 0.2,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: AppColors.colorDarkPink)
-                  ),
-                  child: Tab(
-                    text: "Whats New",
-
+                GestureDetector(
+                  onTap: (){
+                    tabController.index = 1;
+                  },
+                  child: Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: AppColors.colorDarkPink),
+                      // color: tabController.index == 1 ? AppColors.colorDarkPink : Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Tab(
+                        text: 'Top Selling',
+                      ),
+                    ),
                   ),
                 ),
 
-                Container(
-                  //width: Get.width * 0.2,
-                  padding: EdgeInsets.only(left: 5, right: 5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: AppColors.colorDarkPink)
+                GestureDetector(
+                  onTap: (){
+                    tabController.index = 2;
+                  },
+                  child: Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: AppColors.colorDarkPink),
+                      // color: tabController.index == 2 ? AppColors.colorDarkPink : Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Tab(
+                        text: 'Whats New',
+                      ),
+                    ),
                   ),
-                  child: Tab(
-                    text: "Deal Products",
+                ),
+
+                GestureDetector(
+                  onTap: (){
+                    tabController.index = 3;
+                  },
+                  child: Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: AppColors.colorDarkPink),
+                      // color: tabController.index == 3 ? AppColors.colorDarkPink : Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Tab(
+                        text: 'Deal Product',
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -357,3 +378,59 @@ class OfferList extends StatelessWidget {
 }
 
 
+// GestureDetector(
+// onTap: () {
+// tabController.index = 0;
+// },
+// child: Container(
+// // margin: EdgeInsets.only(right: 10),
+// // padding: EdgeInsets.only(left: 5, right: 5),
+// decoration: BoxDecoration(
+// borderRadius: BorderRadius.circular(5),
+// border: Border.all(color: AppColors.colorDarkPink),
+// // color: tabController.index == 0 ? AppColors.colorDarkPink : Colors.white
+// ),
+// child: Tab(
+// text: "Recent Selling",
+// ),
+// ),
+// ),
+//
+// Container(
+// // width: Get.width * 0.2,
+// margin: EdgeInsets.only(right: 10),
+// padding: EdgeInsets.only(left: 5, right: 5),
+// decoration: BoxDecoration(
+// borderRadius: BorderRadius.circular(5),
+// border: Border.all(color: AppColors.colorDarkPink)
+// ),
+// child: Tab(
+// text: "Top Selling",
+// ),
+// ),
+//
+// Container(
+// margin: EdgeInsets.only(right: 10),
+// padding: EdgeInsets.only(left: 5, right: 5),
+// //width: Get.width * 0.2,
+// decoration: BoxDecoration(
+// borderRadius: BorderRadius.circular(5),
+// border: Border.all(color: AppColors.colorDarkPink)
+// ),
+// child: Tab(
+// text: "Whats New",
+//
+// ),
+// ),
+//
+// Container(
+// //width: Get.width * 0.2,
+// padding: EdgeInsets.only(left: 5, right: 5),
+// decoration: BoxDecoration(
+// borderRadius: BorderRadius.circular(5),
+// border: Border.all(color: AppColors.colorDarkPink)
+// ),
+// child: Tab(
+// text: "Deal Products",
+// ),
+// ),

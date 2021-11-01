@@ -60,19 +60,22 @@ class ContinueButtonModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.colorDarkPink,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
-        child: Text(
-          'Continue',
-          textScaleFactor: 1.1,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () => Get.back(),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.colorDarkPink,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
+          child: Text(
+            'Continue',
+            textScaleFactor: 1.1,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
