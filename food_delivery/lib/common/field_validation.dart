@@ -25,8 +25,8 @@ class FieldValidator {
 
   String ? validatePassword(String value) {
     if (value.isEmpty) {
-      return "Email is Required";
-    } else if (value.length != 6) {
+      return "password is Required";
+    } else if (value.length < 6) {
       return "Length should be 6 character";
     } else {
       return null;
