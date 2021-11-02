@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_images.dart';
+import 'package:food_delivery/screens/account_screen/account_screen.dart';
 import 'package:food_delivery/screens/basket_screen/basket_screen.dart';
 import 'package:food_delivery/screens/category_screen/category_screen.dart';
 import 'package:food_delivery/screens/home_screen/home_screen.dart';
-import 'package:food_delivery/screens/my_profile_screen/my_profile_screen.dart';
 import 'package:food_delivery/screens/search_screen/search_screen.dart';
 
 class IndexScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class _IndexScreenState extends State<IndexScreen> {
     CategoryScreen(),
     SearchScreen(),
     BasketScreen(),
-    MyProfileScreen()
+    AccountScreen()
   ];
 
   void onItemTapped(int index) {

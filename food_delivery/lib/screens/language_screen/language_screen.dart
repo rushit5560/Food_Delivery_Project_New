@@ -24,7 +24,7 @@ class LanguageScreen extends StatelessWidget {
             content: 'Select Your Preferred Language while using this app',
           ),
           Expanded(
-              child: LanguageListModule(languageScreenController: languageScreenController),
+              child: LanguageListModule(),
           ),
           ContinueButtonModule(),
           SizedBox(height: Get.height * 0.01),

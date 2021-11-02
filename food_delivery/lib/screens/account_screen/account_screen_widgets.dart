@@ -135,9 +135,9 @@ class HeaderTextModule extends StatelessWidget {
 }
 
 class AccountInfoListModule extends StatelessWidget {
-  AccountScreenController accountScreenController;
+  AccountScreenController accountScreenController = Get.find<AccountScreenController>();
 
-  AccountInfoListModule({required this.accountScreenController});
+  // AccountInfoListModule({required this.accountScreenController});
 
   @override
   Widget build(BuildContext context) {
@@ -236,8 +236,8 @@ class AccountInfoListModule extends StatelessWidget {
 }
 
 class OtherInfoListModule extends StatelessWidget {
-  AccountScreenController accountScreenController;
-  OtherInfoListModule({required this.accountScreenController});
+  AccountScreenController accountScreenController = Get.find<AccountScreenController>();
+  // OtherInfoListModule({required this.accountScreenController});
 
   @override
   Widget build(BuildContext context) {

@@ -22,9 +22,7 @@ class CategoryScreen extends StatelessWidget {
             SearchFieldModule(searchFieldController: searchFieldController),
             Expanded(
               // Import From Widget File
-              child: CategoryListModule(
-                categoryScreenController: categoryScreenController,
-              ),
+              child: CategoryListModule(),
             ),
           ],
         ),

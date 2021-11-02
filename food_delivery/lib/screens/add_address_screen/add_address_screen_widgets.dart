@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 class AddAddressModule extends StatelessWidget {
   // AddAddressModule({Key? key}) : super(key: key);
 
-  AddAddressScreenController addAddressScreenController;
-  AddAddressModule({required this.addAddressScreenController});
+  AddAddressScreenController addAddressScreenController = Get.find<AddAddressScreenController>();
+  // AddAddressModule({required this.addAddressScreenController});
 
   @override
   Widget build(BuildContext context) {

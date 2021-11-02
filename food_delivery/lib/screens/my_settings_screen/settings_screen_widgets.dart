@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 class Sms extends StatelessWidget {
   //const Sms({Key? key}) : super(key: key);
 
-  SettingsScreenController settingScreenController;
-  Sms({required this.settingScreenController});
+  SettingsScreenController settingScreenController = Get.find<SettingsScreenController>();
+  // Sms({required this.settingScreenController});
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +50,8 @@ class Sms extends StatelessWidget {
 class InApp extends StatelessWidget {
   //const Sms({Key? key}) : super(key: key);
 
-  SettingsScreenController settingScreenController;
-  InApp({required this.settingScreenController});
+  SettingsScreenController settingScreenController = Get.find<SettingsScreenController>();
+  // InApp({required this.settingScreenController});
 
   @override
   Widget build(BuildContext context) {
@@ -92,8 +92,8 @@ class InApp extends StatelessWidget {
 class Email extends StatelessWidget {
   //const Sms({Key? key}) : super(key: key);
 
-  SettingsScreenController settingScreenController;
-  Email({required this.settingScreenController});
+  SettingsScreenController settingScreenController = Get.find<SettingsScreenController>();
+  // Email({required this.settingScreenController});
 
   @override
   Widget build(BuildContext context) {

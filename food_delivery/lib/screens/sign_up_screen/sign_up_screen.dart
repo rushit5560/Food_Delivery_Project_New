@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/common/app_images.dart';
+import 'package:food_delivery/common/common_functions.dart';
 import 'package:food_delivery/screens/index_screen/index_screen.dart';
 import 'package:food_delivery/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:food_delivery/screens/sign_up_screen/sign_up_view_widgets.dart';
@@ -48,236 +49,239 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      //resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
-        child: Form(
-          key: widget.signUpFormKey,
-          child: Container(
-            margin: EdgeInsets.only(left: 20, right: 20),
-            child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              //crossAxisAlignment: CrossAxisAlignment.center,
-              //mainAxisSize: MainAxisSize.min,
-              children: [
-               // SignUpText(),
-                SizedBox(height: 10,),
-                Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    /*_image != null ?
-                    Container(
-                      height: 100, width: 100,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: AppColors.colorLightPink
-                      ),
-                      child: Image.file(_image!, height: 100 ,width: 100, fit: BoxFit.fill ),
-                    ):
-                    Container(
-                      height: 100, width: 100,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: AppColors.colorLightPink
-                      ),
-                    ),*/
-
-                    widget.file != null ?
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(80.0),
-                      child: Image.file(widget.file!, height: 100 ,width: 100, fit: BoxFit.fill ),
-                    )
-                        :
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(80.0),
-                      child: Container(
-                        color: AppColors.colorLightPink,
-                        height: 100 ,width: 100,
-                        //child: FlutterLogo(),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        _showPicker(context);
-                      },
-                      child: Container(
-                        height: 25, width: 25,
-                        margin: EdgeInsets.only(bottom: 5),
+    return GestureDetector(
+      onTap: () => hideKeyboard(context),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        //resizeToAvoidBottomInset: false,
+        body: SingleChildScrollView(
+          child: Form(
+            key: widget.signUpFormKey,
+            child: Container(
+              margin: EdgeInsets.only(left: 20, right: 20),
+              child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                //crossAxisAlignment: CrossAxisAlignment.center,
+                //mainAxisSize: MainAxisSize.min,
+                children: [
+                 // SignUpText(),
+                  SizedBox(height: 10,),
+                  Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      /*_image != null ?
+                      Container(
+                        height: 100, width: 100,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: AppColors.colorDarkPink
+                            color: AppColors.colorLightPink
                         ),
-                        child: Icon(Icons.camera_alt, color: Colors.white,size: 15,),
+                        child: Image.file(_image!, height: 100 ,width: 100, fit: BoxFit.fill ),
+                      ):
+                      Container(
+                        height: 100, width: 100,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: AppColors.colorLightPink
+                        ),
+                      ),*/
+
+                      widget.file != null ?
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(80.0),
+                        child: Image.file(widget.file!, height: 100 ,width: 100, fit: BoxFit.fill ),
+                      )
+                          :
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(80.0),
+                        child: Container(
+                          color: AppColors.colorLightPink,
+                          height: 100 ,width: 100,
+                          //child: FlutterLogo(),
+                        ),
                       ),
-                    ),
-                  ],
-
-                ),
-                SizedBox(height: 20,),
-                NameTextField(
-                  fullNameFieldController: widget.fullNameFieldController,
-                  //icon: Icons.person,
-                  hintText: "Enter Full Name",
-                ),
-                SizedBox(height: 15,),
-                EmailTextField(
-                  emailFieldController: widget.emailFieldController,
-                  //icon: Icons.email,
-                  hintText: "Enter Email",
-                ),
-                SizedBox(height: 15,),
-                PhoneTextField(
-                  phoneFieldController: widget.phoneFieldController,
-                    //icon: Icons.password,
-                    hintText: "Enter Phone Number",),
-                SizedBox(height: 15,),
-
-
-                ReferalCodeTextField(
-                  referalCodeTextEditingController: referalCodeTextEditingController,
-                  //icon: Icons.password,
-                  hintText: "Enter Referral Code",),
-                SizedBox(height: 15,),
-                Container(
-                  padding: const EdgeInsets.only(left: 10),
-                  height: 45,  //gives the height of the dropdown button
-                  width: MediaQuery.of(context).size.width, //gives the width of the dropdown button
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.grey.shade300
-                    //border: Border.all(color: Colors.grey),
-                  ),
-                  child: Theme(
-                    data: Theme.of(context).copyWith(
-                        canvasColor: Colors.grey.shade100, // background color for the dropdown items
-                        buttonTheme: ButtonTheme.of(context).copyWith(
-                          alignedDropdown: true,  //If false (the default), then the dropdown's menu will be wider than its button.
-                        )
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        focusColor:Colors.white,
-                        value: _chosenValue,
-                        //elevation: 5,
-                        style: TextStyle(color: Colors.white),
-                        iconEnabledColor:Colors.black,
-                        items: <String>[
-                          'Surat',
-                          'Ahmedabad',
-                          'Baroda',
-                          'Rajkot',
-                          'Gandhinagar',
-                          'Bhavanagar',
-                          'Junagagh',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value,style:TextStyle(color:Colors.black),),
-                          );
-                        }).toList(),
-                        hint:Text(
-                          "Select City",
-                          /*style: TextStyle(
-                              //color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),*/
-                        ),
-                        onChanged: (String ? value) {
-                          setState(() {
-                            _chosenValue = value;
-                          });
+                      GestureDetector(
+                        onTap: (){
+                          _showPicker(context);
                         },
+                        child: Container(
+                          height: 25, width: 25,
+                          margin: EdgeInsets.only(bottom: 5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: AppColors.colorDarkPink
+                          ),
+                          child: Icon(Icons.camera_alt, color: Colors.white,size: 15,),
+                        ),
                       ),
-                    ),
+                    ],
+
                   ),
-                ),
+                  SizedBox(height: 20,),
+                  NameTextField(
+                    fullNameFieldController: widget.fullNameFieldController,
+                    //icon: Icons.person,
+                    hintText: "Enter Full Name",
+                  ),
+                  SizedBox(height: 15,),
+                  EmailTextField(
+                    emailFieldController: widget.emailFieldController,
+                    //icon: Icons.email,
+                    hintText: "Enter Email",
+                  ),
+                  SizedBox(height: 15,),
+                  PhoneTextField(
+                    phoneFieldController: widget.phoneFieldController,
+                      //icon: Icons.password,
+                      hintText: "Enter Phone Number",),
+                  SizedBox(height: 15,),
 
-                SizedBox(height: 15,),
 
-                Container(
-                  padding: const EdgeInsets.only(left: 10),
-                  height: 45,  //gives the height of the dropdown button
-                  width: MediaQuery.of(context).size.width, //gives the width of the dropdown button
-                  decoration: BoxDecoration(
+                  ReferalCodeTextField(
+                    referalCodeTextEditingController: referalCodeTextEditingController,
+                    //icon: Icons.password,
+                    hintText: "Enter Referral Code",),
+                  SizedBox(height: 15,),
+                  Container(
+                    padding: const EdgeInsets.only(left: 10),
+                    height: 45,  //gives the height of the dropdown button
+                    width: MediaQuery.of(context).size.width, //gives the width of the dropdown button
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       color: Colors.grey.shade300
-                    //border: Border.all(color: Colors.grey),
-                  ),
-                  child: Theme(
-                    data: Theme.of(context).copyWith(
-                        canvasColor: Colors.grey.shade100, // background color for the dropdown items
-                        buttonTheme: ButtonTheme.of(context).copyWith(
-                          alignedDropdown: true,  //If false (the default), then the dropdown's menu will be wider than its button.
-                        )
+                      //border: Border.all(color: Colors.grey),
                     ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        focusColor:Colors.white,
-                        value: areaValue,
-                        //elevation: 5,
-                        style: TextStyle(color: Colors.white),
-                        iconEnabledColor:Colors.black,
-                        items: <String>[
-                          'Katargam',
-                          'Varachha',
-                          'Adajan',
-                          'Sabarmati',
-                          'Majura gate',
-                          'Sachin',
-                          'Kapodra',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value,style:TextStyle(color:Colors.black),),
-                          );
-                        }).toList(),
-                        hint:Text(
-                          "Select Area",
-                          /*style: TextStyle(
-                              //color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),*/
+                    child: Theme(
+                      data: Theme.of(context).copyWith(
+                          canvasColor: Colors.grey.shade100, // background color for the dropdown items
+                          buttonTheme: ButtonTheme.of(context).copyWith(
+                            alignedDropdown: true,  //If false (the default), then the dropdown's menu will be wider than its button.
+                          )
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          focusColor:Colors.white,
+                          value: _chosenValue,
+                          //elevation: 5,
+                          style: TextStyle(color: Colors.white),
+                          iconEnabledColor:Colors.black,
+                          items: <String>[
+                            'Surat',
+                            'Ahmedabad',
+                            'Baroda',
+                            'Rajkot',
+                            'Gandhinagar',
+                            'Bhavanagar',
+                            'Junagagh',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value,style:TextStyle(color:Colors.black),),
+                            );
+                          }).toList(),
+                          hint:Text(
+                            "Select City",
+                            /*style: TextStyle(
+                                //color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),*/
+                          ),
+                          onChanged: (String ? value) {
+                            setState(() {
+                              _chosenValue = value;
+                            });
+                          },
                         ),
-                        onChanged: (String ? value) {
-                          setState(() {
-                            areaValue = value;
-                          });
-                        },
                       ),
                     ),
                   ),
-                ),
 
-            /*GestureDetector(
-              onTap: (){
-                if(validateInputs()){
-                  Get.offAll(() => IndexScreen());
-                }
-                //
-              },
-              child: Container(
-                height: 40,
-                width: MediaQuery.of(context).size.width / 3,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColors.colorDarkPink),
-                child: Center(
-                  child: Text(
-                    "Continue",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                  SizedBox(height: 15,),
+
+                  Container(
+                    padding: const EdgeInsets.only(left: 10),
+                    height: 45,  //gives the height of the dropdown button
+                    width: MediaQuery.of(context).size.width, //gives the width of the dropdown button
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey.shade300
+                      //border: Border.all(color: Colors.grey),
+                    ),
+                    child: Theme(
+                      data: Theme.of(context).copyWith(
+                          canvasColor: Colors.grey.shade100, // background color for the dropdown items
+                          buttonTheme: ButtonTheme.of(context).copyWith(
+                            alignedDropdown: true,  //If false (the default), then the dropdown's menu will be wider than its button.
+                          )
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          focusColor:Colors.white,
+                          value: areaValue,
+                          //elevation: 5,
+                          style: TextStyle(color: Colors.white),
+                          iconEnabledColor:Colors.black,
+                          items: <String>[
+                            'Katargam',
+                            'Varachha',
+                            'Adajan',
+                            'Sabarmati',
+                            'Majura gate',
+                            'Sachin',
+                            'Kapodra',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value,style:TextStyle(color:Colors.black),),
+                            );
+                          }).toList(),
+                          hint:Text(
+                            "Select Area",
+                            /*style: TextStyle(
+                                //color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),*/
+                          ),
+                          onChanged: (String ? value) {
+                            setState(() {
+                              areaValue = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+
+              /*GestureDetector(
+                onTap: (){
+                  if(validateInputs()){
+                    Get.offAll(() => IndexScreen());
+                  }
+                  //
+                },
+                child: Container(
+                  height: 40,
+                  width: MediaQuery.of(context).size.width / 3,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: AppColors.colorDarkPink),
+                  child: Center(
+                    child: Text(
+                      "Continue",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
+              )*/
+
+                  /*SizedBox(height: 30,),
+                  SignUpButton(),
+                  SizedBox(height: 20,),
+                  SignInText()*/
+
+                ],
               ),
-            )*/
-
-                /*SizedBox(height: 30,),
-                SignUpButton(),
-                SizedBox(height: 20,),
-                SignInText()*/
-
-              ],
             ),
           ),
         ),

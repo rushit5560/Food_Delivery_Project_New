@@ -44,8 +44,8 @@ class SavingModule extends StatelessWidget {
 }
 
 class CartItemsList extends StatelessWidget {
-  BasketScreenController basketScreenController;
-  CartItemsList({required this.basketScreenController});
+  BasketScreenController basketScreenController = Get.find<BasketScreenController>();
+  // CartItemsList({required this.basketScreenController});
 
   @override
   Widget build(BuildContext context) {

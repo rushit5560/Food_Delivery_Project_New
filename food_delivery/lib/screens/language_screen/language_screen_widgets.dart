@@ -4,9 +4,9 @@ import 'package:food_delivery/controllers/language_screen_controller/language_sc
 import 'package:get/get.dart';
 
 class LanguageListModule extends StatelessWidget {
-  LanguageScreenController languageScreenController;
+  LanguageScreenController languageScreenController = Get.find<LanguageScreenController>();
 
-  LanguageListModule({required this.languageScreenController});
+  // LanguageListModule({required this.languageScreenController});
 
   @override
   Widget build(BuildContext context) {

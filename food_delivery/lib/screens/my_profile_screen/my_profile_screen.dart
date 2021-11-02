@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/common/custom_appbar.dart';
 import 'package:food_delivery/screens/my_profile_screen/my_profile_screen_widgets.dart';
 import 'package:get/get.dart';

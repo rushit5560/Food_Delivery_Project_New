@@ -5,8 +5,8 @@ import 'package:food_delivery/controllers/payment_option_screen_controller/payme
 import 'package:get/get.dart';
 
 class OfferCodesModule extends StatelessWidget {
-  PaymentOptionScreenController paymentOptionScreenController;
-  OfferCodesModule({required this.paymentOptionScreenController});
+  PaymentOptionScreenController paymentOptionScreenController = Get.find<PaymentOptionScreenController>();
+  // OfferCodesModule({required this.paymentOptionScreenController});
 
   @override
   Widget build(BuildContext context) {

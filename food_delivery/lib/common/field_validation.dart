@@ -48,7 +48,7 @@ class FieldValidator {
   }
 
   bool isNumeric(String s) {
-    if (s == null) {
+    if (s.isEmpty) {
       return false;
     }
     return double.tryParse(s) != null;

@@ -17,7 +17,7 @@ class AddAddressScreen extends StatelessWidget {
       body: SingleChildScrollView(
           child: Column(
             children: [
-              AddAddressModule(addAddressScreenController: addAddressScreenController,),
+              AddAddressModule(),
               SizedBox(height: 10,),
               ContinueButton(),
               SizedBox(height: 10,),

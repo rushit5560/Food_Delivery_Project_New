@@ -45,12 +45,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                BannerList(homeScreenController: homeScreenController),
-                CarouselIndicator(homeScreenController: homeScreenController),
+                BannerList(),
+                CarouselIndicator(),
               ],
             ),
             SizedBox(height: 15,),
-            CategoryList(homeScreenController: homeScreenController),
+            CategoryList(),
             SizedBox(height: 10,),
             ProductTab(tabController: _tabController),
             SizedBox(height: 10,),

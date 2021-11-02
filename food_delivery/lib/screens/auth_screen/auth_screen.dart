@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_colors.dart';
 //import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:food_delivery/common/app_images.dart';
+import 'package:food_delivery/common/common_functions.dart';
 import 'package:food_delivery/controllers/auth_screen_controller/auth_screen_conroller.dart';
 import 'package:food_delivery/screens/auth_screen/auth_screen_widgets.dart';
 import 'package:get/get.dart';
@@ -52,45 +53,48 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      backgroundColor: AppColors.colorLightPink,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
+    return GestureDetector(
+      onTap: () => hideKeyboard(context),
+      child: Scaffold(
+        backgroundColor: AppColors.colorLightPink,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
 
-            Stack(
-              children: [
-                WelcomeText(),
-                TabView(
-                    tabController: _tabController,
-                    signUpFormKey: signUpFormKey,
-                    fullNameFieldController: fullNameFieldController,
-                    emailFieldController: emailFieldController,
-                    phoneFieldController: phoneFieldController,
-                    file: file,
+              Stack(
+                children: [
+                  WelcomeText(),
+                  TabView(
+                      tabController: _tabController,
+                      signUpFormKey: signUpFormKey,
+                      fullNameFieldController: fullNameFieldController,
+                      emailFieldController: emailFieldController,
+                      phoneFieldController: phoneFieldController,
+                      file: file,
 
-                    loginFormKey : loginFormKey,
-                    signInEmailFieldController: signInEmailFieldController,
-                    signInPasswordFieldController: signInPasswordFieldController,
-                    signInPhoneFieldController: signInPhoneFieldController
-                ),
-              ],
-            ),
+                      loginFormKey : loginFormKey,
+                      signInEmailFieldController: signInEmailFieldController,
+                      signInPasswordFieldController: signInPasswordFieldController,
+                      signInPhoneFieldController: signInPhoneFieldController
+                  ),
+                ],
+              ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            ContinueButton(
-                signUpFormKey: signUpFormKey,
-                tabController: _tabController,
-                file : file,
+              ContinueButton(
+                  signUpFormKey: signUpFormKey,
+                  tabController: _tabController,
+                  file : file,
 
-                loginFormKey: loginFormKey
-            ),
+                  loginFormKey: loginFormKey
+              ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            authentication()
-          ],
+              authentication()
+            ],
+          ),
         ),
       ),
     );

@@ -19,7 +19,7 @@ class BasketScreen extends StatelessWidget {
           SavingModule(),
           ContinueModule(),
           Expanded(
-              child: CartItemsList(basketScreenController: basketScreenController),
+              child: CartItemsList(),
           ),
 
         ],

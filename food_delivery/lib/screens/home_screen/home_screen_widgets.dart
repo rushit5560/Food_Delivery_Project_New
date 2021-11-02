@@ -35,8 +35,8 @@ class SearchContainer extends StatelessWidget {
 }
 
 class BannerList extends StatelessWidget {
-  HomeScreenController homeScreenController;
-  BannerList({required this.homeScreenController});
+  HomeScreenController homeScreenController = Get.find<HomeScreenController>();
+  // BannerList({required this.homeScreenController});
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +90,8 @@ class BannerList extends StatelessWidget {
 }
 
 class CarouselIndicator extends StatelessWidget {
-  HomeScreenController homeScreenController;
-  CarouselIndicator({required this.homeScreenController});
+  HomeScreenController homeScreenController = Get.find<HomeScreenController>();
+  // CarouselIndicator({required this.homeScreenController});
 
   @override
   Widget build(BuildContext context) {
@@ -118,9 +118,9 @@ class CarouselIndicator extends StatelessWidget {
 
 
 class CategoryList extends StatelessWidget {
-   CategoryList({required this.homeScreenController});
+   // CategoryList({required this.homeScreenController});
 
-  HomeScreenController homeScreenController;
+  HomeScreenController homeScreenController = Get.find<HomeScreenController>();
 
   @override
   Widget build(BuildContext context) {

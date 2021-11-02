@@ -16,7 +16,7 @@ class OrderScreen extends StatelessWidget {
 
       body: Padding(
         padding: const EdgeInsets.all(5),
-        child: AllOrderListModule(orderScreenController: orderScreenController),
+        child: AllOrderListModule(),
       ),
     );
   }

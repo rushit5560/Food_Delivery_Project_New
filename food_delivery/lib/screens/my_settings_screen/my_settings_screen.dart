@@ -17,15 +17,15 @@ class SettingsScreen extends StatelessWidget {
         child: Column(
           children: [
             Divider(),
-            Sms(settingScreenController: settingScreenController,),
+            Sms(),
             Divider(),
 
             Divider(),
-            InApp(settingScreenController: settingScreenController,),
+            InApp(),
             Divider(),
 
             Divider(),
-            Email(settingScreenController: settingScreenController,),
+            Email(),
             Divider(),
 
 

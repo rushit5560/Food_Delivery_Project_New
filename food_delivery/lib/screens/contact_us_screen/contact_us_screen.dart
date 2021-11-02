@@ -28,7 +28,7 @@ class ContactUsScreen extends StatelessWidget {
               SizedBox(height: Get.height * 0.05),
               LogoImage(),
               SizedBox(height: Get.height * 0.03),
-              DropDown(contactScreenController: contactScreenController,),
+              DropDown(),
               SizedBox(height: Get.height * 0.02),
               CallbackTextModule(),
               CallBackButtonModule(),

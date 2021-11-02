@@ -5,8 +5,8 @@ import 'package:food_delivery/screens/order_detail_screen/order_detail_screen.da
 import 'package:get/get.dart';
 
 class AllOrderListModule extends StatelessWidget {
-  OrderScreenController orderScreenController;
-  AllOrderListModule({required this.orderScreenController});
+  OrderScreenController orderScreenController = Get.find<OrderScreenController>();
+  // AllOrderListModule({required this.orderScreenController});
 
   @override
   Widget build(BuildContext context) {

@@ -61,7 +61,7 @@ class DrawerList extends StatelessWidget {
           helpCenter(),
           inviteEarn(),
           language(),
-          account(),
+          // account(),
           rewardPoint(),
           SizedBox(height: 10,),
           logout()

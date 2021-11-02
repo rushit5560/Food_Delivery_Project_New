@@ -26,7 +26,7 @@ class PaymentOptionScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              OfferCodesModule(paymentOptionScreenController: paymentOptionScreenController),
+              OfferCodesModule(),
               CustomDivider(),
               PromoCodeTextField(promoCodeFieldText: promoCodeFieldText),
               CustomDivider(),

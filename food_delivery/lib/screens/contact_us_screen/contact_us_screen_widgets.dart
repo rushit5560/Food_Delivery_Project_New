@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 
 class DropDown extends StatelessWidget {
   //const DropDown({Key? key}) : super(key: key);
-  ContactUsScreenController contactScreenController;
-  DropDown({required this.contactScreenController});
+  ContactUsScreenController contactScreenController = Get.find<ContactUsScreenController>();
+  // DropDown({required this.contactScreenController});
 
   @override
   Widget build(BuildContext context) {

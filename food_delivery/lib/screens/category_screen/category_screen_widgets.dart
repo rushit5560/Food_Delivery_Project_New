@@ -47,8 +47,8 @@ class SearchFieldModule extends StatelessWidget {
 
 
 class CategoryListModule extends StatelessWidget {
-  CategoryScreenController categoryScreenController;
-  CategoryListModule({required this.categoryScreenController});
+  CategoryScreenController categoryScreenController = Get.find<CategoryScreenController>();
+  // CategoryListModule({required this.categoryScreenController});
 
   @override
   Widget build(BuildContext context) {
