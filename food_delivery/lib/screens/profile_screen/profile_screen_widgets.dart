@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_colors.dart';
+import 'package:food_delivery/screens/edit_profile_screen/edit_profile_screen.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Profile extends StatefulWidget {
@@ -305,7 +307,7 @@ class UpdateProfileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: () => Get.to(()=> MyProfileScreen()),
+      onTap: () => Get.to(() => EditProfileScreen()),
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.colorDarkPink,
@@ -314,7 +316,7 @@ class UpdateProfileButton extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           child: Text(
-            'Update',
+            'Update Profile',
             textScaleFactor: 1.1,
             style: TextStyle(
               color: Colors.white,

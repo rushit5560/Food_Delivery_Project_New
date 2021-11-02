@@ -7,9 +7,8 @@ import 'package:food_delivery/screens/auth_screen/auth_screen.dart';
 import 'package:food_delivery/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery/screens/invite_and_earn_screen/invite_and_earn_screen.dart';
 import 'package:food_delivery/screens/language_screen/language_screen.dart';
-import 'package:food_delivery/screens/my_profile_screen/my_profile_screen.dart';
+import 'package:food_delivery/screens/profile_screen/profile_screen.dart';
 import 'package:food_delivery/screens/reward_point/reward_point.dart';
-import 'package:food_delivery/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:food_delivery/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
 import 'package:food_delivery/screens/wishlist_screen/wishlist_screen.dart';
 import 'package:get/get.dart';
@@ -61,7 +60,6 @@ class DrawerList extends StatelessWidget {
           helpCenter(),
           inviteEarn(),
           language(),
-          // account(),
           rewardPoint(),
           SizedBox(height: 10,),
           logout()
@@ -74,10 +72,8 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        //Get.to(() => IndexPage());
       },
       leading: Image.asset(Images.ic_home, color: Colors.white,scale: 3,),
-      //leading: Icon(Icons.home_outlined,color: Colors.white,),
       title: Text('Home',
         textScaleFactor: 1,
          style: TextStyle(color: Colors.white),
@@ -89,10 +85,9 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        Get.to(() => MyProfileScreen());
+        Get.to(() => ProfileScreen());
       },
       leading: Image.asset(Images.ic_profile, color: Colors.white,scale: 2.5,),
-      //leading: Icon(Icons.person, color: Colors.white,),
       title: Text('My Profile',
         textScaleFactor: 1,
         style: TextStyle(color: Colors.white),
@@ -107,7 +102,6 @@ class DrawerList extends StatelessWidget {
         Get.to(() => WishListScreen());
       },
       leading: Image.asset(Images.ic_wishlist, color: Colors.white,scale: 2.5,),
-      //leading: Icon(Icons.person, color: Colors.white,),
       title: Text('My Wishlist',
         textScaleFactor: 1,
         style: TextStyle(color: Colors.white),
@@ -122,7 +116,6 @@ class DrawerList extends StatelessWidget {
         Get.to(() => AboutUsScreen());
       },
       leading: Image.asset(Images.ic_about_us, color: Colors.white,scale: 2.5,),
-      //leading: Icon(Icons.person, color: Colors.white,),
       title: Text('About Us',
         textScaleFactor: 1,
         style: TextStyle(color: Colors.white),
@@ -137,7 +130,6 @@ class DrawerList extends StatelessWidget {
         Get.to(() => TermsAndConditionScreen());
       },
       leading: Image.asset(Images.ic_terms_condition, color: Colors.white,scale: 2.5,),
-      //leading: Icon(Icons.person, color: Colors.white,),
       title: Text('Terms & Condition',
         textScaleFactor: 1,
         style: TextStyle(color: Colors.white),
@@ -152,7 +144,6 @@ class DrawerList extends StatelessWidget {
         Get.to(() => ContactUsScreen());
       },
       leading: Image.asset(Images.ic_help, color: Colors.white,scale: 2.5,),
-      //leading: Icon(Icons.person, color: Colors.white,),
       title: Text('Help Center',
         textScaleFactor: 1,
         style: TextStyle(color: Colors.white),
@@ -167,7 +158,6 @@ class DrawerList extends StatelessWidget {
         Get.to(() => InviteAndEarnScreen());
       },
       leading: Image.asset(Images.ic_invite, color: Colors.white,scale: 2.5,),
-      //leading: Icon(Icons.person, color: Colors.white,),
       title: Text('Invite n Earn',
         textScaleFactor: 1,
         style: TextStyle(color: Colors.white),
@@ -182,7 +172,6 @@ class DrawerList extends StatelessWidget {
         Get.to(() => LanguageScreen());
       },
       leading: Image.asset(Images.ic_language, color: Colors.white,scale: 2.5,),
-      //leading: Icon(Icons.person, color: Colors.white,),
       title: Text('Language',
         textScaleFactor: 1,
         style: TextStyle(color: Colors.white),
@@ -197,7 +186,6 @@ class DrawerList extends StatelessWidget {
         Get.to(() => AccountScreen());
       },
       leading: Image.asset(Images.ic_profile, color: Colors.white,scale: 2.5,),
-      //leading: Icon(Icons.person, color: Colors.white,),
       title: Text('Account',
         textScaleFactor: 1,
         style: TextStyle(color: Colors.white),
@@ -212,7 +200,6 @@ class DrawerList extends StatelessWidget {
         Get.to(() => RewardPointScreen());
       },
       leading: Image.asset(Images.ic_profile, color: Colors.white,scale: 2.5,),
-      //leading: Icon(Icons.person, color: Colors.white,),
       title: Text('Reward Point',
         textScaleFactor: 1,
         style: TextStyle(color: Colors.white),
@@ -225,10 +212,8 @@ class DrawerList extends StatelessWidget {
       onTap: () {
         Get.back();
         Get.to(() => AuthScreen());
-        //CommonFunctions().clearUserDetailsFromPrefs();
-        // Get.snackbar('User LogOut Successfully', '');
       },
-      //leading: Icon(Icons.login_outlined,/*color: Colors.black,*/),
+      leading: Image.asset(Images.ic_logout, color: Colors.white,scale: 5.5),
       title: Text('Logout',
         textScaleFactor: 1.2,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

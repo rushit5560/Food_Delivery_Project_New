@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/custom_appbar.dart';
-import 'package:food_delivery/screens/my_profile_screen/my_profile_screen_widgets.dart';
 import 'package:get/get.dart';
 
-class MyProfileScreen extends StatelessWidget {
-   MyProfileScreen({Key? key}) : super(key: key);
+import 'profile_screen_widgets.dart';
+
+class ProfileScreen extends StatelessWidget {
+   ProfileScreen({Key? key}) : super(key: key);
 
   TextEditingController nameTextEditingController = TextEditingController(text: "John Doe");
   TextEditingController emailTextEditingController = TextEditingController(text: "demo@gmail.com");
