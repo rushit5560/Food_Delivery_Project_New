@@ -34,8 +34,8 @@ PreferredSizeWidget commonAppBarModule({required title, index = 0}) {
               child: Image.asset(Images.ic_barcode_scan, height: 25, width: 25),
             )
           : index == 2
-          ? Image.asset(Images.ic_scanner, scale: 2,)
-            :Container(),
+              ? Image.asset(Images.ic_scanner, height: 28, width: 28)
+              : Container(),
       SizedBox(width: 20)
     ],
   );

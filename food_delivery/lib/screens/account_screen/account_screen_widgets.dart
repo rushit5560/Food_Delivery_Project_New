@@ -7,6 +7,7 @@ import 'package:food_delivery/screens/addresses_screen/addresses_screen.dart';
 import 'package:food_delivery/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery/screens/index_screen/index_screen.dart';
 import 'package:food_delivery/screens/language_screen/language_screen.dart';
+import 'package:food_delivery/screens/my_profile_screen/my_profile_screen.dart';
 import 'package:food_delivery/screens/my_settings_screen/my_settings_screen.dart';
 import 'package:food_delivery/screens/notification_screen/notification_screen.dart';
 import 'package:food_delivery/screens/order_screen/order_screen.dart';
@@ -14,6 +15,7 @@ import 'package:food_delivery/screens/terms_and_condition_screen/terms_and_condi
 import 'package:food_delivery/screens/wallet_screen/wallet_screen.dart';
 import 'package:food_delivery/screens/wishlist_screen/wishlist_screen.dart';
 import 'package:get/get.dart';
+import 'package:share/share.dart';
 
 class AccountDetailsModule extends StatelessWidget {
   const AccountDetailsModule({Key? key}) : super(key: key);
@@ -79,7 +81,7 @@ class EditProfileButtonModule extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: GestureDetector(
-        onTap: () => editProfileOnClick(),
+        onTap: () => Get.to(()=> MyProfileScreen()),
         child: Container(
           decoration: BoxDecoration(
             color: AppColors.colorDarkPink,
@@ -100,9 +102,6 @@ class EditProfileButtonModule extends StatelessWidget {
     );
   }
 
-  void editProfileOnClick() {
-    print('Edit Profile Click');
-  }
 }
 
 class HeaderTextModule extends StatelessWidget {
@@ -204,31 +203,25 @@ class AccountInfoListModule extends StatelessWidget {
     switch (index) {
       case 0:
         Get.to(()=> AddressesScreen());
-        // print('$index');
         break;
       case 1:
         Get.to(()=> OrderScreen());
-        // print('$index');
         break;
       case 2:
         Get.to(()=> WishListScreen());
-        // print('$index');
         break;
       case 3:
         Get.to(()=> WalletScreen());
-        // print('$index');
         break;
       case 4:
         // Get.to(()=> );
-        print('$index');
+        print('Offer Zone');
         break;
       case 5:
         Get.to(()=> LanguageScreen());
-        // print('$index');
         break;
       case 6:
         Get.to(()=> NotificationScreen());
-        // print('$index');
         break;
     }
   }
@@ -304,25 +297,24 @@ class OtherInfoListModule extends StatelessWidget {
     switch (index) {
       case 0:
         Get.to(()=> ContactUsScreen());
-        // print('$index');
         break;
       case 1:
-        // Get.to(()=> );
-        print('$index');
+        clickedOnShareButton();
         break;
       case 2:
         Get.to(()=> TermsAndConditionScreen());
-        // print('$index');
         break;
       case 3:
         Get.to(()=> AboutUsScreen());
-        // print('$index');
         break;
       case 4:
         Get.to(()=> SettingsScreen());
-        // print('$index');
         break;
     }
+  }
+
+  clickedOnShareButton() {
+    Share.share('Food Delivery User');
   }
 }
 

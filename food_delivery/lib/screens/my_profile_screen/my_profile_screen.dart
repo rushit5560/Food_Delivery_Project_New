@@ -18,7 +18,6 @@ class MyProfileScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
         width: Get.width,
-        //height: Get.height/2,
         margin: EdgeInsets.only(left: 20, right: 20, top: 20),
         padding: EdgeInsets.only(top: 20, left: 10, right: 10),
         decoration: BoxDecoration(
@@ -35,25 +34,20 @@ class MyProfileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Profile(),
-            SizedBox(height: 20,),
-            FullNameTextField(
-              nameTextEditingController: nameTextEditingController,
-              //icon: Icons.email,
-             // hintText: "Enter Email",
-            ),
-            SizedBox(height: 10,),
+            SizedBox(height: 20),
+            FullNameTextField(nameTextEditingController: nameTextEditingController),
+            SizedBox(height: 10),
             EmailTextField(
               emailTextEditingController: emailTextEditingController,
-              //icon: Icons.email,
-              hintText: "Enter Email",
-            ),
-            SizedBox(height: 10,),
+              hintText: "Enter Email"),
+            SizedBox(height: 10),
             PhoneNumberTextField(
               phoneNumberTextEditingController: phoneNumberTextEditingController,
-              //icon: Icons.email,
               hintText: "Enter Email",
             ),
-            SizedBox(height: 50,),
+            SizedBox(height: 50),
+            UpdateProfileButton(),
+            SizedBox(height: 10),
           ],
         ),
         )
