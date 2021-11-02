@@ -8,14 +8,14 @@ import 'package:get/get.dart';
 
 class SplashScreenController extends GetxController{
 
-  getOnBoardingValue() {
+  goToIndexScreen() {
     Get.offAll(()=> AuthScreen());
   }
 
   @override
   void onInit() {
     print('-----------Controller Init Method Called.-----------');
-    Timer(Duration(seconds: 7), () => getOnBoardingValue());
+    Timer(Duration(seconds: 7), () => goToIndexScreen());
     super.onInit();
   }
 }
