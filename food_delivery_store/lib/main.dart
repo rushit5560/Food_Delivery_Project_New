@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/screens/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
 
+import 'common/app_theme.dart';
+import 'screens/earnings_screen/earnings_screen.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -12,10 +15,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: SplashScreen(),
+      debugShowCheckedModeBanner: false,
+      theme: appLightTheme(),
+      home: EarningsScreen(),
     );
   }
 }
