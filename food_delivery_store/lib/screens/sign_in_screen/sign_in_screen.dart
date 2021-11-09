@@ -15,7 +15,7 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
-      body: Center(
+      /*body: Center(
         child: SingleChildScrollView(
           child: Form(
             key: _SignInformKey,
@@ -38,16 +38,32 @@ class SignInScreen extends StatelessWidget {
                       passwordTextEditingController: passwordTextEditingController,
                       //icon: Icons.password,
                       hintText: "Password",),
-                    /*SizedBox(height: 30),
+                    *//*SizedBox(height: 30),
                     SignInButton(),
                     SizedBox(height: 20),
-                    SignUpText(),*/
+                    SignUpText(),*//*
 
                   ],
                 ),
               ),
             ),
           ),
+        ),
+      ),*/
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                WelcomeText(),
+                LoginForm(
+                  signInTextEditingController: signInTextEditingController,
+                  passwordTextEditingController: passwordTextEditingController,),
+              ],
+            ),
+            SizedBox(height: 50,),
+            ContinueButton()
+          ],
         ),
       ),
     );
