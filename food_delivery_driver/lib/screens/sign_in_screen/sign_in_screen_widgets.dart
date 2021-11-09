@@ -1,21 +1,116 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_driver/common/app_colors.dart';
+import 'package:food_delivery_driver/screens/home_screen/home_screen.dart';
+import 'package:get/get.dart';
 
-class SignInText extends StatelessWidget {
-  const SignInText({Key? key}) : super(key: key);
+class WelcomeText extends StatelessWidget {
+  const WelcomeText({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(
-        "SignIn",
-        style: TextStyle(
-            color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+      color: AppColors.colorDarkPink,
+      height: Get.height /3.5,
+      padding: EdgeInsets.only(top: 70, left: 20, right: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            child: Text("Welcome",
+              style: TextStyle(color: Colors.white,fontSize: 23, fontWeight: FontWeight.bold),),
+          ),
+          SizedBox(height: 10,),
+          Container(
+            child: Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+              style: TextStyle(color: Colors.white),),
+          ),
+        ],
       ),
     );
   }
 }
 
-class SignInTextField extends StatelessWidget {
+class LoginForm extends StatelessWidget {
+  //const TabView({Key? key}) : super(key: key);
+  //late TabController tabController;
+  //TabView({required this.tabController});
+  //AuthScreenController authScreenController = Get.put(AuthScreenController());
+
+  TextEditingController signInTextEditingController;
+  TextEditingController passwordTextEditingController;
+  //IconData icon;
+
+  LoginForm({
+    required this.signInTextEditingController,
+    required this.passwordTextEditingController
+    //required this.icon,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      //height: Get.height * 0.55,
+      margin: EdgeInsets.only(left: 20, right: 20, top: 160),
+      padding: EdgeInsets.only(left: 10, right: 10),
+      //margin: EdgeInsets.symmetric(horizontal: 20, vertical: 100),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          new BoxShadow(
+            color: Colors.grey,
+            blurRadius: 20.0,
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: 30,),
+          LoginText(),
+          SizedBox(height: 30,),
+          MobileNumberTextField(signInTextEditingController: signInTextEditingController, hintText: "Mobile Number",),
+          SizedBox(height: 10,),
+          PasswordTextField(passwordTextEditingController: passwordTextEditingController, hintText: "Password",),
+          SizedBox(height: 40,),
+          PreferredLang(),
+          SizedBox(height: 40,),
+        ],
+      ),
+    );
+  }
+}
+
+class LoginText extends StatelessWidget {
+  const LoginText({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        "Login",
+        style: TextStyle(
+            color: AppColors.colorDarkPink, fontSize: 23, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+}
+
+class PreferredLang extends StatelessWidget {
+  const PreferredLang({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        "Select Preferred Language",
+        style: TextStyle(
+            color: AppColors.colorDarkPink, fontSize: 15, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+}
+
+class MobileNumberTextField extends StatelessWidget {
   // const SignInTextField({Key? key}) : super(key: key);
 
   TextEditingController signInTextEditingController;
@@ -23,7 +118,7 @@ class SignInTextField extends StatelessWidget {
 
   String hintText;
 
-  SignInTextField({
+  MobileNumberTextField({
     required this.signInTextEditingController,
     //required this.icon,
 
@@ -66,28 +161,6 @@ class PasswordTextField extends StatelessWidget {
   }
 }
 
-class SignInButton extends StatelessWidget {
-  const SignInButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      margin: EdgeInsets.only(left: 25, right: 25),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.blue,
-        //border: Border.all(color: Colors.black)
-      ),
-      child: Center(
-        child: Text(
-          "Sign In",
-          style: TextStyle(color: Colors.white, fontSize: 18),
-        ),
-      ),
-    );
-  }
-}
 
 
 InputDecoration _inputDecoration({hintText, icon}) {
@@ -98,22 +171,51 @@ InputDecoration _inputDecoration({hintText, icon}) {
     contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
     // border: InputBorder.none,
     filled: true,
-    fillColor: Colors.grey.shade300,
+    fillColor: Colors.grey.shade200,
     enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        borderSide: BorderSide(color: Colors.grey.shade300)
+        borderSide: BorderSide(color: Colors.grey.shade200)
     ),
     focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        borderSide: BorderSide(color: Colors.grey.shade300)
+        borderSide: BorderSide(color: Colors.grey.shade200)
     ),
     errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        borderSide: BorderSide(color: Colors.grey.shade300)
+        borderSide: BorderSide(color: Colors.grey.shade200)
     ),
     focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        borderSide: BorderSide(color: Colors.grey.shade300)
+        borderSide: BorderSide(color: Colors.grey.shade200)
     ),
   );
+}
+
+class ContinueButton extends StatelessWidget {
+  ContinueButton({Key? key}) : super(key: key);
+  //late TabController tabController;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        // Get.offAll(() => IndexScreen());
+        Get.offAll(() => HomeScreen());
+      },
+      child: Container(
+        height: 50,
+        width: MediaQuery.of(context).size.width / 2.5,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: AppColors.colorDarkPink),
+        child: Center(
+          child: Text(
+            "Continue",
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+        ),
+      ),
+    );
+  }
 }

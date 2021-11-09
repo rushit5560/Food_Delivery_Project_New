@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/app_colors.dart';
 import 'package:food_delivery_driver/controllrs/home_screen_controller/home_screen_controller.dart';
+import 'package:food_delivery_driver/screens/nextday_order_screen/nextday_order_screen.dart';
+import 'package:food_delivery_driver/screens/today_order_screen/today_order_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -120,7 +122,9 @@ class OrderButton extends StatelessWidget {
           Obx(()=>
              GestureDetector(
               onTap: (){
+                Get.to(() => TodayOrderScreen());
                 homeScreenController.index.value = 0;
+
               },
               child: Container(
                 height: 50, width: Get.width/2.5,
@@ -142,6 +146,7 @@ class OrderButton extends StatelessWidget {
           Obx(()=>
               GestureDetector(
               onTap: (){
+                Get.to(() => NextDayOrderScreen());
                 homeScreenController.index.value = 1;
               },
               child: Container(

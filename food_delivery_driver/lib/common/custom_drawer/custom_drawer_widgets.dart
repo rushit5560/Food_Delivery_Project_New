@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/app_images.dart';
+import 'package:food_delivery_driver/screens/edit_profile_screen/edit_profile_screen.dart';
+import 'package:food_delivery_driver/screens/insight_screen/insight_screen.dart';
+import 'package:food_delivery_driver/screens/language_screen/language_screen.dart';
+import 'package:food_delivery_driver/screens/send_to_bank_screen/send_to_bank_screen.dart';
 
 import 'package:get/get.dart';
 
@@ -75,7 +79,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        //Get.to(() => ProfileScreen());
+        Get.to(() => EditProfileScreen());
       },
       leading: Image.asset(Images.ic_profile, color: Colors.white,scale: 2.5,),
       title: Text('Edit Profile',
@@ -89,7 +93,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-       // Get.to(() => WishListScreen());
+        Get.to(() => InsightScreen());
       },
       leading: Image.asset(Images.ic_insight, color: Colors.white,scale: 2.5,),
       title: Text('Insight',
@@ -103,7 +107,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        // Get.to(() => WishListScreen());
+         Get.to(() => SendToBankScreen());
       },
       leading: Image.asset(Images.ic_bank, color: Colors.white,scale: 2.5,),
       title: Text('Send To Bank',
@@ -159,7 +163,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        //Get.to(() => LanguageScreen());
+        Get.to(() => LanguageScreen());
       },
       leading: Image.asset(Images.ic_language, color: Colors.white,scale: 2.5,),
       title: Text('Language',
