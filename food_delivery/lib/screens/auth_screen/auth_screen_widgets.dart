@@ -71,6 +71,12 @@ class TabView extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          new BoxShadow(
+            color: Colors.grey,
+            blurRadius: 20.0,
+          ),
+        ],
       ),
       child: Column(
         children: [
