@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/screens/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
-
 import 'common/app_theme.dart';
 
 void main() {
@@ -14,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: appLightTheme(),
       home: SplashScreen(),
     );
