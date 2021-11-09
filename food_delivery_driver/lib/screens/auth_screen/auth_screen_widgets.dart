@@ -99,7 +99,7 @@ class ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        //Get.offAll(() => IndexScreen());
+        // Get.offAll(() => IndexScreen());
       },
       child: Container(
         height: 40,
