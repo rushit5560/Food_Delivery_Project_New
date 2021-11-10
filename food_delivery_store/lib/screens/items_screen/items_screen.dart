@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/app_colors.dart';
 import 'package:food_delivery_admin/common/custom_appbar.dart';
 import 'package:food_delivery_admin/controllrs/items_screen_controller/items_screen_controller.dart';
+import 'package:food_delivery_admin/screens/add_product_screen/add_product_screen.dart';
 import 'package:get/get.dart';
 
 import 'items_screen_widgets.dart';
@@ -34,7 +35,7 @@ class ItemsScreen extends StatelessWidget {
       floatingActionButton: GestureDetector(
         onTap: () {
           if(itemScreenController.isStoreProductsSelected.value){
-            print('Abc');
+            Get.to(()=> AddProductScreen());
           } else if(itemScreenController.isAdminProductsSelected.value) {
             print('DEF');
           }

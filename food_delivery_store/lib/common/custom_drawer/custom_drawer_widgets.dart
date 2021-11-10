@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_admin/screens/about_us_screen/about_us_screen.dart';
+import 'package:food_delivery_admin/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery_admin/screens/earnings_screen/earnings_screen.dart';
 import 'package:food_delivery_admin/screens/insight_screen/insight_screen.dart';
 import 'package:food_delivery_admin/screens/items_screen/items_screen.dart';
 import 'package:food_delivery_admin/screens/language_screen/language_screen.dart';
 import 'package:food_delivery_admin/screens/sign_in_screen/sign_in_screen.dart';
+import 'package:food_delivery_admin/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
 import 'package:get/get.dart';
 
 import '../app_images.dart';
@@ -136,7 +139,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        // Get.to(() => ProfileScreen());
+        Get.to(() => AboutUsScreen());
       },
       leading: Image.asset(Images.ic_about_us, color: Colors.white,scale: 2.5,),
       title: Text('About Us',
@@ -149,7 +152,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        // Get.to(() => ProfileScreen());
+        Get.to(() => TermsAndConditionScreen());
       },
       leading: Image.asset(Images.ic_terms_condition, color: Colors.white,scale: 2.5,),
       title: Text('Terms & Condition',
@@ -162,7 +165,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        // Get.to(() => ProfileScreen());
+        Get.to(() => ContactUsScreen());
       },
       leading: Image.asset(Images.ic_help, color: Colors.white,scale: 2.5,),
       title: Text('Help Center',
