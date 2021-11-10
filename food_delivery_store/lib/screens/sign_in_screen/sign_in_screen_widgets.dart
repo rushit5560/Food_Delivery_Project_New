@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/app_colors.dart';
+import 'package:food_delivery_admin/screens/new_order_screen/new_order_screen.dart';
+import 'package:food_delivery_admin/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:get/get.dart';
 
 class WelcomeText extends StatelessWidget {
@@ -123,8 +125,13 @@ class NotUserText extends StatelessWidget {
         Text("Not a User?",
           style: TextStyle(color: Colors.black),),
         SizedBox(width: 5,),
-        Text("Click Here",
-          style: TextStyle(color: AppColors.colorDarkPink, fontWeight: FontWeight.bold),)
+        GestureDetector(
+          onTap: () {
+            Get.off(()=> SignUpScreen());
+          },
+          child: Text("Click Here",
+            style: TextStyle(color: AppColors.colorDarkPink, fontWeight: FontWeight.bold),),
+        )
       ],
     );
   }
@@ -243,7 +250,7 @@ class ContinueButton extends StatelessWidget {
     return GestureDetector(
       onTap: (){
         // Get.offAll(() => IndexScreen());
-        //Get.offAll(() => HomeScreen());
+        Get.offAll(() => NewOrderScreen());
       },
       child: Container(
         height: 50,

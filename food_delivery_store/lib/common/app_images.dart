@@ -11,9 +11,10 @@ class Images{
   static const ic_about_us = '$root' + 'info.png';
   static const ic_terms_condition = '$root' + 'contract.png';
   static const ic_help = '$root' + 'question.png';
-  static const ic_invite = '$root' + 'earnings.png';
+  static const ic_earnings = '$root' + 'earnings.png';
   static const ic_language = '$root' + 'language.png';
   static const ic_logout = '$root' + 'log-out.png';
   static const ic_insight = '$root' + 'insight.png';
   static const ic_my_orders = '$root' + 'shopping-bag.png';
+  static const ic_my_items = '$root' + 'add-item.png';
 }
