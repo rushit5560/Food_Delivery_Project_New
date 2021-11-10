@@ -28,12 +28,12 @@ PreferredSizeWidget commonAppBarModule({required title, index = 0}) {
     ),
     backgroundColor: AppColors.colorLightPink,
     actions: [
-      index == 1
+      index == 2
           ? GestureDetector(
               onTap: () => print('Clk Scanner'),
               child: Image.asset(Images.ic_barcode_scan, height: 25, width: 25),
             )
-          : index == 2
+          : index == 3
               ? Image.asset(Images.ic_scanner, height: 28, width: 28)
               : Container(),
       SizedBox(width: 20)

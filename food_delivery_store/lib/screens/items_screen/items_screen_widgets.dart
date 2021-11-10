@@ -96,7 +96,6 @@ class StoreProductsModule extends StatelessWidget {
 }
 
 class StoreProductsListModule extends StatelessWidget {
-  // const StoreProductsListModule({Key? key}) : super(key: key);
   ItemScreenController itemScreenController = Get.find();
 
   @override
@@ -203,7 +202,7 @@ class AdminProductsModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StoreProductsListModule();
+    return Container();
   }
 }
 
