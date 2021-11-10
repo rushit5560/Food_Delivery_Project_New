@@ -69,7 +69,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),*/
 
-
                     file != null ?
                         ClipRRect(
                           borderRadius: BorderRadius.circular(80.0),
@@ -84,7 +83,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             //child: FlutterLogo(),
                           ),
                         ),
-
 
 
                     GestureDetector(

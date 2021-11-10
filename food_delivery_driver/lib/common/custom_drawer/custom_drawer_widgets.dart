@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/app_images.dart';
+import 'package:food_delivery_driver/screens/about_us_screen/about_us_screen.dart';
+import 'package:food_delivery_driver/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery_driver/screens/edit_profile_screen/edit_profile_screen.dart';
+import 'package:food_delivery_driver/screens/home_screen/home_screen.dart';
 import 'package:food_delivery_driver/screens/insight_screen/insight_screen.dart';
 import 'package:food_delivery_driver/screens/language_screen/language_screen.dart';
 import 'package:food_delivery_driver/screens/send_to_bank_screen/send_to_bank_screen.dart';
+import 'package:food_delivery_driver/screens/sign_in_screen/sign_in_screen.dart';
+import 'package:food_delivery_driver/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
 
 import 'package:get/get.dart';
 
@@ -66,6 +71,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
+        Get.to(() => HomeScreen());
       },
       leading: Image.asset(Images.ic_home, color: Colors.white,scale: 3,),
       title: Text('Home',
@@ -121,7 +127,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        //Get.to(() => AboutUsScreen());
+        Get.to(() => AboutUsScreen());
       },
       leading: Image.asset(Images.ic_about_us, color: Colors.white,scale: 2.5,),
       title: Text('About Us',
@@ -135,7 +141,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        //Get.to(() => TermsAndConditionScreen());
+        Get.to(() => TermsAndConditionScreen());
       },
       leading: Image.asset(Images.ic_terms_condition, color: Colors.white,scale: 2.5,),
       title: Text('Terms & Condition',
@@ -149,7 +155,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        //Get.to(() => ContactUsScreen());
+        Get.to(() => ContactUsScreen());
       },
       leading: Image.asset(Images.ic_help, color: Colors.white,scale: 2.5,),
       title: Text('Help Center',
@@ -178,7 +184,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        //Get.to(() => AuthScreen());
+        Get.to(() => SignInScreen());
       },
       leading: Image.asset(Images.ic_logout, color: Colors.white, scale: 2.7,),
       title: Text('Logout',
