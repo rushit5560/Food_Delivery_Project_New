@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/app_colors.dart';
+import 'package:food_delivery_admin/screens/language_screen/language_screen.dart';
 import 'package:food_delivery_admin/screens/new_order_screen/new_order_screen.dart';
 import 'package:food_delivery_admin/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:get/get.dart';
@@ -104,11 +105,16 @@ class PreferredLang extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        "Select Preferred Language",
-        style: TextStyle(
-            color: AppColors.colorDarkPink, fontSize: 15),
+    return GestureDetector(
+      onTap: () {
+        Get.to(()=> LanguageScreen());
+      },
+      child: Container(
+        child: Text(
+          "Select Preferred Language",
+          style: TextStyle(
+              color: AppColors.colorDarkPink, fontSize: 15),
+        ),
       ),
     );
   }
