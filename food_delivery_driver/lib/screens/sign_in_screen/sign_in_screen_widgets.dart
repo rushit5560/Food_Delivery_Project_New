@@ -129,7 +129,7 @@ class MobileNumberTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     print('hintText : $hintText && icon && signInTextEditingController $signInTextEditingController');
     return TextFormField(
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.number,
       controller: signInTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
