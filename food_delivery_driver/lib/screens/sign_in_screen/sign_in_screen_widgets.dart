@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/app_colors.dart';
 import 'package:food_delivery_driver/screens/home_screen/home_screen.dart';
+import 'package:food_delivery_driver/screens/language_screen/language_screen.dart';
 import 'package:get/get.dart';
 
 class WelcomeText extends StatelessWidget {
@@ -100,11 +101,16 @@ class PreferredLang extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        "Select Preferred Language",
-        style: TextStyle(
-            color: AppColors.colorDarkPink, fontSize: 15, fontWeight: FontWeight.bold),
+    return GestureDetector(
+      onTap: (){
+        Get.to(() => LanguageScreen());
+      },
+      child: Container(
+        child: Text(
+          "Select Preferred Language",
+          style: TextStyle(
+              color: AppColors.colorDarkPink, fontSize: 15, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
