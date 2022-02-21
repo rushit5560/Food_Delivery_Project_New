@@ -24,10 +24,10 @@ class AccountScreenController extends GetxController {
       image: '${Images.ic_account_info_5}',
       name: 'Offer Zone',
     ),
-    AccountInfoModel(
+    /*AccountInfoModel(
       image: '${Images.ic_account_info_6}',
       name: 'App language',
-    ),
+    ),*/
     AccountInfoModel(
       image: '${Images.ic_account_info_7}',
       name: 'Notification',

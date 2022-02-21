@@ -1,7 +1,4 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/common/common_functions.dart';

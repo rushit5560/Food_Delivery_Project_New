@@ -69,7 +69,7 @@ class MobileNumberTextField extends StatelessWidget {
       keyboardType: TextInputType.number,
       controller: signInPhoneFieldController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
-
+      maxLength: 10,
       validator: (value) => FieldValidator().validateMobile(value!),
     );
   }
@@ -160,6 +160,7 @@ InputDecoration _inputDecoration({hintText, icon}) {
     // border: InputBorder.none,
     filled: true,
     fillColor: Colors.grey.shade200,
+    counterText: '',
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(10)),
       borderSide: BorderSide(color: Colors.grey.shade200)

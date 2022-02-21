@@ -14,7 +14,6 @@ class SplashScreenController extends GetxController{
 
   @override
   void onInit() {
-    print('-----------Controller Init Method Called.-----------');
     Timer(Duration(seconds: 7), () => goToIndexScreen());
     super.onInit();
   }

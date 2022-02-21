@@ -217,10 +217,10 @@ class AccountInfoListModule extends StatelessWidget {
         // Get.to(()=> );
         print('Offer Zone');
         break;
-      case 5:
+      /*case 5:
         Get.to(()=> LanguageScreen());
-        break;
-      case 6:
+        break;*/
+      case 5:
         Get.to(()=> NotificationScreen());
         break;
     }

@@ -6,7 +6,7 @@ import 'package:food_delivery/screens/account_screen/account_screen.dart';
 import 'package:food_delivery/screens/auth_screen/auth_screen.dart';
 import 'package:food_delivery/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery/screens/invite_and_earn_screen/invite_and_earn_screen.dart';
-import 'package:food_delivery/screens/language_screen/language_screen.dart';
+// import 'package:food_delivery/screens/language_screen/language_screen.dart';
 import 'package:food_delivery/screens/profile_screen/profile_screen.dart';
 import 'package:food_delivery/screens/reward_point/reward_point.dart';
 import 'package:food_delivery/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
@@ -59,7 +59,7 @@ class DrawerList extends StatelessWidget {
           termsCondition(),
           helpCenter(),
           inviteEarn(),
-          language(),
+          // language(),
           rewardPoint(),
           SizedBox(height: 10),
           logout()
@@ -165,7 +165,7 @@ class DrawerList extends StatelessWidget {
     );
   }
 
-  Widget language(){
+  /*Widget language(){
     return ListTile(
       onTap: () {
         Get.back();
@@ -177,7 +177,7 @@ class DrawerList extends StatelessWidget {
         style: TextStyle(color: Colors.white),
       ),
     );
-  }
+  }*/
 
   Widget account(){
     return ListTile(
