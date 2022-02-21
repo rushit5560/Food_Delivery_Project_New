@@ -7,6 +7,7 @@ import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/common/common_functions.dart';
 import 'package:food_delivery/controllers/auth_screen_controller/auth_screen_conroller.dart';
 import 'package:food_delivery/screens/auth_screen/auth_screen_widgets.dart';
+import 'package:food_delivery/screens/index_screen/index_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -171,7 +172,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
           };
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => IndexScreen()),
           );
           // _socialLoginAPI(params, state.context);
           print("userName");
