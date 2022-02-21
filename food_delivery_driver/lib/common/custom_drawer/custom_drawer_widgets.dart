@@ -59,7 +59,7 @@ class DrawerList extends StatelessWidget {
           aboutUs(),
           termsCondition(),
           helpCenter(),
-          language(),
+          //language(),
           SizedBox(height: 20),
           logout()
         ],
@@ -186,9 +186,9 @@ class DrawerList extends StatelessWidget {
         Get.back();
         Get.to(() => SignInScreen());
       },
-      leading: Image.asset(Images.ic_logout, color: Colors.white, scale: 2.7,),
+      leading: Image.asset(Images.ic_logout, color: Colors.white, scale: 5.5,),
       title: Text('Logout',
-        textScaleFactor: 1.7,
+        textScaleFactor: 1.2,
         style: TextStyle(color: Colors.white),
       ),
     );

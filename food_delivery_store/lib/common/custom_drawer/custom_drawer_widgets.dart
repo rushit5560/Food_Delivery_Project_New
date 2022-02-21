@@ -59,7 +59,7 @@ class DrawerList extends StatelessWidget {
           aboutUs(),
           termsAndCondition(),
           helpCenter(),
-          language(),
+          //language(),
           SizedBox(height: 10),
           logout()
         ],
