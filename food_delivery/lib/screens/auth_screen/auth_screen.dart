@@ -111,7 +111,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
     );
   }
 
-  Widget authentication(){
+  Widget authentication() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -160,17 +160,18 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
       final result = await googleSignInManager.signIn();
       if (result != null) {
         if (result.email != "") {
-          Map params = {
+          Get.off(() => IndexScreen());
+          /*Map params = {
             "userName": result.displayName ?? "",
             "emailId": result.email,
             "serviceName": 'GOOGLE',
             "uniqueId": "",
             "loginPassword": "",
-          };
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => IndexScreen()),
-          );
+          };*/
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => IndexScreen()),
+          // );
           // _socialLoginAPI(params, state.context);
           print("userName");
         } else {
