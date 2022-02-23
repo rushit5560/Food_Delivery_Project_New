@@ -32,6 +32,7 @@ android {
         applicationId "com.example.food_delivery_admin"
         minSdkVersion 16
         targetSdkVersion 31
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -48,3 +49,4 @@ android {
 flutter {
     source '../..'
 }
+apply plugin: 'com.google.gms.google-services'

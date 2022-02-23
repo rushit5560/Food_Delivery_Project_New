@@ -29,6 +29,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
   TextEditingController signInPasswordFieldController = TextEditingController();
   TextEditingController signInPhoneFieldController = TextEditingController();
   File? file;
+  final authScreenController = Get.put(AuthScreenController());
 
   @override
   void initState() {
@@ -82,7 +83,8 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
 
               const SizedBox(height: 20),
 
-              authentication()
+              //authentication()
+              socialLogin()
             ],
           ),
         ),
@@ -111,7 +113,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
     );
   }
 
-  Widget authentication() {
+  /*Widget authentication() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -136,17 +138,28 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
         ),
         SizedBox(width: 10,),
 
-        Container(
-          height: 40,
-          width: MediaQuery.of(context).size.width / 4,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: AppColors.colorDarkPink),
-          child: Center(
-            child: Text(
-              "F",
-              style: TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
+        GestureDetector(
+          onTap: (){
+            _onPressedLogInButton().then((value) {
+              if(loginScreenController.profile!.userId.isNotEmpty){
+
+                Get.off(() => IndexScreen());
+              }
+
+            });
+          },
+          child: Container(
+            height: 40,
+            width: MediaQuery.of(context).size.width / 4,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: AppColors.colorDarkPink),
+            child: Center(
+              child: Text(
+                "F",
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
+              ),
             ),
           ),
         )
@@ -161,13 +174,13 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
       if (result != null) {
         if (result.email != "") {
           Get.off(() => IndexScreen());
-          /*Map params = {
+          *//*Map params = {
             "userName": result.displayName ?? "",
             "emailId": result.email,
             "serviceName": 'GOOGLE',
             "uniqueId": "",
             "loginPassword": "",
-          };*/
+          };*//*
           // Navigator.push(
           //   context,
           //   MaterialPageRoute(builder: (context) => IndexScreen()),
@@ -184,7 +197,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
     } catch (error) {
       print(error);
     }
-  }
+  }*/
 
 
 }

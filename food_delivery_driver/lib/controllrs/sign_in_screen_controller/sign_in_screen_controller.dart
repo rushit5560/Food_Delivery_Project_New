@@ -1,18 +1,11 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:food_delivery/screens/index_screen/index_screen.dart';
+import 'package:food_delivery_driver/screens/home_screen/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthScreenController extends GetxController {
-
-  /*getOnBoardingValue() {
-    Get.offAll(()=> AuthView());
-  }*/
-
+class SignInScreenController extends GetxController{
   RxBool isLoading = false.obs;
   FacebookUserProfile? profile;
   final FacebookLogin  plugin = FacebookLogin(debug: true);
@@ -84,7 +77,7 @@ class AuthScreenController extends GetxController {
         prefs.setString('photo', result.user!.photoURL!);
         prefs.setBool('isLoggedIn', false);
 
-        Get.off(() => IndexScreen());
+        Get.off(() => HomeScreen());
       }
     }
     isLoading(false);
@@ -132,6 +125,4 @@ class AuthScreenController extends GetxController {
     // _imageUrl = imageUrl;
     //});
   }
-
-
 }
