@@ -68,7 +68,13 @@ class RecentSelling extends StatelessWidget {
                                       SizedBox(width: 5,),
                                       Text("Type - Regular"),
                                       SizedBox(width: 5,),
-                                      Text("Qty - 150gms"),
+                                      Expanded(
+                                          child: Text(
+                                              "Qty - 150gms",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                      ),
                                     ],
                                   )
                                 ],

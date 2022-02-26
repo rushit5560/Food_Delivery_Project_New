@@ -13,18 +13,22 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: commonAppBarModule(title: 'Category'),
-
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            // Import From Widget File
-            SearchFieldModule(searchFieldController: searchFieldController),
-            Expanded(
-              // Import From Widget File
-              child: CategoryListModule(),
-            ),
-          ],
+        child: Obx(
+          () => categoryScreenController.isLoading.value
+              ? Center(child: CircularProgressIndicator())
+              : Column(
+                  children: [
+                    // Import From Widget File
+                    SearchFieldModule(
+                        searchFieldController: searchFieldController),
+                    Expanded(
+                      // Import From Widget File
+                      child: CategoryListModule(),
+                    ),
+                  ],
+                ),
         ),
       ),
     );

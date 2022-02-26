@@ -103,14 +103,12 @@ class ContinueButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if(tabController.index == 0){
-          print("0");
-          if(validateInputsLogin()){
+          if(authScreenController.loginFormKey.currentState!.validate()){
             Get.offAll(() => IndexScreen());
           }
         }
         else{
-          print("1");
-          if(validateInputs()){
+          if(authScreenController.signUpFormKey.currentState!.validate()){
             Get.offAll(() => IndexScreen());
           }
         }
@@ -132,23 +130,23 @@ class ContinueButton extends StatelessWidget {
     );
   }
 
-  bool validateInputs() {
-    if (authScreenController.signUpFormKey.currentState!.validate()) {
-      authScreenController.signUpFormKey.currentState!.save();
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  bool validateInputsLogin() {
-    if (authScreenController.loginFormKey.currentState!.validate()) {
-      authScreenController.loginFormKey.currentState!.save();
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // bool validateInputs() {
+  //   if (authScreenController.signUpFormKey.currentState!.validate()) {
+  //     authScreenController.signUpFormKey.currentState!.save();
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+  //
+  // bool validateInputsLogin() {
+  //   if (authScreenController.loginFormKey.currentState!.validate()) {
+  //     authScreenController.loginFormKey.currentState!.save();
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 }
 
 class socialLogin extends StatefulWidget {

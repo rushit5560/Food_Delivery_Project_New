@@ -51,12 +51,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
 
               const SizedBox(height: 20),
 
-              ContinueButton(
-                  // signUpFormKey: signUpFormKey,
-                  tabController: _tabController,
-                  // file : file,
-                  // loginFormKey: loginFormKey
-              ),
+              ContinueButton(tabController: _tabController),
 
               const SizedBox(height: 20),
 

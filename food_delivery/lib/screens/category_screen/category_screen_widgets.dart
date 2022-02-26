@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/api_url.dart';
 import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/controllers/category_screen_controller/category_screen_controller.dart';
 import 'package:food_delivery/screens/product_detail_screen/product_details_screen.dart';
@@ -57,13 +58,14 @@ class CategoryListModule extends StatelessWidget {
       child: GridView.builder(
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
-        itemCount: categoryScreenController.categoryList.length,
+        itemCount: categoryScreenController.allCategoryList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
         ),
         itemBuilder: (context, index){
+
           return GestureDetector(
             onTap: () => _onItemClick(index),
             child: Container(
@@ -103,7 +105,7 @@ class CategoryListModule extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Image(
-            image: AssetImage('${categoryScreenController.categoryList[index].img}'),
+            image: NetworkImage("${ApiUrl.ApiMainPath}${categoryScreenController.allCategoryList[index].image}"),
           ),
         ),
       ),
@@ -122,7 +124,7 @@ class CategoryListModule extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Center(
             child: Text(
-              '${categoryScreenController.categoryList[index].name}',
+              '${categoryScreenController.allCategoryList[index].name}',
               textScaleFactor: 0.85,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
