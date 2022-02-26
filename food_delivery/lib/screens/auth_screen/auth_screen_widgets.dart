@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/controllers/auth_screen_controller/auth_screen_conroller.dart';
 import 'package:food_delivery/screens/index_screen/index_screen.dart';
@@ -175,7 +174,7 @@ class _socialLoginState extends State<socialLogin> {
       children: [
         GestureDetector(
           onTap: (){
-            authScreenController.googleAuthentication(context);
+            // authScreenController.googleAuthentication(context);
           },
           child: Container(
             height: 40,
@@ -196,13 +195,13 @@ class _socialLoginState extends State<socialLogin> {
 
         GestureDetector(
           onTap: (){
-            _onPressedLogInButton().then((value) {
-              if(authScreenController.profile!.userId.isNotEmpty){
-
-                Get.off(() => IndexScreen());
-              }
-
-            });
+            // _onPressedLogInButton().then((value) {
+            //   if(authScreenController.profile!.userId.isNotEmpty){
+            //
+            //     Get.off(() => IndexScreen());
+            //   }
+            //
+            // });
           },
           child: Container(
             height: 40,
@@ -225,15 +224,15 @@ class _socialLoginState extends State<socialLogin> {
 
 
 
-  Future<void> _onPressedLogInButton() async {
-    await authScreenController.plugin.logIn(
-      permissions: [
-        FacebookPermission.publicProfile,
-        FacebookPermission.email,
-      ],
-    );
-    await authScreenController.updateLoginInfo();
-    await authScreenController.plugin.logOut();
-  }
+  // Future<void> _onPressedLogInButton() async {
+  //   await authScreenController.plugin.logIn(
+  //     permissions: [
+  //       FacebookPermission.publicProfile,
+  //       FacebookPermission.email,
+  //     ],
+  //   );
+  //   await authScreenController.updateLoginInfo();
+  //   await authScreenController.plugin.logOut();
+  // }
 
 }
