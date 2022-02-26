@@ -4,9 +4,9 @@ class FieldValidator {
       return 'Full name is Required';
     }
 
-    if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
+    /*if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
       return 'invalid first name';
-    }
+    }*/
 
     return null;
   }
@@ -52,5 +52,12 @@ class FieldValidator {
       return false;
     }
     return double.tryParse(s) != null;
+  }
+
+  String? validateAddress(String value) {
+    if (value.isEmpty) {
+      return 'Address is Required';
+    }
+    return null;
   }
 }

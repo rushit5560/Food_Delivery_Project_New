@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/common/common_functions.dart';
@@ -14,21 +13,11 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateMixin {
-  AuthScreenController authViewController = Get.put(AuthScreenController());
+  final authScreenController = Get.put(AuthScreenController());
   late TabController _tabController;
 
-  GoogleSignIn googleSignInManager = GoogleSignIn(
-    scopes: ['email'],
-  );
-  GlobalKey<FormState> signUpFormKey = GlobalKey();
-  GlobalKey<FormState> loginFormKey = GlobalKey();
-  TextEditingController fullNameFieldController = TextEditingController();
-  TextEditingController emailFieldController = TextEditingController();
-  TextEditingController phoneFieldController = TextEditingController();
-  TextEditingController signInEmailFieldController = TextEditingController();
-  TextEditingController signInPasswordFieldController = TextEditingController();
-  TextEditingController signInPhoneFieldController = TextEditingController();
-  File? file;
+  GoogleSignIn googleSignInManager = GoogleSignIn(scopes: ['email']);
+
 
   @override
   void initState() {
@@ -56,28 +45,17 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
               Stack(
                 children: [
                   WelcomeText(),
-                  TabView(
-                      tabController: _tabController,
-                      signUpFormKey: signUpFormKey,
-                      fullNameFieldController: fullNameFieldController,
-                      emailFieldController: emailFieldController,
-                      phoneFieldController: phoneFieldController,
-                      file: file,
-                      loginFormKey : loginFormKey,
-                      signInEmailFieldController: signInEmailFieldController,
-                      signInPasswordFieldController: signInPasswordFieldController,
-                      signInPhoneFieldController: signInPhoneFieldController
-                  ),
+                  TabView(tabController: _tabController),
                 ],
               ),
 
               const SizedBox(height: 20),
 
               ContinueButton(
-                  signUpFormKey: signUpFormKey,
+                  // signUpFormKey: signUpFormKey,
                   tabController: _tabController,
-                  file : file,
-                  loginFormKey: loginFormKey
+                  // file : file,
+                  // loginFormKey: loginFormKey
               ),
 
               const SizedBox(height: 20),
@@ -146,7 +124,9 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
             child: Text(
               "F",
               style: TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22),
             ),
           ),
         )

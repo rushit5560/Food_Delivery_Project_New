@@ -1,12 +1,11 @@
-//import 'dart:html';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/screens/index_screen/index_screen.dart';
 import 'package:food_delivery/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:food_delivery/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/auth_screen_controller/auth_screen_conroller.dart';
 
 class WelcomeText extends StatelessWidget {
   const WelcomeText({Key? key}) : super(key: key);
@@ -37,31 +36,10 @@ class WelcomeText extends StatelessWidget {
 }
 
 class TabView extends StatelessWidget {
-  //const TabView({Key? key}) : super(key: key);
-  TabController tabController;
-  GlobalKey<FormState> signUpFormKey;
-  TextEditingController fullNameFieldController;
-  TextEditingController emailFieldController;
-  TextEditingController phoneFieldController;
-  File ? file;
+  final TabController tabController;
+  TabView({required this.tabController});
 
-  GlobalKey<FormState> loginFormKey;
-  TextEditingController signInEmailFieldController;
-  TextEditingController signInPasswordFieldController;
-  TextEditingController signInPhoneFieldController;
-
-  TabView({
-    required this.tabController,
-    required this.signUpFormKey,
-  required this.fullNameFieldController,
-  required this.emailFieldController,
-  required this.phoneFieldController,
-  this.file,
-
-  required this.loginFormKey,
-  required this.signInEmailFieldController,
-  required this.signInPasswordFieldController,
-  required this.signInPhoneFieldController});
+  final authScreenController = Get.find<AuthScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +73,6 @@ class TabView extends StatelessWidget {
               Container(
                 child: Tab(text: "Sign up"),
               ),
-
             ],
           ),
           Container(
@@ -103,19 +80,8 @@ class TabView extends StatelessWidget {
             child: TabBarView(
               controller: tabController,
               children: [
-                SignInScreen(
-                    loginFormKey : loginFormKey,
-                    signInEmailFieldController: signInEmailFieldController,
-                    signInPasswordFieldController: signInPasswordFieldController,
-                    signInPhoneFieldController: signInPhoneFieldController
-                ),
-                SignUpScreen(
-                  signUpFormKey: signUpFormKey,
-                    fullNameFieldController: fullNameFieldController,
-                  emailFieldController: emailFieldController,
-                    phoneFieldController: phoneFieldController,
-                  file: file
-                ),
+                SignInScreen(),
+                SignUpScreen(),
               ],
             ),
           ),
@@ -126,11 +92,10 @@ class TabView extends StatelessWidget {
 }
 
 class ContinueButton extends StatelessWidget {
-  GlobalKey<FormState> signUpFormKey;
-  GlobalKey<FormState> loginFormKey;
-  TabController tabController;
-  File ? file;
-  ContinueButton({required this.signUpFormKey,required this.loginFormKey, this.file, required this.tabController});
+  final TabController tabController;
+  ContinueButton({required this.tabController});
+
+  final authScreenController = Get.find<AuthScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -167,8 +132,8 @@ class ContinueButton extends StatelessWidget {
   }
 
   bool validateInputs() {
-    if (signUpFormKey.currentState!.validate()) {
-      signUpFormKey.currentState!.save();
+    if (authScreenController.signUpFormKey.currentState!.validate()) {
+      authScreenController.signUpFormKey.currentState!.save();
       return true;
     } else {
       return false;
@@ -176,30 +141,11 @@ class ContinueButton extends StatelessWidget {
   }
 
   bool validateInputsLogin() {
-    if (loginFormKey.currentState!.validate()) {
-      loginFormKey.currentState!.save();
+    if (authScreenController.loginFormKey.currentState!.validate()) {
+      authScreenController.loginFormKey.currentState!.save();
       return true;
     } else {
       return false;
     }
   }
 }
-
-
-
-/*class TabBar extends StatefulWidget {
- // const TabBar({Key? key}) : super(key: key);
-
-  @override
-  _TabBarState createState() => _TabBarState();
-}
-
-class _TabBarState extends State<TabBar> {
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return
-  }
-}*/

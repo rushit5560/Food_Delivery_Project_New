@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/field_validation.dart';
-import 'package:food_delivery/screens/sign_in_screen/sign_in_screen.dart';
-//import 'package:food_delivery/views/sign_in_screen/sign_in_screen.dart';
-//import 'package:food_delivery/screens/sign_in_view/sign_in_screen.dart';
-//import 'package:food_delivery/screens/sign_up_view/sign_up_screen.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/auth_screen_controller/auth_screen_conroller.dart';
 
 class SignUpText extends StatelessWidget {
   const SignUpText({Key? key}) : super(key: key);
@@ -18,159 +16,300 @@ class SignUpText extends StatelessWidget {
   }
 }
 
-class NameTextField extends StatelessWidget {
+class UserNameTextFieldModule extends StatelessWidget {
+  final String hintText;
+  UserNameTextFieldModule({Key? key, required this.hintText}) : super(key: key);
 
-  TextEditingController fullNameFieldController;
-
-  String hintText;
-  String name="";
-
-
-  NameTextField({
-    required this.fullNameFieldController,
-    required this.hintText,
-  });
+  final authScreenController = Get.find<AuthScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.text,
-      controller: fullNameFieldController,
-      decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
-      // onSaved: (String ? val) {
-      //   name = val!;
-      // },
+      controller: authScreenController.fullNameFieldController,
+      decoration: _inputDecoration(hintText: hintText),
       validator: (value) => FieldValidator().validateFullName(value!),
     );
   }
-
 }
 
-class EmailTextField extends StatelessWidget {
-  //const EmailTextField({Key? key}) : super(key: key);
-  TextEditingController  emailFieldController;
-  String email="";
-  //IconData icon;
-  String hintText;
-
-  EmailTextField({
-    required this.emailFieldController,
-    //required this.icon,
-    required this.hintText,
-  });
+class FullNameTextFieldModule extends StatelessWidget {
+  final String hintText;
+  FullNameTextFieldModule({Key? key, required this.hintText}) : super(key: key);
+  final authScreenController = Get.find<AuthScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      controller: emailFieldController,
-      decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
-      // onSaved: (String ? val) {
-      //   email = val!;
-      // },
-      validator: (value) => FieldValidator().validateEmail(value!),
+      keyboardType: TextInputType.text,
+      controller: authScreenController.fullNameTextFieldController,
+      decoration: _inputDecoration(hintText: hintText),
+      validator: (value) => FieldValidator().validateFullName(value!),
     );
   }
 }
 
-class PhoneTextField extends StatelessWidget {
-  TextEditingController phoneFieldController;
-  //IconData icon;
-  String phone ="";
-  String hintText;
-
-  PhoneTextField({
-    required this.phoneFieldController,
-    //required this.icon,
-    required this.hintText,
-  });
+class PhoneNoTextFieldModule extends StatelessWidget {
+  final String hintText;
+  PhoneNoTextFieldModule({Key? key, required this.hintText}) : super(key: key);
+  final authScreenController = Get.find<AuthScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.number,
-      controller: phoneFieldController,
-    //  obscureText: true,
-       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
-      onSaved: (String ? val) {
-        phone = val!;
-      },
+      keyboardType: TextInputType.phone,
+      controller: authScreenController.phoneNoTextFieldController,
+      decoration: _inputDecoration(hintText: hintText),
       validator: (value) => FieldValidator().validateMobile(value!),
     );
   }
 }
 
-class ReferalCodeTextField extends StatelessWidget {
-  TextEditingController ? referalCodeTextEditingController;
-  //IconData icon;
-  String hintText;
+class PasswordTextFieldModule extends StatelessWidget {
+  final String hintText;
 
-  ReferalCodeTextField({
-    required TextEditingController referalCodeTextEditingController,
-    //required this.icon,
-    required this.hintText,
-  });
+  PasswordTextFieldModule({Key? key, required this.hintText}) : super(key: key);
+  final authScreenController = Get.find<AuthScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.number,
-      controller: referalCodeTextEditingController,
-      //  obscureText: true,
-      decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+      keyboardType: TextInputType.text,
+      obscureText: true,
+      controller: authScreenController.passwordTextFieldController,
+      decoration: _inputDecoration(hintText: hintText),
+      validator: (value) => FieldValidator().validatePassword(value!),
     );
   }
 }
 
-class SignUpButton extends StatelessWidget {
-  const SignUpButton({Key? key}) : super(key: key);
+class AddressTextFieldModule extends StatelessWidget {
+  final String hintText;
+  AddressTextFieldModule({Key? key, required this.hintText}) : super(key: key);
+  final authScreenController = Get.find<AuthScreenController>();
+
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.text,
+      controller: authScreenController.addressTextFieldController,
+      decoration: _inputDecoration(hintText: hintText),
+      validator: (value) => FieldValidator().validateAddress(value!),
+    );
+  }
+}
+
+class EmailTextFieldModule extends StatelessWidget {
+  final String hintText;
+  EmailTextFieldModule({Key? key, required this.hintText}) : super(key: key);
+  final authScreenController = Get.find<AuthScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.emailAddress,
+        controller: authScreenController.emailTextFieldController,
+      decoration: _inputDecoration(hintText: hintText),
+      validator: (value) => FieldValidator().validateEmail(value!),
+    );
+  }
+}
+
+class SelectCityDropDownModule extends StatefulWidget {
+  SelectCityDropDownModule({Key? key}) : super(key: key);
+  @override
+  State<SelectCityDropDownModule> createState() => _SelectCityDropDownModuleState();
+}
+class _SelectCityDropDownModuleState extends State<SelectCityDropDownModule> {
+  final authScreenController = Get.find<AuthScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
-      margin: EdgeInsets.only(left: 25, right: 25),
+      padding: const EdgeInsets.only(left: 10),
+      height: 45,
+      width: Get.width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.blue,
-        //border: Border.all(color: Colors.black)
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Colors.grey.shade300
       ),
-      child: Center(
-        child: Text("Sign Up", style: TextStyle(color: Colors.white, fontSize: 18),),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            canvasColor: Colors.grey.shade100,
+            // background color for the dropdown items
+            buttonTheme: ButtonTheme.of(context).copyWith(
+              alignedDropdown: true, //If false (the default), then the dropdown's menu will be wider than its button.
+            )),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            focusColor: Colors.white,
+            value: authScreenController.chosenValue,
+            //elevation: 5,
+            style: TextStyle(color: Colors.white),
+            iconEnabledColor: Colors.black,
+            items: <String>[
+              'Surat',
+              'Ahmedabad',
+              'Baroda',
+              'Rajkot',
+              'Gandhinagar',
+              'Bhavnagar',
+              'Junagadh',
+            ].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(
+                  value,
+                  style: TextStyle(color: Colors.black),
+                ),
+              );
+            }).toList(),
+            hint: Text(
+              "Select City",
+            ),
+            onChanged: (String? value) {
+              setState(() {
+                authScreenController.chosenValue = value;
+              });
+            },
+          ),
+        ),
       ),
     );
   }
 }
 
-class SignInText extends StatelessWidget {
-  const SignInText({Key? key}) : super(key: key);
+
+class SelectAreaDropDownModule extends StatefulWidget {
+  const SelectAreaDropDownModule({Key? key}) : super(key: key);
+  @override
+  _SelectAreaDropDownModuleState createState() => _SelectAreaDropDownModuleState();
+}
+class _SelectAreaDropDownModuleState extends State<SelectAreaDropDownModule> {
+
+  final authScreenController = Get.find<AuthScreenController>();
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Already have an account?"),
-
-        SizedBox(width: 5,),
-
-        GestureDetector(
-          onTap: (){
-            //Get.to(()=> SignInScreen());
-          },
-          child: Text("Sign In",
-            style: TextStyle(color: Colors.blue),),
-        )
-      ],
+    return Container(
+      padding: const EdgeInsets.only(left: 10),
+      height: 45,
+      width: Get.width,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Colors.grey.shade300),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            canvasColor: Colors.grey.shade100,
+            // background color for the dropdown items
+            buttonTheme: ButtonTheme.of(context).copyWith(
+              alignedDropdown:
+              true, //If false (the default), then the dropdown's menu will be wider than its button.
+            )),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            focusColor: Colors.white,
+            value: authScreenController.areaValue,
+            //elevation: 5,
+            style: TextStyle(color: Colors.white),
+            iconEnabledColor: Colors.black,
+            items: <String>[
+              'Katargam',
+              'Varachha',
+              'Adajan',
+              'Sabarmati',
+              'Majura gate',
+              'Sachin',
+              'Kapodra',
+            ].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(
+                  value,
+                  style: TextStyle(color: Colors.black),
+                ),
+              );
+            }).toList(),
+            hint: Text("Select Area"),
+            onChanged: (String? value) {
+              setState(() {
+                authScreenController.areaValue = value;
+              });
+            },
+          ),
+        ),
+      ),
     );
   }
 }
 
-InputDecoration _inputDecoration({hintText, icon}) {
+
+class SelectGenderDropDownModule extends StatefulWidget {
+  const SelectGenderDropDownModule({Key? key}) : super(key: key);
+  @override
+  _SelectGenderDropDownModuleState createState() => _SelectGenderDropDownModuleState();
+}
+class _SelectGenderDropDownModuleState extends State<SelectGenderDropDownModule> {
+
+  final authScreenController = Get.find<AuthScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(left: 10),
+      height: 45,
+      width: Get.width,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Colors.grey.shade300
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          focusColor: Colors.white,
+          value: authScreenController.selectedGenderValue,
+          //elevation: 5,
+          style: TextStyle(
+              color: Colors.white,
+              decorationColor: Colors.grey.shade100
+          ),
+
+          iconEnabledColor: Colors.black,
+          items: <String>[
+            'Male',
+            'Female',
+            'Other',
+          ].map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(
+                value,
+                style: TextStyle(color: Colors.black),
+              ),
+            );
+          }).toList(),
+          hint: Text(
+            "Male",
+          ),
+          onChanged: (String? value) {
+            setState(() {
+              authScreenController.selectedGenderValue = value;
+              print('selectedGenderValue : ${authScreenController.selectedGenderValue}');
+            });
+          },
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+InputDecoration _inputDecoration({hintText}) {
   return InputDecoration(
     hintText: "$hintText",
-    //prefixIcon: Icon(icon, color: Colors.black),
-   // isDense: true,
+   isDense: true,
     contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
     filled: true,
     fillColor: Colors.grey.shade200,

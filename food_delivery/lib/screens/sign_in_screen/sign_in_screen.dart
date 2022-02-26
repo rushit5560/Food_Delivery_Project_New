@@ -2,31 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/common/app_colors.dart';
 import 'package:food_delivery/common/common_functions.dart';
 import 'package:food_delivery/screens/sign_in_screen/sign_in_view_widgets.dart';
-//import 'package:food_delivery/views/sign_in_screen/sign_in_view_widgets.dart';
-//import 'package:food_delivery/widgets/sign_in_view_widgets/sign_in_view_widgets.dart';
+import 'package:get/get.dart';
+
+import '../../controllers/auth_screen_controller/auth_screen_conroller.dart';
 
 class SignInScreen extends StatefulWidget {
-  // const SignInView({Key? key}) : super(key: key);
-
-  GlobalKey<FormState> loginFormKey;
-  TextEditingController signInEmailFieldController;
-  TextEditingController signInPasswordFieldController;
-  TextEditingController signInPhoneFieldController;
-
-  SignInScreen({
-    required this.loginFormKey,
-    required this.signInEmailFieldController,
-    required this.signInPasswordFieldController,
-    required this.signInPhoneFieldController});
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  var _SignInformKey = GlobalKey<FormState>();
-  //TextEditingController signInTextEditingController = TextEditingController();
-  //TextEditingController mobileNumberTextEditingController = TextEditingController();
-  //TextEditingController passwordTextEditingController = TextEditingController();
+  final authScreenController = Get.find<AuthScreenController>();
   bool isEmailField = true;
 
   @override
@@ -39,7 +25,7 @@ class _SignInScreenState extends State<SignInScreen> {
         body: Center(
           child: SingleChildScrollView(
             child: Form(
-              key: widget.loginFormKey,
+              key: authScreenController.loginFormKey,
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 child: SingleChildScrollView(
@@ -50,40 +36,40 @@ class _SignInScreenState extends State<SignInScreen> {
                       //SignInText(),
                       SizedBox(height: 10),
                       isEmailField
-                      ? SignInTextField(
-                        signInEmailFieldController: widget.signInEmailFieldController,
-                          //icon: Icons.email,
-                        hintText: "Enter Email",
-                      )
-                      : MobileNumberTextField(
-                        signInPhoneFieldController: widget.signInPhoneFieldController,
-                        //icon: Icons.email,
-                        hintText: "Enter Mobile Number",
-                      ),
+                          ? SignInTextField(
+                              signInEmailFieldController:
+                              authScreenController.signInEmailFieldController,
+                              hintText: "Enter Email",
+                            )
+                          : MobileNumberTextField(
+                              signInPhoneFieldController:
+                              authScreenController.signInPhoneFieldController,
+                              //icon: Icons.email,
+                              hintText: "Enter Mobile Number",
+                            ),
                       SizedBox(height: 10),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           setState(() {
                             isEmailField = !isEmailField;
                           });
                         },
                         child: Container(
                           alignment: Alignment.topRight,
-                          child: Text( isEmailField ? "Use Phone Number" : "Use Email Id",
-                            style: TextStyle(color: AppColors.colorDarkPink, fontSize: 17),),
+                          child: Text(
+                            isEmailField ? "Use Phone Number" : "Use Email Id",
+                            style: TextStyle(
+                                color: AppColors.colorDarkPink, fontSize: 17),
+                          ),
                         ),
                       ),
                       SizedBox(height: 15),
                       PasswordTextField(
-                        signInPasswordFieldController: widget.signInPasswordFieldController,
-                          //icon: Icons.password,
-                          hintText: "Password",),
+                        signInPasswordFieldController:
+                        authScreenController.signInPasswordFieldController,
+                        hintText: "Password",
+                      ),
                       SizedBox(height: 15),
-                      /*SizedBox(height: 30),
-                      SignInButton(),
-                      SizedBox(height: 20),
-                      SignUpText(),*/
-
                     ],
                   ),
                 ),

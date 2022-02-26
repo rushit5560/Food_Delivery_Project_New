@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/field_validation.dart';
-import 'package:food_delivery/screens/sign_up_screen/sign_up_screen.dart';
-//import 'package:food_delivery/views/sign_up_screen/sign_up_screen.dart';
-//import 'package:food_delivery/screens/sign_up_view/sign_up_screen.dart';
-import 'package:get/get.dart';
 
 class SignInText extends StatelessWidget {
   const SignInText({Key? key}) : super(key: key);
@@ -21,88 +17,68 @@ class SignInText extends StatelessWidget {
 }
 
 class SignInTextField extends StatelessWidget {
-  // const SignInTextField({Key? key}) : super(key: key);
-
-  TextEditingController signInEmailFieldController;
-  //IconData icon;
-
-  String hintText;
+  final TextEditingController signInEmailFieldController;
+  final String hintText;
 
   SignInTextField({
     required this.signInEmailFieldController,
-    //required this.icon,
-
     required this.hintText,
   });
 
   @override
   Widget build(BuildContext context) {
-    print('hintText : $hintText && icon && signInTextEditingController $signInEmailFieldController');
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
       controller: signInEmailFieldController,
-      decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
-
+      decoration: _inputDecoration(hintText: hintText),
       validator: (value) => FieldValidator().validateEmail(value!),
     );
   }
 }
 
 class MobileNumberTextField extends StatelessWidget {
-  // const SignInTextField({Key? key}) : super(key: key);
-
-  TextEditingController signInPhoneFieldController;
-  //IconData icon;
-
-  String hintText;
+  final TextEditingController signInPhoneFieldController;
+  final String hintText;
 
   MobileNumberTextField({
     required this.signInPhoneFieldController,
-    //required this.icon,
     required this.hintText,
   });
 
   @override
   Widget build(BuildContext context) {
-    print('hintText : $hintText && icon && signInTextEditingController $signInPhoneFieldController');
     return TextFormField(
       keyboardType: TextInputType.number,
       controller: signInPhoneFieldController,
-      decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+      decoration: _inputDecoration(hintText: hintText),
       maxLength: 10,
       validator: (value) => FieldValidator().validateMobile(value!),
     );
   }
 }
 
-
 class PasswordTextField extends StatelessWidget {
-  // const PasswordTextField({Key? key}) : super(key: key);
-  TextEditingController ? signInPasswordFieldController;
-  //IconData icon;
-  String hintText;
+  final TextEditingController? signInPasswordFieldController;
+  final String hintText;
 
   PasswordTextField({
-    required TextEditingController signInPasswordFieldController,
-    //required this.icon,
+    required this.signInPasswordFieldController,
     required this.hintText,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-          keyboardType: TextInputType.visiblePassword,
-          controller: signInPasswordFieldController,
-          obscureText: true,
-          decoration: _inputDecoration(hintText: hintText, /*icon: icon,*/),
-
+      keyboardType: TextInputType.visiblePassword,
+      controller: signInPasswordFieldController,
+      obscureText: true,
+      decoration: _inputDecoration(hintText: hintText),
       validator: (value) => FieldValidator().validatePassword(value!),
-
     );
   }
 }
 
-class SignInButton extends StatelessWidget {
+/*class SignInButton extends StatelessWidget {
   const SignInButton({Key? key}) : super(key: key);
 
   @override
@@ -113,7 +89,6 @@ class SignInButton extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.blue,
-        //border: Border.all(color: Colors.black)
       ),
       child: Center(
         child: Text(
@@ -123,9 +98,9 @@ class SignInButton extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
-class SignUpText extends StatelessWidget {
+/*class SignUpText extends StatelessWidget {
   const SignUpText({Key? key}) : super(key: key);
 
   @override
@@ -149,33 +124,26 @@ class SignUpText extends StatelessWidget {
       ],
     );
   }
-}
+}*/
 
-InputDecoration _inputDecoration({hintText, icon}) {
+InputDecoration _inputDecoration({hintText}) {
   return InputDecoration(
     hintText: "$hintText",
-    //prefixIcon: Icon(icon, color: Colors.black),
-    //isDense: true,
     contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-    // border: InputBorder.none,
     filled: true,
     fillColor: Colors.grey.shade200,
     counterText: '',
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-      borderSide: BorderSide(color: Colors.grey.shade200)
-    ),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-        borderSide: BorderSide(color: Colors.grey.shade200)
-    ),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)),
     errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-        borderSide: BorderSide(color: Colors.grey.shade200)
-    ),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)),
     focusedErrorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-        borderSide: BorderSide(color: Colors.grey.shade200)
-    ),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)),
   );
 }
