@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:food_delivery/common/app_colors.dart';
+import 'package:food_delivery/controllers/auth_screen_controller/auth_screen_conroller.dart';
 import 'package:food_delivery/screens/index_screen/index_screen.dart';
 import 'package:food_delivery/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:food_delivery/screens/sign_up_screen/sign_up_screen.dart';
@@ -148,4 +150,90 @@ class ContinueButton extends StatelessWidget {
       return false;
     }
   }
+}
+
+class socialLogin extends StatefulWidget {
+
+
+  @override
+  _socialLoginState createState() => _socialLoginState();
+}
+
+class _socialLoginState extends State<socialLogin> {
+  // FacebookAccessToken? _token;
+  // FacebookUserProfile? _profile;
+  // String? _imageUrl;
+  // String? _email;
+  final authScreenController = Get.find<AuthScreenController>();
+  //bool ? isLogin = false;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: (){
+            authScreenController.googleAuthentication(context);
+          },
+          child: Container(
+            height: 40,
+            width: MediaQuery.of(context).size.width / 4,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: AppColors.colorDarkPink),
+            child: Center(
+              child: Text(
+                "G",
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 10,),
+
+        GestureDetector(
+          onTap: (){
+            _onPressedLogInButton().then((value) {
+              if(authScreenController.profile!.userId.isNotEmpty){
+
+                Get.off(() => IndexScreen());
+              }
+
+            });
+          },
+          child: Container(
+            height: 40,
+            width: MediaQuery.of(context).size.width / 4,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: AppColors.colorDarkPink),
+            child: Center(
+              child: Text(
+                "F",
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+
+
+  Future<void> _onPressedLogInButton() async {
+    await authScreenController.plugin.logIn(
+      permissions: [
+        FacebookPermission.publicProfile,
+        FacebookPermission.email,
+      ],
+    );
+    await authScreenController.updateLoginInfo();
+    await authScreenController.plugin.logOut();
+  }
+
 }

@@ -60,7 +60,8 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
 
               const SizedBox(height: 20),
 
-              authentication()
+              //authentication()
+              socialLogin()
             ],
           ),
         ),
@@ -89,7 +90,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
     );
   }
 
-  Widget authentication() {
+  /*Widget authentication() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -127,6 +128,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 22),
+
             ),
           ),
         )
@@ -141,13 +143,13 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
       if (result != null) {
         if (result.email != "") {
           Get.off(() => IndexScreen());
-          /*Map params = {
+          *//*Map params = {
             "userName": result.displayName ?? "",
             "emailId": result.email,
             "serviceName": 'GOOGLE',
             "uniqueId": "",
             "loginPassword": "",
-          };*/
+          };*//*
           // Navigator.push(
           //   context,
           //   MaterialPageRoute(builder: (context) => IndexScreen()),
@@ -164,7 +166,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
     } catch (error) {
       print(error);
     }
-  }
+  }*/
 
 
 }

@@ -1,46 +1,19 @@
-import 'dart:io';
-
-
-import 'package:flutter/material.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:food_delivery/screens/index_screen/index_screen.dart';
+import 'package:food_delivery_driver/screens/home_screen/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthScreenController extends GetxController {
-  RxBool isLoading = false.obs;
-  RxBool isSuccessStatus = false.obs;
-
-  GlobalKey<FormState> signUpFormKey = GlobalKey();
-  GlobalKey<FormState> loginFormKey = GlobalKey();
-  final userNameTextFieldController = TextEditingController();
-  final fullNameTextFieldController = TextEditingController();
-  final phoneNoTextFieldController = TextEditingController();
-  final passwordTextFieldController = TextEditingController();
-  final addressTextFieldController = TextEditingController();
-  final emailTextFieldController = TextEditingController();
-
-  TextEditingController fullNameFieldController = TextEditingController();
-  TextEditingController emailFieldController = TextEditingController();
-  TextEditingController phoneFieldController = TextEditingController();
-  TextEditingController signInEmailFieldController = TextEditingController();
-  TextEditingController signInPasswordFieldController = TextEditingController();
-  TextEditingController signInPhoneFieldController = TextEditingController();
-  File? file;
-  String? chosenValue;
-  String? areaValue;
-  String? selectedGenderValue;
-
-
+class SignInScreenController extends GetxController{
   RxBool isLoading = false.obs;
   FacebookUserProfile? profile;
   final FacebookLogin  plugin = FacebookLogin(debug: true);
 
   @override
   void onInit() {
+    print('-----------Controller Init Method Called.-----------');
+    //Timer(Duration(seconds: 5), () => getOnBoardingValue());
     super.onInit();
     updateLoginInfo();
   }
@@ -104,12 +77,11 @@ class AuthScreenController extends GetxController {
         prefs.setString('photo', result.user!.photoURL!);
         prefs.setBool('isLoggedIn', false);
 
-        Get.off(() => IndexScreen());
+        Get.off(() => HomeScreen());
       }
     }
     isLoading(false);
   }
-
 
   Future<void> updateLoginInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -153,5 +125,4 @@ class AuthScreenController extends GetxController {
     // _imageUrl = imageUrl;
     //});
   }
-
 }
