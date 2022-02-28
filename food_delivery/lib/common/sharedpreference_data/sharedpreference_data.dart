@@ -13,6 +13,7 @@ class SharedPreferenceData {
   setUserLoginDetailsInPrefs({required String userToken}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    // Decode the JWT and Get UserId & Role
     Map<String, dynamic> decodedToken = JwtDecoder.decode(userToken);
     String userId = decodedToken["_id"];
     String userRole = decodedToken["role"];
@@ -40,4 +41,6 @@ class SharedPreferenceData {
     print('UserDetails.userRole : ${UserDetails.userRole}');
     print('UserDetails.userToken : ${UserDetails.userToken}');
   }
+
+
 }
