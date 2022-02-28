@@ -38,10 +38,11 @@ dependencies:
 
   timelines: ^0.1.0
   flutter_rating_bar: ^4.0.0
-  shared_preferences:
+  shared_preferences: ^2.0.13
   flutter_login_facebook: ^1.4.0
   firebase_auth:
   firebase_core:
+  jwt_decoder: ^2.0.1
 
 dev_dependencies:
   flutter_test:

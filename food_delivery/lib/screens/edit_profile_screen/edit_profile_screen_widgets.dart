@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/app_colors.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/common/field_validation.dart';
 import 'package:food_delivery/controllers/edit_profile_screen_controller/edit_profile_screen_controller.dart';
 import 'package:get/get.dart';

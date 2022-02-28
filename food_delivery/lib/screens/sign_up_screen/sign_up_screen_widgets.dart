@@ -26,7 +26,7 @@ class UserNameTextFieldModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.text,
-      controller: authScreenController.fullNameFieldController,
+      controller: authScreenController.userNameTextFieldController,
       decoration: _inputDecoration(hintText: hintText),
       validator: (value) => FieldValidator().validateFullName(value!),
     );
@@ -144,7 +144,7 @@ class _SelectCityDropDownModuleState extends State<SelectCityDropDownModule> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
             focusColor: Colors.white,
-            value: authScreenController.chosenValue,
+            value: authScreenController.selectedCityValue,
             //elevation: 5,
             style: TextStyle(color: Colors.white),
             iconEnabledColor: Colors.black,
@@ -170,7 +170,7 @@ class _SelectCityDropDownModuleState extends State<SelectCityDropDownModule> {
             ),
             onChanged: (String? value) {
               setState(() {
-                authScreenController.chosenValue = value;
+                authScreenController.selectedCityValue = value;
               });
             },
           ),
@@ -210,7 +210,7 @@ class _SelectAreaDropDownModuleState extends State<SelectAreaDropDownModule> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
             focusColor: Colors.white,
-            value: authScreenController.areaValue,
+            value: authScreenController.selectedAreaValue,
             //elevation: 5,
             style: TextStyle(color: Colors.white),
             iconEnabledColor: Colors.black,
@@ -234,7 +234,7 @@ class _SelectAreaDropDownModuleState extends State<SelectAreaDropDownModule> {
             hint: Text("Select Area"),
             onChanged: (String? value) {
               setState(() {
-                authScreenController.areaValue = value;
+                authScreenController.selectedAreaValue = value;
               });
             },
           ),
@@ -288,12 +288,10 @@ class _SelectGenderDropDownModuleState extends State<SelectGenderDropDownModule>
               ),
             );
           }).toList(),
-          hint: Text(
-            "Male",
-          ),
+          hint: Text("${authScreenController.selectedGenderValue}"),
           onChanged: (String? value) {
             setState(() {
-              authScreenController.selectedGenderValue = value;
+              authScreenController.selectedGenderValue = value!;
               print('selectedGenderValue : ${authScreenController.selectedGenderValue}');
             });
           },

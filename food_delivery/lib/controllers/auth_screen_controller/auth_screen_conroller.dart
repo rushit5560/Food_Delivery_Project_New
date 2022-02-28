@@ -1,11 +1,21 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
+import '../../common/sharedpreference_data/sharedpreference_data.dart';
+import '../../models/auth_screen_models/all_city_model.dart';
+import '../../models/sign_in_model/sign_in_model.dart';
+import '../../screens/index_screen/index_screen.dart';
 
 
 class AuthScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
+  RxBool isSignInEmailOption = true.obs;
+  // List<> allCityList = [];
 
   GlobalKey<FormState> signUpFormKey = GlobalKey();
   GlobalKey<FormState> loginFormKey = GlobalKey();
@@ -15,17 +25,72 @@ class AuthScreenController extends GetxController {
   final passwordTextFieldController = TextEditingController();
   final addressTextFieldController = TextEditingController();
   final emailTextFieldController = TextEditingController();
+  final signInEmailTextFieldController = TextEditingController();
+  final signInPhoneNoTextFieldController = TextEditingController();
+  final signInPasswordTextFieldController = TextEditingController();
 
-  TextEditingController fullNameFieldController = TextEditingController();
-  TextEditingController emailFieldController = TextEditingController();
-  TextEditingController phoneFieldController = TextEditingController();
-  TextEditingController signInEmailFieldController = TextEditingController();
-  TextEditingController signInPasswordFieldController = TextEditingController();
-  TextEditingController signInPhoneFieldController = TextEditingController();
   File? file;
-  String? chosenValue;
-  String? areaValue;
-  String? selectedGenderValue;
+  String? selectedCityValue;
+  String? selectedAreaValue;
+  String selectedGenderValue = "Male";
+  SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
+
+
+  getAllCityList() async {
+    isLoading(true);
+    String url = ApiUrl.AllCityApi;
+    print('Url : $url');
+
+    try{
+      http.Response response = await http.get(Uri.parse(url));
+      print('Get All City Response : $response');
+
+      AllCityModel allCityModel = AllCityModel.fromJson(json.decode(response.body));
+      // isSuccessStatus = allCityModel.s
+
+    } catch(e) {
+      print('Get All City False False');
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  userSignInFunction({required String email, required String phoneNo, required String password}) async {
+    isLoading(true);
+
+    String url = ApiUrl.SignInApi;
+    print('Url : $url');
+
+    try{
+      Map<String, dynamic> data = signInSelectedOption(
+        email: email,
+        phoneNo: phoneNo,
+        password: password,
+      );
+
+      print('data : $data');
+
+      http.Response response = await http.post(Uri.parse(url), body: data);
+
+      SignInModel signInModel = SignInModel.fromJson(json.decode(response.body));
+      isSuccessStatus = signInModel.status.obs;
+
+      if(isSuccessStatus.value) {
+        String userToken = signInModel.token;
+        print('userToken : $userToken');
+        await sharedPreferenceData.setUserLoginDetailsInPrefs(userToken: "$userToken");
+        Get.offAll(() => IndexScreen());
+        Get.snackbar('User LoggedIn Successfully.', '');
+      } else {
+        print('SignIn False False');
+      }
+
+    } catch(e) {
+      print('SignIn Error : $e');
+    } finally {
+      isLoading(false);
+    }
+  }
 
 
   // RxBool isLoading = false.obs;
@@ -36,6 +101,18 @@ class AuthScreenController extends GetxController {
   void onInit() {
     super.onInit();
     // updateLoginInfo();
+  }
+
+  Map<String, dynamic> signInSelectedOption({String? email,String? phoneNo, required String password}) {
+    Map<String, dynamic> signInWithEmail = {
+      "Email" : email,
+      "Password" : password,
+    };
+    Map<String, dynamic> signInWithPhone = {
+      "Phone" : phoneNo,
+      "Password" : password,
+    };
+    return isSignInEmailOption.value ? signInWithEmail : signInWithPhone;
   }
 
   /*Future googleAuthentication(context) async {

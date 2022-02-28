@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/api_url.dart';
-import 'package:food_delivery/common/app_colors.dart';
+import 'package:food_delivery/common/constant/api_url.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/controllers/category_screen_controller/category_screen_controller.dart';
 import 'package:food_delivery/screens/product_detail_screen/product_details_screen.dart';
 import 'package:get/get.dart';

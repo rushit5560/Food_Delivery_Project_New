@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/app_colors.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
 
 class SearchScreen extends StatelessWidget {
   TextEditingController searchFieldController = TextEditingController();

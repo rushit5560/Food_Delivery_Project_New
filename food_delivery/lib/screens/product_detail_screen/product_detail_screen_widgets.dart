@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:food_delivery/common/app_colors.dart';
-import 'package:food_delivery/common/app_images.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
+import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/controllers/product_detail_screen_controller/product_detail_screen_controller.dart';
 import 'package:get/get.dart';
 

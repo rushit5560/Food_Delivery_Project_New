@@ -1,4 +1,4 @@
-import 'package:food_delivery/common/app_images.dart';
+import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:get/get.dart';
 
 class CategoryModel{

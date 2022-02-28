@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/app_colors.dart';
-import 'package:food_delivery/common/app_images.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
+import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/controllers/home_screen_controller/home_screen_controller.dart';
 import 'package:food_delivery/screens/category_screen/category_screen.dart';
 import 'package:food_delivery/screens/home_screen/deal_products_tab/deal_products_tab.dart';

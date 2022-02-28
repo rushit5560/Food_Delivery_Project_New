@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/app_colors.dart';
-import 'package:food_delivery/common/app_images.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
+import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/controllers/account_screen_controller/account_screen_controller.dart';
 import 'package:food_delivery/screens/about_us_screen/about_us_screen.dart';
 import 'package:food_delivery/screens/addresses_screen/addresses_screen.dart';

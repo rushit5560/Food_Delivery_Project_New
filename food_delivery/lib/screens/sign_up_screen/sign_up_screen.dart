@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/app_colors.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/common/common_functions.dart';
-import 'package:food_delivery/screens/sign_up_screen/sign_up_view_widgets.dart';
+import 'package:food_delivery/screens/sign_up_screen/sign_up_screen_widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../controllers/auth_screen_controller/auth_screen_conroller.dart';
@@ -24,7 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => hideKeyboard(context),
+      onTap: () => hideKeyboard(),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/app_colors.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/common/common_functions.dart';
 import 'package:food_delivery/controllers/auth_screen_controller/auth_screen_conroller.dart';
 import 'package:food_delivery/screens/auth_screen/auth_screen_widgets.dart';
-import 'package:food_delivery/screens/index_screen/index_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../../common/common_widgets.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -35,32 +36,37 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
 
     return GestureDetector(
-      onTap: () => hideKeyboard(context),
+      onTap: () => hideKeyboard(),
       child: Scaffold(
-        backgroundColor: AppColors.colorLightPink,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-
-              Stack(
+          backgroundColor: AppColors.colorLightPink,
+          body: Obx(
+              ()=> authScreenController.isLoading.value
+              ? CustomCircularProgressIndicator()
+              : SingleChildScrollView(
+              child: Column(
                 children: [
-                  WelcomeText(),
-                  TabView(tabController: _tabController),
+
+                  Stack(
+                    children: [
+                      WelcomeText(),
+                      TabView(tabController: _tabController),
+                    ],
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  ContinueButton(tabController: _tabController),
+
+                  const SizedBox(height: 20),
+
+                  //authentication()
+                  socialLogin()
                 ],
               ),
-
-              const SizedBox(height: 20),
-
-              ContinueButton(tabController: _tabController),
-
-              const SizedBox(height: 20),
-
-              //authentication()
-              socialLogin()
-            ],
+            ),
           ),
         ),
-      ),
+
     );
 
   }

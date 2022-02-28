@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/app_images.dart';
+import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/screens/about_us_screen/about_us_screen.dart';
 import 'package:food_delivery/screens/account_screen/account_screen.dart';
 import 'package:food_delivery/screens/auth_screen/auth_screen.dart';

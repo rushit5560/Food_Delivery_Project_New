@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/app_images.dart';
+import 'package:food_delivery/common/constant/app_images.dart';
 
 class NotificationListModule extends StatelessWidget {
   const NotificationListModule({Key? key}) : super(key: key);

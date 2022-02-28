@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'app_colors.dart';
-import 'app_images.dart';
+import 'constant/app_colors.dart';
+import 'constant/app_images.dart';
 
 ThemeData appLightTheme() {
   return ThemeData(

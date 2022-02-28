@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:food_delivery/common/api_url.dart';
+import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../models/category_screen_model/all_category_model.dart';

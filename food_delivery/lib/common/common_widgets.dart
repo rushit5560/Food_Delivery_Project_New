@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'app_images.dart';
+import 'constant/app_images.dart';
 
 
 class LogoImage extends StatelessWidget {
@@ -48,6 +48,18 @@ class HeaderAndContentModule extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+
+class CustomCircularProgressIndicator extends StatelessWidget {
+  const CustomCircularProgressIndicator({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: CircularProgressIndicator(),
     );
   }
 }

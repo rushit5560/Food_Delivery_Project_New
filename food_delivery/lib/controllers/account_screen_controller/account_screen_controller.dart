@@ -1,4 +1,4 @@
-import 'package:food_delivery/common/app_images.dart';
+import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/models/account_screen_model/account_info_model.dart';
 import 'package:get/get.dart';
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
-void hideKeyboard(BuildContext context) {
-  FocusScope.of(context).requestFocus(FocusNode());
+// This Function Use For Hide Keyboard
+void hideKeyboard() {
+  FocusManager.instance.primaryFocus!.unfocus();
 }

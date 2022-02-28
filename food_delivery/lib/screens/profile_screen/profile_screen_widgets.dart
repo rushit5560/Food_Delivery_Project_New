@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/app_colors.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';

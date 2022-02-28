@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/app_colors.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/controllers/auth_screen_controller/auth_screen_conroller.dart';
 import 'package:food_delivery/screens/index_screen/index_screen.dart';
 import 'package:food_delivery/screens/sign_in_screen/sign_in_screen.dart';
@@ -101,15 +101,19 @@ class ContinueButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         if(tabController.index == 0){
           if(authScreenController.loginFormKey.currentState!.validate()){
-            Get.offAll(() => IndexScreen());
+            await authScreenController.userSignInFunction(
+              email: authScreenController.signInEmailTextFieldController.text.trim().toLowerCase(),
+              phoneNo: authScreenController.signInPhoneNoTextFieldController.text.trim(),
+              password: authScreenController.signInPasswordTextFieldController.text.trim(),
+            );
           }
         }
         else{
           if(authScreenController.signUpFormKey.currentState!.validate()){
-            Get.offAll(() => IndexScreen());
+            print('Gender : ${authScreenController.selectedGenderValue}');
           }
         }
       },

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/app_colors.dart';
-import 'package:food_delivery/common/app_images.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
+import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:get/get.dart';
 
 class WalletValue extends StatelessWidget {
