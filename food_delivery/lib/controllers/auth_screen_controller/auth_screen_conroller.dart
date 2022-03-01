@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import '../../common/sharedpreference_data/sharedpreference_data.dart';
 import '../../models/auth_screen_models/all_city_model.dart';
 import '../../models/sign_in_model/sign_in_model.dart';
+import '../../models/sign_up_model/sign_up_model.dart';
 import '../../screens/index_screen/index_screen.dart';
 
 
@@ -17,8 +18,8 @@ class AuthScreenController extends GetxController {
   RxBool isSignInEmailOption = true.obs;
   // List<> allCityList = [];
 
-  GlobalKey<FormState> signUpFormKey = GlobalKey();
-  GlobalKey<FormState> loginFormKey = GlobalKey();
+  final GlobalKey<FormState> signUpFormKey = GlobalKey();
+  final GlobalKey<FormState> loginFormKey = GlobalKey();
   final userNameTextFieldController = TextEditingController();
   final fullNameTextFieldController = TextEditingController();
   final phoneNoTextFieldController = TextEditingController();
@@ -36,7 +37,7 @@ class AuthScreenController extends GetxController {
   SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
 
-  getAllCityList() async {
+  /*getAllCityList() async {
     isLoading(true);
     String url = ApiUrl.AllCityApi;
     print('Url : $url');
@@ -53,7 +54,145 @@ class AuthScreenController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }*/
+
+  /*userSignUpFunction() async {
+    isLoading(true);
+    String url = ApiUrl.RegisterApi;
+    print('url : $url');
+
+    try{
+      Map data = {
+        "UserName" : "${userNameTextFieldController.text.trim()}",
+        "FullName" : "${fullNameTextFieldController.text.trim()}",
+        "Phone" : "${phoneNoTextFieldController.text.trim()}",
+        "Password" : "${passwordTextFieldController.text.trim()}",
+        "Address" : "${addressTextFieldController.text.trim()}",
+        "Gender" : "$selectedGenderValue",
+        "CityId" : "61f8f6a51467b5c3867ba67d",
+        "AreaId" : "61f8f7381467b5c3867ba68f",
+        "Photo" : File(file.toString()),
+        "Email" : "${emailTextFieldController.text.trim().toLowerCase()}",
+        "RoleId" : "6179367e616b99f3c785a68e",
+      };
+      print('data : $data');
+
+      http.Response response = await http.post(Uri.parse(url), body: jsonEncode(json));
+      print('Response : $response');
+
+      SignUpModel signUpModel = SignUpModel.fromJson(json.decode(response.body));
+      isSuccessStatus = signUpModel.status.obs;
+      print('isSuccessStatus : $isSuccessStatus');
+
+      if(isSuccessStatus.value){
+        Get.snackbar('${signUpModel.message}', '');
+      } else{
+       print('SignUp False False');
+      }
+
+    } catch(e) {
+      print('User SignUp Error : $e');
+    } finally {
+      isLoading(false);
+    }
+
+  }*/
+
+  Future userSignUpFunction() async {
+    isLoading(true);
+    String url = ApiUrl.RegisterApi;
+    print('url : $url');
+
+    try {
+      var stream = http.ByteStream(file!.openRead());
+      stream.cast();
+
+      var length = await file!.length();
+
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+
+      request.files.add(await http.MultipartFile.fromPath("Photo", file!.path));
+
+      // request.files.add(http.MultipartFile(
+      //     "Photo",
+      //     File(file!.path).readAsBytes().asStream(),
+      //     File(file!.path).lengthSync(),
+      //     filename: file!.path.split("/").last));
+
+      request.fields['UserName'] = "${userNameTextFieldController.text.trim()}";
+      request.fields['FullName'] = "${fullNameTextFieldController.text.trim()}";
+      request.fields['Phone'] = "${phoneNoTextFieldController.text.trim()}";
+      request.fields['Password'] = "${passwordTextFieldController.text.trim()}";
+      request.fields['Address'] = "${addressTextFieldController.text.trim()}";
+      request.fields['Gender'] = "$selectedGenderValue";
+      request.fields['CityId'] = "61f8f6a51467b5c3867ba67d";
+      request.fields['AreaId'] = "61f8f7381467b5c3867ba68f";
+      request.fields['Email'] = "${emailTextFieldController.text.trim().toLowerCase()}";
+      request.fields['RoleId'] = "6179367e616b99f3c785a68e";
+
+      var multiPart = http.MultipartFile(
+        'Photo',
+        stream,
+        length,
+      );
+
+      request.files.add(multiPart);
+
+      var response = await request.send();
+
+      if(response.statusCode == 500){
+        print('User Registered Successfully.');
+      } else {
+        print('User Not Registered.');
+      }
+
+      /*var response = await request.send();
+      final response1 = await http.Response.fromStream(response);
+      if(response1.statusCode != 200){
+        print('Return Code Not 200');
+      }  else {
+        print('Return Code 200');
+      }*/
+
+      // request.send().then((response) => {
+      //   http.Response.fromStream(response).then((onValue) {
+      //     try{
+      //       print('onValue : ${onValue.body}');
+      //     } catch(e) {
+      //       print('SignUp Error : $e');
+      //     }
+      //   })
+      // });
+
+      // data.addAll({
+      //   "UserName" : "${userNameTextFieldController.text.trim()}",
+      //   "FullName" : "${fullNameTextFieldController.text.trim()}",
+      //   "Phone" : "${phoneNoTextFieldController.text.trim()}",
+      //   "Password" : "${passwordTextFieldController.text.trim()}",
+      //   "Address" : "${addressTextFieldController.text.trim()}",
+      //   "Gender" : "$selectedGenderValue",
+      //   "CityId" : "61f8f6a51467b5c3867ba67d",
+      //   "AreaId" : "61f8f7381467b5c3867ba68f",
+      //   "Email" : "${emailTextFieldController.text.trim().toLowerCase()}",
+      //   "RoleId" : "6179367e616b99f3c785a68e",
+      // });
+
+      // request.fields.addAll(data);
+      // print('body ==========> ${request.fields}');
+      // print('request.files ==========> ${request.files}');
+      // http.StreamedResponse newResponse = await request.send();
+      // print("newResponse : ${newResponse.statusCode}");
+
+
+
+    } catch (e) {
+      print('User SignUp Error : $e');
+    } finally {
+      isLoading(false);
+    }
   }
+
+
 
   userSignInFunction({required String email, required String phoneNo, required String password}) async {
     isLoading(true);

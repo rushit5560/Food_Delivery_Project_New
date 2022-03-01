@@ -58,6 +58,7 @@ class PhoneNoTextFieldModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.phone,
+      maxLength: 10,
       controller: authScreenController.phoneNoTextFieldController,
       decoration: _inputDecoration(hintText: hintText),
       validator: (value) => FieldValidator().validateMobile(value!),
@@ -311,6 +312,7 @@ InputDecoration _inputDecoration({hintText}) {
     contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
     filled: true,
     fillColor: Colors.grey.shade200,
+    counterText: '',
     enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         borderSide: BorderSide(color: Colors.grey.shade200)

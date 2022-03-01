@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/controllers/auth_screen_controller/auth_screen_conroller.dart';
-import 'package:food_delivery/screens/index_screen/index_screen.dart';
 import 'package:food_delivery/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:food_delivery/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:get/get.dart';
-
 import '../../controllers/auth_screen_controller/auth_screen_conroller.dart';
+
 
 class WelcomeText extends StatelessWidget {
   const WelcomeText({Key? key}) : super(key: key);
@@ -111,9 +111,13 @@ class ContinueButton extends StatelessWidget {
             );
           }
         }
-        else{
-          if(authScreenController.signUpFormKey.currentState!.validate()){
-            print('Gender : ${authScreenController.selectedGenderValue}');
+        else {
+          if(authScreenController.signUpFormKey.currentState!.validate()) {
+            if(authScreenController.file == null){
+              Fluttertoast.showToast(msg: 'Profile Image required...!');
+            } else {
+              await authScreenController.userSignUpFunction();
+            }
           }
         }
       },
