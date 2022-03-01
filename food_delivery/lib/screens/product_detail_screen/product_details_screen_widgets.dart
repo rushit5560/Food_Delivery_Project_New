@@ -80,7 +80,7 @@ class ProductImage extends StatelessWidget {
 class ProductDetails extends StatelessWidget {
    ProductDetails({Key? key}) : super(key: key);
 
-  ProductDetailScreenController productDetailScreenController =
+  final productDetailScreenController =
   Get.put(ProductDetailScreenController());
 
   @override
@@ -130,7 +130,7 @@ class ProductDetails extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  "Burger",
+                  "${productDetailScreenController.productName}",
                   style: TextStyle(
                       color: AppColors.colorDarkPink,
                       fontSize: 23,
@@ -141,7 +141,7 @@ class ProductDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "\$150.00",
+                      "\$${productDetailScreenController.productPrice}",
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 23,
@@ -241,7 +241,7 @@ class ProductDetails extends StatelessWidget {
                 SizedBox(height: 10,),
 
                 Text(
-                  "Lorem Ipsum( is simply dummy text )",
+                  "${productDetailScreenController.productDescription}",
                   style: TextStyle(
                     color: Colors.black,
                   ),

@@ -6,6 +6,7 @@ import 'package:food_delivery/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:food_delivery/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:get/get.dart';
 import '../../controllers/auth_screen_controller/auth_screen_conroller.dart';
+import '../index_screen/index_screen.dart';
 
 
 class WelcomeText extends StatelessWidget {
@@ -103,13 +104,14 @@ class ContinueButton extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         if(tabController.index == 0){
-          if(authScreenController.loginFormKey.currentState!.validate()){
-            await authScreenController.userSignInFunction(
-              email: authScreenController.signInEmailTextFieldController.text.trim().toLowerCase(),
-              phoneNo: authScreenController.signInPhoneNoTextFieldController.text.trim(),
-              password: authScreenController.signInPasswordTextFieldController.text.trim(),
-            );
-          }
+          Get.offAll(() => IndexScreen());
+          // if(authScreenController.loginFormKey.currentState!.validate()){
+          //   await authScreenController.userSignInFunction(
+          //     email: authScreenController.signInEmailTextFieldController.text.trim().toLowerCase(),
+          //     phoneNo: authScreenController.signInPhoneNoTextFieldController.text.trim(),
+          //     password: authScreenController.signInPasswordTextFieldController.text.trim(),
+          //   );
+          // }
         }
         else {
           if(authScreenController.signUpFormKey.currentState!.validate()) {
