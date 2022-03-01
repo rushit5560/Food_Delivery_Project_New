@@ -4,6 +4,7 @@ import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../../models/product_details_model/give_product_review_model.dart';
 import '../../models/product_details_model/product_details_model.dart';
 
 
@@ -31,6 +32,39 @@ class ProductDetailScreenController extends GetxController{
       qty++;
     }
     isLoading(false);
+  }
+
+  giveProductReview(double rating) async {
+    // isLoading(true);
+    String url = ApiUrl.ProductReviewApi;
+    print('Url : $url');
+
+    try{
+      Map<String, dynamic> data = {
+        "Product" : "61fd11bc61d43610bbb45866",
+        "Customer" : "61f0ffb3927a090dae0cd777",
+        "Review" : "Testy Dish",
+        "Rating" : "$rating"
+      };
+
+      http.Response response = await http.post(Uri.parse(url),body: data);
+      print('response : $response');
+
+      GiveProductReviewModel giveProductReviewModel = GiveProductReviewModel.fromJson(json.decode(response.body));
+      isSuccessStatus = giveProductReviewModel.status.obs;
+
+      print('isSuccessStatus : $isSuccessStatus');
+
+      if(isSuccessStatus.value){
+        Get.snackbar('${giveProductReviewModel.message}', '');
+      } else {
+        print('Give Product Review False False');
+      }
+    } catch(e) {
+      print('Give Review Error : $e');
+    } finally{
+      // isLoading(false);
+    }
   }
 
   getProductByProductId() async {

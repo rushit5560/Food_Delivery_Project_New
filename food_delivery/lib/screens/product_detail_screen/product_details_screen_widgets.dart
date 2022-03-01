@@ -226,6 +226,7 @@ class ProductDetails extends StatelessWidget {
                       direction: Axis.horizontal,
                       allowHalfRating: true,
                       itemCount: 5,
+                      glow: false,
                       itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
                       itemBuilder: (context, _) => Icon(
                         Icons.star,
@@ -233,12 +234,13 @@ class ProductDetails extends StatelessWidget {
                       ),
                       onRatingUpdate: (rating) {
                         print(rating);
+                        productDetailScreenController.giveProductReview(rating);
                       },
                     )
                   ],
                 ),
 
-                SizedBox(height: 10,),
+                SizedBox(height: 10),
 
                 Text(
                   "${productDetailScreenController.productDescription}",
