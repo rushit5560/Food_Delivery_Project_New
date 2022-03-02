@@ -10,5 +10,5 @@ class ApiUrl {
   static const ProductByIdApi = ApiMainPath + "product/find/";
   static const ProductReviewApi = ApiMainPath + "FoodReview/create";
   static const AllProductsApi = ApiMainPath + "product";
-
+  static const CategoryWiseProductApi = ApiMainPath + "product/find/category/";
 }
