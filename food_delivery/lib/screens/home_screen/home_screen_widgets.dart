@@ -8,6 +8,7 @@ import 'package:food_delivery/screens/home_screen/deal_products_tab/deal_product
 import 'package:food_delivery/screens/home_screen/recent_selling_tab/recent_selling_tab.dart';
 import 'package:food_delivery/screens/home_screen/top_selling_tab/top_selling_tab.dart';
 import 'package:food_delivery/screens/home_screen/whats_new_tab/whats_new_tab.dart';
+import 'package:food_delivery/screens/products_list_screen/products_list_screen.dart';
 import 'package:get/get.dart';
 
 class SearchContainer extends StatelessWidget {
@@ -310,16 +311,21 @@ class PopularProductButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      width: Get.width/1.7,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: AppColors.colorDarkPink
-      ),
-      child: Center(
-        child: Text("View All Popular Product",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),),
+    return GestureDetector(
+      onTap: () {
+        Get.to(()=> ProductsListScreen());
+      },
+      child: Container(
+        height: 40,
+        width: Get.width/1.7,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.colorDarkPink
+        ),
+        child: Center(
+          child: Text("View All Popular Product",
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),),
+        ),
       ),
     );
   }

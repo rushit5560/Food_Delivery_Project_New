@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final productDetailsModel = productDetailsModelFromJson(jsonString);
-
 import 'dart:convert';
 
 ProductDetailsModel productDetailsModelFromJson(String str) => ProductDetailsModel.fromJson(json.decode(str));
@@ -18,12 +14,12 @@ class ProductDetailsModel {
   Product product;
 
   factory ProductDetailsModel.fromJson(Map<String, dynamic> json) => ProductDetailsModel(
-    status: json["status"] == null ? false : json["status"],
+    status: json["status"],
     product: Product.fromJson(json["product"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "status": status.toString().isEmpty ? false : status,
+    "status": status,
     "product": product.toJson(),
   };
 }
@@ -56,8 +52,8 @@ class Product {
   TType productType;
   TType discountType;
   String id;
-  Category category;
-  Category subCategory;
+  String category;
+  String subCategory;
   Store store;
   String productName;
   int quantity;
@@ -76,11 +72,11 @@ class Product {
   int v;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
-    productType: TType.fromJson(json["ProductType"]) ,
+    productType: TType.fromJson(json["ProductType"]),
     discountType: TType.fromJson(json["DiscountType"]),
     id: json["_id"] == null ? "" : json["_id"],
-    category: Category.fromJson(json["Category"]),
-    subCategory: Category.fromJson(json["SubCategory"]),
+    category: json["Category"] == null ? "" : json["Category"],
+    subCategory: json["SubCategory"] == null ? "" : json["SubCategory"],
     store: Store.fromJson(json["Store"]),
     productName: json["ProductName"] == null ? "" : json["ProductName"],
     quantity: json["Quantity"] == null ? 0 : json["Quantity"],
@@ -103,8 +99,8 @@ class Product {
     "ProductType": productType.toJson(),
     "DiscountType": discountType.toJson(),
     "_id": id,
-    "Category": category.toJson(),
-    "SubCategory": subCategory.toJson(),
+    "Category": category,
+    "SubCategory": subCategory,
     "Store": store.toJson(),
     "ProductName": productName,
     "Quantity": quantity,
@@ -131,14 +127,14 @@ class Addon {
     required this.id,
   });
 
-  Category? value;
+  Value? value;
   String label;
   String id;
 
   factory Addon.fromJson(Map<String, dynamic> json) => Addon(
-    value: json["value"] == null ? null : Category.fromJson(json["value"]),
-    label: json["label"] == null ? "" : json["label"],
-    id: json["_id"] == null ? "" : json["_id"],
+    value: json["value"] == null ? null : Value.fromJson(json["value"]),
+    label: json["label"],
+    id: json["_id"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -148,8 +144,8 @@ class Addon {
   };
 }
 
-class Category {
-  Category({
+class Value {
+  Value({
     required this.id,
     required this.restaurant,
     required this.name,
@@ -158,8 +154,6 @@ class Category {
     required this.createdAt,
     required this.updatedAt,
     required this.v,
-    required this.image,
-    required this.category,
   });
 
   String id;
@@ -170,10 +164,8 @@ class Category {
   DateTime createdAt;
   DateTime updatedAt;
   int v;
-  String image;
-  String category;
 
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
+  factory Value.fromJson(Map<String, dynamic> json) => Value(
     id: json["_id"] == null ? "" : json["_id"],
     restaurant: json["Restaurant"] == null ? "" : json["Restaurant"],
     name: json["Name"] == null ? "" : json["Name"],
@@ -182,28 +174,24 @@ class Category {
     createdAt: DateTime.parse(json["createdAt"]),
     updatedAt: DateTime.parse(json["updatedAt"]),
     v: json["__v"] == null ? 0 : json["__v"],
-    image: json["Image"] == null ? "" : json["Image"],
-    category: json["Category"] == null ? "" : json["Category"],
   );
 
   Map<String, dynamic> toJson() => {
     "_id": id,
-    "Restaurant": restaurant == null ? null : restaurant,
+    "Restaurant": restaurant,
     "Name": name,
-    "Price": price == null ? null : price,
+    "Price": price,
     "IsActive": isActive,
     "createdAt": createdAt.toIso8601String(),
     "updatedAt": updatedAt.toIso8601String(),
     "__v": v,
-    "Image": image == null ? null : image,
-    "Category": category == null ? null : category,
   };
 }
 
 class TType {
   TType({
-     required this.value,
-     required this.label,
+    required this.value,
+    required this.label,
   });
 
   String value;
@@ -306,7 +294,7 @@ class Store {
     approvedOn: DateTime.parse(json["ApprovedOn"]),
     createdAt: DateTime.parse(json["createdAt"]),
     updatedAt: DateTime.parse(json["updatedAt"]),
-    v: json["__v"] == null ? "" : json["__v"],
+    v: json["__v"],
   );
 
   Map<String, dynamic> toJson() => {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/common_widgets.dart';
 import 'package:food_delivery/common/custom_appbar.dart';
 import 'package:food_delivery/controllers/product_detail_screen_controller/product_detail_screen_controller.dart';
 import 'package:food_delivery/screens/product_detail_screen/product_details_screen_widgets.dart';
@@ -19,7 +20,7 @@ class ProductDetailScreen extends StatelessWidget {
             ? Container()
             : AddButton(),
         body: productDetailScreenController.isLoading.value
-            ? Center(child: CircularProgressIndicator())
+            ? CustomCircularProgressIndicator()
             : Container(
                 child: Stack(
                   alignment: Alignment.bottomCenter,
