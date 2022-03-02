@@ -12,6 +12,8 @@ import 'package:food_delivery/screens/home_screen/whats_new_tab/whats_new_tab.da
 import 'package:food_delivery/screens/products_list_screen/products_list_screen.dart';
 import 'package:get/get.dart';
 
+import '../../common/constant/enums.dart';
+
 class SearchContainer extends StatelessWidget {
   const SearchContainer({Key? key}) : super(key: key);
 
@@ -314,7 +316,7 @@ class PopularProductButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(()=> ProductsListScreen());
+        Get.to(()=> ProductsListScreen(), arguments: [ProductsEnum.AllProducts, '']);
       },
       child: Container(
         height: 40,

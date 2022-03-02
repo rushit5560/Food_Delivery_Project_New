@@ -1,0 +1,2 @@
+
+enum ProductsEnum {AllProducts, CategoryWiseProducts}
