@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/controllers/home_screen_controller/home_screen_controller.dart';
@@ -42,7 +43,7 @@ class BannerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
-      itemCount: 4,
+      itemCount: homeScreenController.bannerList.length,
       itemBuilder: (context, index, realIndex) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -53,7 +54,7 @@ class BannerList extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.grey,
                   image: DecorationImage(
-                    image: AssetImage(Images.ic_banner),
+                    image: NetworkImage("${ApiUrl.ApiMainPath}${homeScreenController.bannerList[index].bannerImage}"),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -63,7 +64,7 @@ class BannerList extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    "UP TO 40% OFF",
+                    homeScreenController.bannerList[index].title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -100,14 +101,14 @@ class CarouselIndicator extends StatelessWidget {
           () => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
-          4, (index) => Container(
+          homeScreenController.bannerList.length, (index) => Container(
           margin: EdgeInsets.all(4),
           width: 11,
           height: 11,
           decoration: BoxDecoration(
             color: homeScreenController.activeIndex.value == index
                 ? Colors.white
-                : Colors.grey,
+                : Colors.black,
             shape: BoxShape.circle,
           ),
         ),

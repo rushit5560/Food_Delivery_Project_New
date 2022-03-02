@@ -37,27 +37,31 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       // CustomDrawer Import From custom_drawer File
       drawer: CustomDrawer(),
 
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SearchContainer(),
-            SizedBox(height: 15,),
-            Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                BannerList(),
-                CarouselIndicator(),
-              ],
-            ),
-            SizedBox(height: 15,),
-            CategoryList(),
-            SizedBox(height: 10,),
-            ProductTab(tabController: _tabController),
-            SizedBox(height: 10,),
-            PopularProductButton(),
-            SizedBox(height: 10,),
-            OfferList()
-          ],
+      body: Obx(()=>
+           homeScreenController.isLoading.value
+               ? Center(child: CircularProgressIndicator()) :
+         SingleChildScrollView(
+          child: Column(
+            children: [
+              SearchContainer(),
+              SizedBox(height: 15,),
+              Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  BannerList(),
+                  CarouselIndicator(),
+                ],
+              ),
+              SizedBox(height: 15,),
+              CategoryList(),
+              SizedBox(height: 10,),
+              ProductTab(tabController: _tabController),
+              SizedBox(height: 10,),
+              PopularProductButton(),
+              SizedBox(height: 10,),
+              OfferList()
+            ],
+          ),
         ),
       ),
 
