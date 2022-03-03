@@ -6,7 +6,6 @@ import 'package:food_delivery/screens/about_us_screen/about_us_screen.dart';
 import 'package:food_delivery/screens/addresses_screen/addresses_screen.dart';
 import 'package:food_delivery/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery/screens/index_screen/index_screen.dart';
-import 'package:food_delivery/screens/language_screen/language_screen.dart';
 import 'package:food_delivery/screens/notification_screen/notification_screen.dart';
 import 'package:food_delivery/screens/order_screen/order_screen.dart';
 import 'package:food_delivery/screens/profile_screen/profile_screen.dart';
@@ -18,7 +17,8 @@ import 'package:get/get.dart';
 import 'package:share/share.dart';
 
 class AccountDetailsModule extends StatelessWidget {
-  const AccountDetailsModule({Key? key}) : super(key: key);
+  AccountDetailsModule({Key? key}) : super(key: key);
+  final accountScreenController = Get.find<AccountScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,8 @@ class AccountDetailsModule extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'John Doe',
+                        '${accountScreenController.userName}',
+                        maxLines: 1,
                         textScaleFactor: 1.35,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -48,10 +49,11 @@ class AccountDetailsModule extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        'demo@gmail.com'
+                        '${accountScreenController.userEmail}',
+                        maxLines: 1,
                       ),
                       SizedBox(height: 3),
-                      Text('1234567890'),
+                      Text('${accountScreenController.userPhone}', maxLines: 1,),
                     ],
                   ),
                 ),

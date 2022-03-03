@@ -14,4 +14,5 @@ class ApiUrl {
 
   static const CategoryWiseProductApi = ApiMainPath + "product/find/category/";
   static const UserAllOrderApi = ApiMainPath + "order/getAllOrder/Customer/";
+  static const UserAccountApi = ApiMainPath + "user/find/";
 }
