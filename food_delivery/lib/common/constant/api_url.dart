@@ -13,4 +13,5 @@ class ApiUrl {
   static const BannerApi = ApiMainPath + "banner";
 
   static const CategoryWiseProductApi = ApiMainPath + "product/find/category/";
+  static const UserAllOrderApi = ApiMainPath + "order/getAllOrder/Customer/";
 }

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
-import 'package:food_delivery/controllers/order_screen_controller/order_screen_controller.dart';
+import 'package:food_delivery/controllers/account_screen_controller/order_screen_controller.dart';
 import 'package:food_delivery/screens/order_detail_screen/order_detail_screen.dart';
 import 'package:get/get.dart';
 
 class AllOrderListModule extends StatelessWidget {
-  OrderScreenController orderScreenController = Get.find<OrderScreenController>();
-  // AllOrderListModule({required this.orderScreenController});
+  final orderScreenController = Get.find<OrderScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
-      itemCount: orderScreenController.orderList.length,
+      itemCount: orderScreenController.userOrderList.length,
       itemBuilder: (context, index){
         return Padding(
           padding: const EdgeInsets.all(8.0),
@@ -36,7 +35,9 @@ class AllOrderListModule extends StatelessWidget {
                         children: [
                           _orderItemImageModule(index),
                           SizedBox(width: 10),
-                          _orderItemNameModule(index),
+                          Expanded(
+                            child: _orderItemNameModule(index),
+                          ),
                         ],
                       ),
                     ),
@@ -102,9 +103,12 @@ class AllOrderListModule extends StatelessWidget {
                 ),
                 SizedBox(width: 10),
                 // Order Id Module
-                Text(
-                  'Order ID ${orderScreenController.orderList[index].orderId}',
-                  textScaleFactor: 0.8,
+                Expanded(
+                  child: Text(
+                    'Order ID ${orderScreenController.userOrderList[index].id}',
+                    maxLines: 1,
+                    textScaleFactor: 0.8,
+                  ),
                 ),
               ],
             ),
