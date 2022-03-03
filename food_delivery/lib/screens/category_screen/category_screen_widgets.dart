@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/controllers/category_screen_controller/category_screen_controller.dart';
-import 'package:food_delivery/screens/product_detail_screen/product_details_screen.dart';
 import 'package:food_delivery/screens/products_list_screen/products_list_screen.dart';
 import 'package:get/get.dart';
 
@@ -69,7 +68,6 @@ class CategoryListModule extends StatelessWidget {
           crossAxisSpacing: 10,
         ),
         itemBuilder: (context, index){
-          AllCategory singleCategory = categoryScreenController.allCategoryList[index];
           return GestureDetector(
             onTap: () => _onItemClick(index),
             child: Container(
@@ -144,6 +142,5 @@ class CategoryListModule extends StatelessWidget {
   void _onItemClick(int index) {
     print('Clicked On : $index');
     Get.to(()=> ProductsListScreen(), arguments: [ProductsEnum.CategoryWiseProducts, categoryScreenController.allCategoryList[index].id]);
-    // Get.to(()=> ProductDetailScreen());
   }
 }

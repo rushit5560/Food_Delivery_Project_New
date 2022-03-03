@@ -46,6 +46,36 @@ class ProductsListScreenController extends GetxController {
     }
   }
 
+  // getProductsByCategoryId(String categoryId) async {
+  //   isLoading(true);
+  //   print('categoryId : $categoryId');
+  //   String url = ApiUrl.CategoryWiseProductApi;
+  //   String finalUrl = url + "$categoryId";
+  //   print('finalUrl : $finalUrl');
+  //
+  //   try{
+  //     http.Response response = await http.get(Uri.parse(url));
+  //     print('response : ${response.body}');
+  //
+  //     ProductsByCategoryIdModel productsByCategoryIdModel = ProductsByCategoryIdModel.fromJson(json.decode(response.body));
+  //     isSuccessStatus = productsByCategoryIdModel.status.obs;
+  //     print('isSuccessStatus : $isSuccessStatus');
+  //
+  //     if(isSuccessStatus.value) {
+  //       productsListByCategoryId = productsByCategoryIdModel.product.obs;
+  //       print('productsListByCategoryId : $productsListByCategoryId');
+  //     } else {
+  //       print('Product Get By Category Id : $productsListByCategoryId');
+  //     }
+  //
+  //   } catch(e) {
+  //     print('Category Wise Product Error : $e');
+  //   } finally {
+  //     isLoading(false);
+  //   }
+  //
+  // }
+
   getProductsByCategoryId(String categoryId) async {
     isLoading(true);
     print('categoryId : $categoryId');
@@ -54,18 +84,19 @@ class ProductsListScreenController extends GetxController {
     print('finalUrl : $finalUrl');
 
     try{
-      http.Response response = await http.get(Uri.parse(url));
+      http.Response response = await http.get(Uri.parse(finalUrl));
       print('response : ${response.body}');
 
       ProductsByCategoryIdModel productsByCategoryIdModel = ProductsByCategoryIdModel.fromJson(json.decode(response.body));
+      print('productsByCategoryIdModel : $productsByCategoryIdModel');
       isSuccessStatus = productsByCategoryIdModel.status.obs;
       print('isSuccessStatus : $isSuccessStatus');
 
       if(isSuccessStatus.value) {
-        productsListByCategoryId = productsByCategoryIdModel.product.obs;
+        productsListByCategoryId = productsByCategoryIdModel.product;
         print('productsListByCategoryId : $productsListByCategoryId');
       } else {
-        print('Product Get By Category Id : $productsListByCategoryId');
+        print('Product Get By Category Id Else Else');
       }
 
     } catch(e) {
