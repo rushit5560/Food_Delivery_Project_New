@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
+import 'package:food_delivery/models/all_city_model/city_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,7 +17,7 @@ class AuthScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   RxBool isSignInEmailOption = true.obs;
-  // List<> allCityList = [];
+  List<AllCityModel> allCityList = [];
 
   final GlobalKey<FormState> signUpFormKey = GlobalKey();
   final GlobalKey<FormState> loginFormKey = GlobalKey();
@@ -37,24 +38,34 @@ class AuthScreenController extends GetxController {
   SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
 
-  /*getAllCityList() async {
+  getAllCityList() async {
     isLoading(true);
     String url = ApiUrl.AllCityApi;
     print('Url : $url');
 
     try{
       http.Response response = await http.get(Uri.parse(url));
-      print('Get All City Response : $response');
+      print('Get All City Response : ${response.body}');
 
       AllCityModel allCityModel = AllCityModel.fromJson(json.decode(response.body));
-      // isSuccessStatus = allCityModel.s
+      print('allCityModel : $allCityModel');
+       isSuccessStatus = allCityModel.status.obs;
+      print('allCityStatus : $isSuccessStatus');
+
+      if(isSuccessStatus.value){
+        print("Success");
+        //allCityList = ;
+        //print('allBanner : $bannerList');
+      } else {
+        print('Get All City Else Else');
+      }
 
     } catch(e) {
       print('Get All City False False');
     } finally {
       isLoading(false);
     }
-  }*/
+  }
 
   /*userSignUpFunction() async {
     isLoading(true);
@@ -239,6 +250,7 @@ class AuthScreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getAllCityList();
     // updateLoginInfo();
   }
 

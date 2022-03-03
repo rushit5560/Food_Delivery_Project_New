@@ -1,3 +1,4 @@
+/*
 class AllCityModel {
   String? sId;
   String? cityName;
@@ -148,3 +149,4 @@ class StateId {
     return data;
   }
 }
+*/
