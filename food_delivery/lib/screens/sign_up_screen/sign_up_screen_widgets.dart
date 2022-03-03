@@ -3,6 +3,7 @@ import 'package:food_delivery/common/field_validation.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/auth_screen_controller/auth_screen_conroller.dart';
+import '../../models/all_city_model/city_model.dart';
 
 class SignUpText extends StatelessWidget {
   const SignUpText({Key? key}) : super(key: key);
@@ -127,53 +128,52 @@ class _SelectCityDropDownModuleState extends State<SelectCityDropDownModule> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 10),
-      height: 45,
-      width: Get.width,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.grey.shade300
-      ),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-            canvasColor: Colors.grey.shade100,
-            // background color for the dropdown items
-            buttonTheme: ButtonTheme.of(context).copyWith(
-              alignedDropdown: true, //If false (the default), then the dropdown's menu will be wider than its button.
-            )),
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<String>(
-            focusColor: Colors.white,
-            value: authScreenController.selectedCityValue,
-            //elevation: 5,
-            style: TextStyle(color: Colors.white),
-            iconEnabledColor: Colors.black,
-            items: <String>[
-              'Surat',
-              'Ahmedabad',
-              'Baroda',
-              'Rajkot',
-              'Gandhinagar',
-              'Bhavnagar',
-              'Junagadh',
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(
-                  value,
-                  style: TextStyle(color: Colors.black),
-                ),
-              );
-            }).toList(),
-            hint: Text(
-              "Select City",
+    return Obx(()=>
+       Container(
+        padding: const EdgeInsets.only(left: 10),
+        height: 45,
+        width: Get.width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: Colors.grey.shade300
+        ),
+        child: Theme(
+          data: Theme.of(context).copyWith(
+              canvasColor: Colors.grey.shade100,
+              // background color for the dropdown items
+              buttonTheme: ButtonTheme.of(context).copyWith(
+                alignedDropdown: true, //If false (the default), then the dropdown's menu will be wider than its button.
+              )),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<GetList>(
+              focusColor: Colors.white,
+              value: authScreenController.cityDropDownValue,
+              //elevation: 5,
+              style: TextStyle(color: Colors.white),
+              iconEnabledColor: Colors.black,
+              items: authScreenController.cityLists.
+              map<DropdownMenuItem<GetList>>((GetList value) {
+                return DropdownMenuItem<GetList>(
+                  value: value,
+                  child: Text(
+                    value.cityName!,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                );
+              }).toList(),
+              hint: Text(
+                "Select City",
+              ),
+              onChanged: (newValue) {
+                authScreenController.cityDropDownValue!.cityName = newValue!.cityName;
+                authScreenController.cityDropDownValue!.sId = newValue.sId;
+                print(
+                    "cityDropDownValue : ${authScreenController.cityDropDownValue}");
+                print('newValue.name : ${newValue.cityName}');
+                //authScreenController.getStateData(newValue.id);
+                //authScreenController.isLoading();
+              },
             ),
-            onChanged: (String? value) {
-              setState(() {
-                authScreenController.selectedCityValue = value;
-              });
-            },
           ),
         ),
       ),

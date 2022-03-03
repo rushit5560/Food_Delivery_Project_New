@@ -27,70 +27,74 @@ class _SignUpScreenState extends State<SignUpScreen> {
       onTap: () => hideKeyboard(),
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Form(
-            key: authScreenController.signUpFormKey,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: [
-                  SizedBox(height: 10),
-                  Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      authScreenController.file != null
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(80.0),
-                              child: Image.file(authScreenController.file!,
-                                  height: 100, width: 100, fit: BoxFit.cover),
-                            )
-                          : ClipRRect(
-                              borderRadius: BorderRadius.circular(80.0),
-                              child: Container(
-                                color: AppColors.colorLightPink,
-                                height: 100,
-                                width: 100,
+        body: Obx(()=>
+            authScreenController.isLoading.value ?
+            Center(child: CircularProgressIndicator()) :
+           SingleChildScrollView(
+            child: Form(
+              key: authScreenController.signUpFormKey,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  children: [
+                    SizedBox(height: 10),
+                    Stack(
+                      alignment: Alignment.bottomRight,
+                      children: [
+                        authScreenController.file != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(80.0),
+                                child: Image.file(authScreenController.file!,
+                                    height: 100, width: 100, fit: BoxFit.cover),
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(80.0),
+                                child: Container(
+                                  color: AppColors.colorLightPink,
+                                  height: 100,
+                                  width: 100,
+                                ),
                               ),
+                        GestureDetector(
+                          onTap: () {
+                            _showPicker(context);
+                          },
+                          child: Container(
+                            height: 25,
+                            width: 25,
+                            margin: EdgeInsets.only(bottom: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: AppColors.colorDarkPink),
+                            child: Icon(
+                              Icons.camera_alt,
+                              color: Colors.white,
+                              size: 15,
                             ),
-                      GestureDetector(
-                        onTap: () {
-                          _showPicker(context);
-                        },
-                        child: Container(
-                          height: 25,
-                          width: 25,
-                          margin: EdgeInsets.only(bottom: 5),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: AppColors.colorDarkPink),
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: Colors.white,
-                            size: 15,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  UserNameTextFieldModule(hintText: 'User Name'),
-                  const SizedBox(height: 15),
-                  FullNameTextFieldModule(hintText: 'Full Name'),
-                  const SizedBox(height: 15),
-                  PhoneNoTextFieldModule(hintText: 'Mobile Number'),
-                  const SizedBox(height: 15),
-                  PasswordTextFieldModule(hintText: 'Password'),
-                  const SizedBox(height: 15),
-                  AddressTextFieldModule(hintText: 'Address'),
-                  const SizedBox(height: 15),
-                  SelectGenderDropDownModule(),
-                  const SizedBox(height: 15),
-                  EmailTextFieldModule(hintText: 'Email Address'),
-                  const SizedBox(height: 15),
-                  SelectCityDropDownModule(),
-                  const SizedBox(height: 15),
-                  SelectAreaDropDownModule(),
-                ],
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    UserNameTextFieldModule(hintText: 'User Name'),
+                    const SizedBox(height: 15),
+                    FullNameTextFieldModule(hintText: 'Full Name'),
+                    const SizedBox(height: 15),
+                    PhoneNoTextFieldModule(hintText: 'Mobile Number'),
+                    const SizedBox(height: 15),
+                    PasswordTextFieldModule(hintText: 'Password'),
+                    const SizedBox(height: 15),
+                    AddressTextFieldModule(hintText: 'Address'),
+                    const SizedBox(height: 15),
+                    SelectGenderDropDownModule(),
+                    const SizedBox(height: 15),
+                    EmailTextFieldModule(hintText: 'Email Address'),
+                    const SizedBox(height: 15),
+                    SelectCityDropDownModule(),
+                    const SizedBox(height: 15),
+                    SelectAreaDropDownModule(),
+                  ],
+                ),
               ),
             ),
           ),

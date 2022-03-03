@@ -17,7 +17,8 @@ class AuthScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   RxBool isSignInEmailOption = true.obs;
-  List<AllCityModel> allCityList = [];
+  RxList<GetList> cityLists = [GetList(cityName: 'Select City', stateId: StateId(sId: ''))].obs;
+  GetList? cityDropDownValue;
 
   final GlobalKey<FormState> signUpFormKey = GlobalKey();
   final GlobalKey<FormState> loginFormKey = GlobalKey();
@@ -49,13 +50,15 @@ class AuthScreenController extends GetxController {
 
       AllCityModel allCityModel = AllCityModel.fromJson(json.decode(response.body));
       print('allCityModel : $allCityModel');
-       isSuccessStatus = allCityModel.status.obs;
+       isSuccessStatus = allCityModel.status!.obs;
       print('allCityStatus : $isSuccessStatus');
 
       if(isSuccessStatus.value){
         print("Success");
-        //allCityList = ;
-        //print('allBanner : $bannerList');
+        //cityLists.add(GetList(cityName: 'Select City', stateId: StateId(sId: '0'), ));
+        cityLists.addAll(allCityModel.getList!);
+        cityDropDownValue = cityLists[0];
+        print('cityLists : ${cityLists.length}');
       } else {
         print('Get All City Else Else');
       }
@@ -66,6 +69,8 @@ class AuthScreenController extends GetxController {
       isLoading(false);
     }
   }
+
+  
 
   /*userSignUpFunction() async {
     isLoading(true);
@@ -251,6 +256,7 @@ class AuthScreenController extends GetxController {
   void onInit() {
     super.onInit();
     getAllCityList();
+    cityDropDownValue = cityLists[0];
     // updateLoginInfo();
   }
 
