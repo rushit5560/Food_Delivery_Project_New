@@ -117,8 +117,8 @@ class AuthScreenController extends GetxController {
     print('url : $url');
 
     try {
-      var stream = http.ByteStream(file!.openRead());
-      stream.cast();
+        var stream = http.ByteStream(file!.openRead());
+        stream.cast();
 
       var length = await file!.length();
 

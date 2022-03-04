@@ -7,6 +7,8 @@ import 'package:food_delivery/controllers/edit_profile_screen_controller/edit_pr
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../models/all_city_model/city_model.dart';
+
 class ProfilePicModule extends StatefulWidget {
   const ProfilePicModule({Key? key}) : super(key: key);
 
@@ -15,7 +17,7 @@ class ProfilePicModule extends StatefulWidget {
 }
 
 class _ProfilePicModuleState extends State<ProfilePicModule> {
-  File? file;
+  final editProfileScreenController = Get.find<EditProfileScreenController>();
   final ImagePicker imagePicker = ImagePicker();
 
   @override
@@ -23,10 +25,10 @@ class _ProfilePicModuleState extends State<ProfilePicModule> {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        file != null
+        editProfileScreenController.file != null
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(80.0),
-                child: Image.file(file!,
+                child: Image.file(editProfileScreenController.file!,
                     height: 120, width: 120, fit: BoxFit.fill),
               )
             : ClipRRect(
@@ -90,33 +92,31 @@ class _ProfilePicModuleState extends State<ProfilePicModule> {
   }
 
   void gallery() async {
-    final image = await imagePicker.getImage(source: ImageSource.gallery);
+    final image = await imagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
-        file = File(image.path);
+        editProfileScreenController.file = File(image.path);
       });
     } else {}
   }
 
   void camera() async {
-    final image = await imagePicker.getImage(source: ImageSource.camera);
+    final image = await imagePicker.pickImage(source: ImageSource.camera);
     if (image != null) {
       setState(() {
-        file = File(image.path);
+        editProfileScreenController.file = File(image.path);
       });
     } else {}
   }
 }
 
 class FullNameTextField extends StatelessWidget {
-  TextEditingController fullNameTextController;
-
-  FullNameTextField({required this.fullNameTextController});
+  final editProfileScreenController = Get.find<EditProfileScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: fullNameTextController,
+      controller: editProfileScreenController.fullNameTextController,
       cursorColor: AppColors.colorDarkPink,
       validator: (value) => FieldValidator().validateFullName(value!),
       decoration: inputDecoration('Full Name'),
@@ -125,14 +125,12 @@ class FullNameTextField extends StatelessWidget {
 }
 
 class EmailTextField extends StatelessWidget {
-  TextEditingController emailTextController;
-
-  EmailTextField({required this.emailTextController});
+  final editProfileScreenController = Get.find<EditProfileScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: emailTextController,
+      controller: editProfileScreenController.emailTextController,
       cursorColor: AppColors.colorDarkPink,
       validator: (value) => FieldValidator().validateEmail(value!),
       decoration: inputDecoration('Email'),
@@ -141,14 +139,12 @@ class EmailTextField extends StatelessWidget {
 }
 
 class PhoneNoTextField extends StatelessWidget {
-  TextEditingController phoneNoTextController;
-
-  PhoneNoTextField({required this.phoneNoTextController});
+  final editProfileScreenController = Get.find<EditProfileScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: phoneNoTextController,
+      controller: editProfileScreenController.phoneNoTextController,
       cursorColor: AppColors.colorDarkPink,
       validator: (value) => FieldValidator().validateMobile(value!),
       decoration: inputDecoration('Phone No.'),
@@ -156,9 +152,73 @@ class PhoneNoTextField extends StatelessWidget {
   }
 }
 
-class CityDropDownModule extends StatelessWidget {
-  EditProfileScreenController editProfileScreenController =
-      Get.find<EditProfileScreenController>();
+class CityDropDownModule extends StatefulWidget {
+  CityDropDownModule({Key? key}) : super(key: key);
+  @override
+  State<CityDropDownModule> createState() => _CityDropDownModuleState();
+}
+class _CityDropDownModuleState extends State<CityDropDownModule> {
+  final editProfileScreenController = Get.find<EditProfileScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(()=>
+        Container(
+          padding: const EdgeInsets.only(left: 10),
+          height: 45,
+          width: Get.width,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.grey.shade300
+          ),
+          child: Theme(
+            data: Theme.of(context).copyWith(
+                canvasColor: Colors.grey.shade100,
+                // background color for the dropdown items
+                buttonTheme: ButtonTheme.of(context).copyWith(
+                  alignedDropdown: true, //If false (the default), then the dropdown's menu will be wider than its button.
+                )),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<GetList>(
+                focusColor: Colors.white,
+                value: editProfileScreenController.cityDropDownValue,
+                //elevation: 5,
+                style: TextStyle(color: Colors.white),
+                iconEnabledColor: Colors.black,
+                items: editProfileScreenController.cityLists.
+                map<DropdownMenuItem<GetList>>((GetList value) {
+                  return DropdownMenuItem<GetList>(
+                    value: value,
+                    child: Text(
+                      value.cityName!,
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  );
+                }).toList(),
+                hint: Text(
+                  "Select City",
+                ),
+                onChanged: (newValue) {
+                  editProfileScreenController.cityDropDownValue!.cityName = newValue!.cityName;
+                  editProfileScreenController.cityDropDownValue!.sId = newValue.sId;
+                  // editProfileScreenController.areaLists.clear();
+                  print("cityDropDownValue : ${editProfileScreenController.cityDropDownValue}");
+                  print('newValue.name : ${newValue.cityName}');
+                  // editProfileScreenController.getAllAreaList(newValue.sId!);
+                  print('city: ${newValue.sId!}');
+                  editProfileScreenController.isLoading(true);
+                  editProfileScreenController.isLoading(false);
+                },
+              ),
+            ),
+          ),
+        ),
+    );
+  }
+}
+
+/*class CityDropDownModule extends StatelessWidget {
+  final editProfileScreenController = Get.find<EditProfileScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -166,57 +226,34 @@ class CityDropDownModule extends StatelessWidget {
       () => Container(
         padding: const EdgeInsets.only(left: 10),
         height: 50,
-        //gives the height of the dropdown button
         width: MediaQuery.of(context).size.width,
-        //gives the width of the dropdown button
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             color: Colors.grey.shade200
-            //border: Border.all(color: Colors.grey),
             ),
         child: Theme(
           data: Theme.of(context).copyWith(
               canvasColor: Colors.grey.shade100,
-              // background color for the dropdown items
               buttonTheme: ButtonTheme.of(context).copyWith(
-                alignedDropdown:
-                    true, //If false (the default), then the dropdown's menu will be wider than its button.
+                alignedDropdown: true, //If false (the default), then the dropdown's menu will be wider than its button.
               )),
           child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
+            child: DropdownButton<GetList>(
               focusColor: Colors.white,
-              value: editProfileScreenController.cityType.value,
+              value: editProfileScreenController.cityLists[0],
               //elevation: 5,
               style: TextStyle(color: Colors.white),
               iconEnabledColor: Colors.black,
-              items: <String>[
-                'Surat',
-                'Ahmedabad',
-                'Baroda',
-                'Rajkot',
-                'Gandhinagar',
-                'Bhavanagar',
-                'Junagagh',
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
+              items: editProfileScreenController.cityLists
+                  .map<DropdownMenuItem<GetList>>((GetList value) {
+                return DropdownMenuItem<GetList>(
                   value: value,
-                  child: Text(
-                    value,
-                    style: TextStyle(color: Colors.black),
-                  ),
+                  child: Text(value.cityName!),
                 );
               }).toList(),
-              hint: Text(
-                "Select Address Type",
-                /*style: TextStyle(
-                                //color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),*/
-              ),
-              onChanged: (String? value) {
-                //setState(() {
-                editProfileScreenController.cityType.value = value!;
-                //});
+              hint: Text("Select Address Type"),
+              onChanged: (GetList? value) {
+                editProfileScreenController.selectedCity!.cityName = value!.cityName;
               },
             ),
           ),
@@ -224,7 +261,7 @@ class CityDropDownModule extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
 class AreaDropDownModule extends StatelessWidget {
   EditProfileScreenController editProfileScreenController =
@@ -297,12 +334,15 @@ class AreaDropDownModule extends StatelessWidget {
 }
 
 class UpdateButton extends StatelessWidget {
-  const UpdateButton({Key? key}) : super(key: key);
+  UpdateButton({Key? key}) : super(key: key);
+  final editProfileScreenController = Get.find<EditProfileScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.back(),
+      onTap: () async {
+        await editProfileScreenController.updateUserProfile();
+      },
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.colorDarkPink,

@@ -230,12 +230,14 @@ class _SelectAreaDropDownModuleState extends State<SelectAreaDropDownModule> {
               }).toList(),
               hint: Text("Select Area"),
               onChanged: (newValue) {
+                authScreenController.isLoading(true);
                 authScreenController.areaDropDownValue!.areaName = newValue!.areaName;
                 authScreenController.areaDropDownValue!.id = newValue.id;
                 authScreenController.isLoading();
                 setState(() {});
                 print("areaDropDownValue : ${authScreenController.areaDropDownValue}");
                 print('newValue.name : ${newValue.areaName}');
+                authScreenController.isLoading(false);
               },
             ),
           ),
