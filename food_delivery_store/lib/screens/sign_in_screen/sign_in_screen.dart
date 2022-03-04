@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/app_colors.dart';
+import 'package:food_delivery_admin/common/common_widgets.dart';
 import 'package:food_delivery_admin/controllrs/sign_in_screen_controller/sign_in_screen_controller.dart';
 import 'package:food_delivery_admin/screens/new_order_screen/new_order_screen.dart';
 import 'package:food_delivery_admin/screens/sign_in_screen/sign_in_screen_widgets.dart';
@@ -57,21 +58,25 @@ class SignInScreen extends StatelessWidget {
           ),
         ),
       ),*/
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                WelcomeText(),
-                LoginForm(),
-              ],
-            ),
-            SizedBox(height: 50,),
-            ContinueButton(),
-            const SizedBox(height: 20),
+      body: Obx(()=>
+        signInScreenController.isLoading.value ?
+            CustomCircularProgressIndicator() :
+          SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  WelcomeText(),
+                  LoginForm(),
+                ],
+              ),
+              SizedBox(height: 50,),
+              ContinueButton(),
+              const SizedBox(height: 20),
 
-            socialLogin()
-          ],
+              socialLogin()
+            ],
+          ),
         ),
       ),
     );

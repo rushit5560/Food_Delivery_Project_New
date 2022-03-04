@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:food_delivery_admin/common/app_colors.dart';
+import 'package:food_delivery_admin/common/field_validation.dart';
 import 'package:food_delivery_admin/controllrs/sign_in_screen_controller/sign_in_screen_controller.dart';
 import 'package:food_delivery_admin/screens/language_screen/language_screen.dart';
 import 'package:food_delivery_admin/screens/new_order_screen/new_order_screen.dart';
@@ -160,6 +161,7 @@ class EmailTextField extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       controller: signInScreenController.signInTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+      validator: (value) => FieldValidator().validateEmail(value!),
     );
   }
 }
@@ -182,7 +184,7 @@ class PasswordTextField extends StatelessWidget {
       controller: signInScreenController.passwordTextEditingController,
       obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon,*/),
-
+      validator: (value) => FieldValidator().validatePassword(value!),
     );
   }
 }
@@ -225,9 +227,16 @@ class ContinueButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        // Get.offAll(() => IndexScreen());
-        Get.offAll(() => NewOrderScreen());
+      onTap: () async {
+        //
+      if(signInScreenController.loginFormKey.currentState!.validate()) {
+        await signInScreenController.userSignInFunction(
+          email: signInScreenController.signInTextEditingController.text.trim()
+              .toLowerCase(),
+          password: signInScreenController.passwordTextEditingController.text
+              .trim(),
+        );
+      }
       },
       child: Container(
         height: 40,

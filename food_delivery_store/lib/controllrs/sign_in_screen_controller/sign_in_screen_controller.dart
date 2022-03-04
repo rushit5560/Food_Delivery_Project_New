@@ -1,10 +1,16 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:food_delivery_admin/common/api_url.dart';
+import 'package:food_delivery_admin/common/sharedpreference_data/sharedpreference_data.dart';
+import 'package:food_delivery_admin/models/sign_in_model/sign_in_model.dart';
 import 'package:food_delivery_admin/screens/new_order_screen/new_order_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class SignInScreenController extends GetxController{
   RxBool isLoading = false.obs;
@@ -14,12 +20,51 @@ class SignInScreenController extends GetxController{
   final passwordTextEditingController = TextEditingController();
   final GlobalKey<FormState> loginFormKey = GlobalKey();
 
+  RxBool isSuccessStatus = false.obs;
+  SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
+
   @override
   void onInit() {
     print('-----------Controller Init Method Called.-----------');
     //Timer(Duration(seconds: 5), () => getOnBoardingValue());
     super.onInit();
     updateLoginInfo();
+  }
+
+  userSignInFunction({required String email, required String password}) async {
+    isLoading(true);
+
+    String url = ApiUrl.SignInApi;
+    print('Url : $url');
+
+    try{
+      Map<String , dynamic> data = {
+        "Email": email,
+        "Password": password,
+      };
+
+      print('data : $data');
+
+      http.Response response = await http.post(Uri.parse(url), body: data);
+
+      SignInModel signInModel = SignInModel.fromJson(json.decode(response.body));
+      isSuccessStatus = signInModel.status.obs;
+
+      if(isSuccessStatus.value) {
+        String userToken = signInModel.token;
+        print('userToken : $userToken');
+        await sharedPreferenceData.setUserLoginDetailsInPrefs(userToken: "$userToken");
+        Get.offAll(() => NewOrderScreen());
+        Get.snackbar('User LoggedIn Successfully.', '');
+      } else {
+        print('SignIn False False');
+      }
+
+    } catch(e) {
+      print('SignIn Error : $e');
+    } finally {
+      isLoading(false);
+    }
   }
 
   Future googleAuthentication(context) async {
