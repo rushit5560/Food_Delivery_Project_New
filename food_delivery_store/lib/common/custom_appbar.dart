@@ -17,7 +17,7 @@ PreferredSizeWidget commonAppBarModule({required title, index = 0}) {
         );
 
       },
-    ) : null,
+    ) : index == 2 ? Icon(Icons.arrow_back) : null,
 
     title: Text("$title", style: TextStyle(color: Colors.black),),
     shape: RoundedRectangleBorder(

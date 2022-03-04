@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/app_colors.dart';
+import 'package:food_delivery_admin/controllrs/signup_screen_controller/signup_screen_controller.dart';
 import 'package:get/get.dart';
 
 class SignUpText extends StatelessWidget {
@@ -16,13 +17,10 @@ class SignUpText extends StatelessWidget {
 
 class SellerNameTextField extends StatelessWidget {
 
-  TextEditingController ? nameTextEditingController;
-  //IconData icon;
+  final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
   SellerNameTextField({
-    required TextEditingController nameTextEditingController,
-    //required this.icon,
     required this.hintText,
   });
 
@@ -30,7 +28,7 @@ class SellerNameTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.text,
-      controller: nameTextEditingController,
+      controller: signupScreenController.nameTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
@@ -38,13 +36,10 @@ class SellerNameTextField extends StatelessWidget {
 
 class StoreNameTextField extends StatelessWidget {
 
-  TextEditingController ? storeNameTextEditingController;
-  //IconData icon;
+  final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
   StoreNameTextField({
-    required TextEditingController storeNameTextEditingController,
-    //required this.icon,
     required this.hintText,
   });
 
@@ -52,7 +47,7 @@ class StoreNameTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.text,
-      controller: storeNameTextEditingController,
+      controller: signupScreenController.storeNameTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
@@ -60,13 +55,10 @@ class StoreNameTextField extends StatelessWidget {
 
 class StoreNumberTextField extends StatelessWidget {
 
-  TextEditingController ? storeNumberTextEditingController;
-  //IconData icon;
+  final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
   StoreNumberTextField({
-    required TextEditingController storeNumberTextEditingController,
-    //required this.icon,
     required this.hintText,
   });
 
@@ -74,7 +66,7 @@ class StoreNumberTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.number,
-      controller: storeNumberTextEditingController,
+      controller: signupScreenController.storeNumberTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
@@ -82,13 +74,10 @@ class StoreNumberTextField extends StatelessWidget {
 
 class EmailTextField extends StatelessWidget {
   //const EmailTextField({Key? key}) : super(key: key);
-  TextEditingController ? emailTextEditingController;
-  //IconData icon;
+  final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
   EmailTextField({
-    required TextEditingController emailTextEditingController,
-    //required this.icon,
     required this.hintText,
   });
 
@@ -96,7 +85,7 @@ class EmailTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      controller: emailTextEditingController,
+      controller: signupScreenController.emailTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
@@ -104,13 +93,10 @@ class EmailTextField extends StatelessWidget {
 
 class AdminShareTextField extends StatelessWidget {
   //const EmailTextField({Key? key}) : super(key: key);
-  TextEditingController ? adminShareTextEditingController;
-  //IconData icon;
+  final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
   AdminShareTextField({
-    required TextEditingController adminShareTextEditingController,
-    //required this.icon,
     required this.hintText,
   });
 
@@ -118,20 +104,17 @@ class AdminShareTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      controller: adminShareTextEditingController,
+      controller: signupScreenController.adminShareTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
 }
 
 class PasswordTextField extends StatelessWidget {
-  TextEditingController ? passwordTextEditingController;
-  //IconData icon;
+  final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
   PasswordTextField({
-    required TextEditingController passwordTextEditingController,
-    //required this.icon,
     required this.hintText,
   });
 
@@ -139,7 +122,7 @@ class PasswordTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.number,
-      controller: passwordTextEditingController,
+      controller: signupScreenController.passwordTextEditingController,
       //  obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
@@ -147,13 +130,10 @@ class PasswordTextField extends StatelessWidget {
 }
 
 class DeliveryRangeTextField extends StatelessWidget {
-  TextEditingController ? deliveryRangeTextEditingController;
-  //IconData icon;
+  final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
   DeliveryRangeTextField({
-    required TextEditingController deliveryRangeTextEditingController,
-    //required this.icon,
     required this.hintText,
   });
 
@@ -161,7 +141,7 @@ class DeliveryRangeTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.number,
-      controller: deliveryRangeTextEditingController,
+      controller: signupScreenController.deliveryRangeTextEditingController,
       //  obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
@@ -169,13 +149,10 @@ class DeliveryRangeTextField extends StatelessWidget {
 }
 
 class StoreAddressTextField extends StatelessWidget {
-  TextEditingController ? storeAddressTextEditingController;
-  //IconData icon;
+  final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
   StoreAddressTextField({
-    required TextEditingController storeAddressTextEditingController,
-    //required this.icon,
     required this.hintText,
   });
 
@@ -183,35 +160,16 @@ class StoreAddressTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.number,
-      controller: storeAddressTextEditingController,
+      controller: signupScreenController.storeAddressTextEditingController,
       //  obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
 }
 
-class SignUpButton extends StatelessWidget {
-  const SignUpButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      margin: EdgeInsets.only(left: 25, right: 25),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.blue,
-        //border: Border.all(color: Colors.black)
-      ),
-      child: Center(
-        child: Text("Sign Up", style: TextStyle(color: Colors.white, fontSize: 18),),
-      ),
-    );
-  }
-}
 
 class ContinueButton extends StatelessWidget {
-  const ContinueButton({Key? key}) : super(key: key);
+  final signupScreenController = Get.find<SignUpScreenController>();
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/field_validation.dart';
+import 'package:food_delivery/models/all_area_model/all_area_model.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/auth_screen_controller/auth_screen_conroller.dart';
@@ -167,11 +168,12 @@ class _SelectCityDropDownModuleState extends State<SelectCityDropDownModule> {
               onChanged: (newValue) {
                 authScreenController.cityDropDownValue!.cityName = newValue!.cityName;
                 authScreenController.cityDropDownValue!.sId = newValue.sId;
-                print(
-                    "cityDropDownValue : ${authScreenController.cityDropDownValue}");
+                authScreenController.areaLists.clear();
+                print("cityDropDownValue : ${authScreenController.cityDropDownValue}");
                 print('newValue.name : ${newValue.cityName}');
-                //authScreenController.getStateData(newValue.id);
-                //authScreenController.isLoading();
+                authScreenController.getAllAreaList(newValue.sId!);
+                print('city: ${newValue.sId!}');
+                authScreenController.isLoading();
               },
             ),
           ),
@@ -193,51 +195,49 @@ class _SelectAreaDropDownModuleState extends State<SelectAreaDropDownModule> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 10),
-      height: 45,
-      width: Get.width,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.grey.shade300),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-            canvasColor: Colors.grey.shade100,
-            // background color for the dropdown items
-            buttonTheme: ButtonTheme.of(context).copyWith(
-              alignedDropdown:
-              true, //If false (the default), then the dropdown's menu will be wider than its button.
-            )),
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<String>(
-            focusColor: Colors.white,
-            value: authScreenController.selectedAreaValue,
-            //elevation: 5,
-            style: TextStyle(color: Colors.white),
-            iconEnabledColor: Colors.black,
-            items: <String>[
-              'Katargam',
-              'Varachha',
-              'Adajan',
-              'Sabarmati',
-              'Majura gate',
-              'Sachin',
-              'Kapodra',
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(
-                  value,
-                  style: TextStyle(color: Colors.black),
-                ),
-              );
-            }).toList(),
-            hint: Text("Select Area"),
-            onChanged: (String? value) {
-              setState(() {
-                authScreenController.selectedAreaValue = value;
-              });
-            },
+    return Obx(()=>
+       Container(
+        padding: const EdgeInsets.only(left: 10),
+        height: 45,
+        width: Get.width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: Colors.grey.shade300),
+        child: Theme(
+          data: Theme.of(context).copyWith(
+              canvasColor: Colors.grey.shade100,
+              // background color for the dropdown items
+              buttonTheme: ButtonTheme.of(context).copyWith(
+                alignedDropdown:
+                true, //If false (the default), then the dropdown's menu will be wider than its button.
+              )),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<Area>(
+              focusColor: Colors.white,
+              value: authScreenController.areaDropDownValue,
+              //elevation: 5,
+              style: TextStyle(color: Colors.white),
+              iconEnabledColor: Colors.black,
+              items: authScreenController.areaLists.
+              map<DropdownMenuItem<Area>>((Area value) {
+                return DropdownMenuItem<Area>(
+                  value: value,
+                  child: Text(
+                    value.areaName,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                );
+              }).toList(),
+              hint: Text("Select Area"),
+              onChanged: (newValue) {
+                authScreenController.areaDropDownValue!.areaName = newValue!.areaName;
+                authScreenController.areaDropDownValue!.id = newValue.id;
+                authScreenController.isLoading();
+                setState(() {});
+                print("areaDropDownValue : ${authScreenController.areaDropDownValue}");
+                print('newValue.name : ${newValue.areaName}');
+              },
+            ),
           ),
         ),
       ),

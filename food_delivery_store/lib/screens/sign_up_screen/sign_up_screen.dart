@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/app_colors.dart';
 import 'package:food_delivery_admin/common/custom_appbar.dart';
+import 'package:food_delivery_admin/controllrs/signup_screen_controller/signup_screen_controller.dart';
 import 'package:food_delivery_admin/screens/sign_up_screen/sign_up_screen_widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,16 +17,9 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  var _SignUpformKey = GlobalKey<FormState>();
+  //var _SignUpformKey = GlobalKey<FormState>();
+  final signUpScreenController = Get.put(SignUpScreenController());
 
-  TextEditingController nameTextEditingController = TextEditingController();
-  TextEditingController storeNameTextEditingController = TextEditingController();
-  TextEditingController storeNumberTextEditingController = TextEditingController();
-  TextEditingController emailTextEditingController = TextEditingController();
-  TextEditingController adminShareTextEditingController = TextEditingController();
-  TextEditingController passwordTextEditingController = TextEditingController();
-  TextEditingController deliveryRangeTextEditingController = TextEditingController();
-  TextEditingController storeAddressTextEditingController = TextEditingController();
   String ? _chosenValue;
 
   String ? areaValue;
@@ -38,11 +32,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: commonAppBarModule(title: 'Register'),
+      appBar: commonAppBarModule(title: 'Register', index: 2),
       //resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Form(
-          key: _SignUpformKey,
+          key: signUpScreenController.signupFormKey,
           child: Column(
             children: [
               Container(
@@ -115,35 +109,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     SizedBox(height: 20,),
                     SellerNameTextField(
-                      nameTextEditingController: nameTextEditingController,
-                      //icon: Icons.person,
                       hintText: "Seller Name",),
                     SizedBox(height: 15,),
                     StoreNameTextField(
-                      storeNameTextEditingController: storeNameTextEditingController,
-                      //icon: Icons.person,
                       hintText: "Store Name",),
                     SizedBox(height: 15,),
                     StoreNumberTextField(
-                      storeNumberTextEditingController: storeNumberTextEditingController,
-                      //icon: Icons.person,
                       hintText: "Store Number",),
                     SizedBox(height: 15,),
                     EmailTextField(
-                      emailTextEditingController: emailTextEditingController,
-                      //icon: Icons.email,
                       hintText: "Email",
                     ),
                     SizedBox(height: 15,),
                     AdminShareTextField(
-                      adminShareTextEditingController: adminShareTextEditingController,
-                      //icon: Icons.email,
                       hintText: "Admin Share",
                     ),
                     SizedBox(height: 15,),
                     PasswordTextField(
-                      passwordTextEditingController: passwordTextEditingController,
-                      //icon: Icons.password,
                       hintText: "Password",),
                     SizedBox(height: 15,),
                     Container(
@@ -196,15 +178,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     SizedBox(height: 15,),
-                    DeliveryRangeTextField(
-                      deliveryRangeTextEditingController: deliveryRangeTextEditingController,
-                      //icon: Icons.password,
-                      hintText: "Delivery Range",),
+                    DeliveryRangeTextField(hintText: "Delivery Range",),
                     SizedBox(height: 15,),
-                    StoreAddressTextField(
-                      storeAddressTextEditingController: storeAddressTextEditingController,
-                      //icon: Icons.password,
-                      hintText: "Store Address",),
+                    StoreAddressTextField(hintText: "Store Address",),
                     SizedBox(height: 15,),
 
                   ],

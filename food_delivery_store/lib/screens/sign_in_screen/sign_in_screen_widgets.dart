@@ -41,16 +41,9 @@ class LoginForm extends StatelessWidget {
   //late TabController tabController;
   //TabView({required this.tabController});
   //AuthScreenController authScreenController = Get.put(AuthScreenController());
-
-  TextEditingController signInTextEditingController;
-  TextEditingController passwordTextEditingController;
+  final signInScreenController = Get.find<SignInScreenController>();
   //IconData icon;
 
-  LoginForm({
-    required this.signInTextEditingController,
-    required this.passwordTextEditingController
-    //required this.icon,
-  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,20 +61,23 @@ class LoginForm extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        children: [
-          SizedBox(height: 30,),
-          LoginText(),
-          SizedBox(height: 30,),
-          EmailTextField(signInTextEditingController: signInTextEditingController, hintText: "Email",),
-          SizedBox(height: 10,),
-          PasswordTextField(passwordTextEditingController: passwordTextEditingController, hintText: "Password",),
-          SizedBox(height: 40,),
-          NotUserText(),
-          // SizedBox(height: 20,),
-          // PreferredLang(),
-          SizedBox(height: 40,),
-        ],
+      child: Form(
+        key: signInScreenController.loginFormKey,
+        child: Column(
+          children: [
+            SizedBox(height: 30,),
+            LoginText(),
+            SizedBox(height: 30,),
+            EmailTextField( hintText: "Email",),
+            SizedBox(height: 10,),
+            PasswordTextField( hintText: "Password",),
+            SizedBox(height: 40,),
+            NotUserText(),
+            // SizedBox(height: 20,),
+            // PreferredLang(),
+            SizedBox(height: 40,),
+          ],
+        ),
       ),
     );
   }
@@ -148,25 +144,21 @@ class NotUserText extends StatelessWidget {
 
 class EmailTextField extends StatelessWidget {
   // const SignInTextField({Key? key}) : super(key: key);
-
-  TextEditingController signInTextEditingController;
+  final signInScreenController = Get.find<SignInScreenController>();
   //IconData icon;
 
   String hintText;
 
   EmailTextField({
-    required this.signInTextEditingController,
-    //required this.icon,
-
     required this.hintText,
   });
 
   @override
   Widget build(BuildContext context) {
-    print('hintText : $hintText && icon && signInTextEditingController $signInTextEditingController');
+    print('hintText : $hintText && icon && signInTextEditingController ${signInScreenController.signInTextEditingController}');
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      controller: signInTextEditingController,
+      controller: signInScreenController.signInTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
@@ -175,13 +167,11 @@ class EmailTextField extends StatelessWidget {
 
 class PasswordTextField extends StatelessWidget {
   // const PasswordTextField({Key? key}) : super(key: key);
-  TextEditingController ? passwordTextEditingController;
   //IconData icon;
   String hintText;
+  final signInScreenController = Get.find<SignInScreenController>();
 
   PasswordTextField({
-    required TextEditingController passwordTextEditingController,
-    //required this.icon,
     required this.hintText,
   });
 
@@ -189,7 +179,7 @@ class PasswordTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.visiblePassword,
-      controller: passwordTextEditingController,
+      controller: signInScreenController.passwordTextEditingController,
       obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon,*/),
 
@@ -197,28 +187,6 @@ class PasswordTextField extends StatelessWidget {
   }
 }
 
-class SignInButton extends StatelessWidget {
-  const SignInButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      margin: EdgeInsets.only(left: 25, right: 25),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.blue,
-        //border: Border.all(color: Colors.black)
-      ),
-      child: Center(
-        child: Text(
-          "Sign In",
-          style: TextStyle(color: Colors.white, fontSize: 18),
-        ),
-      ),
-    );
-  }
-}
 
 
 InputDecoration _inputDecoration({hintText, icon}) {
@@ -251,7 +219,8 @@ InputDecoration _inputDecoration({hintText, icon}) {
 
 class ContinueButton extends StatelessWidget {
   ContinueButton({Key? key}) : super(key: key);
-  //late TabController tabController;
+
+  final signInScreenController = Get.find<SignInScreenController>();
 
   @override
   Widget build(BuildContext context) {
