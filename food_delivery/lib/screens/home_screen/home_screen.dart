@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  HomeScreenController homeScreenController = Get.put(HomeScreenController());
+  final homeScreenController = Get.put(HomeScreenController());
 
   @override
   void initState() {

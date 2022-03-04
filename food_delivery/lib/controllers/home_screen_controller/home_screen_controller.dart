@@ -6,6 +6,8 @@ import 'package:food_delivery/models/banner_model/banner_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../../models/food_campaign_model/food_campaign_model.dart';
+
 class CategoryModel{
   CategoryModel({
     required this.image,
@@ -17,12 +19,13 @@ class CategoryModel{
 
 }
 
-class HomeScreenController extends GetxController{
+class HomeScreenController extends GetxController {
   var activeIndex = 0.obs;
   List<CategoryModel> category = [];
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   List<GetList> bannerList = [];
+  List<ListElement> foodCampaignList = [];
 
   @override
   void onInit() {
@@ -55,7 +58,8 @@ class HomeScreenController extends GetxController{
     } catch(e) {
       print('Error : $e');
     } finally {
-      isLoading(false);
+      await getCampaignList();
+      // isLoading(false);
     }
   }
 
@@ -92,4 +96,31 @@ class HomeScreenController extends GetxController{
     );
 
   }
+
+  getCampaignList() async {
+    isLoading(true);
+    String url = ApiUrl.FoodCampaignApi;
+    print('Url : $url');
+
+    try{
+      http.Response response = await http.get(Uri.parse(url));
+      print('response : $response');
+
+      FoodCampaignModel foodCampaignModel = FoodCampaignModel.fromJson(json.decode(response.body));
+      isSuccessStatus = foodCampaignModel.status.obs;
+
+      if(isSuccessStatus.value) {
+        foodCampaignList = foodCampaignModel.list;
+        print('foodCampaignList : $foodCampaignList');
+      } else {
+        print('Get Campaign Else Else');
+      }
+
+    } catch(e) {
+      print('Campaign Error $e');
+    } finally {
+      isLoading(false);
+    }
+  }
+
 }

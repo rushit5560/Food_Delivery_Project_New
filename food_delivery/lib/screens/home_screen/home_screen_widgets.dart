@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
-import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/controllers/home_screen_controller/home_screen_controller.dart';
 import 'package:food_delivery/screens/category_screen/category_screen.dart';
 import 'package:food_delivery/screens/home_screen/deal_products_tab/deal_products_tab.dart';
@@ -336,12 +335,13 @@ class PopularProductButton extends StatelessWidget {
 
 class OfferList extends StatelessWidget {
    OfferList({Key? key}) : super(key: key);
+   final homeScreenController = Get.find<HomeScreenController>();
 
-  List<String> offer= [
-    Images.ic_offer1,
-    Images.ic_offer2,
-    Images.ic_offer3,
-  ];
+  // List<String> offer= [
+  //   Images.ic_offer1,
+  //   Images.ic_offer2,
+  //   Images.ic_offer3,
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -349,7 +349,7 @@ class OfferList extends StatelessWidget {
       height: Get.height * 0.2,
       margin: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 10),
       child: ListView.builder(
-          itemCount: offer.length,
+          itemCount: homeScreenController.foodCampaignList.length,
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index){
@@ -364,11 +364,12 @@ class OfferList extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         color: AppColors.colorGrey
                     ),
-                    child: Image.asset(offer[index])
+                    child: Image.asset(homeScreenController.foodCampaignList[index].restaurant.image)
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 10),
-                  child: Text("10% OFF",
+                  child: Text(
+                    "${homeScreenController.foodCampaignList[index].title}",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.start,
