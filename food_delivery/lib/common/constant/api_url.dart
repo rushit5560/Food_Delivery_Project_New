@@ -5,6 +5,7 @@ class ApiUrl {
 
   static const RegisterApi = ApiMainPath + "user/signUp";
   static const SignInApi = ApiMainPath + "user/signIn";
+  static const CreateUserWalletApi = ApiMainPath + "wallet/create";
 
   static const AllCategoryApi = ApiMainPath + "Category/getAllCategory";
   static const AllCityApi = ApiMainPath + "city";

@@ -1,17 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
+// import 'package:food_delivery/common/constant/user_details.dart';
 import 'package:food_delivery/models/all_area_model/all_area_model.dart';
 import 'package:food_delivery/models/all_city_model/city_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../common/sharedpreference_data/sharedpreference_data.dart';
-import '../../models/auth_screen_models/all_city_model.dart';
 import '../../models/auth_screen_models/registration_user_model.dart';
 import '../../models/sign_in_model/sign_in_model.dart';
-import '../../models/sign_up_model/sign_up_model.dart';
 import '../../screens/index_screen/index_screen.dart';
 
 
@@ -110,47 +110,6 @@ class AuthScreenController extends GetxController {
     }
   }
 
-  /*userSignUpFunction() async {
-    isLoading(true);
-    String url = ApiUrl.RegisterApi;
-    print('url : $url');
-
-    try{
-      Map data = {
-        "UserName" : "${userNameTextFieldController.text.trim()}",
-        "FullName" : "${fullNameTextFieldController.text.trim()}",
-        "Phone" : "${phoneNoTextFieldController.text.trim()}",
-        "Password" : "${passwordTextFieldController.text.trim()}",
-        "Address" : "${addressTextFieldController.text.trim()}",
-        "Gender" : "$selectedGenderValue",
-        "CityId" : "61f8f6a51467b5c3867ba67d",
-        "AreaId" : "61f8f7381467b5c3867ba68f",
-        "Photo" : File(file.toString()),
-        "Email" : "${emailTextFieldController.text.trim().toLowerCase()}",
-        "RoleId" : "6179367e616b99f3c785a68e",
-      };
-      print('data : $data');
-
-      http.Response response = await http.post(Uri.parse(url), body: jsonEncode(json));
-      print('Response : $response');
-
-      SignUpModel signUpModel = SignUpModel.fromJson(json.decode(response.body));
-      isSuccessStatus = signUpModel.status.obs;
-      print('isSuccessStatus : $isSuccessStatus');
-
-      if(isSuccessStatus.value){
-        Get.snackbar('${signUpModel.message}', '');
-      } else{
-       print('SignUp False False');
-      }
-
-    } catch(e) {
-      print('User SignUp Error : $e');
-    } finally {
-      isLoading(false);
-    }
-
-  }*/
 
   Future userSignUpFunction() async {
     isLoading(true);
@@ -166,12 +125,6 @@ class AuthScreenController extends GetxController {
       var request = http.MultipartRequest('POST', Uri.parse(url));
 
       request.files.add(await http.MultipartFile.fromPath("Photo", file!.path));
-
-      // request.files.add(http.MultipartFile(
-      //     "Photo",
-      //     File(file!.path).readAsBytes().asStream(),
-      //     File(file!.path).lengthSync(),
-      //     filename: file!.path.split("/").last));
 
       request.fields['UserName'] = "${userNameTextFieldController.text.trim()}";
       request.fields['FullName'] = "${fullNameTextFieldController.text.trim()}";
@@ -194,55 +147,20 @@ class AuthScreenController extends GetxController {
 
       var response = await request.send();
 
-      if(response.statusCode == 200){
-        print('User Registered Successfully.');
-        response.stream.transform(utf8.decoder).listen((value) {
-          print("value ====> $value");
-          RegistrationUserModel response1 = RegistrationUserModel.fromJson(json.decode(value));
-          print('response1 ::::::${response1.status}');
-        });
-      } else {
-        print('User Not Registered.');
-      }
+      response.stream.transform(utf8.decoder).listen((value) {
+        RegistrationUserModel response1 = RegistrationUserModel.fromJson(json.decode(value));
+        print('response1 ::::::${response1.status}');
+        isSuccessStatus = response1.status.obs;
 
-      /*var response = await request.send();
-      final response1 = await http.Response.fromStream(response);
-      if(response1.statusCode != 200){
-        print('Return Code Not 200');
-      }  else {
-        print('Return Code 200');
-      }*/
+        if(isSuccessStatus.value){
+          Fluttertoast.showToast(msg: "${response1.message}");
+          clearSignUpFieldsFunction();
 
-      // request.send().then((response) => {
-      //   http.Response.fromStream(response).then((onValue) {
-      //     try{
-      //       print('onValue : ${onValue.body}');
-      //     } catch(e) {
-      //       print('SignUp Error : $e');
-      //     }
-      //   })
-      // });
-
-      // data.addAll({
-      //   "UserName" : "${userNameTextFieldController.text.trim()}",
-      //   "FullName" : "${fullNameTextFieldController.text.trim()}",
-      //   "Phone" : "${phoneNoTextFieldController.text.trim()}",
-      //   "Password" : "${passwordTextFieldController.text.trim()}",
-      //   "Address" : "${addressTextFieldController.text.trim()}",
-      //   "Gender" : "$selectedGenderValue",
-      //   "CityId" : "61f8f6a51467b5c3867ba67d",
-      //   "AreaId" : "61f8f7381467b5c3867ba68f",
-      //   "Email" : "${emailTextFieldController.text.trim().toLowerCase()}",
-      //   "RoleId" : "6179367e616b99f3c785a68e",
-      // });
-
-      // request.fields.addAll(data);
-      // print('body ==========> ${request.fields}');
-      // print('request.files ==========> ${request.files}');
-      // http.StreamedResponse newResponse = await request.send();
-      // print("newResponse : ${newResponse.statusCode}");
-
-
+        } else {
+          // Fluttertoast.showToast(msg: "${response1.message}");
+          print('False False');
+        }
+      });
 
     } catch (e) {
       print('User SignUp Error : $e');
@@ -250,6 +168,38 @@ class AuthScreenController extends GetxController {
       isLoading(false);
     }
   }
+
+  clearSignUpFieldsFunction() {
+    userNameTextFieldController.clear();
+    fullNameTextFieldController.clear();
+    phoneNoTextFieldController.clear();
+    passwordTextFieldController.clear();
+    addressTextFieldController.clear();
+    emailTextFieldController.clear();
+    selectedGenderValue = "Male";
+  }
+
+
+  /// Create User Waller API
+  /*createUserWaller() async {
+    isLoading(true);
+    String url = ApiUrl.CreateUserWalletApi;
+    print('Url : $url');
+
+    try{
+      Map data = {
+        "UserId" : "${UserDetails.userId}",
+        "Amount" : ,
+        "Status" : ,
+        "Source" :
+      };
+
+    } catch(e) {
+      print('Create User Waller Error : $e');
+    } finally {
+      isLoading(false);
+    }
+  }*/
 
 
 
