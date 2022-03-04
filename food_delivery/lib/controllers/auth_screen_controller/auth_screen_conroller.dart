@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 
 import '../../common/sharedpreference_data/sharedpreference_data.dart';
 import '../../models/auth_screen_models/all_city_model.dart';
+import '../../models/auth_screen_models/registration_user_model.dart';
 import '../../models/sign_in_model/sign_in_model.dart';
 import '../../models/sign_up_model/sign_up_model.dart';
 import '../../screens/index_screen/index_screen.dart';
@@ -193,8 +194,13 @@ class AuthScreenController extends GetxController {
 
       var response = await request.send();
 
-      if(response.statusCode == 500){
+      if(response.statusCode == 200){
         print('User Registered Successfully.');
+        response.stream.transform(utf8.decoder).listen((value) {
+          print("value ====> $value");
+          RegistrationUserModel response1 = RegistrationUserModel.fromJson(json.decode(value));
+          print('response1 ::::::${response1.status}');
+        });
       } else {
         print('User Not Registered.');
       }

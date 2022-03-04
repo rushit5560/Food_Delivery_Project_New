@@ -25,11 +25,10 @@ class HomeScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   List<GetList> bannerList = [];
-  List<ListElement> foodCampaignList = [];
+  List<GetFoodList> foodCampaignList = [];
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     getCategoryList();
     getBannerList();
@@ -58,8 +57,8 @@ class HomeScreenController extends GetxController {
     } catch(e) {
       print('Error : $e');
     } finally {
-      await getCampaignList();
-      // isLoading(false);
+      // await getCampaignList();
+      isLoading(false);
     }
   }
 
@@ -104,20 +103,21 @@ class HomeScreenController extends GetxController {
 
     try{
       http.Response response = await http.get(Uri.parse(url));
-      print('response : $response');
+      print('response ::::::::  ${response.body}');
 
       FoodCampaignModel foodCampaignModel = FoodCampaignModel.fromJson(json.decode(response.body));
       isSuccessStatus = foodCampaignModel.status.obs;
+      print('isSuccessStatus : $isSuccessStatus');
 
       if(isSuccessStatus.value) {
-        foodCampaignList = foodCampaignModel.list;
+        foodCampaignList = foodCampaignModel.getList;
         print('foodCampaignList : $foodCampaignList');
       } else {
         print('Get Campaign Else Else');
       }
 
     } catch(e) {
-      print('Campaign Error $e');
+      print('Campaign Error : $e');
     } finally {
       isLoading(false);
     }

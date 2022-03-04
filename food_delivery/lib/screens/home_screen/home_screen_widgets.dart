@@ -364,7 +364,7 @@ class OfferList extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         color: AppColors.colorGrey
                     ),
-                    child: Image.asset(homeScreenController.foodCampaignList[index].restaurant.image)
+                    // child: Image.asset(homeScreenController.foodCampaignList[index].restaurant)
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 10),
