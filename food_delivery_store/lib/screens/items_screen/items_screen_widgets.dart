@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_admin/common/api_url.dart';
 import 'package:food_delivery_admin/common/app_colors.dart';
 import 'package:food_delivery_admin/controllrs/items_screen_controller/items_screen_controller.dart';
 import 'package:get/get.dart';
@@ -100,12 +101,14 @@ class StoreProductsListModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return itemScreenController.storeProductList.length == 0 ?
+    Center(child: Text("There is No Store Products")):
+    Padding(
       padding: const EdgeInsets.all(8.0),
       child: GridView.builder(
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
-        itemCount: itemScreenController.storeProductLists.length,
+        itemCount: itemScreenController.storeProductList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           mainAxisSpacing: 10,
@@ -151,7 +154,7 @@ class StoreProductsListModule extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Image(
-            image: AssetImage('${itemScreenController.storeProductLists[index].img}'),
+            image: AssetImage('${ApiUrl.ApiMainPath}${itemScreenController.storeProductList[index].store.image}'),
           ),
         ),
       ),
@@ -172,7 +175,7 @@ class StoreProductsListModule extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${itemScreenController.storeProductLists[index].name}',
+                '${itemScreenController.storeProductList[index].productName}',
                 textScaleFactor: 0.85,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -182,7 +185,7 @@ class StoreProductsListModule extends StatelessWidget {
               const SizedBox(width: 5),
 
               Text(
-                'Qty ${itemScreenController.storeProductLists[index].qty}',
+                'Qty ${itemScreenController.storeProductList[index].quantity}',
                 textScaleFactor: 0.60,
                 style: TextStyle(
                   color: Colors.white,

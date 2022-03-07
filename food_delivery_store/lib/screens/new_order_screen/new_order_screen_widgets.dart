@@ -88,21 +88,24 @@ class TabsModule extends StatelessWidget {
 
 
 class TodayOrdersModule extends StatelessWidget {
-  const TodayOrdersModule({Key? key}) : super(key: key);
+  //const TodayOrdersModule({Key? key}) : super(key: key);
+  NewOrderScreenController newOrderScreenController = Get.find<NewOrderScreenController>();
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 10,
+    return newOrderScreenController.todayOrderList.length == 0 ?
+    Center(child: Text("There is No Today Order")):
+    ListView.builder(
+      itemCount: newOrderScreenController.todayOrderList.length,
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index){
-        return _todayOrderListTile();
+        return _todayOrderListTile(index);
       },
     );
   }
 
-  Widget _todayOrderListTile() {
+  Widget _todayOrderListTile(index) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -121,9 +124,9 @@ class TodayOrdersModule extends StatelessWidget {
                     children: [
                       _orderImage(),
                       const SizedBox(width: 10),
-                      Expanded(child: _orderName()),
+                      Expanded(child: _orderName(index)),
                       const SizedBox(width: 10),
-                      _amountAndButton(),
+                      _amountAndButton(index),
                     ],
                   ),
                 ],
@@ -143,12 +146,12 @@ class TodayOrdersModule extends StatelessWidget {
   Widget _orderImage() {
     return Image.asset('${Images.ic_category1}', scale: 2.5);
   }
-  Widget _orderName() {
+  Widget _orderName(index) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'John Doe',
+          newOrderScreenController.todayOrderList[index].storeId.firstName +  " " + newOrderScreenController.todayOrderList[index].storeId.lastName,
           textScaleFactor: 1.2,
           maxLines: 1,
           style: TextStyle(
@@ -156,44 +159,46 @@ class TodayOrdersModule extends StatelessWidget {
         ),
         SizedBox(height: 5,),
         Text(
-          '123456789',
+          newOrderScreenController.todayOrderList[index].orderNumber,
           textScaleFactor: 1.2,
           maxLines: 1,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 5,),
         Text(
-          'Lorem ipsum is simply dummy text of the printing and type setting industry 545751',
+          newOrderScreenController.todayOrderList[index].details,
           maxLines: 2,
           textScaleFactor: 0.7,
         ),
+
         SizedBox(height: 5,),
+
         Text(
-          'Lorem Ipsum is (545751)',
+          'Order On ${newOrderScreenController.todayOrderList[index].orderDate}',
           maxLines: 1,
           textScaleFactor: 0.7,
         ),
         SizedBox(height: 5,),
         Text(
-          'Order On 25 Oct,7:00AM     Order ID 5FJSH8HF',
+          'Order ID ${newOrderScreenController.todayOrderList[index].id}',
           maxLines: 1,
           textScaleFactor: 0.7,
         ),
-        SizedBox(height: 5,),
-        Text(
-          'Payment Method - Wallet',
-          maxLines: 1,
-          textScaleFactor: 0.7,
-        ),
+        // SizedBox(height: 5,),
+        // Text(
+        //   'Payment Method - Wallet',
+        //   maxLines: 1,
+        //   textScaleFactor: 0.7,
+        // ),
       ],
     );
   }
-  Widget _amountAndButton() {
+  Widget _amountAndButton(index) {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
         Text(
-          '\$150.00',
+          "\$" + newOrderScreenController.todayOrderList[index].amount.toString(),
           textScaleFactor: 1.3,
           style: TextStyle(
             fontWeight: FontWeight.bold,

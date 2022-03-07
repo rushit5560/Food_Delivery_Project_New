@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/app_colors.dart';
+import 'package:food_delivery_admin/common/common_widgets.dart';
 import 'package:food_delivery_admin/common/custom_appbar.dart';
 import 'package:food_delivery_admin/controllrs/items_screen_controller/items_screen_controller.dart';
 import 'package:food_delivery_admin/screens/add_product_screen/add_product_screen.dart';
@@ -16,7 +17,9 @@ class ItemsScreen extends StatelessWidget {
       appBar: commonAppBarModule(title: 'My Items'),
 
       body: Obx(
-        ()=> Column(
+        ()=>  itemScreenController.isLoading.value ?
+        CustomCircularProgressIndicator():
+        Column(
           children: [
             const SizedBox(height: 20),
             MainTabsModule(),

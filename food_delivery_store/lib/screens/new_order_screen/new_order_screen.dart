@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_admin/common/common_widgets.dart';
 import 'package:food_delivery_admin/common/custom_appbar.dart';
 import 'package:food_delivery_admin/common/custom_drawer/custom_drawer.dart';
 import 'package:food_delivery_admin/controllrs/new_order_screen_controller/new_order_screen_controller.dart';
@@ -20,7 +21,9 @@ class NewOrderScreen extends StatelessWidget {
       drawer: CustomDrawer(),
 
       body: Obx(
-        ()=> Column(
+        ()=> newOrderScreenController.isLoading.value ?
+        CustomCircularProgressIndicator():
+            Column(
           children: [
             const SizedBox(height: 20),
             TabsModule(),
