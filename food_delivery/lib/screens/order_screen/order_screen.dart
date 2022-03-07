@@ -7,22 +7,21 @@ import 'package:get/get.dart';
 import 'order_screen_widgets.dart';
 
 class OrderScreen extends StatelessWidget {
-  OrderScreenController orderScreenController = Get.put(OrderScreenController());
+  OrderScreenController orderScreenController =
+      Get.put(OrderScreenController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: commonAppBarModule(title: 'My Orders'),
-      body: Obx(
-          () => orderScreenController.isLoading.value
-              ? CustomCircularProgressIndicator()
-              : Padding(
-            padding: const EdgeInsets.all(5),
-            child: AllOrderListModule(),
-          )
-      ),
+      body: Obx(() => orderScreenController.isLoading.value
+          ? CustomCircularProgressIndicator()
+          : Padding(
+              padding: const EdgeInsets.all(5),
+              child: orderScreenController.userOrderList.isEmpty
+                  ? Center(child: Text('No Orders'))
+                  : AllOrderListModule(),
+            )),
     );
   }
-
-
 }
