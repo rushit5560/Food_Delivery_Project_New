@@ -21,4 +21,5 @@ class ApiUrl {
   static const FoodCampaignApi = ApiMainPath + "FoodCampaign/getAllFoodCampaign";
   static const AllAreaUsingCityIdApi = ApiMainPath + "area/find/";
   static const ContactUsApi = ApiMainPath + "Contactus/create";
+  static const GetUserWalletApi = ApiMainPath + "wallet/find/user/";
 }

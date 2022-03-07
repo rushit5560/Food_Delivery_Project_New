@@ -14,19 +14,23 @@ class ProductsListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      ()=> Scaffold(
+      () => Scaffold(
         appBar: productsListScreenController.isLoading.value
-          ? commonAppBarModule(title: '')
-          : commonAppBarModule(title: 'Products'),
-
+            ? commonAppBarModule(title: '')
+            : commonAppBarModule(title: 'Products'),
         body: productsListScreenController.isLoading.value
             ? CustomCircularProgressIndicator()
             : Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: productsListScreenController.productsEnum ==
+                padding: const EdgeInsets.all(8.0),
+                child: productsListScreenController.productsEnum ==
                         ProductsEnum.AllProducts
-                    ? AllProductsListModule()
-                    : ProductsListByCategoryIdModule(),
+                    ? productsListScreenController.allProductList.isEmpty
+                        ? Center(child: Text('No Products'))
+                        : AllProductsListModule()
+                    : productsListScreenController
+                            .productsListByCategoryId.isEmpty
+                        ? Center(child: Text('No Products'))
+                        : ProductsListByCategoryIdModule(),
               ),
       ),
     );

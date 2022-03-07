@@ -16,7 +16,7 @@ class AllProductsListModule extends StatelessWidget {
     return ListView.builder(
       itemCount: productsListScreenController.allProductList.length,
       itemBuilder: (context, i) {
-        GetList singleProduct = productsListScreenController.allProductList[i];
+        GetAllProductList singleProduct = productsListScreenController.allProductList[i];
         return AllProductsListTile(singleProduct: singleProduct);
       },
     );
@@ -24,7 +24,7 @@ class AllProductsListModule extends StatelessWidget {
 }
 
 class AllProductsListTile extends StatelessWidget {
-  final GetList singleProduct;
+  final GetAllProductList singleProduct;
   AllProductsListTile({Key? key, required this.singleProduct}) : super(key: key);
   final productsListScreenController = Get.find<ProductsListScreenController>();
 
@@ -32,7 +32,7 @@ class AllProductsListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('Product Id : ${singleProduct.id}');
+        print('Product Id : ${singleProduct.sId}');
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 10),
