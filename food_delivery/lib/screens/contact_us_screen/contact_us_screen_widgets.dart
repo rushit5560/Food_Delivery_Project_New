@@ -3,68 +3,63 @@ import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/controllers/contact_us_screen_controller/contact_us_screen_controller.dart';
 import 'package:get/get.dart';
 
-class DropDown extends StatelessWidget {
-  //const DropDown({Key? key}) : super(key: key);
-  ContactUsScreenController contactScreenController = Get.find<ContactUsScreenController>();
-  // DropDown({required this.contactScreenController});
+import '../../models/all_city_model/city_model.dart';
+
+class CityDropDown extends StatelessWidget {
+  final screenController = Get.find<ContactUsScreenController>();
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-          () =>
-          Container(
-            padding: const EdgeInsets.only(left: 10),
-            height: 45,  //gives the height of the dropdown button
-            width: MediaQuery.of(context).size.width, //gives the width of the dropdown button
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.grey.shade200
-              //border: Border.all(color: Colors.grey),
-            ),
-            child: Theme(
-              data: Theme.of(context).copyWith(
-                  canvasColor: Colors.grey.shade100, // background color for the dropdown items
-                  buttonTheme: ButtonTheme.of(context).copyWith(
-                    alignedDropdown: true,  //If false (the default), then the dropdown's menu will be wider than its button.
-                  )
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  focusColor:Colors.white,
-                  value: contactScreenController.addressType.value,
-                  //elevation: 5,
-                  style: TextStyle(color: Colors.white),
-                  iconEnabledColor:Colors.black,
-                  items: <String>[
-                    'Surat',
-                    'Ahmedabad',
-                    'Baroda',
-                    'Rajkot',
-                    'Gandhinagar',
-                    'Bhavanagar',
-                    'Junagagh',
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value,style:TextStyle(color:Colors.black),),
-                    );
-                  }).toList(),
-                  hint:Text(
-                    "Select Address Type",
-                    /*style: TextStyle(
-                                //color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),*/
-                  ),
-                  onChanged: (String ? value) {
-                    //setState(() {
-                    contactScreenController.addressType.value = value!;
-                    //});
-                  },
-                ),
+    return Obx(()=>
+        Container(
+          padding: const EdgeInsets.only(left: 10),
+          height: 45,
+          width: Get.width,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.grey.shade300
+          ),
+          child: Theme(
+            data: Theme.of(context).copyWith(
+                canvasColor: Colors.grey.shade100,
+                // background color for the dropdown items
+                buttonTheme: ButtonTheme.of(context).copyWith(
+                  alignedDropdown: true, //If false (the default), then the dropdown's menu will be wider than its button.
+                )),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<GetList>(
+                focusColor: Colors.white,
+                value: screenController.cityDropDownValue,
+                //elevation: 5,
+                style: TextStyle(color: Colors.white),
+                iconEnabledColor: Colors.black,
+                items: screenController.cityLists.
+                map<DropdownMenuItem<GetList>>((GetList value) {
+                  return DropdownMenuItem<GetList>(
+                    value: value,
+                    child: Text(
+                      value.cityName!,
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  );
+                }).toList(),
+                // hint: Text(
+                //   "Select City",
+                // ),
+                onChanged: (newValue) {
+                  screenController.cityDropDownValue!.cityName = newValue!.cityName;
+                  screenController.cityDropDownValue!.sId = newValue.sId;
+                  // screenController.areaLists.clear();
+                  print("cityDropDownValue : ${screenController.cityDropDownValue}");
+                  print('newValue.name : ${newValue.cityName}');
+                  // screenController.getAllAreaList(newValue.sId!);
+                  print('city: ${newValue.sId!}');
+                  screenController.loading();
+                },
               ),
             ),
           ),
+        ),
     );
   }
 }
@@ -128,39 +123,26 @@ class FeedbackTextModule extends StatelessWidget {
 }
 
 class FormFieldsModule extends StatelessWidget {
-  FormFieldsModule({
-    required this.formKey,
-    required this.fullNameFieldController,
-    required this.phoneNoFieldController,
-    required this.messageFieldController,
-  });
-  GlobalKey<FormState> formKey;
-  TextEditingController fullNameFieldController;
-  TextEditingController phoneNoFieldController;
-  TextEditingController messageFieldController;
-
+  final screenController = Get.find<ContactUsScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: screenController.formKey,
       child: Column(
         children: [
           FullNameFieldModule(
             name: 'Full name',
-            controller: fullNameFieldController,
           hintText: 'John Deo',
           ),
           PhoneNoFieldModule(
             name: 'Phone No',
-            controller: phoneNoFieldController,
             hintText: '123456890',
             index: 1,
           ),
 
           FeedbackFieldModule(
             name: 'Feedback',
-            controller: messageFieldController,
             hintText: 'Enter Your Message',
           ),
 
@@ -173,59 +155,12 @@ class FormFieldsModule extends StatelessWidget {
 }
 
 class FullNameFieldModule extends StatelessWidget {
-  String name;
-  TextEditingController controller;
-  String hintText;
+  final String name;
+  final String hintText;
 
-  FullNameFieldModule({
-    required this.name,
-    required this.controller,
-    required this.hintText
-});
+  FullNameFieldModule({required this.name, required this.hintText});
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8.0),
-    child: Row(
-      children: [
-        Text(
-          '$name - ',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: TextFormField(
-              controller: controller,
-              cursorColor: Colors.black,
-              decoration: inputDecoration(hintText: '$hintText'),
-              validator: (value) {
-                if(value!.isEmpty){
-                  return 'Field can\'t Empty';
-                }
-              },
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-  }
-}
-
-class PhoneNoFieldModule extends StatelessWidget {
-  String name;
-  TextEditingController controller;
-  String hintText;
-  int index;
-
-  PhoneNoFieldModule({
-    required this.name,
-    required this.controller,
-    required this.hintText,
-    required this.index,
-  });
+  final screenController = Get.find<ContactUsScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -241,16 +176,64 @@ class PhoneNoFieldModule extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: TextFormField(
-                controller: controller,
+                controller: screenController.fullNameFieldController,
+                cursorColor: Colors.black,
+                decoration: inputDecoration(hintText: '$hintText'),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Field can\'t Empty';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PhoneNoFieldModule extends StatelessWidget {
+  final String name;
+  final String hintText;
+  final int index;
+
+  PhoneNoFieldModule({
+    required this.name,
+    required this.hintText,
+    required this.index,
+  });
+
+  final screenController = Get.find<ContactUsScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        children: [
+          Text(
+            '$name - ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TextFormField(
+                controller: screenController.phoneNoFieldController,
                 cursorColor: Colors.black,
                 decoration: inputDecoration(hintText: '$hintText', index: 1),
                 maxLength: 10,
                 keyboardType: TextInputType.number,
                 validator: (value) {
-                  if(value!.isEmpty){
+                  if (value!.isEmpty) {
                     return 'Field can\'t Empty';
-                  } else if(value.length != 10){
+                  } else if (value.length != 10) {
                     return 'Phone No. should be valid';
+                  } else {
+                    return null;
                   }
                 },
               ),
@@ -263,15 +246,12 @@ class PhoneNoFieldModule extends StatelessWidget {
 }
 
 class FeedbackFieldModule extends StatelessWidget {
-  String name;
-  TextEditingController controller;
-  String hintText;
+  final String name;
+  final String hintText;
 
-  FeedbackFieldModule({
-    required this.name,
-    required this.controller,
-    required this.hintText
-  });
+  FeedbackFieldModule({required this.name, required this.hintText});
+
+  final screenController = Get.find<ContactUsScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -287,12 +267,14 @@ class FeedbackFieldModule extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: TextFormField(
-                controller: controller,
+                controller: screenController.messageFieldController,
                 cursorColor: Colors.black,
                 decoration: inputDecoration(hintText: '$hintText'),
                 validator: (value) {
-                  if(value!.isEmpty){
+                  if (value!.isEmpty) {
                     return 'Field can\'t Empty';
+                  } else {
+                    return null;
                   }
                 },
               ),
@@ -304,16 +286,15 @@ class FeedbackFieldModule extends StatelessWidget {
   }
 }
 
-
 class SubmitButtonModule extends StatelessWidget {
-  GlobalKey<FormState> formKey;
-  SubmitButtonModule({required this.formKey});
+  final screenController = Get.find<ContactUsScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        if(formKey.currentState!.validate()){
+      onTap: () async {
+        if(screenController.formKey.currentState!.validate()){
+          await screenController.fillContactUsFormFunction();
         }
       },
       child: Padding(

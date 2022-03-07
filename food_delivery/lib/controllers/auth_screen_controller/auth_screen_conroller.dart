@@ -180,8 +180,8 @@ class AuthScreenController extends GetxController {
   }
 
 
-  /// Create User Waller API
-  /*createUserWaller() async {
+  /// Create User Wallet API
+  /*createUserWallet() async {
     isLoading(true);
     String url = ApiUrl.CreateUserWalletApi;
     print('Url : $url');
