@@ -4,8 +4,6 @@
 
 import 'dart:convert';
 
-import '../all_city_model/city_model.dart';
-
 FoodCampaignModel foodCampaignModelFromJson(String str) => FoodCampaignModel.fromJson(json.decode(str));
 
 String foodCampaignModelToJson(FoodCampaignModel data) => json.encode(data.toJson());
@@ -19,13 +17,12 @@ class FoodCampaignModel {
 
   bool status;
   String message;
-  List<GetFoodList> getList;
+  List<GetFoodCampList> getList;
 
   factory FoodCampaignModel.fromJson(Map<String, dynamic> json) => FoodCampaignModel(
-    status: json["status"] == null ? false : json["status"],
-    message: json["message"] == null ? "" : json["message"],
-    getList: List<GetFoodList>.from(json["getList"].map((x) => GetFoodList.fromJson(x)) ?? []),
-
+    status: json["status"] ?? false,
+    message: json["message"] ?? "",
+    getList: List<GetFoodCampList>.from(json["getList"].map((x) => GetFoodCampList.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -35,8 +32,8 @@ class FoodCampaignModel {
   };
 }
 
-class GetFoodList {
-  GetFoodList({
+class GetFoodCampList {
+  GetFoodCampList({
     required this.id,
     required this.title,
     required this.zone,
@@ -82,28 +79,28 @@ class GetFoodList {
   DiscountType discountType;
   String foodImage;
 
-  factory GetFoodList.fromJson(Map<String, dynamic> json) => GetFoodList(
+  factory GetFoodCampList.fromJson(Map<String, dynamic> json) => GetFoodCampList(
     id: json["_id"] ?? "",
-    title: json["Title"] == null ? "" : json["Title"],
-    zone: Zone.fromJson(json["Zone"] ??{}),
+    title: json["Title"] ?? "",
+    zone: Zone.fromJson(json["Zone"] ?? {}),
     restaurant: Restaurant.fromJson(json["Restaurant"] ?? {}),
     startDate: DateTime.parse(json["StartDate"] ?? DateTime.now()),
     endDate: DateTime.parse(json["EndDate"] ?? DateTime.now()),
-    startTime: json["StartTime"],
-    endTime: json["EndTime"],
-    price: json["Price"],
-    discount: json["Discount"],
-    category: json["Category"],
-    subCategory: json["SubCategory"],
-    attribute: List<Addon>.from(json["Attribute"].map((x) => Addon.fromJson(x))),
-    addon: List<Addon>.from(json["Addon"].map((x) => Addon.fromJson(x))),
-    description: json["Description"],
-    isActive: json["IsActive"],
-    createdAt: DateTime.parse(json["createdAt"]),
-    updatedAt: DateTime.parse(json["updatedAt"]),
-    v: json["__v"],
+    startTime: json["StartTime"] ?? "",
+    endTime: json["EndTime"] ?? "",
+    price: json["Price"] ?? "",
+    discount: json["Discount"] ?? "",
+    category: json["Category"] ?? "",
+    subCategory: json["SubCategory"] ?? "",
+    attribute: List<Addon>.from(json["Attribute"].map((x) => Addon.fromJson(x)) ?? []),
+    addon: List<Addon>.from(json["Addon"].map((x) => Addon.fromJson(x)) ?? []),
+    description: json["Description"] ?? "",
+    isActive: json["IsActive"] ?? false,
+    createdAt: DateTime.parse(json["createdAt"] ?? DateTime.now()),
+    updatedAt: DateTime.parse(json["updatedAt"] ?? DateTime.now()),
+    v: json["__v"] ?? 0,
     discountType: DiscountType.fromJson(json["DiscountType"] ?? {}),
-    foodImage: json["FoodImage"] == null ? null : json["FoodImage"],
+    foodImage: json["FoodImage"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -143,9 +140,9 @@ class Addon {
   String id;
 
   factory Addon.fromJson(Map<String, dynamic> json) => Addon(
-    value: Zone.fromJson(json["value"]),
-    label: json["label"],
-    id: json["_id"],
+    value: Zone.fromJson(json["value"] ?? {}),
+    label: json["label"] ?? "",
+    id: json["_id"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -179,15 +176,15 @@ class Zone {
   String coordinates;
 
   factory Zone.fromJson(Map<String, dynamic> json) => Zone(
-    id: json["_id"],
-    restaurant: json["Restaurant"] == null ? null : json["Restaurant"],
-    name: json["Name"],
-    price: json["Price"] == null ? null : json["Price"],
-    isActive: json["IsActive"],
-    createdAt: DateTime.parse(json["createdAt"]),
-    updatedAt: DateTime.parse(json["updatedAt"]),
-    v: json["__v"],
-    coordinates: json["Coordinates"] == null ? null : json["Coordinates"],
+    id: json["_id"] ?? "",
+    restaurant: json["Restaurant"] ?? "",
+    name: json["Name"] ?? "",
+    price: json["Price"] ?? "",
+    isActive: json["IsActive"] ?? false,
+    createdAt: DateTime.parse(json["createdAt"] ?? DateTime.now()),
+    updatedAt: DateTime.parse(json["updatedAt"] ?? DateTime.now()),
+    v: json["__v"] ?? 0,
+    coordinates: json["Coordinates"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -213,8 +210,8 @@ class DiscountType {
   String label;
 
   factory DiscountType.fromJson(Map<String, dynamic> json) => DiscountType(
-    value: json["value"],
-    label: json["label"],
+    value: json["value"] ?? "",
+    label: json["label"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -283,33 +280,33 @@ class Restaurant {
   String updatedBy;
 
   factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
-    id: json["_id"],
-    storeName: json["StoreName"],
-    tax: json["Tax"],
-    address: json["Address"],
-    minDeliveryTime: json["MinDeliveryTime"],
-    maxDeliveryTime: json["MaxDeliveryTime"],
-    zone: json["Zone"],
-    latitude: json["Latitude"],
-    longitude: json["Longitude"],
-    firstName: json["FirstName"],
-    lastName: json["LastName"],
-    email: json["Email"],
-    password: json["Password"],
-    phone: json["Phone"],
-    deliveryRange: json["DeliveryRange"],
-    startTime: json["StartTime"],
-    endTime: json["EndTime"],
-    roleId: json["RoleId"],
-    isActive: json["IsActive"],
-    isApproved: json["IsApproved"],
-    approvedOn: DateTime.parse(json["ApprovedOn"]),
-    createdAt: DateTime.parse(json["createdAt"]),
-    updatedAt: DateTime.parse(json["updatedAt"]),
-    v: json["__v"],
-    image: json["Image"] == null ? null : json["Image"],
-    createdBy: json["CreatedBy"] == null ? null : json["CreatedBy"],
-    updatedBy: json["UpdatedBy"] == null ? null : json["UpdatedBy"],
+    id: json["_id"] ?? "",
+    storeName: json["StoreName"] ?? "",
+    tax: json["Tax"] ?? "",
+    address: json["Address"] ?? "",
+    minDeliveryTime: json["MinDeliveryTime"] ?? "",
+    maxDeliveryTime: json["MaxDeliveryTime"] ?? "",
+    zone: json["Zone"] ?? "",
+    latitude: json["Latitude"] ?? "",
+    longitude: json["Longitude"] ?? "",
+    firstName: json["FirstName"] ?? "",
+    lastName: json["LastName"] ?? "",
+    email: json["Email"] ?? "",
+    password: json["Password"] ?? "",
+    phone: json["Phone"] ?? 0,
+    deliveryRange: json["DeliveryRange"] ?? "",
+    startTime: json["StartTime"] ?? "",
+    endTime: json["EndTime"] ?? "",
+    roleId: json["RoleId"] ?? "",
+    isActive: json["IsActive"] ?? false,
+    isApproved: json["IsApproved"] ?? false,
+    approvedOn: DateTime.parse(json["ApprovedOn"] ?? DateTime.now()),
+    createdAt: DateTime.parse(json["createdAt"] ?? DateTime.now()),
+    updatedAt: DateTime.parse(json["updatedAt"] ?? DateTime.now()),
+    v: json["__v"] ?? 0,
+    image: json["Image"]?? "",
+    createdBy: json["CreatedBy"]?? "",
+    updatedBy: json["UpdatedBy"]?? "",
   );
 
   Map<String, dynamic> toJson() => {

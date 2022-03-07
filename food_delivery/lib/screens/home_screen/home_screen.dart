@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               SizedBox(height: 10),
               PopularProductButton(),
               SizedBox(height: 10),
-              // OfferList()
+              FoodCampaignList(),
             ],
           ),
         ),

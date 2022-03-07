@@ -25,7 +25,7 @@ class HomeScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   List<GetList> bannerList = [];
-  List<GetFoodList> foodCampaignList = [];
+  List<GetFoodCampList> foodCampaignList = [];
 
   @override
   void onInit() {
@@ -57,8 +57,8 @@ class HomeScreenController extends GetxController {
     } catch(e) {
       print('Error : $e');
     } finally {
-      // await getCampaignList();
-      isLoading(false);
+      await getCampaignList();
+      // isLoading(false);
     }
   }
 

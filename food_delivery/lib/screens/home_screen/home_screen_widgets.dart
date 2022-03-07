@@ -11,6 +11,7 @@ import 'package:food_delivery/screens/home_screen/whats_new_tab/whats_new_tab.da
 import 'package:food_delivery/screens/products_list_screen/products_list_screen.dart';
 import 'package:get/get.dart';
 
+import '../../common/constant/app_images.dart';
 import '../../common/constant/enums.dart';
 
 class SearchContainer extends StatelessWidget {
@@ -333,15 +334,9 @@ class PopularProductButton extends StatelessWidget {
   }
 }
 
-class OfferList extends StatelessWidget {
-   OfferList({Key? key}) : super(key: key);
+class FoodCampaignList extends StatelessWidget {
+   FoodCampaignList({Key? key}) : super(key: key);
    final homeScreenController = Get.find<HomeScreenController>();
-
-  // List<String> offer= [
-  //   Images.ic_offer1,
-  //   Images.ic_offer2,
-  //   Images.ic_offer3,
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -364,7 +359,7 @@ class OfferList extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         color: AppColors.colorGrey
                     ),
-                    // child: Image.asset(homeScreenController.foodCampaignList[index].restaurant)
+                    child: Image.asset(Images.ic_offer1)
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 10),
@@ -386,61 +381,3 @@ class OfferList extends StatelessWidget {
     );
   }
 }
-
-
-// GestureDetector(
-// onTap: () {
-// tabController.index = 0;
-// },
-// child: Container(
-// // margin: EdgeInsets.only(right: 10),
-// // padding: EdgeInsets.only(left: 5, right: 5),
-// decoration: BoxDecoration(
-// borderRadius: BorderRadius.circular(5),
-// border: Border.all(color: AppColors.colorDarkPink),
-// // color: tabController.index == 0 ? AppColors.colorDarkPink : Colors.white
-// ),
-// child: Tab(
-// text: "Recent Selling",
-// ),
-// ),
-// ),
-//
-// Container(
-// // width: Get.width * 0.2,
-// margin: EdgeInsets.only(right: 10),
-// padding: EdgeInsets.only(left: 5, right: 5),
-// decoration: BoxDecoration(
-// borderRadius: BorderRadius.circular(5),
-// border: Border.all(color: AppColors.colorDarkPink)
-// ),
-// child: Tab(
-// text: "Top Selling",
-// ),
-// ),
-//
-// Container(
-// margin: EdgeInsets.only(right: 10),
-// padding: EdgeInsets.only(left: 5, right: 5),
-// //width: Get.width * 0.2,
-// decoration: BoxDecoration(
-// borderRadius: BorderRadius.circular(5),
-// border: Border.all(color: AppColors.colorDarkPink)
-// ),
-// child: Tab(
-// text: "Whats New",
-//
-// ),
-// ),
-//
-// Container(
-// //width: Get.width * 0.2,
-// padding: EdgeInsets.only(left: 5, right: 5),
-// decoration: BoxDecoration(
-// borderRadius: BorderRadius.circular(5),
-// border: Border.all(color: AppColors.colorDarkPink)
-// ),
-// child: Tab(
-// text: "Deal Products",
-// ),
-// ),
