@@ -22,8 +22,8 @@ class NewOrderScreenController extends GetxController {
   getTodayOrderList() async {
     print("Store Id: ${UserDetails.storeId}");
     isLoading(true);
-    //String url = ApiUrl.TodayOrderApi + UserDetails.storeId;
-    String url = ApiUrl.TodayOrderApi + "61fa81fc1b790c4fcf4d28a0";
+    String url = ApiUrl.TodayOrderApi + "${UserDetails.storeId}";
+   // String url = ApiUrl.TodayOrderApi + "61fa81fc1b790c4fcf4d28a0";
     print('Url : $url');
 
     try{

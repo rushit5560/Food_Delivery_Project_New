@@ -37,8 +37,8 @@ class ItemScreenController extends GetxController {
   getStoreProductList() async {
     print("Store Id: ${UserDetails.storeId}");
     isLoading(true);
-    //String url = ApiUrl.TodayOrderApi + UserDetails.storeId;
-    String url = ApiUrl.StoreProductApi + "61fa612f77c72b016b4af342";
+    String url = ApiUrl.StoreProductApi + "${UserDetails.storeId}";
+    //String url = ApiUrl.StoreProductApi + "61fa612f77c72b016b4af342";
     print('Url : $url');
 
     try{
