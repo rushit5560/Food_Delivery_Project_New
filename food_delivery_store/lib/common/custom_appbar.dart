@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'app_colors.dart';
 import 'app_images.dart';
@@ -17,7 +18,11 @@ PreferredSizeWidget commonAppBarModule({required title, index = 0}) {
         );
 
       },
-    ) : index == 2 ? Icon(Icons.arrow_back) : null,
+    ) : index == 2 ? GestureDetector(
+      onTap: (){
+        Get.back();
+      },
+        child: Icon(Icons.arrow_back)) : null,
 
     title: Text("$title", style: TextStyle(color: Colors.black),),
     shape: RoundedRectangleBorder(
