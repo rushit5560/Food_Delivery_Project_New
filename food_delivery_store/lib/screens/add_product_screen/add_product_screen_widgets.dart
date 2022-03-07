@@ -1,28 +1,115 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/app_colors.dart';
 import 'package:food_delivery_admin/common/app_images.dart';
 import 'package:food_delivery_admin/controllrs/add_product_screen_controller/add_product_screen_controller.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
-class ProductImage extends StatelessWidget {
-  const ProductImage({Key? key}) : super(key: key);
+class ProductImage extends StatefulWidget {
+  @override
+  State<ProductImage> createState() => _ProductImageState();
+}
+
+class _ProductImageState extends State<ProductImage> {
+  //const ProductImage({Key? key}) : super(key: key);
+  final addProductScreenController = Get.find<AddProductScreenController>();
+
+  final ImagePicker imagePicker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(80.0),
-      child: Container(
-        color: AppColors.colorLightPink,
-        height: 100 ,width: 100,
-        //child: FlutterLogo(),
-        child: Icon(Icons.camera_alt, color: AppColors.colorDarkPink,size: 40,),
-      ),
+    return Stack(
+      alignment: Alignment.bottomRight,
+      children: [
+        addProductScreenController.file != null ?
+        ClipRRect(
+          borderRadius: BorderRadius.circular(80.0),
+          child: Image.file(addProductScreenController.file!, height: 100 ,width: 100, fit: BoxFit.fill ),
+        )
+            :
+        ClipRRect(
+          borderRadius: BorderRadius.circular(80.0),
+          child: Container(
+            color: AppColors.colorLightPink,
+            height: 100 ,width: 100,
+            //child: FlutterLogo(),
+          ),
+        ),
+
+        GestureDetector(
+          onTap: (){
+            _showPicker(context);
+          },
+          child: Container(
+            height: 25, width: 25,
+            margin: EdgeInsets.only(bottom: 5),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: AppColors.colorDarkPink
+            ),
+            child: Icon(Icons.camera_alt, color: Colors.white,size: 15,),
+          ),
+        ),
+      ],
+
     );
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        gallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      camera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
+
+  void gallery() async {
+    final image = await imagePicker.getImage(source: ImageSource.gallery);
+    if(image != null){
+      setState(() {
+        addProductScreenController.file = File(image.path);
+      });
+    } else{}
+  }
+
+  void camera() async {
+    final image = await imagePicker.getImage(source: ImageSource.camera);
+    if(image != null){
+      setState(() {
+        addProductScreenController.file = File(image.path);
+      });
+    } else{}
   }
 }
 
 class ItemInfoTextField extends StatelessWidget {
-  const ItemInfoTextField({Key? key}) : super(key: key);
+ // const ItemInfoTextField({Key? key}) : super(key: key);
+  final addProductScreenController = Get.find<AddProductScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +123,7 @@ class ItemInfoTextField extends StatelessWidget {
 
         TextFormField(
           keyboardType: TextInputType.text,
-          //controller: nameTextEditingController,
+          controller: addProductScreenController.productTitleEditingController,
           decoration: InputDecoration(
             hintText: "Product Title",
             //prefixIcon: Icon(icon, color: Colors.black),
@@ -151,7 +238,8 @@ class ItemCategoryTextField extends StatelessWidget {
 }
 
 class ItemDescriptionTextField extends StatelessWidget {
-  const ItemDescriptionTextField({Key? key}) : super(key: key);
+ // const ItemDescriptionTextField({Key? key}) : super(key: key);
+  final addProductScreenController = Get.find<AddProductScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +253,7 @@ class ItemDescriptionTextField extends StatelessWidget {
 
         TextFormField(
           keyboardType: TextInputType.text,
-          //controller: nameTextEditingController,
+          controller: addProductScreenController.descriptionTextEditingController,
           decoration: InputDecoration(
             hintText: "Brief Your Product",
             //prefixIcon: Icon(icon, color: Colors.black),
@@ -197,7 +285,7 @@ class ItemDescriptionTextField extends StatelessWidget {
 }
 
 class ItemPriceTextField extends StatelessWidget {
-  const ItemPriceTextField({Key? key}) : super(key: key);
+  final addProductScreenController = Get.find<AddProductScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +299,7 @@ class ItemPriceTextField extends StatelessWidget {
 
         TextFormField(
           keyboardType: TextInputType.text,
-          //controller: nameTextEditingController,
+          controller: addProductScreenController.priceTextEditingController,
           decoration: InputDecoration(
             hintText: "Select Product Price",
             //prefixIcon: Icon(icon, color: Colors.black),
@@ -242,7 +330,7 @@ class ItemPriceTextField extends StatelessWidget {
 
         TextFormField(
           keyboardType: TextInputType.text,
-          //controller: nameTextEditingController,
+          controller: addProductScreenController.mrpTextEditingController,
           decoration: InputDecoration(
             hintText: "Select Product MRP",
             //prefixIcon: Icon(icon, color: Colors.black),
@@ -274,7 +362,7 @@ class ItemPriceTextField extends StatelessWidget {
 }
 
 class ItemQtyTextField extends StatelessWidget {
-  const ItemQtyTextField({Key? key}) : super(key: key);
+  final addProductScreenController = Get.find<AddProductScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -288,7 +376,7 @@ class ItemQtyTextField extends StatelessWidget {
 
         TextFormField(
           keyboardType: TextInputType.text,
-          //controller: nameTextEditingController,
+          controller: addProductScreenController.qtyTextEditingController,
           decoration: InputDecoration(
             hintText: "Enter Quantity",
             //prefixIcon: Icon(icon, color: Colors.black),
@@ -447,19 +535,24 @@ class TagTextField extends StatelessWidget {
 }
 
 class AddProductButton extends StatelessWidget {
-  const AddProductButton({Key? key}) : super(key: key);
+  final addProductScreenController = Get.find<AddProductScreenController>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 40, width: Get.width/3,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: AppColors.colorDarkPink
-      ),
-      child: Center(
-        child: Text("Add Product",
-          style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),),
+    return GestureDetector(
+      onTap: (){
+        addProductScreenController.addProduct();
+      },
+      child: Container(
+        height: 40, width: Get.width/3,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.colorDarkPink
+        ),
+        child: Center(
+          child: Text("Add Product",
+            style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),),
+        ),
       ),
     );
   }

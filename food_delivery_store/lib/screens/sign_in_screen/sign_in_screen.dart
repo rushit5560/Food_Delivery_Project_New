@@ -23,41 +23,7 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
-      /*body: Center(
-        child: SingleChildScrollView(
-          child: Form(
-            key: _SignInformKey,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    //SignInText(),
-                    SizedBox(height: 10),
-                    SignInTextField(
-                      signInTextEditingController: signInTextEditingController,
-                      //icon: Icons.email,
-                      hintText: "Enter Email",
-                    ),
-                    SizedBox(height: 15),
-                    PasswordTextField(
-                      passwordTextEditingController: passwordTextEditingController,
-                      //icon: Icons.password,
-                      hintText: "Password",),
-                    *//*SizedBox(height: 30),
-                    SignInButton(),
-                    SizedBox(height: 20),
-                    SignUpText(),*//*
 
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),*/
       body: Obx(()=>
         signInScreenController.isLoading.value ?
             CustomCircularProgressIndicator() :

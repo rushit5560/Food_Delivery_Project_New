@@ -121,7 +121,7 @@ class PasswordTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.text,
       controller: signupScreenController.passwordTextEditingController,
       //  obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
@@ -140,7 +140,7 @@ class DeliveryRangeTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.text,
       controller: signupScreenController.deliveryRangeTextEditingController,
       //  obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
@@ -159,7 +159,7 @@ class StoreAddressTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.text,
       controller: signupScreenController.storeAddressTextEditingController,
       //  obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
@@ -173,15 +173,20 @@ class ContinueButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 45, width: Get.width /3,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: AppColors.colorDarkPink
-      ),
-      child: Center(
-        child: Text("Continue",
-          style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),),
+    return GestureDetector(
+      onTap: (){
+        signupScreenController.adminSignUpFunction();
+      },
+      child: Container(
+        height: 45, width: Get.width /3,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.colorDarkPink
+        ),
+        child: Center(
+          child: Text("Continue",
+            style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),),
+        ),
       ),
     );
   }
