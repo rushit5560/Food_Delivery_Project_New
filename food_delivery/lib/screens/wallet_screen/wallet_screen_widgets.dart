@@ -4,8 +4,11 @@ import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/wallet_screen_controller/wallet_screen_controller.dart';
+
 class WalletValue extends StatelessWidget {
-  const WalletValue({Key? key}) : super(key: key);
+  WalletValue({Key? key}) : super(key: key);
+  final walletScreenController = Get.find<WalletScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class WalletValue extends StatelessWidget {
         ),
         SizedBox(height: 20,),
         Container(
-          child: Text("\$123456.00",
+          child: Text("\$${walletScreenController.walletAmount.value}",
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 23),),
         )
       ],
