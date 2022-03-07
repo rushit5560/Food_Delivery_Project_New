@@ -22,7 +22,7 @@ class CreateUserWalletModel {
   factory CreateUserWalletModel.fromJson(Map<String, dynamic> json) => CreateUserWalletModel(
     status: json["status"] ?? false,
     message: json["message"] ?? "",
-    wallet: Wallet.fromJson(json["wallet"] ?? {}),
+    wallet: Wallet.fromJson(json["wallet"]),
   );
 
   Map<String, dynamic> toJson() => {

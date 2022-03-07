@@ -8,6 +8,7 @@ class SharedPreferenceData {
   String userIdKey = "userIdKey";
   String userRoleKey = "userRoleKey";
   String userTokenKey = "userTokenKey";
+  String userWalletIdKey = "userWalletIdKey";
 
   // This Function Use For Set UserLoginStatus, UserId & Token in sharedPreference
   setUserLoginDetailsInPrefs({required String userToken}) async {
@@ -40,6 +41,12 @@ class SharedPreferenceData {
     print('UserDetails.userId : ${UserDetails.userId}');
     print('UserDetails.userRole : ${UserDetails.userRole}');
     print('UserDetails.userToken : ${UserDetails.userToken}');
+  }
+
+  setWalletIdInPrefs({required String walletId}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(userWalletIdKey, walletId);
+    print('Prefs Wallet Id : ${prefs.getString(userWalletIdKey)}');
   }
 
 

@@ -9,8 +9,10 @@ import 'package:food_delivery/models/all_city_model/city_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../../common/constant/user_details.dart';
 import '../../common/sharedpreference_data/sharedpreference_data.dart';
 import '../../models/auth_screen_models/registration_user_model.dart';
+import '../../models/create_user_wallet_model/create_user_wallet_model.dart';
 import '../../models/sign_in_model/sign_in_model.dart';
 import '../../screens/index_screen/index_screen.dart';
 
@@ -110,7 +112,6 @@ class AuthScreenController extends GetxController {
     }
   }
 
-
   Future userSignUpFunction() async {
     isLoading(true);
     String url = ApiUrl.RegisterApi;
@@ -179,9 +180,8 @@ class AuthScreenController extends GetxController {
     selectedGenderValue = "Male";
   }
 
-
   /// Create User Wallet API
-  /*createUserWallet() async {
+  createUserWallet() async {
     isLoading(true);
     String url = ApiUrl.CreateUserWalletApi;
     print('Url : $url');
@@ -189,17 +189,32 @@ class AuthScreenController extends GetxController {
     try{
       Map data = {
         "UserId" : "${UserDetails.userId}",
-        "Amount" : ,
-        "Status" : ,
-        "Source" :
+        "Amount" : "0",
+        "Status" : "Active",
+        "Source" : "GooglePay"
       };
+
+      http.Response response = await http.post(Uri.parse(url), body: data);
+      print('response : ${response.body}');
+
+      CreateUserWalletModel createUserWalletModel = CreateUserWalletModel.fromJson(json.decode(response.body));
+      isSuccessStatus = createUserWalletModel.status.obs;
+      print('isSuccessStatus : $isSuccessStatus');
+
+      if(isSuccessStatus.value) {
+        String userWalletId = createUserWalletModel.wallet.id;
+        print('userWalletId : $userWalletId');
+        sharedPreferenceData.setWalletIdInPrefs(walletId: userWalletId);
+      } else {
+        print('createUserWallet Else Else');
+      }
 
     } catch(e) {
       print('Create User Waller Error : $e');
     } finally {
       isLoading(false);
     }
-  }*/
+  }
 
 
 
@@ -227,6 +242,7 @@ class AuthScreenController extends GetxController {
         String userToken = signInModel.token;
         print('userToken : $userToken');
         await sharedPreferenceData.setUserLoginDetailsInPrefs(userToken: "$userToken");
+        await createUserWallet();
         Get.offAll(() => IndexScreen());
         Get.snackbar('User LoggedIn Successfully.', '');
       } else {
