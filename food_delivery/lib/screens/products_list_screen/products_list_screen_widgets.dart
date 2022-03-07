@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/screens/product_detail_screen/product_details_screen.dart';
 import 'package:get/get.dart';
 
 import '../../common/constant/app_colors.dart';
@@ -33,6 +34,7 @@ class AllProductsListTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print('Product Id : ${singleProduct.sId}');
+        Get.to(()=> ProductDetailScreen(), arguments: singleProduct.sId);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 10),
@@ -143,6 +145,7 @@ class ProductsListByCategoryIdTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print('Product Id : ${product.id}');
+        Get.to(()=> ProductDetailScreen(), arguments: product.id);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 10),

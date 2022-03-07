@@ -9,6 +9,8 @@ import '../../models/product_details_model/product_details_model.dart';
 
 
 class ProductDetailScreenController extends GetxController{
+  String productId = Get.arguments;
+
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   RxInt qty = 1.obs;
@@ -41,7 +43,7 @@ class ProductDetailScreenController extends GetxController{
 
     try{
       Map<String, dynamic> data = {
-        "Product" : "61fd11bc61d43610bbb45866",
+        "Product" : "$productId",
         "Customer" : "61f0ffb3927a090dae0cd777",
         "Review" : "Testy Dish",
         "Rating" : "$rating"
@@ -70,7 +72,7 @@ class ProductDetailScreenController extends GetxController{
   getProductByProductId() async {
     isLoading(true);
     String url = ApiUrl.ProductByIdApi;
-    String finalUrl = url + "61fd11e9e272868344321538";
+    String finalUrl = url + "$productId";
     print('finalUrl : $finalUrl');
 
     try {
