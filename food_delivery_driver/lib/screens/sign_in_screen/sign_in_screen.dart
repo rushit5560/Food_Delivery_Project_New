@@ -12,9 +12,6 @@ class SignInScreen extends StatelessWidget {
 
   var _SignInformKey = GlobalKey<FormState>();
 
-  TextEditingController signInTextEditingController = TextEditingController();
-
-  TextEditingController passwordTextEditingController = TextEditingController();
   GoogleSignIn googleSignInManager = GoogleSignIn(
     scopes: ['email'],
   );
@@ -66,9 +63,7 @@ class SignInScreen extends StatelessWidget {
             Stack(
               children: [
                 WelcomeText(),
-                LoginForm(
-                  signInTextEditingController: signInTextEditingController,
-                  passwordTextEditingController: passwordTextEditingController,),
+                LoginForm(),
               ],
             ),
             SizedBox(height: 50,),

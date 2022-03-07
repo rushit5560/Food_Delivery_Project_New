@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:food_delivery_driver/common/app_colors.dart';
+import 'package:food_delivery_driver/common/field_validation.dart';
 import 'package:food_delivery_driver/controllrs/sign_in_screen_controller/sign_in_screen_controller.dart';
 import 'package:food_delivery_driver/screens/home_screen/home_screen.dart';
 import 'package:food_delivery_driver/screens/language_screen/language_screen.dart';
+import 'package:food_delivery_driver/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:get/get.dart';
 
 class WelcomeText extends StatelessWidget {
@@ -39,16 +41,8 @@ class LoginForm extends StatelessWidget {
   //late TabController tabController;
   //TabView({required this.tabController});
   //AuthScreenController authScreenController = Get.put(AuthScreenController());
+  final signInScreenController = Get.find<SignInScreenController>();
 
-  TextEditingController signInTextEditingController;
-  TextEditingController passwordTextEditingController;
-  //IconData icon;
-
-  LoginForm({
-    required this.signInTextEditingController,
-    required this.passwordTextEditingController
-    //required this.icon,
-  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,18 +60,23 @@ class LoginForm extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        children: [
-          SizedBox(height: 30,),
-          LoginText(),
-          SizedBox(height: 30,),
-          MobileNumberTextField(signInTextEditingController: signInTextEditingController, hintText: "Mobile Number",),
-          SizedBox(height: 10,),
-          PasswordTextField(passwordTextEditingController: passwordTextEditingController, hintText: "Password",),
-          // SizedBox(height: 40,),
-          // PreferredLang(),
-          SizedBox(height: 40,),
-        ],
+      child: Form(
+        key: signInScreenController.loginFormKey,
+        child: Column(
+          children: [
+            SizedBox(height: 30,),
+            LoginText(),
+            SizedBox(height: 30,),
+            EmailTextField(hintText: "Enter Email",),
+            SizedBox(height: 10,),
+            PasswordTextField(hintText: "Password",),
+            SizedBox(height: 40,),
+            NotUserText(),
+            // SizedBox(height: 40,),
+            // PreferredLang(),
+            SizedBox(height: 40,),
+          ],
+        ),
       ),
     );
   }
@@ -94,6 +93,29 @@ class LoginText extends StatelessWidget {
         style: TextStyle(
             color: AppColors.colorDarkPink, fontSize: 23, fontWeight: FontWeight.bold),
       ),
+    );
+  }
+}
+
+class NotUserText extends StatelessWidget {
+  const NotUserText({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Not a User?",
+          style: TextStyle(color: Colors.black),),
+        SizedBox(width: 5,),
+        GestureDetector(
+          onTap: () {
+            Get.off(()=> SignUpScreen());
+          },
+          child: Text("Click Here",
+            style: TextStyle(color: AppColors.colorDarkPink, fontWeight: FontWeight.bold),),
+        )
+      ],
     );
   }
 }
@@ -118,28 +140,23 @@ class PreferredLang extends StatelessWidget {
   }
 }
 
-class MobileNumberTextField extends StatelessWidget {
+class EmailTextField extends StatelessWidget {
   // const SignInTextField({Key? key}) : super(key: key);
-
-  TextEditingController signInTextEditingController;
-  //IconData icon;
-
+  final signInScreenController = Get.find<SignInScreenController>();
   String hintText;
 
-  MobileNumberTextField({
-    required this.signInTextEditingController,
-    //required this.icon,
-
+  EmailTextField({
     required this.hintText,
   });
 
   @override
   Widget build(BuildContext context) {
-    print('hintText : $hintText && icon && signInTextEditingController $signInTextEditingController');
+    print('hintText : $hintText && icon && signInTextEditingController ${signInScreenController.signInTextEditingController}');
     return TextFormField(
-      keyboardType: TextInputType.number,
-      controller: signInTextEditingController,
+      keyboardType: TextInputType.emailAddress,
+      controller: signInScreenController.signInTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+      validator: (value) => FieldValidator().validateEmail(value!),
     );
   }
 }
@@ -147,13 +164,10 @@ class MobileNumberTextField extends StatelessWidget {
 
 class PasswordTextField extends StatelessWidget {
   // const PasswordTextField({Key? key}) : super(key: key);
-  TextEditingController ? passwordTextEditingController;
-  //IconData icon;
+  final signInScreenController = Get.find<SignInScreenController>();
   String hintText;
 
   PasswordTextField({
-    required TextEditingController passwordTextEditingController,
-    //required this.icon,
     required this.hintText,
   });
 
@@ -161,10 +175,10 @@ class PasswordTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.visiblePassword,
-      controller: passwordTextEditingController,
+      controller: signInScreenController.passwordTextEditingController,
       obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon,*/),
-
+      validator: (value) => FieldValidator().validatePassword(value!),
     );
   }
 }
@@ -201,14 +215,16 @@ InputDecoration _inputDecoration({hintText, icon}) {
 
 class ContinueButton extends StatelessWidget {
   ContinueButton({Key? key}) : super(key: key);
-  //late TabController tabController;
+  final signInScreenController = Get.find<SignInScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        // Get.offAll(() => IndexScreen());
-        Get.offAll(() => HomeScreen());
+
+        if(signInScreenController.loginFormKey.currentState!.validate()) {
+          Get.offAll(() => HomeScreen());
+        }
       },
       child: Container(
         height: 40,

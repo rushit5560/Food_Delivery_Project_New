@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_driver/common/app_colors.dart';
+import 'package:food_delivery_driver/controllrs/signup_screen_controller/signup_screen_controller.dart';
+import 'package:get/get.dart';
 
 class SignUpText extends StatelessWidget {
   const SignUpText({Key? key}) : super(key: key);
@@ -12,15 +15,12 @@ class SignUpText extends StatelessWidget {
   }
 }
 
-class NameTextField extends StatelessWidget {
+class SellerNameTextField extends StatelessWidget {
 
-  TextEditingController ? nameTextEditingController;
-  //IconData icon;
+  final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
-  NameTextField({
-    required TextEditingController nameTextEditingController,
-    //required this.icon,
+  SellerNameTextField({
     required this.hintText,
   });
 
@@ -28,7 +28,45 @@ class NameTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.text,
-      controller: nameTextEditingController,
+      controller: signupScreenController.nameTextEditingController,
+      decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+    );
+  }
+}
+
+class StoreNameTextField extends StatelessWidget {
+
+  final signupScreenController = Get.find<SignUpScreenController>();
+  String hintText;
+
+  StoreNameTextField({
+    required this.hintText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.text,
+      controller: signupScreenController.storeNameTextEditingController,
+      decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+    );
+  }
+}
+
+class StoreNumberTextField extends StatelessWidget {
+
+  final signupScreenController = Get.find<SignUpScreenController>();
+  String hintText;
+
+  StoreNumberTextField({
+    required this.hintText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.number,
+      controller: signupScreenController.storeNumberTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
@@ -36,13 +74,10 @@ class NameTextField extends StatelessWidget {
 
 class EmailTextField extends StatelessWidget {
   //const EmailTextField({Key? key}) : super(key: key);
-  TextEditingController ? emailTextEditingController;
-  //IconData icon;
+  final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
   EmailTextField({
-    required TextEditingController emailTextEditingController,
-    //required this.icon,
     required this.hintText,
   });
 
@@ -50,75 +85,113 @@ class EmailTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      controller: emailTextEditingController,
+      controller: signupScreenController.emailTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
 }
 
-class PhoneTextField extends StatelessWidget {
-  TextEditingController ? phoneTextEditingController;
-  //IconData icon;
+class AdminShareTextField extends StatelessWidget {
+  //const EmailTextField({Key? key}) : super(key: key);
+  final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
-  PhoneTextField({
-    required TextEditingController phoneTextEditingController,
-    //required this.icon,
+  AdminShareTextField({
     required this.hintText,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.number,
-      controller: phoneTextEditingController,
-      //  obscureText: true,
+      keyboardType: TextInputType.emailAddress,
+      controller: signupScreenController.adminShareTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
 }
 
-class ReferalCodeTextField extends StatelessWidget {
-  TextEditingController ? referalCodeTextEditingController;
-  //IconData icon;
+class PasswordTextField extends StatelessWidget {
+  final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
-  ReferalCodeTextField({
-    required TextEditingController referalCodeTextEditingController,
-    //required this.icon,
+  PasswordTextField({
     required this.hintText,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.number,
-      controller: referalCodeTextEditingController,
+      keyboardType: TextInputType.text,
+      controller: signupScreenController.passwordTextEditingController,
       //  obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
 }
 
-class SignUpButton extends StatelessWidget {
-  const SignUpButton({Key? key}) : super(key: key);
+class DeliveryRangeTextField extends StatelessWidget {
+  final signupScreenController = Get.find<SignUpScreenController>();
+  String hintText;
+
+  DeliveryRangeTextField({
+    required this.hintText,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      margin: EdgeInsets.only(left: 25, right: 25),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.blue,
-        //border: Border.all(color: Colors.black)
-      ),
-      child: Center(
-        child: Text("Sign Up", style: TextStyle(color: Colors.white, fontSize: 18),),
+    return TextFormField(
+      keyboardType: TextInputType.text,
+      controller: signupScreenController.deliveryRangeTextEditingController,
+      //  obscureText: true,
+      decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+    );
+  }
+}
+
+class StoreAddressTextField extends StatelessWidget {
+  final signupScreenController = Get.find<SignUpScreenController>();
+  String hintText;
+
+  StoreAddressTextField({
+    required this.hintText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.text,
+      controller: signupScreenController.storeAddressTextEditingController,
+      //  obscureText: true,
+      decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+    );
+  }
+}
+
+
+class ContinueButton extends StatelessWidget {
+  final signupScreenController = Get.find<SignUpScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+
+      },
+      child: Container(
+        height: 45, width: Get.width /3,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.colorDarkPink
+        ),
+        child: Center(
+          child: Text("Continue",
+            style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),),
+        ),
       ),
     );
   }
 }
+
 
 
 InputDecoration _inputDecoration({hintText, icon}) {
@@ -128,22 +201,22 @@ InputDecoration _inputDecoration({hintText, icon}) {
     // isDense: true,
     contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
     filled: true,
-    fillColor: Colors.grey.shade300,
+    fillColor: Colors.grey.shade200,
     enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        borderSide: BorderSide(color: Colors.grey.shade300)
+        borderSide: BorderSide(color: Colors.grey.shade200)
     ),
     focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        borderSide: BorderSide(color: Colors.grey.shade300)
+        borderSide: BorderSide(color: Colors.grey.shade200)
     ),
     errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        borderSide: BorderSide(color: Colors.grey.shade300)
+        borderSide: BorderSide(color: Colors.grey.shade200)
     ),
     focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        borderSide: BorderSide(color: Colors.grey.shade300)
+        borderSide: BorderSide(color: Colors.grey.shade200)
     ),
   );
 }

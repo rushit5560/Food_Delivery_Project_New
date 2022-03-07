@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:food_delivery_driver/screens/home_screen/home_screen.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,9 @@ class SignInScreenController extends GetxController{
   RxBool isLoading = false.obs;
   FacebookUserProfile? profile;
   final FacebookLogin  plugin = FacebookLogin(debug: true);
+  final GlobalKey<FormState> loginFormKey = GlobalKey();
+  final signInTextEditingController = TextEditingController();
+  final passwordTextEditingController = TextEditingController();
 
   @override
   void onInit() {
