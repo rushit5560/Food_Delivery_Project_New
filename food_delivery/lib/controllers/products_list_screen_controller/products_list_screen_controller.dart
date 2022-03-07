@@ -15,7 +15,7 @@ class ProductsListScreenController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
-  List<GetList> allProductList = [];
+  List<GetAllProductList> allProductList = [];
   List<Product> productsListByCategoryId = [];
 
 
@@ -26,14 +26,14 @@ class ProductsListScreenController extends GetxController {
 
     try{
       http.Response response = await http.get(Uri.parse(url));
-      print('Response : $response');
+      print('Response : ${{response.body}}');
 
-      GetAllProductsModel getAllProductsModel = GetAllProductsModel.fromJson(json.decode(response.body));
+      GetAllProductsModel getAllProductsModel = GetAllProductsModel.fromJson(json.decode(response.body)) ;
       isSuccessStatus = getAllProductsModel.status!.obs;
       print('isSuccessStatus : $isSuccessStatus');
 
       if(isSuccessStatus.value){
-        allProductList = getAllProductsModel.getList!;
+        allProductList = getAllProductsModel.list!;
         print('allProductList : $allProductList');
       } else {
         print('Get All Products Else Else');
