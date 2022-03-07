@@ -14,14 +14,16 @@ class OrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: commonAppBarModule(title: 'My Orders'),
-      body: Obx(() => orderScreenController.isLoading.value
-          ? CustomCircularProgressIndicator()
-          : Padding(
-              padding: const EdgeInsets.all(5),
-              child: orderScreenController.userOrderList.isEmpty
-                  ? Center(child: Text('No Orders'))
-                  : AllOrderListModule(),
-            )),
+      body: Obx(
+        () => orderScreenController.isLoading.value
+            ? CustomCircularProgressIndicator()
+            : Padding(
+                padding: const EdgeInsets.all(5),
+                child: orderScreenController.userOrderList.isEmpty
+                    ? Center(child: Text('No Orders'))
+                    : AllOrderListModule(),
+              ),
+      ),
     );
   }
 }
