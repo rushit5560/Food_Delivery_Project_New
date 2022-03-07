@@ -10,68 +10,72 @@ String cityWiseAreaModelToJson(CityWiseAreaModel data) => json.encode(data.toJso
 
 class CityWiseAreaModel {
   CityWiseAreaModel({
-    required this.status,
-    required this.area,
+    this.status,
+    this.message,
+    this.getList,
   });
 
-  bool status;
-  List<Area> area;
+  bool? status;
+  String? message;
+  List<GetAreaList>? getList;
 
   factory CityWiseAreaModel.fromJson(Map<String, dynamic> json) => CityWiseAreaModel(
-    status: json["status"],
-    area: List<Area>.from(json["area"].map((x) => Area.fromJson(x))),
+    status: json["status"] ?? false,
+    message: json["message"] ?? "",
+    getList: List<GetAreaList>.from(json["getList"].map((x) => GetAreaList.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "area": List<dynamic>.from(area.map((x) => x.toJson())),
+    "message": message,
+    "getList": List<dynamic>.from(getList!.map((x) => x.toJson())),
   };
 }
 
-class Area {
-  Area({
-    required this.id,
-    required this.areaName,
-    required this.cityInfo,
-    required this.stateInfo,
-    required this.countryInfo,
+class GetAreaList {
+  GetAreaList({
+    this.id,
+    this.areaName,
+    this.cityInfo,
+    this.stateInfo,
+    this.countryInfo,
   });
 
-  String id;
-  String areaName;
-  CityInfo cityInfo;
-  StateInfo stateInfo;
-  CountryInfo countryInfo;
+  String? id;
+  String? areaName;
+  CityInfo? cityInfo;
+  StateInfo? stateInfo;
+  CountryInfo? countryInfo;
 
-  factory Area.fromJson(Map<String, dynamic> json) => Area(
-    id: json["_id"],
-    areaName: json["AreaName"],
-    cityInfo: CityInfo.fromJson(json["city_info"]),
-    stateInfo: StateInfo.fromJson(json["state_info"]),
-    countryInfo: CountryInfo.fromJson(json["country_info"]),
+  factory GetAreaList.fromJson(Map<String, dynamic> json) => GetAreaList(
+    id: json["_id"] ?? "",
+    areaName: json["AreaName"]  ?? "",
+    cityInfo: CityInfo.fromJson(json["city_info"] ?? {}),
+    stateInfo: StateInfo.fromJson(json["state_info"] ?? {}),
+    countryInfo: CountryInfo.fromJson(json["country_info"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
     "_id": id,
     "AreaName": areaName,
-    "city_info": cityInfo.toJson(),
-    "state_info": stateInfo.toJson(),
-    "country_info": countryInfo.toJson(),
+    "city_info": cityInfo!.toJson(),
+    "state_info": stateInfo!.toJson(),
+    "country_info": countryInfo!.toJson(),
   };
 }
 
 class CityInfo {
   CityInfo({
-    required this.id,
-    required this.cityName,
+    this.id,
+    this.cityName,
   });
 
-  String id;
-  String cityName;
+  String? id;
+  String? cityName;
 
   factory CityInfo.fromJson(Map<String, dynamic> json) => CityInfo(
-    id: json["_id"],
-    cityName: json["CityName"],
+    id: json["_id"] ?? "",
+    cityName: json["CityName"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -82,16 +86,16 @@ class CityInfo {
 
 class CountryInfo {
   CountryInfo({
-    required this.id,
-    required this.countryName,
+    this.id,
+    this.countryName,
   });
 
-  String id;
-  String countryName;
+  String? id;
+  String? countryName;
 
   factory CountryInfo.fromJson(Map<String, dynamic> json) => CountryInfo(
-    id: json["_id"],
-    countryName: json["CountryName"],
+    id: json["_id"] ?? "",
+    countryName: json["CountryName"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -102,16 +106,16 @@ class CountryInfo {
 
 class StateInfo {
   StateInfo({
-    required this.id,
-    required this.stateName,
+    this.id,
+    this.stateName,
   });
 
-  String id;
-  String stateName;
+  String? id;
+  String? stateName;
 
   factory StateInfo.fromJson(Map<String, dynamic> json) => StateInfo(
-    id: json["_id"],
-    stateName: json["StateName"],
+    id: json["_id"] ?? "",
+    stateName: json["StateName"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {

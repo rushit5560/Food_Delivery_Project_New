@@ -212,18 +212,18 @@ class _SelectAreaDropDownModuleState extends State<SelectAreaDropDownModule> {
                 true, //If false (the default), then the dropdown's menu will be wider than its button.
               )),
           child: DropdownButtonHideUnderline(
-            child: DropdownButton<Area>(
+            child: DropdownButton<GetAreaList>(
               focusColor: Colors.white,
               value: authScreenController.areaDropDownValue,
               //elevation: 5,
               style: TextStyle(color: Colors.white),
               iconEnabledColor: Colors.black,
               items: authScreenController.areaLists.
-              map<DropdownMenuItem<Area>>((Area value) {
-                return DropdownMenuItem<Area>(
+              map<DropdownMenuItem<GetAreaList>>((GetAreaList value) {
+                return DropdownMenuItem<GetAreaList>(
                   value: value,
                   child: Text(
-                    value.areaName,
+                    value.areaName!,
                     style: TextStyle(color: Colors.black),
                   ),
                 );

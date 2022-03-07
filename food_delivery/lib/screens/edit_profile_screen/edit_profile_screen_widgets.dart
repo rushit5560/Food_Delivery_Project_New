@@ -7,6 +7,7 @@ import 'package:food_delivery/controllers/edit_profile_screen_controller/edit_pr
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../models/all_area_model/all_area_model.dart';
 import '../../models/all_city_model/city_model.dart';
 
 class ProfilePicModule extends StatefulWidget {
@@ -15,7 +16,6 @@ class ProfilePicModule extends StatefulWidget {
   @override
   _ProfilePicModuleState createState() => _ProfilePicModuleState();
 }
-
 class _ProfilePicModuleState extends State<ProfilePicModule> {
   final editProfileScreenController = Get.find<EditProfileScreenController>();
   final ImagePicker imagePicker = ImagePicker();
@@ -201,13 +201,13 @@ class _CityDropDownModuleState extends State<CityDropDownModule> {
                 onChanged: (newValue) {
                   editProfileScreenController.cityDropDownValue!.cityName = newValue!.cityName;
                   editProfileScreenController.cityDropDownValue!.sId = newValue.sId;
-                  // editProfileScreenController.areaLists.clear();
+                  editProfileScreenController.areaList.clear();
+                  editProfileScreenController.areaList.add(GetAreaList(areaName: 'Select Area'));
+                  editProfileScreenController.getAreaUsingCityId(cityId: "${editProfileScreenController.cityDropDownValue!.sId}");
                   print("cityDropDownValue : ${editProfileScreenController.cityDropDownValue}");
                   print('newValue.name : ${newValue.cityName}');
-                  // editProfileScreenController.getAllAreaList(newValue.sId!);
                   print('city: ${newValue.sId!}');
-                  editProfileScreenController.isLoading(true);
-                  editProfileScreenController.isLoading(false);
+                  editProfileScreenController.loading();
                 },
               ),
             ),
@@ -269,66 +269,50 @@ class AreaDropDownModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Container(
-        padding: const EdgeInsets.only(left: 10),
-        height: 50,
-        //gives the height of the dropdown button
-        width: MediaQuery.of(context).size.width,
-        //gives the width of the dropdown button
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            color: Colors.grey.shade200
-            //border: Border.all(color: Colors.grey),
-            ),
-        child: Theme(
-          data: Theme.of(context).copyWith(
-              canvasColor: Colors.grey.shade100,
-              // background color for the dropdown items
-              buttonTheme: ButtonTheme.of(context).copyWith(
-                alignedDropdown:
-                    true, //If false (the default), then the dropdown's menu will be wider than its button.
-              )),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              focusColor: Colors.white,
-              value: editProfileScreenController.areaType.value,
-              //elevation: 5,
-              style: TextStyle(color: Colors.white),
-              iconEnabledColor: Colors.black,
-              items: <String>[
-                'Varachha',
-                'Mota Varachha',
-                'Nana Varachha',
-                'Udhna',
-                'Vesu',
-                'Adajan',
-                'Pal',
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
-                    style: TextStyle(color: Colors.black),
-                  ),
-                );
-              }).toList(),
-              hint: Text(
-                "Select Address Type",
-                /*style: TextStyle(
-                                //color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),*/
+    return Obx(()=>
+        Container(
+          padding: const EdgeInsets.only(left: 10),
+          height: 45,
+          width: Get.width,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.grey.shade300
+          ),
+          child: Theme(
+            data: Theme.of(context).copyWith(
+                canvasColor: Colors.grey.shade100,
+                // background color for the dropdown items
+                buttonTheme: ButtonTheme.of(context).copyWith(
+                  alignedDropdown: true, //If false (the default), then the dropdown's menu will be wider than its button.
+                )),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<GetAreaList>(
+                focusColor: Colors.white,
+                value: editProfileScreenController.areaDropDownValue,
+                //elevation: 5,
+                style: TextStyle(color: Colors.white),
+                iconEnabledColor: Colors.black,
+                items: editProfileScreenController.areaList.
+                map<DropdownMenuItem<GetAreaList>>((GetAreaList value) {
+                  return DropdownMenuItem<GetAreaList>(
+                    value: value,
+                    child: Text(
+                      value.areaName!,
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (newValue) {
+                  editProfileScreenController.areaDropDownValue!.areaName = newValue!.areaName;
+                  editProfileScreenController.areaDropDownValue!.id = newValue.id;
+                  print('newValue.name : ${newValue.areaName}');
+                  print('area: ${newValue.id}');
+                  editProfileScreenController.loading();
+                },
               ),
-              onChanged: (String? value) {
-                //setState(() {
-                editProfileScreenController.areaType.value = value!;
-                //});
-              },
             ),
           ),
         ),
-      ),
     );
   }
 }
@@ -341,7 +325,9 @@ class UpdateButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await editProfileScreenController.updateUserProfile();
+        if(editProfileScreenController.formKey.currentState!.validate()){
+          editProfileScreenController.updateUserProfile();
+        }
       },
       child: Container(
         decoration: BoxDecoration(

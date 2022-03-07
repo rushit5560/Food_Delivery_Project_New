@@ -3,21 +3,24 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery/common/constant/user_details.dart';
+import 'package:food_delivery/models/all_area_model/all_area_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../common/constant/api_url.dart';
 import '../../models/all_city_model/city_model.dart';
 import '../../models/update_user_profile_model/update_user_profile_model.dart';
 
+
 class EditProfileScreenController extends GetxController {
-  RxString cityType = 'Surat'.obs;
-  RxString areaType = 'Varachha'.obs;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   RxList<GetList> cityLists = [GetList(cityName: 'Select City')].obs;
+  RxList<GetAreaList> areaList = [GetAreaList(areaName: 'Select Area')].obs;
   GetList? cityDropDownValue;
+  GetAreaList? areaDropDownValue;
   File? file;
-
 
   final fullNameTextController = TextEditingController();
   final emailTextController = TextEditingController();
@@ -50,6 +53,34 @@ class EditProfileScreenController extends GetxController {
     } catch(e) {
       print('Get All City False False');
     } finally {
+      isLoading(false);
+    }
+  }
+
+  getAreaUsingCityId({required String cityId}) async {
+    isLoading(true);
+
+    String url = ApiUrl.AllAreaUsingCityIdApi;
+    String finalUrl = url + "$cityId";
+    print('finalUrl : $finalUrl');
+
+    try{
+      http.Response response = await http.get(Uri.parse(finalUrl));
+      print('response : ${response.body}');
+
+      CityWiseAreaModel cityWiseAreaModel = CityWiseAreaModel.fromJson(json.decode(response.body));
+      isSuccessStatus = cityWiseAreaModel.status!.obs;
+
+      if(isSuccessStatus.value) {
+        areaList.addAll(cityWiseAreaModel.getList!);
+        areaDropDownValue = areaList[0];
+        print('Area List : ${areaList.length}');
+      } else {
+        print('getAreaUsingCityId false false');
+      }
+    } catch(e) {
+      print('getAreaUsingCityId Error : $e');
+    } finally{
       isLoading(false);
     }
   }
@@ -105,33 +136,10 @@ class EditProfileScreenController extends GetxController {
     }
   }
 
-  /*getAllCityFunction() async{
+  loading() {
     isLoading(true);
-    String url = ApiUrl.AllCityApi;
-    print('Url : $url');
-
-    try{
-      http.Response response = await http.get(Uri.parse(url));
-      print('Response : ${response.body}');
-
-      AllCityModel allCityModel = AllCityModel.fromJson(json.decode(response.body));
-      isSuccessStatus = allCityModel.status!.obs;
-      print('isSuccessStatus : $isSuccessStatus');
-
-      if(isSuccessStatus.value) {
-        cityLists.addAll(allCityModel.getList!);
-        print('cityLists : $cityLists');
-      } else {
-        print('Get All City API Else Part');
-      }
-
-    } catch (e) {
-      print('Get All City API : $e');
-    } finally {
-      isLoading(false);
-    }
-
-  }*/
+    isLoading(false);
+  }
 
   @override
   void onInit() {

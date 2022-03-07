@@ -25,24 +25,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: Obx(
           ()=> editProfileScreenController.isLoading.value
           ? CustomCircularProgressIndicator()
-          : Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 20),
-              ProfilePicModule(),
-              const SizedBox(height: 20),
-              FullNameTextField(),
-              const SizedBox(height: 15),
-              EmailTextField(),
-              const SizedBox(height: 15),
-              PhoneNoTextField(),
-              const SizedBox(height: 15),
-              CityDropDownModule(),
-              const SizedBox(height: 15),
-              AreaDropDownModule(),
-              const SizedBox(height: 25),
-              UpdateButton(),
-            ],
+          : SingleChildScrollView(
+            child: Form(
+              key: editProfileScreenController.formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 20),
+                  ProfilePicModule(),
+                  const SizedBox(height: 20),
+                  FullNameTextField(),
+                  const SizedBox(height: 15),
+                  EmailTextField(),
+                  const SizedBox(height: 15),
+                  PhoneNoTextField(),
+                  const SizedBox(height: 15),
+                  CityDropDownModule(),
+                  const SizedBox(height: 15),
+                  AreaDropDownModule(),
+                  const SizedBox(height: 25),
+                  UpdateButton(),
+                ],
+              ),
+            ),
           ),
         ),
       ),
