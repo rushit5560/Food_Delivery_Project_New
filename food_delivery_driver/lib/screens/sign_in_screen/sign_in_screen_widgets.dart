@@ -145,7 +145,7 @@ class EmailTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      controller: signInScreenController.signInTextEditingController,
+      controller: signInScreenController.emailTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
       validator: (value) => FieldValidator().validateEmail(value!),
     );
@@ -209,9 +209,8 @@ class ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-
         if(signInScreenController.loginFormKey.currentState!.validate()) {
-          Get.offAll(() => HomeScreen());
+          signInScreenController.userSignInFunction();
         }
       },
       child: Container(

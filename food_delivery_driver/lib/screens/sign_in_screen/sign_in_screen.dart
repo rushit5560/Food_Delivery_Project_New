@@ -5,9 +5,7 @@ import 'package:food_delivery_driver/screens/sign_in_screen/sign_in_screen_widge
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-
 class SignInScreen extends StatelessWidget {
-
   GoogleSignIn googleSignInManager = GoogleSignIn(scopes: ['email']);
   final signInScreenController = Get.put(SignInScreenController());
 
@@ -51,27 +49,30 @@ class SignInScreen extends StatelessWidget {
       //     ),
       //   ),
       // ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                WelcomeText(),
-                LoginForm(),
-              ],
-            ),
-            const SizedBox(height: 50),
-            ContinueButton(),
-            const SizedBox(height: 20),
-
-            socialLogin(),
-          ],
-        ),
+      body: Obx(
+        () => signInScreenController.isLoading.value
+            ? Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        WelcomeText(),
+                        LoginForm(),
+                      ],
+                    ),
+                    const SizedBox(height: 50),
+                    ContinueButton(),
+                    const SizedBox(height: 20),
+                    socialLogin(),
+                  ],
+                ),
+              ),
       ),
     );
   }
 
-  /*Widget authentication(context) {
+/*Widget authentication(context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -121,13 +122,13 @@ class SignInScreen extends StatelessWidget {
       if (result != null) {
         if (result.email != "") {
           Get.off(() => HomeScreen());
-          *//*Map params = {
+          */ /*Map params = {
             "userName": result.displayName ?? "",
             "emailId": result.email,
             "serviceName": 'GOOGLE',
             "uniqueId": "",
             "loginPassword": "",
-          };*//*
+          };*/ /*
           // Navigator.push(
           //   context,
           //   MaterialPageRoute(builder: (context) => IndexScreen()),

@@ -1,19 +1,26 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:food_delivery_driver/common/constant/api_url.dart';
 import 'package:food_delivery_driver/screens/home_screen/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
+import '../../common/sharedpreference_data/sharedpreference_data.dart';
+import '../../models/sign_in_model/sign_in_model.dart';
 class SignInScreenController extends GetxController{
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   FacebookUserProfile? profile;
   final FacebookLogin  plugin = FacebookLogin(debug: true);
   final GlobalKey<FormState> loginFormKey = GlobalKey();
-  final signInTextEditingController = TextEditingController();
+  final emailTextEditingController = TextEditingController();
   final passwordTextEditingController = TextEditingController();
+  SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
   @override
   void onInit() {
@@ -131,6 +138,40 @@ class SignInScreenController extends GetxController{
     //});
   }
 
-  
+  userSignInFunction() async {
+    isLoading(true);
+    String url = ApiUrl.SignInApi;
+    print('Url : $url');
+
+    try{
+      Map data = {
+        "Email" : "${emailTextEditingController.text.trim().toLowerCase()}",
+        "Password" : "${passwordTextEditingController.text.trim()}"
+      };
+      print('data : $data');
+
+      http.Response response = await http.post(Uri.parse(url), body: data);
+      print('response : ${response.body}');
+
+      UserSignInModel userSignInModel = UserSignInModel.fromJson(json.decode(response.body));
+      isSuccessStatus = userSignInModel.status.obs;
+
+      if(isSuccessStatus.value) {
+        String driverToken = userSignInModel.token;
+        print('driverToken : $driverToken');
+        await sharedPreferenceData.setDriverLoginDetailsInPrefs(driverToken: driverToken);
+        Get.offAll(() => HomeScreen());
+        Get.snackbar('Driver LoggedIn Successfully.', '');
+      } else {
+        print('userSignInFunction Else Else');
+      }
+
+
+    } catch(e) {
+      print('userSignInFunction Error : $e');
+    } finally {
+      isLoading(false);
+    }
+  }
 
 }
