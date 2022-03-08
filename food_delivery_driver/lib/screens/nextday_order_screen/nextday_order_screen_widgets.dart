@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_driver/common/app_colors.dart';
-import 'package:food_delivery_driver/common/app_images.dart';
+import 'package:food_delivery_driver/common/constant/app_colors.dart';
+import 'package:food_delivery_driver/common/constant/app_images.dart';
 
 class NextDayOrderListModule extends StatelessWidget {
   const NextDayOrderListModule({Key? key}) : super(key: key);

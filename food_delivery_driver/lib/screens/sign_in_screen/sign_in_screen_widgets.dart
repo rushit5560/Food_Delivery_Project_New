@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:food_delivery_driver/common/app_colors.dart';
+import 'package:food_delivery_driver/common/constant/app_colors.dart';
 import 'package:food_delivery_driver/common/field_validation.dart';
 import 'package:food_delivery_driver/controllrs/sign_in_screen_controller/sign_in_screen_controller.dart';
 import 'package:food_delivery_driver/screens/home_screen/home_screen.dart';
@@ -37,19 +37,13 @@ class WelcomeText extends StatelessWidget {
 }
 
 class LoginForm extends StatelessWidget {
-  //const TabView({Key? key}) : super(key: key);
-  //late TabController tabController;
-  //TabView({required this.tabController});
-  //AuthScreenController authScreenController = Get.put(AuthScreenController());
   final signInScreenController = Get.find<SignInScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      //height: Get.height * 0.55,
       margin: EdgeInsets.only(left: 20, right: 20, top: 160),
       padding: EdgeInsets.only(left: 10, right: 10),
-      //margin: EdgeInsets.symmetric(horizontal: 20, vertical: 100),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -145,13 +139,10 @@ class EmailTextField extends StatelessWidget {
   final signInScreenController = Get.find<SignInScreenController>();
   String hintText;
 
-  EmailTextField({
-    required this.hintText,
-  });
+  EmailTextField({required this.hintText});
 
   @override
   Widget build(BuildContext context) {
-    print('hintText : $hintText && icon && signInTextEditingController ${signInScreenController.signInTextEditingController}');
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
       controller: signInScreenController.signInTextEditingController,
@@ -163,13 +154,10 @@ class EmailTextField extends StatelessWidget {
 
 
 class PasswordTextField extends StatelessWidget {
-  // const PasswordTextField({Key? key}) : super(key: key);
   final signInScreenController = Get.find<SignInScreenController>();
   String hintText;
 
-  PasswordTextField({
-    required this.hintText,
-  });
+  PasswordTextField({required this.hintText});
 
   @override
   Widget build(BuildContext context) {

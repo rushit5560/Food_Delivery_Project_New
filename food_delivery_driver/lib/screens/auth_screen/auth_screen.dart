@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_driver/common/app_colors.dart';
+import 'package:food_delivery_driver/common/constant/app_colors.dart';
 import 'package:food_delivery_driver/screens/auth_screen/auth_screen_widgets.dart';
 //import 'package:food_delivery_admin/common/app_colors.dart';
 //import 'package:food_delivery_admin/screens/auth_screen/auth_screen_widgets.dart';

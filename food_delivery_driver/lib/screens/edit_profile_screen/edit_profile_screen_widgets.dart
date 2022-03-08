@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_driver/common/app_colors.dart';
+import 'package:food_delivery_driver/common/constant/app_colors.dart';
 
 class HeaderText extends StatelessWidget {
   const HeaderText({Key? key}) : super(key: key);

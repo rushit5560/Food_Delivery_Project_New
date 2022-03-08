@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_driver/common/app_colors.dart';
+import 'package:food_delivery_driver/common/constant/app_colors.dart';
 import 'package:food_delivery_driver/controllrs/home_screen_controller/home_screen_controller.dart';
 import 'package:food_delivery_driver/screens/nextday_order_screen/nextday_order_screen.dart';
 import 'package:food_delivery_driver/screens/today_order_screen/today_order_screen.dart';

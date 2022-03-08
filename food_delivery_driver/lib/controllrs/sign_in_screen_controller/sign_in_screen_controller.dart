@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreenController extends GetxController{
   RxBool isLoading = false.obs;
+  RxBool isSuccessStatus = false.obs;
   FacebookUserProfile? profile;
   final FacebookLogin  plugin = FacebookLogin(debug: true);
   final GlobalKey<FormState> loginFormKey = GlobalKey();
@@ -129,4 +130,7 @@ class SignInScreenController extends GetxController{
     // _imageUrl = imageUrl;
     //});
   }
+
+  
+
 }

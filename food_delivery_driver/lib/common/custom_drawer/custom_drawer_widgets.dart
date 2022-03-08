@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_driver/common/app_images.dart';
+import 'package:food_delivery_driver/common/constant/app_images.dart';
 import 'package:food_delivery_driver/screens/about_us_screen/about_us_screen.dart';
 import 'package:food_delivery_driver/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery_driver/screens/edit_profile_screen/edit_profile_screen.dart';
