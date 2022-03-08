@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_driver/common/constant/app_colors.dart';
 import 'package:food_delivery_driver/common/field_validation.dart';
-import 'package:food_delivery_driver/controllrs/signup_screen_controller/signup_screen_controller.dart';
+import 'package:food_delivery_driver/controllers/signup_screen_controller/signup_screen_controller.dart';
 import 'package:get/get.dart';
 
 class SignUpText extends StatelessWidget {

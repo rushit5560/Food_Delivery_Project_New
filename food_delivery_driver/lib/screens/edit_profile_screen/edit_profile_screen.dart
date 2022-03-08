@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/custom_appbar.dart';
-import 'package:food_delivery_driver/controllrs/profile_controller/profile_controller.dart';
+import 'package:food_delivery_driver/controllers/profile_controller/profile_controller.dart';
 import 'package:get/get.dart';
 
 import 'edit_profile_screen_widgets.dart';
