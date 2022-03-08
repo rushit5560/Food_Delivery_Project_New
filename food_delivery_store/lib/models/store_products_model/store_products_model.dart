@@ -19,12 +19,12 @@ class GetStoreProductModel {
 
   factory GetStoreProductModel.fromJson(Map<String, dynamic> json) => GetStoreProductModel(
     status: json["status"] == null ? false : json["status"],
-    food: List<Food>.from(json["food"].map((x) => Food.fromJson(x))),
+    food: List<Food>.from(json["food"].map((x) => Food.fromJson(x))).isEmpty ? [] : List<Food>.from(json["food"].map((x) => Food.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "food": List<dynamic>.from(food.map((x) => x.toJson())),
+    "status": status.toString().isEmpty ? false : status,
+    "food": List<dynamic>.from(food.map((x) => x.toJson())).length == 0 ? []: List<dynamic>.from(food.map((x) => x.toJson())),
   };
 }
 
@@ -86,8 +86,8 @@ class Food {
     quantity: json["Quantity"] == null ? 0 : json["Quantity"],
     mrp: json["MRP"] == null ? 0 : json["MRP"],
     price: json["Price"] == null ? 0 : json["Price"],
-    attribute: List<Addon>.from(json["Attribute"].map((x) => Addon.fromJson(x))),
-    addon: List<Addon>.from(json["Addon"].map((x) => Addon.fromJson(x))),
+    attribute: List<Addon>.from(json["Attribute"].map((x) => Addon.fromJson(x))).isEmpty ? [] : List<Addon>.from(json["Attribute"].map((x) => Addon.fromJson(x))),
+    addon: List<Addon>.from(json["Addon"].map((x) => Addon.fromJson(x))).isEmpty ? []: List<Addon>.from(json["Addon"].map((x) => Addon.fromJson(x))),
     isFeatured: json["IsFeatured"] == null ? false : json["IsFeatured"],
     description: json["Description"]== null ? "" : json["Description"],
     isApproved: json["IsApproved"] == null ? false : json["IsApproved"],
@@ -100,8 +100,8 @@ class Food {
   );
 
   Map<String, dynamic> toJson() => {
-    "ProductType": productType.toJson(),
-    "DiscountType": discountType.toJson(),
+    "ProductType": productType.toJson().isEmpty ? [] : productType.toJson(),
+    "DiscountType": discountType.toJson().isEmpty ? [] : discountType.toJson(),
     "_id": id.isEmpty ? "" : id,
     "Category": category.isEmpty ? "" : category,
     "SubCategory": subCategory.isEmpty ? "" : subCategory,
@@ -110,8 +110,8 @@ class Food {
     "Quantity": quantity.toString().isEmpty ? 0 : quantity,
     "MRP": mrp.toString().isEmpty ? 0 : mrp,
     "Price": price.toString().isEmpty ? 0 : price,
-    "Attribute": List<dynamic>.from(attribute.map((x) => x.toJson())),
-    "Addon": List<dynamic>.from(addon.map((x) => x.toJson())),
+    "Attribute": List<dynamic>.from(attribute.map((x) => x.toJson())).length == 0 ? []: List<dynamic>.from(attribute.map((x) => x.toJson())),
+    "Addon": List<dynamic>.from(addon.map((x) => x.toJson())).length == 0 ? [] : List<dynamic>.from(addon.map((x) => x.toJson())),
     "IsFeatured": isFeatured.toString().isEmpty ? false : isFeatured,
     "Description": description.isEmpty ? "" : description,
     "IsApproved": isApproved.toString().isEmpty ? false : isApproved,

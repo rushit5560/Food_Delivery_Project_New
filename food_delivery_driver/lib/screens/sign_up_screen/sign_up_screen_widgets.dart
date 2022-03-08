@@ -15,12 +15,12 @@ class SignUpText extends StatelessWidget {
   }
 }
 
-class SellerNameTextField extends StatelessWidget {
+class FirstNameTextField extends StatelessWidget {
 
   final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
-  SellerNameTextField({
+  FirstNameTextField({
     required this.hintText,
   });
 
@@ -28,18 +28,18 @@ class SellerNameTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.text,
-      controller: signupScreenController.nameTextEditingController,
+      controller: signupScreenController.firstNameTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
 }
 
-class StoreNameTextField extends StatelessWidget {
+class LastNameTextField extends StatelessWidget {
 
   final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
-  StoreNameTextField({
+  LastNameTextField({
     required this.hintText,
   });
 
@@ -47,18 +47,18 @@ class StoreNameTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.text,
-      controller: signupScreenController.storeNameTextEditingController,
+      controller: signupScreenController.lastNameTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
 }
 
-class StoreNumberTextField extends StatelessWidget {
+class PhoneNumberTextField extends StatelessWidget {
 
   final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
-  StoreNumberTextField({
+  PhoneNumberTextField({
     required this.hintText,
   });
 
@@ -66,7 +66,7 @@ class StoreNumberTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.number,
-      controller: signupScreenController.storeNumberTextEditingController,
+      controller: signupScreenController.phoneNumberTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
   }
@@ -91,25 +91,6 @@ class EmailTextField extends StatelessWidget {
   }
 }
 
-class AdminShareTextField extends StatelessWidget {
-  //const EmailTextField({Key? key}) : super(key: key);
-  final signupScreenController = Get.find<SignUpScreenController>();
-  String hintText;
-
-  AdminShareTextField({
-    required this.hintText,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      controller: signupScreenController.adminShareTextEditingController,
-      decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
-    );
-  }
-}
-
 class PasswordTextField extends StatelessWidget {
   final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
@@ -129,11 +110,12 @@ class PasswordTextField extends StatelessWidget {
   }
 }
 
-class DeliveryRangeTextField extends StatelessWidget {
+
+class AddressTextField extends StatelessWidget {
   final signupScreenController = Get.find<SignUpScreenController>();
   String hintText;
 
-  DeliveryRangeTextField({
+  AddressTextField({
     required this.hintText,
   });
 
@@ -141,26 +123,7 @@ class DeliveryRangeTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.text,
-      controller: signupScreenController.deliveryRangeTextEditingController,
-      //  obscureText: true,
-      decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
-    );
-  }
-}
-
-class StoreAddressTextField extends StatelessWidget {
-  final signupScreenController = Get.find<SignUpScreenController>();
-  String hintText;
-
-  StoreAddressTextField({
-    required this.hintText,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: TextInputType.text,
-      controller: signupScreenController.storeAddressTextEditingController,
+      controller: signupScreenController.addressTextEditingController,
       //  obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
     );
@@ -175,7 +138,7 @@ class ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-
+        signupScreenController.deliverySignUpFunction();
       },
       child: Container(
         height: 45, width: Get.width /3,
