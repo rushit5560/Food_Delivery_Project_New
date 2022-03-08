@@ -7,7 +7,6 @@ class ApiUrl {
   static const GetProfileApi = ApiMainPath + "deliveryperson/find/";
   static const GetAllOrdersApi = ApiMainPath + "order/getAllOrder";
   static const BankInfoApi = ApiMainPath + "BankInfo/create";
-  static const getProfileApi = ApiMainPath + "deliveryperson/find/";
   static const AllCityApi = ApiMainPath + "city";
 
 }
