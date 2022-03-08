@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/common_widgets.dart';
 import 'package:food_delivery_driver/common/custom_appbar.dart';
-import 'package:food_delivery_driver/controllrs/language_screen_controller/language_screen_controller.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/language_screen_controller/language_screen_controller.dart';
 import 'language_screen_widgets.dart';
 
 class LanguageScreen extends StatelessWidget {

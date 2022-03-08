@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/constant/app_colors.dart';
 import 'package:food_delivery_driver/common/constant/app_images.dart';
-import 'package:food_delivery_driver/controllrs/splash_screen_controller/splash_screen_controller.dart';
 import 'package:get/get.dart';
+import '../../controllers/splash_screen_controller/splash_screen_controller.dart';
 
 class SplashScreen extends StatelessWidget {
   //const SplashScreen({Key? key}) : super(key: key);

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/constant/app_colors.dart';
-import 'package:food_delivery_driver/controllrs/language_screen_controller/language_screen_controller.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/language_screen_controller/language_screen_controller.dart';
 
 class LanguageListModule extends StatelessWidget {
   LanguageScreenController languageScreenController = Get.find<LanguageScreenController>();

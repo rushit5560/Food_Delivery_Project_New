@@ -3,7 +3,7 @@ import 'package:food_delivery_driver/common/constant/app_colors.dart';
 import 'package:food_delivery_driver/common/constant/app_images.dart';
 import 'package:get/get.dart';
 
-import '../../controllrs/today_order_screen_controller/today_order_screen_controller.dart';
+import '../../controllers/today_order_screen_controller/today_order_screen_controller.dart';
 
 class TodayOrderListModule extends StatelessWidget {
   TodayOrderListModule({Key? key}) : super(key: key);

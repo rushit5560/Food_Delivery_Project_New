@@ -4,7 +4,8 @@ import 'package:food_delivery_driver/common/custom_appbar.dart';
 import 'package:food_delivery_driver/screens/today_order_screen/today_order_screen_widgets.dart';
 import 'package:get/get.dart';
 
-import '../../controllrs/today_order_screen_controller/today_order_screen_controller.dart';
+import '../../controllers/today_order_screen_controller/today_order_screen_controller.dart';
+
 
 class TodayOrderScreen extends StatelessWidget {
   TodayOrderScreen({Key? key}) : super(key: key);

@@ -3,8 +3,7 @@ import 'package:food_delivery_driver/common/common_functions.dart';
 import 'package:food_delivery_driver/common/common_widgets.dart';
 import 'package:food_delivery_driver/common/custom_appbar.dart';
 import 'package:get/get.dart';
-
-import '../../controllrs/send_to_bank_screen_controller/send_to_bank_screen_controller.dart';
+import '../../controllers/send_to_bank_screen_controller/send_to_bank_screen_controller.dart';
 import 'send_to_bank_screen_widgets.dart';
 
 class SendToBankScreen extends StatelessWidget {

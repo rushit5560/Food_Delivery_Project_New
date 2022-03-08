@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/constant/app_colors.dart';
 import 'package:get/get.dart';
 
-import '../../controllrs/send_to_bank_screen_controller/send_to_bank_screen_controller.dart';
+import '../../controllers/send_to_bank_screen_controller/send_to_bank_screen_controller.dart';
 
 class AvailableBalanceModule extends StatelessWidget {
   const AvailableBalanceModule({Key? key}) : super(key: key);

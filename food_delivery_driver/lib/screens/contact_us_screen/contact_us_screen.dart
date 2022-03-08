@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/common_widgets.dart';
 import 'package:food_delivery_driver/common/custom_appbar.dart';
-import 'package:food_delivery_driver/controllrs/contact_us_screen_controller/contact_us_screen_controller.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/contact_us_screen_controller/contact_us_screen_controller.dart';
 import 'contact_us_screen_widgets.dart';
 
 class ContactUsScreen extends StatelessWidget {

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/constant/app_colors.dart';
-import 'package:food_delivery_driver/controllrs/auth_screen_controller/auth_screen_controller.dart';
 import 'package:food_delivery_driver/screens/home_screen/home_screen.dart';
 import 'package:food_delivery_driver/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:food_delivery_driver/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/auth_screen_controller/auth_screen_controller.dart';
 
 class WelcomeText extends StatelessWidget {
   const WelcomeText({Key? key}) : super(key: key);
