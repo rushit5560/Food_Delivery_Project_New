@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/constant/app_colors.dart';
+import 'package:get/get.dart';
+
+import '../../controllrs/send_to_bank_screen_controller/send_to_bank_screen_controller.dart';
 
 class AvailableBalanceModule extends StatelessWidget {
   const AvailableBalanceModule({Key? key}) : super(key: key);
@@ -45,28 +48,14 @@ class BankInfo extends StatelessWidget {
 }
 
 class BankDetailsForm extends StatelessWidget {
-  GlobalKey<FormState> formKey;
-  TextEditingController holderNameFieldController;
-  TextEditingController bankNameFieldController;
-  TextEditingController branchCodeFieldController;
-  TextEditingController accountNumberFieldController;
-  TextEditingController upiFieldController;
-
-  BankDetailsForm({
-    required this.formKey,
-    required this.holderNameFieldController,
-    required this.bankNameFieldController,
-    required this.branchCodeFieldController,
-    required this.accountNumberFieldController,
-    required this.upiFieldController,
-  });
+  final sendToBankScreenController = Get.find<SendToBankScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Form(
-        key: formKey,
+        key: sendToBankScreenController.formKey,
         child: Column(
           children: [
             _accountHolderNameField(),
@@ -93,7 +82,7 @@ class BankDetailsForm extends StatelessWidget {
         ),
         SizedBox(height: 8),
         TextFormField(
-          controller: holderNameFieldController,
+          controller: sendToBankScreenController.holderNameFieldController,
           cursorColor: Colors.grey,
           keyboardType: TextInputType.text,
           validator: (value) {
@@ -116,7 +105,7 @@ class BankDetailsForm extends StatelessWidget {
         ),
         SizedBox(height: 8),
         TextFormField(
-          controller: bankNameFieldController,
+          controller: sendToBankScreenController.bankNameFieldController,
           cursorColor: Colors.grey,
           keyboardType: TextInputType.text,
           validator: (value) {
@@ -139,7 +128,7 @@ class BankDetailsForm extends StatelessWidget {
         ),
         SizedBox(height: 8),
         TextFormField(
-          controller: branchCodeFieldController,
+          controller: sendToBankScreenController.branchCodeFieldController,
           cursorColor: Colors.grey,
           keyboardType: TextInputType.text,
           validator: (value) {
@@ -162,7 +151,7 @@ class BankDetailsForm extends StatelessWidget {
         ),
         SizedBox(height: 8),
         TextFormField(
-          controller: accountNumberFieldController,
+          controller: sendToBankScreenController.accountNumberFieldController,
           cursorColor: Colors.grey,
           keyboardType: TextInputType.number,
           validator: (value) {
@@ -185,7 +174,7 @@ class BankDetailsForm extends StatelessWidget {
         ),
         SizedBox(height: 8),
         TextFormField(
-          controller: upiFieldController,
+          controller: sendToBankScreenController.upiFieldController,
           cursorColor: Colors.grey,
           keyboardType: TextInputType.text,
           decoration: inputDecoration(),
@@ -197,33 +186,14 @@ class BankDetailsForm extends StatelessWidget {
 }
 
 class SendToBankButton extends StatelessWidget {
-  GlobalKey<FormState> formKey;
-  TextEditingController holderNameFieldController;
-  TextEditingController bankNameFieldController;
-  TextEditingController branchCodeFieldController;
-  TextEditingController accountNumberFieldController;
-  TextEditingController upiFieldController;
-
-
-  SendToBankButton({
-    required this.formKey,
-    required this.holderNameFieldController,
-    required this.bankNameFieldController,
-    required this.branchCodeFieldController,
-    required this.accountNumberFieldController,
-    required this.upiFieldController,
-  });
+  final sendToBankScreenController = Get.find<SendToBankScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        if(formKey.currentState!.validate()){
-          holderNameFieldController.clear();
-          bankNameFieldController.clear();
-          branchCodeFieldController.clear();
-          accountNumberFieldController.clear();
-          upiFieldController.clear();
+      onTap: () async {
+        if(sendToBankScreenController.formKey.currentState!.validate()){
+          await sendToBankScreenController.updateDriverBankInfoFunction();
         }
       },
       child: Container(

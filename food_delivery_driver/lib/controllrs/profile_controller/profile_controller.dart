@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/constant/api_url.dart';
 import 'package:food_delivery_driver/common/driver_details.dart';
 import 'package:food_delivery_driver/models/profile_model/profile_model.dart';
@@ -21,7 +19,7 @@ class ProfileController extends GetxController{
 
   getProfile() async {
     isLoading(true);
-    String url = ApiUrl.getProfileApi + "${DriverDetails.driverId}";
+    String url = ApiUrl.GetProfileApi + "${DriverDetails.driverId}";
     print('Url : $url');
 
     try{
