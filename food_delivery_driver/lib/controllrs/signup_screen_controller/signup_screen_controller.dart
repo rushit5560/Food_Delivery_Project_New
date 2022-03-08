@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_driver/common/constant/api_url.dart';
+import 'package:food_delivery_driver/models/all_city_model/city_model.dart';
 import 'package:food_delivery_driver/models/sign_up_model/sign_up_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -24,10 +25,15 @@ class SignUpScreenController extends GetxController{
   final passwordTextEditingController = TextEditingController();
   final addressTextEditingController = TextEditingController();
 
+  RxList<GetList> cityLists = [GetList(cityName: 'Select City')].obs;
+  GetList? cityDropDownValue;
+
 
   @override
   void onInit() {
     super.onInit();
+    getAllCityList();
+    cityDropDownValue = cityLists[0];
   }
 
   Future deliverySignUpFunction() async {
@@ -50,17 +56,6 @@ class SignUpScreenController extends GetxController{
 
       request.files.add(await http.MultipartFile.fromPath("Image", file!.path));
       request.files.add(await http.MultipartFile.fromPath("IdentityImage", coverFile!.path));
-
-      // request.fields['UserName'] = "${userNameTextFieldController.text.trim()}";
-      // request.fields['FullName'] = "${fullNameTextFieldController.text.trim()}";
-      // request.fields['Phone'] = "${phoneNoTextFieldController.text.trim()}";
-      // request.fields['Password'] = "${passwordTextFieldController.text.trim()}";
-      // request.fields['Address'] = "${addressTextFieldController.text.trim()}";
-      // request.fields['Gender'] = "$selectedGenderValue";
-      // request.fields['CityId'] = "61f8f6a51467b5c3867ba67d";
-      // request.fields['AreaId'] = "61f8f7381467b5c3867ba68f";
-      // request.fields['Email'] = "${emailTextFieldController.text.trim().toLowerCase()}";
-      // request.fields['RoleId'] = "6179367e616b99f3c785a68e";
 
       request.fields['FirstName'] = "${firstNameTextEditingController.text.trim()}";
       request.fields['LastName'] = "${lastNameTextEditingController.text.trim()}";
@@ -111,6 +106,43 @@ class SignUpScreenController extends GetxController{
     } finally {
       isLoading(false);
     }
+  }
+
+  getAllCityList() async {
+    isLoading(true);
+    String url = ApiUrl.AllCityApi;
+    print('Url : $url');
+
+    try{
+      http.Response response = await http.get(Uri.parse(url));
+      print('Get All City Response : ${response.body}');
+
+      AllCityModel allCityModel = AllCityModel.fromJson(json.decode(response.body));
+      print('allCityModel : $allCityModel');
+      isSuccessStatus = allCityModel.status!.obs;
+      print('allCityStatus : $isSuccessStatus');
+
+      if(isSuccessStatus.value){
+        print("Success");
+        // cityLists.clear();
+        //cityLists.add(GetList(cityName: 'Select City', stateId: StateId(sId: '0'), ));
+        cityLists.addAll(allCityModel.getList!);
+        cityDropDownValue = cityLists[0];
+        print('cityLists : ${cityLists.length}');
+      } else {
+        print('Get All City Else Else');
+      }
+
+    } catch(e) {
+      print('Get All City False False');
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  loading() {
+    isLoading(true);
+    isLoading(false);
   }
 
   clearSignUpFieldsFunction() {

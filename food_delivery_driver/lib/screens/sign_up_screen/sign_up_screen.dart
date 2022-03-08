@@ -6,6 +6,7 @@ import 'package:food_delivery_driver/common/common_widgets.dart';
 import 'package:food_delivery_driver/common/constant/app_colors.dart';
 import 'package:food_delivery_driver/common/custom_appbar.dart';
 import 'package:food_delivery_driver/controllrs/signup_screen_controller/signup_screen_controller.dart';
+import 'package:food_delivery_driver/models/all_city_model/city_model.dart';
 import 'package:food_delivery_driver/screens/sign_up_screen/sign_up_screen_widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -159,7 +160,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         PasswordTextField(
                           hintText: "Password",),
                         SizedBox(height: 15,),
-                        /*Obx(()=>
+                        Obx(()=>
                           Container(
                             padding: const EdgeInsets.only(left: 10),
                             height: 45,  //gives the height of the dropdown button
@@ -206,7 +207,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ),
                           ),
-                        ),*/
+                        ),
+                        SizedBox(height: 15,),
                         AddressTextField(hintText: "Address",),
                         SizedBox(height: 15,),
 

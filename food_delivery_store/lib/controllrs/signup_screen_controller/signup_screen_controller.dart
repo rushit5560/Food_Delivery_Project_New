@@ -61,17 +61,6 @@ class SignUpScreenController extends GetxController{
       request.files.add(await http.MultipartFile.fromPath("Image", file!.path));
       request.files.add(await http.MultipartFile.fromPath("CoverImage", coverFile!.path));
 
-      // request.fields['UserName'] = "${userNameTextFieldController.text.trim()}";
-      // request.fields['FullName'] = "${fullNameTextFieldController.text.trim()}";
-      // request.fields['Phone'] = "${phoneNoTextFieldController.text.trim()}";
-      // request.fields['Password'] = "${passwordTextFieldController.text.trim()}";
-      // request.fields['Address'] = "${addressTextFieldController.text.trim()}";
-      // request.fields['Gender'] = "$selectedGenderValue";
-      // request.fields['CityId'] = "61f8f6a51467b5c3867ba67d";
-      // request.fields['AreaId'] = "61f8f7381467b5c3867ba68f";
-      // request.fields['Email'] = "${emailTextFieldController.text.trim().toLowerCase()}";
-      // request.fields['RoleId'] = "6179367e616b99f3c785a68e";
-
       request.fields['StoreName'] = "${storeNameTextEditingController.text.trim()}";
       request.fields['FirstName'] = "${nameTextEditingController.text.trim()}";
       request.fields['LastName'] = "${nameTextEditingController.text.trim()}";
