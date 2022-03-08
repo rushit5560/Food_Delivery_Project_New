@@ -22,7 +22,7 @@ class AuthScreenController extends GetxController {
   RxBool isSuccessStatus = false.obs;
   RxBool isSignInEmailOption = true.obs;
   RxList<GetList> cityLists = [GetList(cityName: 'Select City')].obs;
-  RxList<GetAreaList> areaLists = [GetAreaList(areaName: 'Select Area',cityInfo: CityInfo(cityName: 'Surat', id: '0'),countryInfo:  CountryInfo(id: '0', countryName: 'India') ,id: '0', stateInfo: StateInfo(id: '0',stateName: 'Gujarat') )].obs;
+  RxList<GetAreaList> areaList = [GetAreaList(areaName: 'Select Area')].obs;
   GetList? cityDropDownValue;
   GetAreaList? areaDropDownValue;
 
@@ -56,13 +56,11 @@ class AuthScreenController extends GetxController {
 
       AllCityModel allCityModel = AllCityModel.fromJson(json.decode(response.body));
       print('allCityModel : $allCityModel');
-       isSuccessStatus = allCityModel.status!.obs;
+      isSuccessStatus = allCityModel.status!.obs;
       print('allCityStatus : $isSuccessStatus');
 
       if(isSuccessStatus.value){
         print("Success");
-       // cityLists.clear();
-        //cityLists.add(GetList(cityName: 'Select City', stateId: StateId(sId: '0'), ));
         cityLists.addAll(allCityModel.getList!);
         cityDropDownValue = cityLists[0];
         print('cityLists : ${cityLists.length}');
@@ -77,37 +75,30 @@ class AuthScreenController extends GetxController {
     }
   }
 
-  getAllAreaList(String cityId) async {
+  getAreaUsingCityId({required String cityId}) async {
     isLoading(true);
-    String url = ApiUrl.AllAreaUsingCityIdApi + cityId;
-    print('Url : $url');
-    print('cityId : $cityId');
+
+    String url = ApiUrl.AllAreaUsingCityIdApi;
+    String finalUrl = url + "$cityId";
+    print('finalUrl : $finalUrl');
 
     try{
-      http.Response response = await http.get(Uri.parse(url));
-      print('Get All Area Response : ${response.body}');
+      http.Response response = await http.get(Uri.parse(finalUrl));
+      print('response : ${response.body}');
 
-      CityWiseAreaModel allAreaModel = CityWiseAreaModel.fromJson(json.decode(response.body));
-      print('allAreaModel : $allAreaModel');
-      isSuccessStatus = allAreaModel.status!.obs;
-      print('allAreaStatus : $isSuccessStatus');
+      CityWiseAreaModel cityWiseAreaModel = CityWiseAreaModel.fromJson(json.decode(response.body));
+      isSuccessStatus = cityWiseAreaModel.status!.obs;
 
-      if(isSuccessStatus.value){
-        print("Success");
-        //cityLists.add(GetList(cityName: 'Select City', stateId: StateId(sId: '0'), ));
-        // areaLists.add(allAreaModel.area);
-        //areaLists.clear();
-        areaLists.addAll(allAreaModel.getList!);
-
-        areaDropDownValue = areaLists[0];
-        print('areaLists : ${areaLists.length}');
+      if(isSuccessStatus.value) {
+        areaList.addAll(cityWiseAreaModel.getList!);
+        areaDropDownValue = areaList[0];
+        print('Area List : ${areaList.length}');
       } else {
-        print('Get All Area Else Else');
+        print('getAreaUsingCityId false false');
       }
-
     } catch(e) {
-      print('Get All Area False False');
-    } finally {
+      print('getAreaUsingCityId Error : $e');
+    } finally{
       isLoading(false);
     }
   }
@@ -265,7 +256,7 @@ class AuthScreenController extends GetxController {
   void onInit() {
     super.onInit();
     getAllCityList();
-    cityDropDownValue = cityLists[0];
+    //cityDropDownValue = cityLists[0];
     //selectedAreaValue = areaLists[0];
     // updateLoginInfo();
   }
@@ -280,6 +271,11 @@ class AuthScreenController extends GetxController {
       "Password" : password,
     };
     return isSignInEmailOption.value ? signInWithEmail : signInWithPhone;
+  }
+
+  loading() {
+    isLoading(true);
+    isLoading(false);
   }
 
   /*Future googleAuthentication(context) async {
