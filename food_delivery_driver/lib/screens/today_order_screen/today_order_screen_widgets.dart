@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/constant/app_colors.dart';
 import 'package:food_delivery_driver/common/constant/app_images.dart';
+import 'package:get/get.dart';
+
+import '../../controllrs/today_order_screen_controller/today_order_screen_controller.dart';
 
 class TodayOrderListModule extends StatelessWidget {
-  const TodayOrderListModule({Key? key}) : super(key: key);
+  TodayOrderListModule({Key? key}) : super(key: key);
+  final todayOrderScreenController = Get.find<TodayOrderScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 15,
+      itemCount: todayOrderScreenController.allOrderList.length,
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index){

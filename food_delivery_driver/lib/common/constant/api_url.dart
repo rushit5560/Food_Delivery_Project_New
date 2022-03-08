@@ -6,8 +6,7 @@ class ApiUrl {
   static const CreateDriverWalletApi = ApiMainPath + "deliverypersonwallet/create";
 
   static const GetProfileApi = ApiMainPath + "deliveryperson/find/";
-
-
+  static const GetAllOrdersApi = ApiMainPath + "order/getAllOrder";
   static const BankInfoApi = ApiMainPath + "BankInfo/create";
 
 }
