@@ -156,10 +156,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       EmailTextField(
                         hintText: "Email",
                       ),
-                      SizedBox(height: 15,),
-                      AdminShareTextField(
-                        hintText: "Admin Share",
-                      ),
+                      // SizedBox(height: 15,),
+                      // AdminShareTextField(
+                      //   hintText: "Admin Share",
+                      // ),
                       SizedBox(height: 15,),
                       PasswordTextField(
                         hintText: "Password",),

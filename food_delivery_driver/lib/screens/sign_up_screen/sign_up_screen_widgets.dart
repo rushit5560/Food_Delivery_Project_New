@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_driver/common/constant/app_colors.dart';
+import 'package:food_delivery_driver/common/field_validation.dart';
 import 'package:food_delivery_driver/controllrs/signup_screen_controller/signup_screen_controller.dart';
 import 'package:get/get.dart';
 
@@ -30,6 +32,7 @@ class FirstNameTextField extends StatelessWidget {
       keyboardType: TextInputType.text,
       controller: signupScreenController.firstNameTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+      validator: (value) => FieldValidator().validateFirstName(value!),
     );
   }
 }
@@ -49,6 +52,7 @@ class LastNameTextField extends StatelessWidget {
       keyboardType: TextInputType.text,
       controller: signupScreenController.lastNameTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+      validator: (value) => FieldValidator().validateLastName(value!),
     );
   }
 }
@@ -68,6 +72,7 @@ class PhoneNumberTextField extends StatelessWidget {
       keyboardType: TextInputType.number,
       controller: signupScreenController.phoneNumberTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+      validator: (value) => FieldValidator().validateMobile(value!),
     );
   }
 }
@@ -87,6 +92,7 @@ class EmailTextField extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       controller: signupScreenController.emailTextEditingController,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+      validator: (value) => FieldValidator().validateEmail(value!),
     );
   }
 }
@@ -106,6 +112,7 @@ class PasswordTextField extends StatelessWidget {
       controller: signupScreenController.passwordTextEditingController,
       //  obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+      validator: (value) => FieldValidator().validatePassword(value!),
     );
   }
 }
@@ -126,6 +133,7 @@ class AddressTextField extends StatelessWidget {
       controller: signupScreenController.addressTextEditingController,
       //  obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
+      validator: (value) => FieldValidator().validateAddress(value!),
     );
   }
 }
@@ -138,7 +146,17 @@ class ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        signupScreenController.deliverySignUpFunction();
+
+        if(signupScreenController.signupFormKey.currentState!.validate()){
+          if(signupScreenController.file == null){
+            Fluttertoast.showToast(msg: 'Profile Image required...!');
+          } else if(signupScreenController.coverFile == null){
+            Fluttertoast.showToast(msg: 'Cover Image required...!');
+          } else{
+            signupScreenController.deliverySignUpFunction();
+          }
+
+        }
       },
       child: Container(
         height: 45, width: Get.width /3,

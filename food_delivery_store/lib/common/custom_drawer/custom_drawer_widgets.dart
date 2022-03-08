@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/screens/about_us_screen/about_us_screen.dart';
 import 'package:food_delivery_admin/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery_admin/screens/earnings_screen/earnings_screen.dart';
+import 'package:food_delivery_admin/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:food_delivery_admin/screens/insight_screen/insight_screen.dart';
 import 'package:food_delivery_admin/screens/items_screen/items_screen.dart';
 import 'package:food_delivery_admin/screens/language_screen/language_screen.dart';
@@ -126,6 +127,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
+        Get.to(() => EditProfileScreen());
         // Get.to(() => ProfileScreen());
       },
       leading: Image.asset(Images.ic_profile, color: Colors.white,scale: 2.5,),

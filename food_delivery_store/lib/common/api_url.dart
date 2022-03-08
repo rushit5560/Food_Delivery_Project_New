@@ -9,5 +9,6 @@ class ApiUrl {
 
   static const AllCityApi = ApiMainPath + "city";
   static const AddProductApi = ApiMainPath + "product/create";
+  static const GetProfileApi = ApiMainPath + "store/find/";
 
 }

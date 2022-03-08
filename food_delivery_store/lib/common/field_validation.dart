@@ -4,9 +4,29 @@ class FieldValidator {
       return 'Full name is Required';
     }
 
-    /*if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
-      return 'invalid first name';
-    }*/
+    return null;
+  }
+
+  String? validateSellerName(String value) {
+    if (value.isEmpty) {
+      return 'Seller name is Required';
+    }
+
+    return null;
+  }
+
+  String? validateStoreName(String value) {
+    if (value.isEmpty) {
+      return 'Store name is Required';
+    }
+
+    return null;
+  }
+
+  String? validateRange(String value) {
+    if (value.isEmpty) {
+      return 'Delivery Range is Required';
+    }
 
     return null;
   }

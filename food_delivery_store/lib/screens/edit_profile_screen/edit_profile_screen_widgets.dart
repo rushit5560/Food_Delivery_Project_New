@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_driver/common/constant/app_colors.dart';
-import 'package:food_delivery_driver/controllrs/profile_controller/profile_controller.dart';
+import 'package:food_delivery_admin/common/app_colors.dart';
+import 'package:food_delivery_admin/controllrs/profile_controller/profile_controller.dart';
+
 import 'package:get/get.dart';
 
 class HeaderText extends StatelessWidget {

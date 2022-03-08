@@ -1,12 +1,18 @@
 class FieldValidator {
-  String? validateFullName(String value) {
+
+
+  String? validateFirstName(String value) {
     if (value.isEmpty) {
-      return 'Full name is Required';
+      return 'First name is Required';
     }
 
-    /*if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
-      return 'invalid first name';
-    }*/
+    return null;
+  }
+
+  String? validateLastName(String value) {
+    if (value.isEmpty) {
+      return 'First name is Required';
+    }
 
     return null;
   }
