@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:food_delivery_driver/common/constant/api_url.dart';
+import 'package:food_delivery_driver/common/driver_details.dart';
 import 'package:food_delivery_driver/screens/home_screen/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -11,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import '../../common/sharedpreference_data/sharedpreference_data.dart';
+import '../../models/create_driver_wallet_model/create_driver_wallet_model.dart';
 import '../../models/sign_in_model/sign_in_model.dart';
 class SignInScreenController extends GetxController{
   RxBool isLoading = false.obs;
@@ -160,18 +162,56 @@ class SignInScreenController extends GetxController{
         String driverToken = userSignInModel.token;
         print('driverToken : $driverToken');
         await sharedPreferenceData.setDriverLoginDetailsInPrefs(driverToken: driverToken);
+        await createDriverWalletFunction();
         Get.offAll(() => HomeScreen());
         Get.snackbar('Driver LoggedIn Successfully.', '');
       } else {
         print('userSignInFunction Else Else');
       }
 
-
     } catch(e) {
       print('userSignInFunction Error : $e');
     } finally {
       isLoading(false);
     }
+  }
+
+  /// Create Driver Wallet Using DriverId
+  createDriverWalletFunction() async {
+    isLoading(true);
+
+    String url = ApiUrl.CreateDriverWalletApi;
+    print('Yrl : $url');
+
+    try{
+      Map data = {
+        "DeliveryPersonId" : "${DriverDetails.driverId}",
+        "Amount" : "0",
+        "RechargeDate" : "${DateTime.now()}",
+        "Status" : "active",
+        "Source" : "GooglePay"
+      };
+      print('data : $data');
+
+      http.Response response = await http.post(Uri.parse(url), body: data);
+      print('response : ${response.body}');
+
+      CreateDriverWalletModel createDriverWalletModel = CreateDriverWalletModel.fromJson(json.decode(response.body));
+      // isSuccessStatus = createDriverWalletModel.status.obs;
+      isSuccessStatus.value = true;
+      if(isSuccessStatus.value) {
+        String walletId = createDriverWalletModel.wallet.id;
+        sharedPreferenceData.setWalletIdInPrefs(walletId: walletId);
+      } else {
+        print('createDriverWalletFunction Else Else');
+      }
+
+    } catch(e) {
+      print('createDriverWalletFunction Error : $e');
+    } finally {
+      isLoading(false);
+    }
+
   }
 
 }

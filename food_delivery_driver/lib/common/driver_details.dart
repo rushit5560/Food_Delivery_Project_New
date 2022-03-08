@@ -3,4 +3,5 @@ class DriverDetails {
   static String driverToken = "";
   static String driverId = "";
   static String driverRole = "";
+  static String driverWalletId = "";
 }

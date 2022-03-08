@@ -40,4 +40,12 @@ class SharedPreferenceData {
     print('Driver Role : ${DriverDetails.driverRole}');
     print('Driver Token : ${DriverDetails.driverToken}');
   }
+
+  setWalletIdInPrefs({required String walletId}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(driverWalletIdKey, walletId);
+    print('Prefs Wallet Id : ${prefs.getString(driverWalletIdKey)}');
+    DriverDetails.driverWalletId = prefs.getString(driverWalletIdKey) ?? "";
+  }
+
 }
