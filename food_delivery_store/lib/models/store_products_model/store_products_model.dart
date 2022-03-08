@@ -1,3 +1,4 @@
+/*
 // To parse this JSON data, do
 //
 //     final getStoreProductModel = getStoreProductModelFromJson(jsonString);
@@ -286,4 +287,352 @@ class Store {
     "updatedAt": updatedAt.toIso8601String(),
     "__v": v.toString().isEmpty ? 0 : v,
   };
+}
+*/
+
+class GetStoreProductModel {
+  bool? status;
+  List<Food>? food;
+
+  GetStoreProductModel({this.status, this.food});
+
+  GetStoreProductModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    if (json['food'] != null) {
+      food = <Food>[];
+      json['food'].forEach((v) {
+        food!.add(new Food.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    if (this.food != null) {
+      data['food'] = this.food!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Food {
+  ProductType? productType;
+  ProductType? discountType;
+  String? sId;
+  String? category;
+  String? subCategory;
+  Store? store;
+  String? productName;
+  int? quantity;
+  int? mRP;
+  int? price;
+  List<Attribute>? attribute;
+  List<Addon>? addon;
+  bool? isFeatured;
+  String? description;
+  bool? isApproved;
+  bool? isActive;
+  String? createdBy;
+  String? updatedBy;
+  String? createdAt;
+  String? updatedAt;
+  int? iV;
+  int? discount;
+  String? startTime;
+  String? endTime;
+  String? image;
+
+  Food(
+      {this.productType,
+        this.discountType,
+        this.sId,
+        this.category,
+        this.subCategory,
+        this.store,
+        this.productName,
+        this.quantity,
+        this.mRP,
+        this.price,
+        this.attribute,
+        this.addon,
+        this.isFeatured,
+        this.description,
+        this.isApproved,
+        this.isActive,
+        this.createdBy,
+        this.updatedBy,
+        this.createdAt,
+        this.updatedAt,
+        this.iV,
+        this.discount,
+        this.startTime,
+        this.endTime,
+        this.image});
+
+  Food.fromJson(Map<String, dynamic> json) {
+    productType = json['ProductType'] != null
+        ? new ProductType.fromJson(json['ProductType'])
+        : null;
+    discountType = json['DiscountType'] != null
+        ? new ProductType.fromJson(json['DiscountType'])
+        : null;
+    sId = json['_id'];
+    category = json['Category'];
+    subCategory = json['SubCategory'];
+    store = json['Store'] != null ? new Store.fromJson(json['Store']) : null;
+    productName = json['ProductName'];
+    quantity = json['Quantity'];
+    mRP = json['MRP'];
+    price = json['Price'];
+    if (json['Attribute'] != null) {
+      attribute = <Attribute>[];
+      json['Attribute'].forEach((v) {
+        attribute!.add(new Attribute.fromJson(v));
+      });
+    }
+    if (json['Addon'] != null) {
+      addon = <Addon>[];
+      json['Addon'].forEach((v) {
+        addon!.add(new Addon.fromJson(v));
+      });
+    }
+    isFeatured = json['IsFeatured'];
+    description = json['Description'];
+    isApproved = json['IsApproved'];
+    isActive = json['IsActive'];
+    createdBy = json['CreatedBy'];
+    updatedBy = json['UpdatedBy'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    iV = json['__v'];
+    discount = json['Discount'];
+    startTime = json['StartTime'];
+    endTime = json['EndTime'];
+    image = json['Image'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.productType != null) {
+      data['ProductType'] = this.productType!.toJson();
+    }
+    if (this.discountType != null) {
+      data['DiscountType'] = this.discountType!.toJson();
+    }
+    data['_id'] = this.sId;
+    data['Category'] = this.category;
+    data['SubCategory'] = this.subCategory;
+    if (this.store != null) {
+      data['Store'] = this.store!.toJson();
+    }
+    data['ProductName'] = this.productName;
+    data['Quantity'] = this.quantity;
+    data['MRP'] = this.mRP;
+    data['Price'] = this.price;
+    if (this.attribute != null) {
+      data['Attribute'] = this.attribute!.map((v) => v.toJson()).toList();
+    }
+    if (this.addon != null) {
+      data['Addon'] = this.addon!.map((v) => v.toJson()).toList();
+    }
+    data['IsFeatured'] = this.isFeatured;
+    data['Description'] = this.description;
+    data['IsApproved'] = this.isApproved;
+    data['IsActive'] = this.isActive;
+    data['CreatedBy'] = this.createdBy;
+    data['UpdatedBy'] = this.updatedBy;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['__v'] = this.iV;
+    data['Discount'] = this.discount;
+    data['StartTime'] = this.startTime;
+    data['EndTime'] = this.endTime;
+    data['Image'] = this.image;
+    return data;
+  }
+}
+
+class ProductType {
+  String? value;
+  String? label;
+
+  ProductType({this.value, this.label});
+
+  ProductType.fromJson(Map<String, dynamic> json) {
+    value = json['value'];
+    label = json['label'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['value'] = this.value;
+    data['label'] = this.label;
+    return data;
+  }
+}
+
+class Store {
+  String? sId;
+  String? storeName;
+  String? tax;
+  String? address;
+  String? minDeliveryTime;
+  String? maxDeliveryTime;
+  String? zone;
+  String? latitude;
+  String? longitude;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? password;
+  int? phone;
+  String? deliveryRange;
+  String? startTime;
+  String? endTime;
+  String? image;
+  String? roleId;
+  bool? isActive;
+  bool? isApproved;
+  String? createdBy;
+  String? updatedBy;
+  String? approvedOn;
+  String? createdAt;
+  String? updatedAt;
+  int? iV;
+
+  Store(
+      {this.sId,
+        this.storeName,
+        this.tax,
+        this.address,
+        this.minDeliveryTime,
+        this.maxDeliveryTime,
+        this.zone,
+        this.latitude,
+        this.longitude,
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.password,
+        this.phone,
+        this.deliveryRange,
+        this.startTime,
+        this.endTime,
+        this.image,
+        this.roleId,
+        this.isActive,
+        this.isApproved,
+        this.createdBy,
+        this.updatedBy,
+        this.approvedOn,
+        this.createdAt,
+        this.updatedAt,
+        this.iV});
+
+  Store.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    storeName = json['StoreName'];
+    tax = json['Tax'];
+    address = json['Address'];
+    minDeliveryTime = json['MinDeliveryTime'];
+    maxDeliveryTime = json['MaxDeliveryTime'];
+    zone = json['Zone'];
+    latitude = json['Latitude'];
+    longitude = json['Longitude'];
+    firstName = json['FirstName'];
+    lastName = json['LastName'];
+    email = json['Email'];
+    password = json['Password'];
+    phone = json['Phone'];
+    deliveryRange = json['DeliveryRange'];
+    startTime = json['StartTime'];
+    endTime = json['EndTime'];
+    image = json['Image'];
+    roleId = json['RoleId'];
+    isActive = json['IsActive'];
+    isApproved = json['IsApproved'];
+    createdBy = json['CreatedBy'];
+    updatedBy = json['UpdatedBy'];
+    approvedOn = json['ApprovedOn'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    iV = json['__v'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['StoreName'] = this.storeName;
+    data['Tax'] = this.tax;
+    data['Address'] = this.address;
+    data['MinDeliveryTime'] = this.minDeliveryTime;
+    data['MaxDeliveryTime'] = this.maxDeliveryTime;
+    data['Zone'] = this.zone;
+    data['Latitude'] = this.latitude;
+    data['Longitude'] = this.longitude;
+    data['FirstName'] = this.firstName;
+    data['LastName'] = this.lastName;
+    data['Email'] = this.email;
+    data['Password'] = this.password;
+    data['Phone'] = this.phone;
+    data['DeliveryRange'] = this.deliveryRange;
+    data['StartTime'] = this.startTime;
+    data['EndTime'] = this.endTime;
+    data['Image'] = this.image;
+    data['RoleId'] = this.roleId;
+    data['IsActive'] = this.isActive;
+    data['IsApproved'] = this.isApproved;
+    data['CreatedBy'] = this.createdBy;
+    data['UpdatedBy'] = this.updatedBy;
+    data['ApprovedOn'] = this.approvedOn;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['__v'] = this.iV;
+    return data;
+  }
+}
+
+class Attribute {
+  String? value;
+  String? label;
+  String? sId;
+
+  Attribute({this.value, this.label, this.sId});
+
+  Attribute.fromJson(Map<String, dynamic> json) {
+    value = json['value'];
+    label = json['label'];
+    sId = json['_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['value'] = this.value;
+    data['label'] = this.label;
+    data['_id'] = this.sId;
+    return data;
+  }
+}
+
+class Addon {
+  String? value;
+  String? label;
+  String? sId;
+
+  Addon({this.value, this.label, this.sId});
+
+  Addon.fromJson(Map<String, dynamic> json) {
+    value = json['value'];
+    label = json['label'];
+    sId = json['_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['value'] = this.value;
+    data['label'] = this.label;
+    data['_id'] = this.sId;
+    return data;
+  }
 }

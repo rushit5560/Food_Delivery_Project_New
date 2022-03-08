@@ -47,11 +47,11 @@ class ItemScreenController extends GetxController {
       print('Response : ${response.body}');
 
       GetStoreProductModel storeProductsModel = GetStoreProductModel.fromJson(json.decode(response.body));
-      isSuccessStatus = storeProductsModel.status.obs;
+      isSuccessStatus = storeProductsModel.status!.obs;
       print("status : $isSuccessStatus");
 
       if(isSuccessStatus.value){
-        storeProductList = storeProductsModel.food;
+        storeProductList = storeProductsModel.food!;
         print('allStoreProductsOrder : $storeProductList');
       } else {
         print('Get All Store Products Else Else');

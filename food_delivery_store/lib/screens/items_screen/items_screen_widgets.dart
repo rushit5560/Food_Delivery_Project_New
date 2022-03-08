@@ -154,7 +154,7 @@ class StoreProductsListModule extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Image(
-            image: AssetImage('${ApiUrl.ApiMainPath}${itemScreenController.storeProductList[index].store.image}'),
+            image: NetworkImage('${ApiUrl.ApiMainPath}'+'${itemScreenController.storeProductList[index].store!.image}'),
           ),
         ),
       ),
