@@ -23,7 +23,7 @@ class AuthScreenController extends GetxController {
   RxBool isSignInEmailOption = true.obs;
   RxList<GetList> cityLists = [GetList(cityName: 'Select City')].obs;
   RxList<GetAreaList> areaList = [GetAreaList(areaName: 'Select Area')].obs;
-  GetList? cityDropDownValue;
+  GetList cityDropDownValue = GetList();
   GetAreaList? areaDropDownValue;
 
   final GlobalKey<FormState> signUpFormKey = GlobalKey();

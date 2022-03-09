@@ -48,4 +48,21 @@ class SharedPreferenceData {
     DriverDetails.driverWalletId = prefs.getString(driverWalletIdKey) ?? "";
   }
 
+  /// Clear All UserLoggedIn Data
+  clearUserLoginDetailsFromPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setBool(isDriverLoggedInKey, false);
+    prefs.setString(driverIdKey, "");
+    prefs.setString(driverRoleKey, "");
+    prefs.setString(driverTokenKey, "");
+    prefs.setString(driverWalletIdKey, "");
+
+    // print('Clear isUserLoggedInKey : ${prefs.getBool(isUserLoggedInKey)}');
+    // print('Clear userIdKey : ${prefs.getString(userIdKey)}');
+    // print('Clear userRoleKey : ${prefs.getString(userRoleKey)}');
+    // print('Clear userTokenKey : ${prefs.getString(userTokenKey)}');
+    // print('Clear userWalletIdKey : ${prefs.getString(userWalletIdKey)}');
+  }
+
 }

@@ -3,4 +3,5 @@ class UserDetails {
   static String userToken = "";
   static String userId = "";
   static String userRole = "";
+  static String userWallet = "";
 }

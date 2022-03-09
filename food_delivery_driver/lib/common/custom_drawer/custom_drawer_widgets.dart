@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/constant/app_images.dart';
+import 'package:food_delivery_driver/common/sharedpreference_data/sharedpreference_data.dart';
 import 'package:food_delivery_driver/screens/about_us_screen/about_us_screen.dart';
 import 'package:food_delivery_driver/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery_driver/screens/edit_profile_screen/edit_profile_screen.dart';
@@ -45,7 +46,8 @@ class ProfilePicAndName extends StatelessWidget {
 }
 
 class DrawerList extends StatelessWidget {
-  const DrawerList({Key? key}) : super(key: key);
+  DrawerList({Key? key}) : super(key: key);
+  SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +186,8 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        Get.to(() => SignInScreen());
+        sharedPreferenceData.clearUserLoginDetailsFromPrefs();
+        Get.offAll(() => SignInScreen());
       },
       leading: Image.asset(Images.ic_logout, color: Colors.white, scale: 5.5,),
       title: Text('Logout',

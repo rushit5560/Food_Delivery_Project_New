@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/common_widgets.dart';
 import 'package:food_delivery/common/field_validation.dart';
 import 'package:food_delivery/models/all_area_model/all_area_model.dart';
 import 'package:get/get.dart';
@@ -129,9 +130,10 @@ class _SelectCityDropDownModuleState extends State<SelectCityDropDownModule> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(()=>
-        Container(
-          padding: const EdgeInsets.only(left: 10),
+    return Obx(()=> authScreenController.isLoading.value
+        ? CustomCircularProgressIndicator()
+        : Container(
+          // padding: const EdgeInsets.only(left: 10),
           height: 45,
           width: Get.width,
           decoration: BoxDecoration(
@@ -164,15 +166,17 @@ class _SelectCityDropDownModuleState extends State<SelectCityDropDownModule> {
                 }).toList(),
                 hint: Text("Select City"),
                 onChanged: (newValue) {
-                  authScreenController.cityDropDownValue!.cityName = newValue!.cityName;
-                  authScreenController.cityDropDownValue!.sId = newValue.sId;
+                  authScreenController.isLoading(true);
+                  authScreenController.cityDropDownValue.cityName = newValue!.cityName;
+                  authScreenController.cityDropDownValue.sId = newValue.sId;
                   authScreenController.areaList.clear();
                   authScreenController.areaList.add(GetAreaList(areaName: 'Select Area'));
-                  authScreenController.getAreaUsingCityId(cityId: "${authScreenController.cityDropDownValue!.sId}");
+                  authScreenController.getAreaUsingCityId(cityId: "${authScreenController.cityDropDownValue.sId}");
                   print("cityDropDownValue : ${authScreenController.cityDropDownValue}");
                   print('newValue.name : ${newValue.cityName}');
                   print('city: ${newValue.sId!}');
-                  authScreenController.loading();
+                  authScreenController.isLoading(false);
+                  // authScreenController.loading();
                 },
               ),
             ),
@@ -194,54 +198,59 @@ class _SelectAreaDropDownModuleState extends State<SelectAreaDropDownModule> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(()=>
-        Container(
-          padding: const EdgeInsets.only(left: 10),
-          height: 45,
-          width: Get.width,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.grey.shade300
-          ),
-          child: Theme(
-            data: Theme.of(context).copyWith(
-                canvasColor: Colors.grey.shade100,
-                // background color for the dropdown items
-                buttonTheme: ButtonTheme.of(context).copyWith(
-                  alignedDropdown: true, //If false (the default), then the dropdown's menu will be wider than its button.
-                )),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<GetAreaList>(
-                focusColor: Colors.white,
-                value: authScreenController.areaDropDownValue,
-                //elevation: 5,
-                style: TextStyle(color: Colors.white),
-                iconEnabledColor: Colors.black,
-                items: authScreenController.areaList.
-                map<DropdownMenuItem<GetAreaList>>((GetAreaList value) {
-                  return DropdownMenuItem<GetAreaList>(
-                    value: value,
-                    child: Text(
-                      value.areaName!,
+    return Obx(
+      () => authScreenController.isLoading.value
+          ? CustomCircularProgressIndicator()
+          : Container(
+              // padding: const EdgeInsets.only(left: 10),
+              height: 45,
+              width: Get.width,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Colors.grey.shade300),
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                    canvasColor: Colors.grey.shade100,
+                    // background color for the dropdown items
+                    buttonTheme: ButtonTheme.of(context).copyWith(
+                      alignedDropdown:
+                          true, //If false (the default), then the dropdown's menu will be wider than its button.
+                    )),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<GetAreaList>(
+                    focusColor: Colors.white,
+                    value: authScreenController.areaDropDownValue,
+                    //elevation: 5,
+                    style: TextStyle(color: Colors.white),
+                    iconEnabledColor: Colors.black,
+                    items: authScreenController.areaList
+                        .map<DropdownMenuItem<GetAreaList>>(
+                            (GetAreaList value) {
+                      return DropdownMenuItem<GetAreaList>(
+                        value: value,
+                        child: Text(
+                          value.areaName!,
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      );
+                    }).toList(),
+                    hint: Text(
+                      "Select Area",
                       style: TextStyle(color: Colors.black),
                     ),
-                  );
-                }).toList(),
-                hint: Text(
-                    "Select Area",
-                  style: TextStyle(color: Colors.black),
+                    onChanged: (newValue) {
+                      authScreenController.areaDropDownValue = newValue;
+                      authScreenController.areaDropDownValue!.areaName =
+                          newValue!.areaName;
+                      authScreenController.areaDropDownValue!.id = newValue.id;
+                      print('newValue.name : ${newValue.areaName}');
+                      print('area: ${newValue.id}');
+                      authScreenController.loading();
+                    },
+                  ),
                 ),
-                onChanged: (newValue) {
-                  authScreenController.areaDropDownValue!.areaName = newValue!.areaName;
-                  authScreenController.areaDropDownValue!.id = newValue.id;
-                  print('newValue.name : ${newValue.areaName}');
-                  print('area: ${newValue.id}');
-                  authScreenController.loading();
-                },
               ),
             ),
-          ),
-        ),
     );
   }
 }
