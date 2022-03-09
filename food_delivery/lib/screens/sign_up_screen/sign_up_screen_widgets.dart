@@ -162,9 +162,7 @@ class _SelectCityDropDownModuleState extends State<SelectCityDropDownModule> {
                     ),
                   );
                 }).toList(),
-                hint: Text(
-                  "Select City",
-                ),
+                hint: Text("Select City"),
                 onChanged: (newValue) {
                   authScreenController.cityDropDownValue!.cityName = newValue!.cityName;
                   authScreenController.cityDropDownValue!.sId = newValue.sId;
@@ -229,6 +227,10 @@ class _SelectAreaDropDownModuleState extends State<SelectAreaDropDownModule> {
                     ),
                   );
                 }).toList(),
+                hint: Text(
+                    "Select Area",
+                  style: TextStyle(color: Colors.black),
+                ),
                 onChanged: (newValue) {
                   authScreenController.areaDropDownValue!.areaName = newValue!.areaName;
                   authScreenController.areaDropDownValue!.id = newValue.id;
