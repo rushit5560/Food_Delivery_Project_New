@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/api_url.dart';
 import 'package:food_delivery_admin/common/app_colors.dart';
 import 'package:food_delivery_admin/controllrs/items_screen_controller/items_screen_controller.dart';
+import 'package:food_delivery_admin/models/all_city_model/city_model.dart';
 import 'package:get/get.dart';
 
 class MainTabsModule extends StatelessWidget {
@@ -154,7 +155,7 @@ class StoreProductsListModule extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Image(
-            image: NetworkImage('${ApiUrl.ApiMainPath}'+'${itemScreenController.storeProductList[index].store!.image}'),
+            image: NetworkImage('${ApiUrl.ApiMainPath}'+'${itemScreenController.storeProductList[index].image}'),
           ),
         ),
       ),
@@ -163,8 +164,10 @@ class StoreProductsListModule extends StatelessWidget {
 
   Widget _categoryItemNameModule(int index) {
     return Positioned(
-      bottom: -15,
+      bottom: -22,
       child: Container(
+        width: Get.width/4,
+        height: 45,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: AppColors.colorDarkPink,
@@ -174,12 +177,14 @@ class StoreProductsListModule extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                '${itemScreenController.storeProductList[index].productName}',
-                textScaleFactor: 0.85,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+              Flexible(
+                child: Text(
+                  '${itemScreenController.storeProductList[index].productName}',
+                  textScaleFactor: 0.85,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               const SizedBox(width: 5),

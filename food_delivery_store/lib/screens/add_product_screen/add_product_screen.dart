@@ -35,33 +35,36 @@ class AddProductScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Column(
-                  children: [
-                    SizedBox(height: 20,),
-                    ProductImage(),
-                    SizedBox(height: 20,),
-                    ItemInfoTextField(),
+                child: Form(
+                  key: addProductScreenController.productFormKey,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20,),
+                      ProductImage(),
+                      SizedBox(height: 20,),
+                      ItemInfoTextField(),
 
-                    SizedBox(height: 20,),
-                    ItemCategoryTextField(),
+                      SizedBox(height: 20,),
+                      ItemCategoryTextField(),
 
-                    SizedBox(height: 20,),
-                    ItemDescriptionTextField(),
+                      SizedBox(height: 20,),
+                      ItemDescriptionTextField(),
 
-                    SizedBox(height: 20,),
-                    ItemPriceTextField(),
+                      SizedBox(height: 20,),
+                      ItemPriceTextField(),
 
-                    SizedBox(height: 20,),
-                    ItemQtyTextField(),
+                      SizedBox(height: 20,),
+                      ItemQtyTextField(),
 
-                    SizedBox(height: 20,),
-                    EANTextField(),
+                      SizedBox(height: 20,),
+                      EANTextField(),
 
-                    SizedBox(height: 20,),
-                    TagTextField(),
+                      SizedBox(height: 20,),
+                      TagTextField(),
 
 
-                  ],
+                    ],
+                  ),
                 ),
               ),
 

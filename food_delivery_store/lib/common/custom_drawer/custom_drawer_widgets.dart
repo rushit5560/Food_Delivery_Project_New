@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_admin/common/sharedpreference_data/sharedpreference_data.dart';
 import 'package:food_delivery_admin/screens/about_us_screen/about_us_screen.dart';
 import 'package:food_delivery_admin/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery_admin/screens/earnings_screen/earnings_screen.dart';
@@ -45,7 +46,8 @@ class ProfilePicAndName extends StatelessWidget {
 }
 
 class DrawerList extends StatelessWidget {
-  const DrawerList({Key? key}) : super(key: key);
+  //const DrawerList({Key? key}) : super(key: key);
+  SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
   @override
   Widget build(BuildContext context) {
@@ -192,9 +194,11 @@ class DrawerList extends StatelessWidget {
 
   Widget logout(){
     return ListTile(
-      onTap: () {
+      onTap: ()async {
         Get.back();
-        Get.to(() => SignInScreen());
+        await sharedPreferenceData.clearUserDetails();
+        Get.offAll(() => SignInScreen());
+        Get.snackbar('User LogOut Successfully', '');
       },
       leading: Image.asset(Images.ic_logout, color: Colors.white,scale: 5.5),
       title: Text('Logout',

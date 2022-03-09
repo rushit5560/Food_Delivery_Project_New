@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/app_colors.dart';
 import 'package:food_delivery_admin/common/app_images.dart';
+import 'package:food_delivery_admin/common/field_validation.dart';
 import 'package:food_delivery_admin/controllrs/add_product_screen_controller/add_product_screen_controller.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -148,6 +150,7 @@ class ItemInfoTextField extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.grey.shade200)
             ),
           ),
+          validator: (value) => FieldValidator().validateProduct(value!),
         )
       ],
     );
@@ -278,6 +281,7 @@ class ItemDescriptionTextField extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.grey.shade200)
             ),
           ),
+          validator: (value) => FieldValidator().validateDescription(value!),
         )
       ],
     );
@@ -324,6 +328,7 @@ class ItemPriceTextField extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.grey.shade200)
             ),
           ),
+          validator: (value) => FieldValidator().validatePrice(value!),
         ),
 
         SizedBox(height: 10,),
@@ -355,6 +360,7 @@ class ItemPriceTextField extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.grey.shade200)
             ),
           ),
+          validator: (value) => FieldValidator().validatePrice(value!),
         )
       ],
     );
@@ -401,6 +407,7 @@ class ItemQtyTextField extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.grey.shade200)
             ),
           ),
+          validator: (value) => FieldValidator().validateQty(value!),
         ),
 
         SizedBox(height: 10,),
@@ -541,8 +548,15 @@ class AddProductButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        addProductScreenController.addProduct();
-      },
+          if(addProductScreenController.productFormKey.currentState!.validate()) {
+            if(addProductScreenController.file == null){
+              Fluttertoast.showToast(msg: 'Product Image required...!');
+            }else{
+              addProductScreenController.addProduct();
+            }
+
+          }
+        },
       child: Container(
         height: 40, width: Get.width/3,
         decoration: BoxDecoration(

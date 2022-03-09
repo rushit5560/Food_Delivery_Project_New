@@ -31,6 +31,47 @@ class FieldValidator {
     return null;
   }
 
+  String? validateProduct(String value) {
+    if (value.isEmpty) {
+      return 'Product Title is Required';
+    }
+
+    return null;
+  }
+
+  String? validateDescription(String value) {
+    if (value.isEmpty) {
+      return 'Description is Required';
+    }
+
+    return null;
+  }
+
+  String? validatePrice(String value) {
+    if (value.isEmpty) {
+      return 'Price is Required';
+    }
+
+    return null;
+  }
+
+  String? validateMrp(String value) {
+    if (value.isEmpty) {
+      return 'Mrp is Required';
+    }
+
+    return null;
+  }
+
+  String? validateQty(String value) {
+    if (value.isEmpty) {
+      return 'Quantity is Required';
+    }
+
+    return null;
+  }
+
+
   String ? validateEmail(String value) {
     if (value.isEmpty) {
       return "Email is Required";

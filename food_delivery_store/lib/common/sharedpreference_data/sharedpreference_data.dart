@@ -41,4 +41,12 @@ class SharedPreferenceData{
     print('UserDetails.userRole : ${UserDetails.storeRole}');
     print('UserDetails.userToken : ${UserDetails.userToken}');
   }
+
+  clearUserDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('userIdKey');
+    prefs.remove('userRoleKey');
+    prefs.remove('userTokenKey');
+    prefs.setBool('isLoggedIn', false);
+  }
 }

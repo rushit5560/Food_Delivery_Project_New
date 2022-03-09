@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/api_url.dart';
+import 'package:food_delivery_admin/common/user_details.dart';
 import 'package:food_delivery_admin/models/add_product_model/add_product_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,7 @@ class AddProductScreenController extends GetxController{
   File? file;
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
+  final GlobalKey<FormState> productFormKey = GlobalKey();
 
   final productTitleEditingController = TextEditingController();
   final descriptionTextEditingController = TextEditingController();
@@ -47,7 +49,7 @@ class AddProductScreenController extends GetxController{
       request.fields['Price'] = "${priceTextEditingController.text.trim()}";
       request.fields['Attribute'] = jsonEncode([attribute]);
       request.fields['Addon'] = jsonEncode([addon]);
-      request.fields['Store'] = "61fa612f77c72b016b4af342";
+      request.fields['Store'] = "${UserDetails.storeId}";
       request.fields['Category'] = "621f0c4eef06bb814930799d";
       request.fields['SubCategory'] = "621f1e6029c482fb2f2c27f3";
       request.fields['Description'] = "${descriptionTextEditingController.text.trim()}";
