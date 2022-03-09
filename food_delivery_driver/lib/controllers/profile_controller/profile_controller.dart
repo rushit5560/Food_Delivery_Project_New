@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:food_delivery_driver/common/constant/api_url.dart';
-import 'package:food_delivery_driver/common/driver_details.dart';
+import 'package:food_delivery_driver/common/constant/driver_details.dart';
 import 'package:food_delivery_driver/models/profile_model/profile_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;

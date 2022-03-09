@@ -1,7 +1,7 @@
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../driver_details.dart';
+import '../constant/driver_details.dart';
 
 class SharedPreferenceData {
   String isDriverLoggedInKey = 'isDriverLoggedInKey';
