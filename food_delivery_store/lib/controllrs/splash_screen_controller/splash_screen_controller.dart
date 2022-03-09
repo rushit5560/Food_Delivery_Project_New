@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/sharedpreference_data/sharedpreference_data.dart';
 import 'package:food_delivery_admin/common/user_details.dart';
 import 'package:food_delivery_admin/screens/auth_screen/auth_screen.dart';
@@ -17,12 +19,19 @@ class SplashScreenController extends GetxController {
 
   goToNextScreen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    UserDetails.isUserLoggedIn = prefs.getBool(sharedPreferenceData.isUserLoggedInKey) ?? false;
     UserDetails.storeId = prefs.getString(sharedPreferenceData.userIdKey) ?? '';
+    UserDetails.userToken = prefs.getString(sharedPreferenceData.userTokenKey) ?? '';
+    UserDetails.storeRole = prefs.getString(sharedPreferenceData.userRoleKey) ?? '';
     print('storeId: ${UserDetails.storeId}');
-    if(UserDetails.storeId.isNotEmpty) {
+
+    bool isLoggedIn = UserDetails.isUserLoggedIn;
+    if(isLoggedIn == true) {
       Get.offAll(()=> NewOrderScreen());
+      Fluttertoast.showToast(msg: 'isLoggedIn : $isLoggedIn');
     } else {
       Get.offAll(()=> SignInScreen());
+      Fluttertoast.showToast(msg: 'isLoggedIn : $isLoggedIn');
     }
   }
 

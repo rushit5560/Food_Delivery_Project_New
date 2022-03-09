@@ -196,9 +196,9 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: ()async {
         Get.back();
-        await sharedPreferenceData.clearUserDetails();
+        await sharedPreferenceData.clearUserLoginDetailsFromPrefs();
         Get.offAll(() => SignInScreen());
-        Get.snackbar('User LogOut Successfully', '');
+        Get.snackbar('Store LogOut Successfully', '');
       },
       leading: Image.asset(Images.ic_logout, color: Colors.white,scale: 5.5),
       title: Text('Logout',
