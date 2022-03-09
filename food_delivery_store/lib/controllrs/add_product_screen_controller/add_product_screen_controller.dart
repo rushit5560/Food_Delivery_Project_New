@@ -25,22 +25,11 @@ class AddProductScreenController extends GetxController{
     isLoading(true);
     String url = ApiUrl.AddProductApi;
     print('url : $url');
-    /*Map<String , String>*/var attribute = [{
-      "value": "6204efcef08020bb6802f063",
-      "label": "Cheese"
-    }];
-    /*Map<String , String>*/var addon = [{
-      "value": "61fb726933f06cc75ed9b710",
-      "label": "Cheese"
-    }];
-    Map<String , dynamic> productType = {
-      "value": "Veg",
-      "label": "Veg"
-    };
-    Map<String , dynamic> discountType = {
-      "value": "Amount",
-      "label": "Amount"
-    };
+
+    Map<String , dynamic> attribute = {"value":"6204efcef08020bb6802f063","label":"Cheese"};
+    Map<String , dynamic> addon = {"value": "61fb726933f06cc75ed9b710","label": "Cheese "};
+    Map<String , dynamic> productType = {"value": "Veg","label": "Veg"};
+    Map<String , dynamic> discountType = {"value": "Amount","label": "Amount"};
 
     try {
       var stream = http.ByteStream(file!.openRead());
@@ -52,30 +41,19 @@ class AddProductScreenController extends GetxController{
 
       request.files.add(await http.MultipartFile.fromPath("Image", file!.path));
 
-      // request.fields['UserName'] = "${userNameTextFieldController.text.trim()}";
-      // request.fields['FullName'] = "${fullNameTextFieldController.text.trim()}";
-      // request.fields['Phone'] = "${phoneNoTextFieldController.text.trim()}";
-      // request.fields['Password'] = "${passwordTextFieldController.text.trim()}";
-      // request.fields['Address'] = "${addressTextFieldController.text.trim()}";
-      // request.fields['Gender'] = "$selectedGenderValue";
-      // request.fields['CityId'] = "61f8f6a51467b5c3867ba67d";
-      // request.fields['AreaId'] = "61f8f7381467b5c3867ba68f";
-      // request.fields['Email'] = "${emailTextFieldController.text.trim().toLowerCase()}";
-      // request.fields['RoleId'] = "6179367e616b99f3c785a68e";
-
       request.fields['ProductName'] = "${productTitleEditingController.text.trim()}";
       request.fields['Quantity'] = "${qtyTextEditingController.text.trim()}";
       request.fields['MRP'] = "${mrpTextEditingController.text.trim()}";
       request.fields['Price'] = "${priceTextEditingController.text.trim()}";
-      request.fields['Attribute'] = "$attribute";
-      request.fields['Addon'] = "$addon";
+      request.fields['Attribute'] = jsonEncode([attribute]);
+      request.fields['Addon'] = jsonEncode([addon]);
       request.fields['Store'] = "61fa612f77c72b016b4af342";
       request.fields['Category'] = "621f0c4eef06bb814930799d";
       request.fields['SubCategory'] = "621f1e6029c482fb2f2c27f3";
       request.fields['Description'] = "${descriptionTextEditingController.text.trim()}";
       request.fields['Discount'] = "0.00";
-      request.fields['ProductType'] = "$productType";
-      request.fields['DiscountType'] = "$discountType";
+      request.fields['ProductType'] = jsonEncode(productType);
+      request.fields['DiscountType'] = jsonEncode(discountType);
 
       print('request.fields: ${request.fields}');
       print('request.files: ${request.files}');
