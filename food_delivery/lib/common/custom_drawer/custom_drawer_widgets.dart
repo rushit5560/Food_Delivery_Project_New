@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/screens/about_us_screen/about_us_screen.dart';
@@ -6,12 +5,13 @@ import 'package:food_delivery/screens/account_screen/account_screen.dart';
 import 'package:food_delivery/screens/auth_screen/auth_screen.dart';
 import 'package:food_delivery/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery/screens/invite_and_earn_screen/invite_and_earn_screen.dart';
-// import 'package:food_delivery/screens/language_screen/language_screen.dart';
 import 'package:food_delivery/screens/profile_screen/profile_screen.dart';
 import 'package:food_delivery/screens/reward_point/reward_point.dart';
 import 'package:food_delivery/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
 import 'package:food_delivery/screens/wishlist_screen/wishlist_screen.dart';
 import 'package:get/get.dart';
+import '../sharedpreference_data/sharedpreference_data.dart';
+
 
 class ProfilePicAndName extends StatelessWidget {
   const ProfilePicAndName({Key? key}) : super(key: key);
@@ -45,7 +45,8 @@ class ProfilePicAndName extends StatelessWidget {
 }
 
 class DrawerList extends StatelessWidget {
-  const DrawerList({Key? key}) : super(key: key);
+  DrawerList({Key? key}) : super(key: key);
+  SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
   @override
   Widget build(BuildContext context) {
@@ -209,9 +210,11 @@ class DrawerList extends StatelessWidget {
 
   Widget logout(){
     return ListTile(
-      onTap: () {
+      onTap: () async {
         Get.back();
-        Get.to(() => AuthScreen());
+        /// Clear All UserLoggedIn Data
+        await sharedPreferenceData.clearUserLoginDetailsFromPrefs();
+        Get.offAll(() => AuthScreen());
       },
       leading: Image.asset(Images.ic_logout, color: Colors.white,scale: 5.5),
       title: Text('Logout',

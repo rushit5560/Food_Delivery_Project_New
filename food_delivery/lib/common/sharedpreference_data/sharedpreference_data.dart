@@ -50,4 +50,22 @@ class SharedPreferenceData {
   }
 
 
+  /// Clear All UserLoggedIn Data
+  clearUserLoginDetailsFromPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setBool(isUserLoggedInKey, false);
+    prefs.setString(userIdKey, "");
+    prefs.setString(userRoleKey, "");
+    prefs.setString(userTokenKey, "");
+    prefs.setString(userWalletIdKey, "");
+
+    // print('Clear isUserLoggedInKey : ${prefs.getBool(isUserLoggedInKey)}');
+    // print('Clear userIdKey : ${prefs.getString(userIdKey)}');
+    // print('Clear userRoleKey : ${prefs.getString(userRoleKey)}');
+    // print('Clear userTokenKey : ${prefs.getString(userTokenKey)}');
+    // print('Clear userWalletIdKey : ${prefs.getString(userWalletIdKey)}');
+  }
+
+
 }
