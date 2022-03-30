@@ -7,7 +7,7 @@ import 'category_screen_widgets.dart';
 
 class CategoryScreen extends StatelessWidget {
   CategoryScreenController categoryScreenController = Get.put(CategoryScreenController());
-  TextEditingController searchFieldController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,7 @@ class CategoryScreen extends StatelessWidget {
               : Column(
                   children: [
                     // Import From Widget File
-                    SearchFieldModule(
-                        searchFieldController: searchFieldController),
+                    SearchFieldModule(),
                     Expanded(
                       // Import From Widget File
                       child: CategoryListModule(),

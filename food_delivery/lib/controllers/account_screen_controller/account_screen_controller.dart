@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_images.dart';
@@ -25,7 +26,7 @@ class AccountScreenController extends GetxController {
 
    try{
      http.Response response = await http.get(Uri.parse(finalUrl));
-     print('response : $response');
+     log('getUserAccount response : $response');
 
      UserAccountModel userAccountModel = UserAccountModel.fromJson(json.decode(response.body));
      isSuccessStatus = userAccountModel.status.obs;

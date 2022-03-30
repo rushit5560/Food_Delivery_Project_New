@@ -113,7 +113,7 @@ class ProductsListScreenController extends GetxController {
     if(productsEnum == ProductsEnum.AllProducts){
       print('ProductsEnum.AllProducts');
       getAllProducts();
-    } else if(productsEnum == ProductsEnum.CategoryWiseProducts) {
+    } else if(productsEnum == ProductsEnum.SubCategoryWiseProducts) {
       print('ProductsEnum.CategoryWiseProducts');
       getProductsByCategoryId(categoryId);
     }

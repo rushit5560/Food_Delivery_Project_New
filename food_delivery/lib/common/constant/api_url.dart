@@ -20,4 +20,8 @@ class ApiUrl {
   static const AllAreaUsingCityIdApi = ApiMainPath + "area/find/";
   static const ContactUsApi = ApiMainPath + "Contactus/create";
   static const GetUserWalletApi = ApiMainPath + "wallet/find/user/";
+
+  static const AllRestaurantApi = ApiMainPath + "store/getAllStore";
+  static const RestaurantWiseCategoryApi = ApiMainPath + "Category/Restaurant/find/";
+  static const CategoryWiseSubCategoryApi = ApiMainPath + "Subcategory/find/category/";
 }

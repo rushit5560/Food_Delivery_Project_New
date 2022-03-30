@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:food_delivery/common/constant/api_url.dart';
-import 'package:food_delivery/common/constant/app_images.dart';
-import 'package:food_delivery/models/order_screen_model/order_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../common/constant/user_details.dart';
@@ -41,7 +39,7 @@ class OrderScreenController extends GetxController {
 
   }
 
-  List<OrderModel> orderList = [
+  /*List<OrderModel> orderList = [
     OrderModel(
       itemImg: Images.ic_category2,
       itemName: 'Hot Dog',
@@ -72,7 +70,7 @@ class OrderScreenController extends GetxController {
       orderStatus: 'Re-order',
       itemAmount: '150.00',
     ),
-  ];
+  ];*/
 
   @override
   void onInit() {

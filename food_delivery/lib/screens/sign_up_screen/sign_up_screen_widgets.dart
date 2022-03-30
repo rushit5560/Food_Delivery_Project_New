@@ -176,7 +176,6 @@ class _SelectCityDropDownModuleState extends State<SelectCityDropDownModule> {
                   print('newValue.name : ${newValue.cityName}');
                   print('city: ${newValue.sId!}');
                   authScreenController.isLoading(false);
-                  // authScreenController.loading();
                 },
               ),
             ),

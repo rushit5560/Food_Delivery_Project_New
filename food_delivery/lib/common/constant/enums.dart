@@ -1,2 +1,2 @@
 
-enum ProductsEnum {AllProducts, CategoryWiseProducts}
+enum ProductsEnum {AllProducts, SubCategoryWiseProducts, CategoryWiseProducts}

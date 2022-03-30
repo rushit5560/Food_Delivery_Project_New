@@ -1,14 +1,19 @@
+
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/constant/api_url.dart';
-import 'package:food_delivery/common/constant/app_colors.dart';
-import 'package:food_delivery/controllers/category_screen_controller/category_screen_controller.dart';
-import 'package:food_delivery/screens/sub_category_screen/sub_category_screen.dart';
 import 'package:get/get.dart';
 
-class SearchFieldModule extends StatelessWidget {
-  CategoryScreenController categoryScreenController = Get.find<CategoryScreenController>();
+import '../../common/constant/api_url.dart';
+import '../../common/constant/app_colors.dart';
+import '../../common/constant/enums.dart';
+import '../../controllers/sub_category_screen_controller/sub_category_screen_controller.dart';
+import '../products_list_screen/products_list_screen.dart';
+
+class SubCategorySearchFieldModule extends StatelessWidget {
+  SubCategorySearchFieldModule({Key? key}) : super(key: key);
+  final screenController = Get.find<SubCategoryScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,7 @@ class SearchFieldModule extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: TextFormField(
         cursorColor: Colors.black,
-        controller: categoryScreenController.searchFieldController,
+        controller: screenController.subCategorySearchFieldController,
         decoration: _inputDecoration(),
         onChanged: (value){
           print('Search value : $value');
@@ -45,12 +50,11 @@ class SearchFieldModule extends StatelessWidget {
       ),
     );
   }
+
 }
 
-
-class CategoryListModule extends StatelessWidget {
-  CategoryScreenController categoryScreenController = Get.find<CategoryScreenController>();
-  // CategoryListModule({required this.categoryScreenController});
+class SubCategoryListModule extends StatelessWidget {
+  final screenController = Get.find<SubCategoryScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +63,7 @@ class CategoryListModule extends StatelessWidget {
       child: GridView.builder(
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
-        itemCount: categoryScreenController.restaurantWiseCategoryList.length,
+        itemCount: screenController.subCategoryList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           mainAxisSpacing: 10,
@@ -105,7 +109,7 @@ class CategoryListModule extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Image(
-            image: NetworkImage("${ApiUrl.ApiMainPath}${categoryScreenController.restaurantWiseCategoryList[index].image}"),
+            image: NetworkImage("${ApiUrl.ApiMainPath}${screenController.subCategoryList[index].image}"),
           ),
         ),
       ),
@@ -124,7 +128,7 @@ class CategoryListModule extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Center(
             child: Text(
-              '${categoryScreenController.restaurantWiseCategoryList[index].name}',
+              '${screenController.subCategoryList[index].name}',
               textScaleFactor: 0.85,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -138,8 +142,8 @@ class CategoryListModule extends StatelessWidget {
   }
 
   void _onItemClick(int index) {
-    log("Cat Id : ${categoryScreenController.restaurantWiseCategoryList[index].id}");
-    Get.to(()=> SubCategoryScreen(), arguments: categoryScreenController.restaurantWiseCategoryList[index].id);
-    // Get.to(()=> ProductsListScreen(), arguments: [ProductsEnum.CategoryWiseProducts, categoryScreenController.restaurantWiseCategoryList[index].id]);
+    log("Cat Id : ${screenController.subCategoryList[index].id}");
+    Get.to(()=> ProductsListScreen(), arguments: [ProductsEnum.SubCategoryWiseProducts, screenController.subCategoryList[index].id]);
   }
+
 }

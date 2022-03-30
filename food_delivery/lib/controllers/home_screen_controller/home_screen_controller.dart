@@ -25,7 +25,7 @@ class HomeScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   List<GetList> bannerList = [];
-  List<GetFoodCampList> foodCampaignList = [];
+  List<GetCampaignList> foodCampaignList = [];
 
   @override
   void onInit() {
@@ -44,7 +44,7 @@ class HomeScreenController extends GetxController {
 
       print('Response : ${response.body}');
 
-      BannerModel bannerModel = BannerModel .fromJson(json.decode(response.body));
+      BannerModel bannerModel = BannerModel.fromJson(json.decode(response.body));
       isSuccessStatus = bannerModel.status.obs;
       print("status : $isSuccessStatus");
 

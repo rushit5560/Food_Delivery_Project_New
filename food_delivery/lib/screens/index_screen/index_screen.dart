@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/screens/account_screen/account_screen.dart';
 import 'package:food_delivery/screens/basket_screen/basket_screen.dart';
-import 'package:food_delivery/screens/category_screen/category_screen.dart';
 import 'package:food_delivery/screens/home_screen/home_screen.dart';
 import 'package:food_delivery/screens/search_screen/search_screen.dart';
+
+import '../restaurant_list_screen/restaurant_list_screen.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _IndexScreenState extends State<IndexScreen> {
   int selectedIndex = 0;
   final widgetOptions = [
     HomeScreen(),
-    CategoryScreen(),
+    RestaurantListScreen(),
     SearchScreen(),
     BasketScreen(),
     AccountScreen()

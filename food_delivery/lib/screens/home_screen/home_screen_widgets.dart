@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 
 import '../../common/constant/app_images.dart';
 import '../../common/constant/enums.dart';
+import '../../controllers/restaurant_list_screen_controller/restaurant_list_screen_controller.dart';
 
 class SearchContainer extends StatelessWidget {
   const SearchContainer({Key? key}) : super(key: key);
@@ -121,10 +122,8 @@ class CarouselIndicator extends StatelessWidget {
 }
 
 
-class CategoryList extends StatelessWidget {
-   // CategoryList({required this.homeScreenController});
-
-  HomeScreenController homeScreenController = Get.find<HomeScreenController>();
+class RestaurantList extends StatelessWidget {
+  final restaurantListScreenController = Get.find<RestaurantListScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +134,7 @@ class CategoryList extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Categories",
+              Text("Restaurants",
                   style: TextStyle(color: Colors.black, fontSize: 20),),
 
               GestureDetector(
@@ -152,11 +151,12 @@ class CategoryList extends StatelessWidget {
           Container(
             height: Get.height * 0.2,
             child: ListView.builder(
-              itemCount: homeScreenController.category.length,
+              itemCount: 5,
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index){
                   return Container(
+                    width: 125,
                     margin: EdgeInsets.only(left: 5, right: 5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -166,12 +166,21 @@ class CategoryList extends StatelessWidget {
                       children: [
                         Expanded(
                           flex: 8,
-                          child: Image.asset(homeScreenController.category[index].image,),
-                        ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                image: NetworkImage("${ApiUrl.ApiMainPath}${restaurantListScreenController.allRestaurantList[index].image}"),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
 
+                        ),
+                        const SizedBox(height: 10),
                         Expanded(
                           flex: 2,
-                            child: Text(homeScreenController.category[index].name))
+                            child: Text(restaurantListScreenController.allRestaurantList[index].storeName))
                       ],
                     ),
                   );
