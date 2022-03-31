@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/constant/app_colors.dart';
 import 'package:get/get.dart';
 
+import '../../common/common_widgets.dart';
 import '../../controllers/send_to_bank_screen_controller/send_to_bank_screen_controller.dart';
+import '../../models/all_restaurants_model/all_restaurants_model.dart';
 
 class AvailableBalanceModule extends StatelessWidget {
   const AvailableBalanceModule({Key? key}) : super(key: key);
@@ -58,6 +60,8 @@ class BankDetailsForm extends StatelessWidget {
         key: sendToBankScreenController.formKey,
         child: Column(
           children: [
+            AllRestaurantsDropDownMenuModule(),
+            const SizedBox(height: 10),
             _accountHolderNameField(),
             const SizedBox(height: 10),
             _bankNameField(),
@@ -216,6 +220,59 @@ class SendToBankButton extends StatelessWidget {
   }
 }
 
+
+class AllRestaurantsDropDownMenuModule extends StatelessWidget {
+  AllRestaurantsDropDownMenuModule({Key? key}) : super(key: key);
+  final screenController = Get.find<SendToBankScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      ()=> screenController.isLoading.value
+      ? CustomCircularProgressIndicator()
+      : Container(
+        height: 45,
+        width: Get.width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: Colors.grey.shade300),
+        child: Theme(
+          data: Theme.of(context).copyWith(
+              canvasColor: Colors.grey.shade100,
+              buttonTheme: ButtonTheme.of(context).copyWith(
+                alignedDropdown: true,
+              )),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<AllStore>(
+              focusColor: Colors.white,
+              value: screenController.restaurantsDropDownValue,
+              style: TextStyle(color: Colors.white),
+              iconEnabledColor: Colors.black,
+              items: screenController.getAllRestaurantsList
+                  .map<DropdownMenuItem<AllStore>>((AllStore value) {
+                return DropdownMenuItem<AllStore>(
+                  value: value,
+                  child: Text(
+                    "${value.storeName}",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                );
+              }).toList(),
+              onChanged: (newValue) {
+                screenController.isLoading(true);
+                screenController.restaurantsDropDownValue.storeName =
+                    newValue!.storeName;
+                screenController.restaurantsDropDownValue.id = newValue.id;
+                screenController.isLoading(false);
+              },
+              hint: Text("Select Restaurants"),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 InputDecoration inputDecoration() {
   return InputDecoration(

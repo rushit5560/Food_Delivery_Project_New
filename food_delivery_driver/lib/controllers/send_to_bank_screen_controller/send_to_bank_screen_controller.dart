@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../common/constant/api_url.dart';
+import '../../models/all_restaurants_model/all_restaurants_model.dart';
 import '../../models/bank_info_model/bank_info_model.dart';
 
 class SendToBankScreenController extends GetxController {
@@ -18,6 +20,9 @@ class SendToBankScreenController extends GetxController {
   final accountNumberFieldController = TextEditingController();
   final upiFieldController = TextEditingController();
 
+  RxList<AllStore> getAllRestaurantsList = RxList();
+  AllStore restaurantsDropDownValue = AllStore();
+
 
   updateDriverBankInfoFunction() async {
     isLoading(true);
@@ -30,7 +35,7 @@ class SendToBankScreenController extends GetxController {
         "BranchName" : "${bankNameFieldController.text.trim()}",
         "HolderName" : "${holderNameFieldController.text.trim()}",
         "AccountNo" : "${accountNumberFieldController.text.trim()}",
-        "RestaurantId" : "619789eea7c5063b32cab139"
+        "RestaurantId" : "${restaurantsDropDownValue.id}"
       };
       print('data : $data');
 
@@ -52,6 +57,39 @@ class SendToBankScreenController extends GetxController {
     }finally {
       isLoading(false);
     }
+  }
+
+  getAllRestaurantsListFunction() async {
+    isLoading(true);
+    String url = ApiUrl.GetAllRestaurantsApi;
+    log("URL :$url");
+
+    try{
+
+      http.Response response = await http.get(Uri.parse(url));
+      log("response : ${response.body}");
+
+      GetAllRestaurantsModel getAllRestaurantsModel = GetAllRestaurantsModel.fromJson(json.decode(response.body));
+      isSuccessStatus = getAllRestaurantsModel.status.obs;
+
+      if(isSuccessStatus.value) {
+        getAllRestaurantsList.addAll(getAllRestaurantsModel.allStore);
+        restaurantsDropDownValue = getAllRestaurantsList[0];
+      } else {
+        log("getAllRestaurantsListFunction Else Else");
+      }
+
+    } catch(e) {
+      log("getAllRestaurantsListFunction Error : $e");
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  @override
+  void onInit() {
+    getAllRestaurantsListFunction();
+    super.onInit();
   }
 
 }

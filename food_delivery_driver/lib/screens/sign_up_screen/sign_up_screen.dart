@@ -20,15 +20,8 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  //var _SignUpformKey = GlobalKey<FormState>();
   final signUpScreenController = Get.put(SignUpScreenController());
-
-  String ? _chosenValue;
-
   String ? areaValue;
-
-  //File? file;
-
   final ImagePicker imagePicker = ImagePicker();
 
   @override

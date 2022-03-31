@@ -1,10 +1,8 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/sharedpreference_data/sharedpreference_data.dart';
 import 'package:food_delivery_admin/common/user_details.dart';
-import 'package:food_delivery_admin/screens/auth_screen/auth_screen.dart';
 import 'package:food_delivery_admin/screens/new_order_screen/new_order_screen.dart';
 import 'package:food_delivery_admin/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:get/get.dart';
@@ -23,7 +21,7 @@ class SplashScreenController extends GetxController {
     UserDetails.storeId = prefs.getString(sharedPreferenceData.userIdKey) ?? '';
     UserDetails.userToken = prefs.getString(sharedPreferenceData.userTokenKey) ?? '';
     UserDetails.storeRole = prefs.getString(sharedPreferenceData.userRoleKey) ?? '';
-    print('storeId: ${UserDetails.storeId}');
+    log('storeId: ${UserDetails.storeId}');
 
     bool isLoggedIn = UserDetails.isUserLoggedIn;
     if(isLoggedIn == true) {

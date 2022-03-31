@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_driver/common/constant/driver_details.dart';
 import 'package:food_delivery_driver/screens/home_screen/home_screen.dart';
 import 'package:food_delivery_driver/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../common/sharedpreference_data/sharedpreference_data.dart';
+
 
 class SplashScreenController extends GetxController {
   SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
@@ -24,10 +23,10 @@ class SplashScreenController extends GetxController {
 
     if(isLoggedIn == true) {
       Get.offAll(()=> HomeScreen());
-      Fluttertoast.showToast(msg: 'isLoggedIn : $isLoggedIn');
+      // Fluttertoast.showToast(msg: 'isLoggedIn : $isLoggedIn');
     } else {
     Get.offAll(()=> SignInScreen());
-      Fluttertoast.showToast(msg: 'isLoggedIn : $isLoggedIn');
+      // Fluttertoast.showToast(msg: 'isLoggedIn : $isLoggedIn');
     }
 
   }

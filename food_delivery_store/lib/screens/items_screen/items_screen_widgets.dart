@@ -126,7 +126,7 @@ class StoreProductsListModule extends StatelessWidget {
                       alignment: Alignment.bottomCenter,
                       clipBehavior: Clip.none,
                       children: [
-                        _categoryItemImageModule(index),
+                        // _categoryItemImageModule(index),
                         _categoryItemNameModule(index),
                       ],
                     ),
@@ -144,7 +144,7 @@ class StoreProductsListModule extends StatelessWidget {
     );
   }
 
-  Widget _categoryItemImageModule(int index) {
+  /*Widget _categoryItemImageModule(int index) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
@@ -159,7 +159,7 @@ class StoreProductsListModule extends StatelessWidget {
         ),
       ),
     );
-  }
+  }*/
 
   Widget _categoryItemNameModule(int index) {
     return Positioned(
@@ -173,7 +173,7 @@ class StoreProductsListModule extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: Row(
+          /*child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
@@ -196,7 +196,7 @@ class StoreProductsListModule extends StatelessWidget {
                 ),
               ),
             ],
-          ),
+          ),*/
         ),
       ),
     );

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/constants/app_colors.dart';
 import 'package:food_delivery_admin/common/constants/app_images.dart';
 import 'package:get/get.dart';
-
 import '../../controllers/splash_screen_controller/splash_screen_controller.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -15,7 +14,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.colorLightPink,
       body: Center(
-        child: Image.asset(Images.ic_food_logo, height: 200, width: 200,),
+        child: Image.asset(Images.ic_food_logo, height: 200, width: 200),
       ),
     );
   }

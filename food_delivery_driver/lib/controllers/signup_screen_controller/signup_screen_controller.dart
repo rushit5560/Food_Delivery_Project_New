@@ -6,18 +6,22 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_driver/common/constant/api_url.dart';
 import 'package:food_delivery_driver/models/all_city_model/city_model.dart';
 import 'package:food_delivery_driver/models/sign_up_model/sign_up_model.dart';
+import 'package:food_delivery_driver/screens/home_screen/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../../common/constant/driver_details.dart';
+import '../../common/sharedpreference_data/sharedpreference_data.dart';
+import '../../models/create_driver_wallet_model/create_driver_wallet_model.dart';
+
 class SignUpScreenController extends GetxController{
-  //File file = File.obs;
   File? file;
   File? coverFile;
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
 
-  final GlobalKey<FormState> signupFormKey = GlobalKey();
 
+  final GlobalKey<FormState> signupFormKey = GlobalKey();
   final firstNameTextEditingController = TextEditingController();
   final lastNameTextEditingController = TextEditingController();
   final phoneNumberTextEditingController = TextEditingController();
@@ -27,6 +31,7 @@ class SignUpScreenController extends GetxController{
 
   RxList<GetList> cityLists = [GetList(cityName: 'Select City')].obs;
   GetList? cityDropDownValue;
+  SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
 
   @override
@@ -93,6 +98,8 @@ class SignUpScreenController extends GetxController{
 
         if(isSuccessStatus.value){
           Fluttertoast.showToast(msg: "${response1.message}");
+
+          Get.offAll(()=> HomeScreen(), transition: Transition.zoom);
           clearSignUpFieldsFunction();
 
         } else {
@@ -152,6 +159,44 @@ class SignUpScreenController extends GetxController{
     emailTextEditingController.clear();
     passwordTextEditingController.clear();
     addressTextEditingController.clear();
+  }
+
+  /// Create Driver Wallet Using DriverId
+  createDriverWalletFunction() async {
+    isLoading(true);
+
+    String url = ApiUrl.CreateDriverWalletApi;
+    print('Yrl : $url');
+
+    try{
+      Map data = {
+        "DeliveryPersonId" : "${DriverDetails.driverId}",
+        "Amount" : "0",
+        "RechargeDate" : "${DateTime.now()}",
+        "Status" : "active",
+        "Source" : "GooglePay"
+      };
+      print('data : $data');
+
+      http.Response response = await http.post(Uri.parse(url), body: data);
+      print('response : ${response.body}');
+
+      CreateDriverWalletModel createDriverWalletModel = CreateDriverWalletModel.fromJson(json.decode(response.body));
+      // isSuccessStatus = createDriverWalletModel.status.obs;
+      isSuccessStatus.value = true;
+      if(isSuccessStatus.value) {
+        String walletId = createDriverWalletModel.wallet.id;
+        sharedPreferenceData.setWalletIdInPrefs(walletId: walletId);
+      } else {
+        print('createDriverWalletFunction Else Else');
+      }
+
+    } catch(e) {
+      print('createDriverWalletFunction Error : $e');
+    } finally {
+      isLoading(false);
+    }
+
   }
 
 }

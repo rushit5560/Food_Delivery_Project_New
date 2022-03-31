@@ -113,60 +113,84 @@ class OrderButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 20, bottom: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Obx(()=>
-             GestureDetector(
-              onTap: (){
-                Get.to(() => TodayOrderScreen());
-                homeScreenController.index.value = 0;
+    return GestureDetector(
+      onTap: (){
+        Get.to(() => TodayOrderScreen());
+        homeScreenController.index.value = 0;
 
-              },
-              child: Container(
-                height: 50, width: Get.width/2.5,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColors.colorDarkPink),
-                    color: homeScreenController.index.value == 0 ? AppColors.colorDarkPink : Colors.white
-                ),
-                child: Center(
-                  child: Text("Today Order",
-                    style: TextStyle(
-                        color: homeScreenController.index.value == 0 ? Colors.white : AppColors.colorDarkPink,
-                        fontSize: 18),),
-                ),
-              ),
-            ),
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: 10, bottom: 10),
+        child: Container(
+          height: 50, width: Get.width/2.5,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: AppColors.colorDarkPink),
+              color: /*homeScreenController.index.value == 0 ? */AppColors.colorDarkPink/* : Colors.white*/
           ),
-
-          Obx(()=>
-              GestureDetector(
-              onTap: (){
-                Get.to(() => NextDayOrderScreen());
-                homeScreenController.index.value = 1;
-              },
-              child: Container(
-                height: 50, width: Get.width/2.5,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColors.colorDarkPink),
-                  color: homeScreenController.index.value == 1 ? AppColors.colorDarkPink : Colors.white
-                ),
-                child: Center(
-                  child: Text("Nextday Order",
-                    style: TextStyle(
-                        color: homeScreenController.index.value == 1 ? Colors.white : AppColors.colorDarkPink,
-                        fontSize: 18),),
-                ),
-              ),
-            ),
-          )
-        ],
+          child: Center(
+            child: Text("All Orders",
+              style: TextStyle(
+                  color: homeScreenController.index.value == 0 ? Colors.white : AppColors.colorDarkPink,
+                  fontSize: 18),),
+          ),
+        ),
       ),
     );
+    // return Container(
+    //   margin: EdgeInsets.only(top: 20, bottom: 20),
+    //   child: Row(
+    //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //     children: [
+    //       Obx(()=>
+    //          GestureDetector(
+    //           onTap: (){
+    //             Get.to(() => TodayOrderScreen());
+    //             homeScreenController.index.value = 0;
+    //
+    //           },
+    //           child: Container(
+    //             height: 50, width: Get.width/2.5,
+    //             decoration: BoxDecoration(
+    //                 borderRadius: BorderRadius.circular(10),
+    //                 border: Border.all(color: AppColors.colorDarkPink),
+    //                 color: homeScreenController.index.value == 0 ? AppColors.colorDarkPink : Colors.white
+    //             ),
+    //             child: Center(
+    //               child: Text("Today Order",
+    //                 style: TextStyle(
+    //                     color: homeScreenController.index.value == 0 ? Colors.white : AppColors.colorDarkPink,
+    //                     fontSize: 18),),
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //
+    //       Obx(()=>
+    //           GestureDetector(
+    //           onTap: (){
+    //             Get.to(() => NextDayOrderScreen());
+    //             homeScreenController.index.value = 1;
+    //           },
+    //           child: Container(
+    //             height: 50, width: Get.width/2.5,
+    //             decoration: BoxDecoration(
+    //               borderRadius: BorderRadius.circular(10),
+    //                 border: Border.all(color: AppColors.colorDarkPink),
+    //               color: homeScreenController.index.value == 1 ? AppColors.colorDarkPink : Colors.white
+    //             ),
+    //             child: Center(
+    //               child: Text("Nextday Order",
+    //                 style: TextStyle(
+    //                     color: homeScreenController.index.value == 1 ? Colors.white : AppColors.colorDarkPink,
+    //                     fontSize: 18),),
+    //             ),
+    //           ),
+    //         ),
+    //       )
+    //     ],
+    //   ),
+    // );
   }
 }
 

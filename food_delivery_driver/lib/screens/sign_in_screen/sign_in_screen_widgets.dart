@@ -105,7 +105,7 @@ class NotUserText extends StatelessWidget {
         SizedBox(width: 5,),
         GestureDetector(
           onTap: () {
-            Get.off(()=> SignUpScreen());
+            Get.to(()=> SignUpScreen());
           },
           child: Text("Click Here",
             style: TextStyle(color: AppColors.colorDarkPink, fontWeight: FontWeight.bold),),

@@ -162,7 +162,7 @@ class SignInScreenController extends GetxController{
         String driverToken = userSignInModel.token;
         print('driverToken : $driverToken');
         await sharedPreferenceData.setDriverLoginDetailsInPrefs(driverToken: driverToken);
-        await createDriverWalletFunction();
+        // await createDriverWalletFunction();
         Get.offAll(() => HomeScreen());
         Get.snackbar('Driver LoggedIn Successfully.', '');
       } else {
@@ -176,42 +176,6 @@ class SignInScreenController extends GetxController{
     }
   }
 
-  /// Create Driver Wallet Using DriverId
-  createDriverWalletFunction() async {
-    isLoading(true);
 
-    String url = ApiUrl.CreateDriverWalletApi;
-    print('Yrl : $url');
-
-    try{
-      Map data = {
-        "DeliveryPersonId" : "${DriverDetails.driverId}",
-        "Amount" : "0",
-        "RechargeDate" : "${DateTime.now()}",
-        "Status" : "active",
-        "Source" : "GooglePay"
-      };
-      print('data : $data');
-
-      http.Response response = await http.post(Uri.parse(url), body: data);
-      print('response : ${response.body}');
-
-      CreateDriverWalletModel createDriverWalletModel = CreateDriverWalletModel.fromJson(json.decode(response.body));
-      // isSuccessStatus = createDriverWalletModel.status.obs;
-      isSuccessStatus.value = true;
-      if(isSuccessStatus.value) {
-        String walletId = createDriverWalletModel.wallet.id;
-        sharedPreferenceData.setWalletIdInPrefs(walletId: walletId);
-      } else {
-        print('createDriverWalletFunction Else Else');
-      }
-
-    } catch(e) {
-      print('createDriverWalletFunction Error : $e');
-    } finally {
-      isLoading(false);
-    }
-
-  }
 
 }

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
@@ -8,7 +7,7 @@ import 'package:food_delivery/screens/sub_category_screen/sub_category_screen.da
 import 'package:get/get.dart';
 
 class SearchFieldModule extends StatelessWidget {
-  CategoryScreenController categoryScreenController = Get.find<CategoryScreenController>();
+  final categoryScreenController = Get.find<CategoryScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +48,7 @@ class SearchFieldModule extends StatelessWidget {
 
 
 class CategoryListModule extends StatelessWidget {
-  CategoryScreenController categoryScreenController = Get.find<CategoryScreenController>();
+  final categoryScreenController = Get.find<CategoryScreenController>();
   // CategoryListModule({required this.categoryScreenController});
 
   @override

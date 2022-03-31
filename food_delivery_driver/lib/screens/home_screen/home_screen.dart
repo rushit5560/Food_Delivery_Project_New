@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           Expanded(child: GoogleMapView()),
 
-          OrderButton(homeScreenController: homeScreenController,)
+          OrderButton(homeScreenController: homeScreenController)
         ],
       ),
     );
