@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:food_delivery_admin/common/api_url.dart';
-import 'package:food_delivery_admin/common/app_images.dart';
+import 'package:food_delivery_admin/common/constants/api_url.dart';
+import 'package:food_delivery_admin/common/constants/app_images.dart';
 import 'package:food_delivery_admin/common/user_details.dart';
 import 'package:food_delivery_admin/models/items_screen_models/store_product_model.dart';
 import 'package:food_delivery_admin/models/store_products_model/store_products_model.dart';

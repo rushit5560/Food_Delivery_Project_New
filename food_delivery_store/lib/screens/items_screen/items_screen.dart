@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_admin/common/app_colors.dart';
+import 'package:food_delivery_admin/common/constants/app_colors.dart';
 import 'package:food_delivery_admin/common/common_widgets.dart';
 import 'package:food_delivery_admin/common/custom_appbar.dart';
-import 'package:food_delivery_admin/controllrs/items_screen_controller/items_screen_controller.dart';
 import 'package:food_delivery_admin/screens/add_product_screen/add_product_screen.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/items_screen_controller/items_screen_controller.dart';
 import 'items_screen_widgets.dart';
 
 class ItemsScreen extends StatelessWidget {

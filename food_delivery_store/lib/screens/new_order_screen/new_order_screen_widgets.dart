@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_admin/common/app_colors.dart';
-import 'package:food_delivery_admin/common/app_images.dart';
-import 'package:food_delivery_admin/controllrs/new_order_screen_controller/new_order_screen_controller.dart';
+import 'package:food_delivery_admin/common/constants/app_colors.dart';
+import 'package:food_delivery_admin/common/constants/app_images.dart';
 import 'package:get/get.dart';
+import '../../controllers/new_order_screen_controller/new_order_screen_controller.dart';
 
 class TabsModule extends StatelessWidget {
-  NewOrderScreenController newOrderScreenController = Get.find();
+  NewOrderScreenController newOrderScreenController = Get.find<NewOrderScreenController>();
 
   @override
   Widget build(BuildContext context) {

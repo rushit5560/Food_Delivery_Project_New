@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:food_delivery_admin/common/api_url.dart';
+import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:food_delivery_admin/common/user_details.dart';
 import 'package:food_delivery_admin/models/add_product_model/add_product_model.dart';
 import 'package:get/get.dart';

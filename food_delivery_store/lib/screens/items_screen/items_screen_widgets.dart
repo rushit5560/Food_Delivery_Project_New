@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_admin/common/api_url.dart';
-import 'package:food_delivery_admin/common/app_colors.dart';
-import 'package:food_delivery_admin/controllrs/items_screen_controller/items_screen_controller.dart';
-import 'package:food_delivery_admin/models/all_city_model/city_model.dart';
+import 'package:food_delivery_admin/common/constants/api_url.dart';
+import 'package:food_delivery_admin/common/constants/app_colors.dart';
 import 'package:get/get.dart';
+import '../../controllers/items_screen_controller/items_screen_controller.dart';
 
 class MainTabsModule extends StatelessWidget {
   ItemScreenController itemScreenController = Get.find();

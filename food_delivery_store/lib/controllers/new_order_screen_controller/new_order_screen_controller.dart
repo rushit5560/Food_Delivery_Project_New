@@ -1,4 +1,4 @@
-import 'package:food_delivery_admin/common/api_url.dart';
+import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:food_delivery_admin/common/user_details.dart';
 import 'package:food_delivery_admin/models/today_order_model/today_order_model.dart';
 import 'package:get/get.dart';

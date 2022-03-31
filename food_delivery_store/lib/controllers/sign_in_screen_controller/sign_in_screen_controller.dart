@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:food_delivery_admin/common/api_url.dart';
+import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:food_delivery_admin/common/sharedpreference_data/sharedpreference_data.dart';
 import 'package:food_delivery_admin/models/sign_in_model/sign_in_model.dart';
 import 'package:food_delivery_admin/screens/new_order_screen/new_order_screen.dart';

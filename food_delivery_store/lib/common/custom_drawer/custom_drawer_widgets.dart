@@ -12,7 +12,7 @@ import 'package:food_delivery_admin/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:food_delivery_admin/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
 import 'package:get/get.dart';
 
-import '../app_images.dart';
+import '../constants/app_images.dart';
 
 class ProfilePicAndName extends StatelessWidget {
   const ProfilePicAndName({Key? key}) : super(key: key);

@@ -1,15 +1,14 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_admin/common/app_colors.dart';
+import 'package:food_delivery_admin/common/constants/app_colors.dart';
 import 'package:food_delivery_admin/common/common_widgets.dart';
 import 'package:food_delivery_admin/common/custom_appbar.dart';
-import 'package:food_delivery_admin/controllrs/signup_screen_controller/signup_screen_controller.dart';
 import 'package:food_delivery_admin/models/all_city_model/city_model.dart';
 import 'package:food_delivery_admin/screens/sign_up_screen/sign_up_screen_widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../controllers/signup_screen_controller/signup_screen_controller.dart';
 
 class SignUpScreen extends StatefulWidget {
    SignUpScreen({Key? key}) : super(key: key);

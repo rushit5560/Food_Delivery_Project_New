@@ -4,7 +4,7 @@ import 'package:food_delivery_admin/screens/add_product_screen/add_product_scree
 import 'package:food_delivery_admin/screens/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
 
-import 'common/app_theme.dart';
+import 'common/constants/app_theme.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

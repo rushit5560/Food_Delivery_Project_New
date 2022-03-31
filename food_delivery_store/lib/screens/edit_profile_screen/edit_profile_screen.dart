@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/custom_appbar.dart';
-import 'package:food_delivery_admin/controllrs/profile_controller/profile_controller.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/profile_controller/profile_controller.dart';
 import 'edit_profile_screen_widgets.dart';
 
 class EditProfileScreen extends StatelessWidget {

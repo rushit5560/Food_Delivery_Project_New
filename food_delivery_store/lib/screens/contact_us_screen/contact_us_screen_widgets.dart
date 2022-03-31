@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_admin/common/app_colors.dart';
-import 'package:food_delivery_admin/controllrs/contact_us_screen_controller/contact_us_screen_controller.dart';
+import 'package:food_delivery_admin/common/constants/app_colors.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/contact_us_screen_controller/contact_us_screen_controller.dart';
 
 class DropDown extends StatelessWidget {
   //const DropDown({Key? key}) : super(key: key);

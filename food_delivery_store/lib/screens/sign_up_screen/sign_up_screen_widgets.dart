@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:food_delivery_admin/common/app_colors.dart';
-import 'package:food_delivery_admin/common/field_validation.dart';
-import 'package:food_delivery_admin/controllrs/signup_screen_controller/signup_screen_controller.dart';
+import 'package:food_delivery_admin/common/constants/app_colors.dart';
+import 'package:food_delivery_admin/common/constants/field_validation.dart';
 import 'package:get/get.dart';
+import '../../controllers/signup_screen_controller/signup_screen_controller.dart';
 
 class SignUpText extends StatelessWidget {
   const SignUpText({Key? key}) : super(key: key);

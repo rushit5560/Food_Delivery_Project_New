@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_admin/common/app_colors.dart';
-import 'package:food_delivery_admin/common/app_images.dart';
+import 'package:food_delivery_admin/common/constants/app_colors.dart';
+import 'package:food_delivery_admin/common/constants/app_images.dart';
 
 
 class OrdersAndRevenueModule extends StatelessWidget {

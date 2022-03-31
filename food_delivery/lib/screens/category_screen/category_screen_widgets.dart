@@ -140,6 +140,5 @@ class CategoryListModule extends StatelessWidget {
   void _onItemClick(int index) {
     log("Cat Id : ${categoryScreenController.restaurantWiseCategoryList[index].id}");
     Get.to(()=> SubCategoryScreen(), arguments: categoryScreenController.restaurantWiseCategoryList[index].id);
-    // Get.to(()=> ProductsListScreen(), arguments: [ProductsEnum.CategoryWiseProducts, categoryScreenController.restaurantWiseCategoryList[index].id]);
   }
 }

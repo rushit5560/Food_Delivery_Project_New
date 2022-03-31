@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:food_delivery_admin/common/api_url.dart';
+import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:food_delivery_admin/models/all_city_model/city_model.dart';
 import 'package:food_delivery_admin/models/sign_up_model/sign_up_model.dart';
 import 'package:get/get.dart';
@@ -100,6 +100,7 @@ class SignUpScreenController extends GetxController{
         if(isSuccessStatus.value){
           Fluttertoast.showToast(msg: "${response1.message}");
           clearSignUpFieldsFunction();
+          Get.back();
 
         } else {
           // Fluttertoast.showToast(msg: "${response1.message}");

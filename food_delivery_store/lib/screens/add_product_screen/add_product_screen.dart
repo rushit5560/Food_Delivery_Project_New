@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_admin/common/app_colors.dart';
 import 'package:food_delivery_admin/common/custom_appbar.dart';
-import 'package:food_delivery_admin/controllrs/add_product_screen_controller/add_product_screen_controller.dart';
 import 'package:food_delivery_admin/screens/add_product_screen/add_product_screen_widgets.dart';
 import 'package:get/get.dart';
+import '../../controllers/add_product_screen_controller/add_product_screen_controller.dart';
+
 
 class AddProductScreen extends StatelessWidget {
    AddProductScreen({Key? key}) : super(key: key);

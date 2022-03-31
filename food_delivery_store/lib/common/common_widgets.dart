@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'app_images.dart';
+import 'constants/app_images.dart';
 
 
 class LogoImage extends StatelessWidget {

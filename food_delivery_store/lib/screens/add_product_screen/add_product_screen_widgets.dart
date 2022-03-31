@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:food_delivery_admin/common/app_colors.dart';
-import 'package:food_delivery_admin/common/app_images.dart';
-import 'package:food_delivery_admin/common/field_validation.dart';
-import 'package:food_delivery_admin/controllrs/add_product_screen_controller/add_product_screen_controller.dart';
+import 'package:food_delivery_admin/common/constants/app_colors.dart';
+import 'package:food_delivery_admin/common/constants/app_images.dart';
+import 'package:food_delivery_admin/common/constants/field_validation.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../controllers/add_product_screen_controller/add_product_screen_controller.dart';
 
 class ProductImage extends StatefulWidget {
   @override

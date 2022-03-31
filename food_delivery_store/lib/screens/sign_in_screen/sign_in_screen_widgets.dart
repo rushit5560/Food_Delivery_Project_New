@@ -1,13 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:food_delivery_admin/common/app_colors.dart';
-import 'package:food_delivery_admin/common/field_validation.dart';
-import 'package:food_delivery_admin/controllrs/sign_in_screen_controller/sign_in_screen_controller.dart';
+import 'package:food_delivery_admin/common/constants/app_colors.dart';
+import 'package:food_delivery_admin/common/constants/field_validation.dart';
 import 'package:food_delivery_admin/screens/language_screen/language_screen.dart';
 import 'package:food_delivery_admin/screens/new_order_screen/new_order_screen.dart';
 import 'package:food_delivery_admin/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/sign_in_screen_controller/sign_in_screen_controller.dart';
+
 
 class WelcomeText extends StatelessWidget {
   const WelcomeText({Key? key}) : super(key: key);
@@ -132,7 +133,7 @@ class NotUserText extends StatelessWidget {
         SizedBox(width: 5,),
         GestureDetector(
           onTap: () {
-            Get.off(()=> SignUpScreen());
+            Get.to(()=> SignUpScreen());
           },
           child: Text("Click Here",
             style: TextStyle(color: AppColors.colorDarkPink, fontWeight: FontWeight.bold),),
@@ -144,15 +145,12 @@ class NotUserText extends StatelessWidget {
 
 
 class EmailTextField extends StatelessWidget {
-  // const SignInTextField({Key? key}) : super(key: key);
-  final signInScreenController = Get.find<SignInScreenController>();
-  //IconData icon;
-
-  String hintText;
-
+  final String hintText;
   EmailTextField({
     required this.hintText,
   });
+
+  final signInScreenController = Get.find<SignInScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +168,7 @@ class EmailTextField extends StatelessWidget {
 class PasswordTextField extends StatelessWidget {
   // const PasswordTextField({Key? key}) : super(key: key);
   //IconData icon;
-  String hintText;
+  final String hintText;
   final signInScreenController = Get.find<SignInScreenController>();
 
   PasswordTextField({
@@ -191,7 +189,7 @@ class PasswordTextField extends StatelessWidget {
 
 
 
-InputDecoration _inputDecoration({hintText, icon}) {
+InputDecoration _inputDecoration({hintText}) {
   return InputDecoration(
     hintText: "$hintText",
     //prefixIcon: Icon(icon, color: Colors.black),
@@ -256,18 +254,12 @@ class ContinueButton extends StatelessWidget {
   }
 }
 
-class socialLogin extends StatefulWidget {
-
-
+class SocialLogin extends StatefulWidget {
   @override
-  _socialLoginState createState() => _socialLoginState();
+  _SocialLoginState createState() => _SocialLoginState();
 }
 
-class _socialLoginState extends State<socialLogin> {
-  // FacebookAccessToken? _token;
-  // FacebookUserProfile? _profile;
-  // String? _imageUrl;
-  // String? _email;
+class _SocialLoginState extends State<SocialLogin> {
   final signInScreenController = Get.find<SignInScreenController>();
   //bool ? isLogin = false;
 

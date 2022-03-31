@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_admin/common/app_colors.dart';
 import 'package:food_delivery_admin/common/common_widgets.dart';
-import 'package:food_delivery_admin/controllrs/sign_in_screen_controller/sign_in_screen_controller.dart';
-import 'package:food_delivery_admin/screens/new_order_screen/new_order_screen.dart';
 import 'package:food_delivery_admin/screens/sign_in_screen/sign_in_screen_widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '../../controllers/sign_in_screen_controller/sign_in_screen_controller.dart';
+
 
 class SignInScreen extends StatelessWidget {
   //const SignInScreen({Key? key}) : super(key: key);
@@ -40,7 +39,7 @@ class SignInScreen extends StatelessWidget {
               ContinueButton(),
               const SizedBox(height: 20),
 
-              socialLogin()
+              SocialLogin()
             ],
           ),
         ),

@@ -11,7 +11,7 @@ import '../../models/sub_category_screen_model/sub_category_by_category_id_model
 
 class SubCategoryScreenController extends GetxController {
   /// Category Id Get From Category Screen
-  // String subCategoryId = Get.arguments;
+  String subCategoryId = Get.arguments;
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
 
@@ -23,7 +23,7 @@ class SubCategoryScreenController extends GetxController {
     isLoading(true);
 
     String url = ApiUrl.CategoryWiseSubCategoryApi;
-    String finalUrl = url + "6221995a75fcf57c10dcf2b8";
+    String finalUrl = url + subCategoryId;
     log("Url : $finalUrl");
 
     try{

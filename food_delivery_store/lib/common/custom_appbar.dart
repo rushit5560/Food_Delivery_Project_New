@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'app_colors.dart';
-import 'app_images.dart';
+import 'constants/app_colors.dart';
+import 'constants/app_images.dart';
 
 PreferredSizeWidget commonAppBarModule({required title, index = 0}) {
   return AppBar(
