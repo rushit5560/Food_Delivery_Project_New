@@ -59,45 +59,63 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           alignment: Alignment.topCenter,
                           children: [
                             Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Stack(
-                                alignment: Alignment.bottomRight,
-                                children: [
-                                  signUpScreenController.coverFile != null ?
-                                  ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      child: Image.file(signUpScreenController.coverFile!, height: 150 ,width: Get.width, fit: BoxFit.fill ))
-                                      :
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: Container(
-                                      color: AppColors.colorLightPink,
-                                      height: 150 ,width: Get.width,
-                                      //child: FlutterLogo(),
-                                    ),
-                                  ),
-
-                                  GestureDetector(
-                                    onTap: (){
-                                      coverImagePicker(context);
-                                    },
-                                    child: Container(
-                                      height: 25, width: 25,
-                                      margin: EdgeInsets.only(top: 5, left: 5),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(50),
-                                          color: AppColors.colorDarkPink
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Stack(
+                                    alignment: Alignment.bottomRight,
+                                    children: [
+                                      signUpScreenController.coverFile != null
+                                          ? ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              child: Image.file(
+                                                  signUpScreenController
+                                                      .coverFile!,
+                                                  height: 150,
+                                                  width: Get.width,
+                                                  fit: BoxFit.cover))
+                                          : ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              child: Container(
+                                                color: AppColors.colorLightPink,
+                                                height: 150, width: Get.width,
+                                                //child: FlutterLogo(),
+                                              ),
+                                            ),
+                                      Positioned(
+                                        bottom: 5,
+                                        right: 5,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            coverImagePicker(context);
+                                          },
+                                          child: Positioned(
+                                            bottom: 10,
+                                            child: Container(
+                                              height: 25,
+                                              width: 25,
+                                              margin: EdgeInsets.only(
+                                                  top: 5, left: 5),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  color:
+                                                      AppColors.colorDarkPink),
+                                              child: Icon(
+                                                Icons.camera_alt,
+                                                color: Colors.white,
+                                                size: 15,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      child: Icon(Icons.camera_alt, color: Colors.white,size: 15,),
-                                    ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
+                                ),
 
-                            Stack(
+                                Stack(
                               alignment: Alignment.bottomRight,
                               children: [
                                 signUpScreenController.file != null ?
