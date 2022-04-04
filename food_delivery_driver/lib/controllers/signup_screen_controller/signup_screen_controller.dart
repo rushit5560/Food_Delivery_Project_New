@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -12,11 +13,14 @@ import 'package:http/http.dart' as http;
 
 import '../../common/constant/driver_details.dart';
 import '../../common/sharedpreference_data/sharedpreference_data.dart';
+import '../../models/all_restaurants_model/all_restaurants_model.dart';
+import '../../models/all_zone_model/get_all_zone_model.dart';
 import '../../models/create_driver_wallet_model/create_driver_wallet_model.dart';
 
-class SignUpScreenController extends GetxController{
+class SignUpScreenController extends GetxController {
   File? file;
   File? coverFile;
+  File? identityFile;
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
 
@@ -28,19 +32,27 @@ class SignUpScreenController extends GetxController{
   final emailTextEditingController = TextEditingController();
   final passwordTextEditingController = TextEditingController();
   final addressTextEditingController = TextEditingController();
+  final identityTypeTextEditingController = TextEditingController();
+  final identityNumberTextEditingController = TextEditingController();
 
   RxList<GetList> cityLists = [GetList(cityName: 'Select City')].obs;
+  RxList<AllStore> getAllRestaurantsList = RxList();
+  AllStore restaurantsDropDownValue = AllStore();
   GetList? cityDropDownValue;
   SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
+
+  RxList<AllZone> zoneLists = [AllZone(id: "0", name: "Select Zone")].obs;
+  AllZone zoneDropDownValue = AllZone();
 
 
   @override
   void onInit() {
     super.onInit();
-    getAllCityList();
+    getAllRestaurantsListFunction();
     cityDropDownValue = cityLists[0];
   }
 
+  /// DeliveryBoy Register Function
   Future deliverySignUpFunction() async {
     isLoading(true);
     String url = ApiUrl.SignUpApi;
@@ -50,25 +62,28 @@ class SignUpScreenController extends GetxController{
       var stream = http.ByteStream(file!.openRead());
       stream.cast();
 
-      var stream1 = http.ByteStream(coverFile!.openRead());
+      var stream1 = http.ByteStream(identityFile!.openRead());
       stream1.cast();
 
       var length = await file!.length();
 
-      var coverLength = await coverFile!.length();
+      var coverLength = await identityFile!.length();
 
       var request = http.MultipartRequest('POST', Uri.parse(url));
 
       request.files.add(await http.MultipartFile.fromPath("Image", file!.path));
-      request.files.add(await http.MultipartFile.fromPath("IdentityImage", coverFile!.path));
+      request.files.add(await http.MultipartFile.fromPath("IdentityImage", identityFile!.path));
 
       request.fields['FirstName'] = "${firstNameTextEditingController.text.trim()}";
       request.fields['LastName'] = "${lastNameTextEditingController.text.trim()}";
       request.fields['Phone'] = "${phoneNumberTextEditingController.text.trim()}";
       request.fields['Password'] = "${passwordTextEditingController.text.trim()}";
       request.fields['Address'] = "${addressTextEditingController.text.trim()}";
-      request.fields['Restaurant'] = "61fa612f77c72b016b4af342";
+      request.fields['Restaurant'] = "${restaurantsDropDownValue.id}";
       request.fields['Email'] = "${emailTextEditingController.text.trim().toLowerCase()}";
+      request.fields['Zone'] = "${zoneDropDownValue.id}";
+      request.fields['IdentityType'] = "${identityTypeTextEditingController.text.trim()}";
+      request.fields['IdentityNumber'] = "${identityNumberTextEditingController.text.trim()}";
 
       print('request.fields: ${request.fields}');
       print('request.files: ${request.files}');
@@ -115,7 +130,8 @@ class SignUpScreenController extends GetxController{
     }
   }
 
-  getAllCityList() async {
+  /// Get All City List Function
+  /*getAllCityList() async {
     isLoading(true);
     String url = ApiUrl.AllCityApi;
     print('Url : $url');
@@ -145,6 +161,35 @@ class SignUpScreenController extends GetxController{
     } finally {
       isLoading(false);
     }
+  }*/
+
+  /// Get All Zone List Function
+  getAllZoneListFunction() async {
+    isLoading(true);
+    String url = ApiUrl.GetAllZoneApi;
+    log("URL : $url");
+
+    try{
+      http.Response response = await http.get(Uri.parse(url));
+      log("response : ${response.body}");
+
+      GetAllZoneModel getAllZoneModel = GetAllZoneModel.fromJson(json.decode(response.body));
+      isSuccessStatus = getAllZoneModel.status.obs;
+
+      if(isSuccessStatus.value) {
+        zoneLists.addAll(getAllZoneModel.allZone);
+        zoneDropDownValue = zoneLists[0];
+        log("Zone List : $zoneLists");
+      } else {
+        log("getAllZoneListFunction Else Else");
+      }
+
+    } catch(e) {
+      log("getAllZoneListFunction Error : $e");
+    } finally {
+      isLoading(false);
+    }
+
   }
 
   loading() {
@@ -152,6 +197,7 @@ class SignUpScreenController extends GetxController{
     isLoading(false);
   }
 
+  /// Clear All Text Fields
   clearSignUpFieldsFunction() {
     firstNameTextEditingController.clear();
     lastNameTextEditingController.clear();
@@ -159,6 +205,35 @@ class SignUpScreenController extends GetxController{
     emailTextEditingController.clear();
     passwordTextEditingController.clear();
     addressTextEditingController.clear();
+  }
+
+  /// Get All Restaurants List
+  getAllRestaurantsListFunction() async {
+    isLoading(true);
+    String url = ApiUrl.GetAllRestaurantsApi;
+    log("URL :$url");
+
+    try{
+
+      http.Response response = await http.get(Uri.parse(url));
+      log("response : ${response.body}");
+
+      GetAllRestaurantsModel getAllRestaurantsModel = GetAllRestaurantsModel.fromJson(json.decode(response.body));
+      isSuccessStatus = getAllRestaurantsModel.status.obs;
+
+      if(isSuccessStatus.value) {
+        getAllRestaurantsList.addAll(getAllRestaurantsModel.allStore);
+        restaurantsDropDownValue = getAllRestaurantsList[0];
+      } else {
+        log("getAllRestaurantsListFunction Else Else");
+      }
+
+    } catch(e) {
+      log("getAllRestaurantsListFunction Error : $e");
+    } finally {
+      // isLoading(false);
+      getAllZoneListFunction();
+    }
   }
 
   /// Create Driver Wallet Using DriverId

@@ -9,5 +9,6 @@ class ApiUrl {
   static const BankInfoApi = ApiMainPath + "BankInfo/create";
   static const AllCityApi = ApiMainPath + "city";
   static const GetAllRestaurantsApi = ApiMainPath + "store/getAllStore";
+  static const GetAllZoneApi = ApiMainPath + "Zone/getAllZone";
 
 }

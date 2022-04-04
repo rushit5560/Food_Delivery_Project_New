@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:food_delivery_admin/common/constants/app_colors.dart';
 import 'package:get/get.dart';
+import '../../common/constants/api_url.dart';
 import '../../controllers/items_screen_controller/items_screen_controller.dart';
 
 class MainTabsModule extends StatelessWidget {
-  ItemScreenController itemScreenController = Get.find();
+  final itemScreenController = Get.find<ItemScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-      ()=> Row(
+      () => Row(
         children: [
-
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 10),
@@ -24,20 +23,24 @@ class MainTabsModule extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        color: AppColors.colorDarkPink,
-                        width: 2
-                    ),
-                    color: itemScreenController.isStoreProductsSelected.value ? AppColors.colorDarkPink : Colors.white,
+                    border:
+                        Border.all(color: AppColors.colorDarkPink, width: 2),
+                    color: itemScreenController.isStoreProductsSelected.value
+                        ? AppColors.colorDarkPink
+                        : Colors.white,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 12),
                     child: Center(
                       child: Text(
                         'Store Products',
                         textScaleFactor: 1.1,
                         style: TextStyle(
-                          color: itemScreenController.isStoreProductsSelected.value ? Colors.white : AppColors.colorDarkPink,
+                          color:
+                              itemScreenController.isStoreProductsSelected.value
+                                  ? Colors.white
+                                  : AppColors.colorDarkPink,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -58,20 +61,24 @@ class MainTabsModule extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        color: AppColors.colorDarkPink,
-                        width: 2
-                    ),
-                    color: itemScreenController.isAdminProductsSelected.value ? AppColors.colorDarkPink : Colors.white,
+                    border:
+                        Border.all(color: AppColors.colorDarkPink, width: 2),
+                    color: itemScreenController.isAdminProductsSelected.value
+                        ? AppColors.colorDarkPink
+                        : Colors.white,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 12),
                     child: Center(
                       child: Text(
                         'Admin Products',
                         textScaleFactor: 1.1,
                         style: TextStyle(
-                          color: itemScreenController.isAdminProductsSelected.value ? Colors.white : AppColors.colorDarkPink,
+                          color:
+                              itemScreenController.isAdminProductsSelected.value
+                                  ? Colors.white
+                                  : AppColors.colorDarkPink,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -97,54 +104,54 @@ class StoreProductsModule extends StatelessWidget {
 }
 
 class StoreProductsListModule extends StatelessWidget {
-  ItemScreenController itemScreenController = Get.find();
+  final itemScreenController = Get.find<ItemScreenController>();
 
   @override
   Widget build(BuildContext context) {
-    return itemScreenController.storeProductList.length == 0 ?
-    Center(child: Text("There is No Store Products")):
-    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GridView.builder(
-        shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        itemCount: itemScreenController.storeProductList.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-        ),
-        itemBuilder: (context, index){
-          return GestureDetector(
-            // onTap: () => _onItemClick(index),
-            child: Container(
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 85,
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      clipBehavior: Clip.none,
+    return itemScreenController.storeProductList.length == 0
+        ? Center(child: Text("There is No Store Products"))
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              itemCount: itemScreenController.storeProductList.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+              ),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  // onTap: () => _onItemClick(index),
+                  child: Container(
+                    child: Column(
                       children: [
-                        // _categoryItemImageModule(index),
-                        _categoryItemNameModule(index),
+                        Expanded(
+                          flex: 85,
+                          child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            clipBehavior: Clip.none,
+                            children: [
+                              _categoryItemImageModule(index),
+                              _categoryItemNameModule(index),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 15,
+                          child: Container(),
+                        ),
                       ],
                     ),
                   ),
-                  Expanded(
-                    flex: 15,
-                    child: Container(),
-                  ),
-                ],
-              ),
+                );
+              },
             ),
           );
-        },
-      ),
-    );
   }
 
-  /*Widget _categoryItemImageModule(int index) {
+  Widget _categoryItemImageModule(int index) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
@@ -154,18 +161,19 @@ class StoreProductsListModule extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Image(
-            image: NetworkImage('${ApiUrl.ApiMainPath}'+'${itemScreenController.storeProductList[index].image}'),
+            image: NetworkImage('${ApiUrl.ApiMainPath}' +
+                '${itemScreenController.storeProductList[index].image}'),
           ),
         ),
       ),
     );
-  }*/
+  }
 
   Widget _categoryItemNameModule(int index) {
     return Positioned(
       bottom: -22,
       child: Container(
-        width: Get.width/4,
+        width: Get.width / 4,
         height: 45,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -173,12 +181,14 @@ class StoreProductsListModule extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          /*child: Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
                 child: Text(
                   '${itemScreenController.storeProductList[index].productName}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   textScaleFactor: 0.85,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -187,7 +197,6 @@ class StoreProductsListModule extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 5),
-
               Text(
                 'Qty ${itemScreenController.storeProductList[index].quantity}',
                 textScaleFactor: 0.60,
@@ -196,12 +205,11 @@ class StoreProductsListModule extends StatelessWidget {
                 ),
               ),
             ],
-          ),*/
+          ),
         ),
       ),
     );
   }
-
 }
 
 class AdminProductsModule extends StatelessWidget {
@@ -209,8 +217,116 @@ class AdminProductsModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return AdminProductsListModule();
   }
 }
 
+class AdminProductsListModule extends StatelessWidget {
+  AdminProductsListModule({Key? key}) : super(key: key);
+  final itemScreenController = Get.find<ItemScreenController>();
 
+  @override
+  Widget build(BuildContext context) {
+    return itemScreenController.adminProductsList.length == 0
+        ? Center(child: Text("There is No Store Products"))
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              itemCount: itemScreenController.adminProductsList.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+              ),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  // onTap: () => _onItemClick(index),
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Expanded(
+                          flex: 85,
+                          child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            clipBehavior: Clip.none,
+                            children: [
+                              _categoryItemImageModule(index),
+                              _categoryItemNameModule(index),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 15,
+                          child: Container(),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+  }
+
+  Widget _categoryItemImageModule(int index) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Image(
+            image: NetworkImage('${ApiUrl.ApiMainPath}' +
+                '${itemScreenController.adminProductsList[index].image}'),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _categoryItemNameModule(int index) {
+    return Positioned(
+      bottom: -22,
+      child: Container(
+        width: Get.width / 4,
+        height: 45,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.colorDarkPink,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Text(
+                  '${itemScreenController.adminProductsList[index].productName}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textScaleFactor: 0.85,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 5),
+              Text(
+                'Qty ${itemScreenController.adminProductsList[index].quantity}',
+                textScaleFactor: 0.60,
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

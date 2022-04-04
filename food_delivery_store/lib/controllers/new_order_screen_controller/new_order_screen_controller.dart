@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:food_delivery_admin/common/user_details.dart';
-import 'package:food_delivery_admin/models/today_order_model/today_order_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import '../../models/get_restaurant_order_model/get_restaurant_order_model.dart';
 
 class NewOrderScreenController extends GetxController {
   RxBool isTodayOrderSelected = true.obs;
@@ -14,35 +17,38 @@ class NewOrderScreenController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    getPendingOrderList();
     super.onInit();
-    getTodayOrderList();
   }
 
-  getTodayOrderList() async {
-    print("Store Id: ${UserDetails.storeId}");
+  getPendingOrderList() async {
+    log("Store Id: ${UserDetails.storeId}");
     isLoading(true);
-    String url = ApiUrl.TodayOrderApi + "${UserDetails.storeId}";
-   // String url = ApiUrl.TodayOrderApi + "61fa81fc1b790c4fcf4d28a0";
-    print('Url : $url');
+    String url = ApiUrl.RestaurantAllOrdersApi + "${UserDetails.storeId}";
+    log('Url : $url');
 
     try{
       http.Response response = await http.get(Uri.parse(url));
 
-      print('Response : ${response.body}');
+      log('Response : ${response.body}');
 
-      GetTodayOrderModel todayOrderModel = GetTodayOrderModel .fromJson(json.decode(response.body));
-      isSuccessStatus = todayOrderModel.status.obs;
-      print("status : $isSuccessStatus");
+      GetRestaurantOrderModel getRestaurantOrderModel = GetRestaurantOrderModel .fromJson(json.decode(response.body));
+      isSuccessStatus = getRestaurantOrderModel.status.obs;
+      log("status : $isSuccessStatus");
 
       if(isSuccessStatus.value){
-        todayOrderList = todayOrderModel.order;
-        print('allTodayOrder : $todayOrderList');
+        for(int i = 0; i < getRestaurantOrderModel.order.length; i++) {
+          if(getRestaurantOrderModel.order[i].orderStatusId.status == "PENDING") {
+            todayOrderList.add(getRestaurantOrderModel.order[i]);
+          }
+        }
+        log("todayOrderList : $todayOrderList");
+
       } else {
-        print('Get All Order Else Else');
+        log('Get All Order Else Else');
       }
     } catch(e) {
-      print('Error : $e');
+      log('Error : $e');
     } finally {
        isLoading(false);
     }

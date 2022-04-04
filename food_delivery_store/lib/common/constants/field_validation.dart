@@ -49,7 +49,7 @@ class FieldValidator {
 
   String? validatePrice(String value) {
     if (value.isEmpty) {
-      return 'Price is Required';
+      return 'Field is Required';
     }
 
     return null;

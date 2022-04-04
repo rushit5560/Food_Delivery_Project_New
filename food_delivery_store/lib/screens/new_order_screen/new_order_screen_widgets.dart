@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../controllers/new_order_screen_controller/new_order_screen_controller.dart';
 
 class TabsModule extends StatelessWidget {
-  NewOrderScreenController newOrderScreenController = Get.find<NewOrderScreenController>();
+  final newOrderScreenController = Get.find<NewOrderScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class TabsModule extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
                     child: Center(
                       child: Text(
-                        'Today Order',
+                        'Pending Order',
                         textScaleFactor: 1.1,
                         style: TextStyle(
                           color: newOrderScreenController.isTodayOrderSelected.value ? Colors.white : AppColors.colorDarkPink,
@@ -67,7 +67,7 @@ class TabsModule extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
                     child: Center(
                       child: Text(
-                        'New Order',
+                        'All Order',
                         textScaleFactor: 1.1,
                         style: TextStyle(
                           color: newOrderScreenController.isNewOrderSelected.value ? Colors.white : AppColors.colorDarkPink,
@@ -88,8 +88,7 @@ class TabsModule extends StatelessWidget {
 
 
 class TodayOrdersModule extends StatelessWidget {
-  //const TodayOrdersModule({Key? key}) : super(key: key);
-  NewOrderScreenController newOrderScreenController = Get.find<NewOrderScreenController>();
+  final newOrderScreenController = Get.find<NewOrderScreenController>();
 
   @override
   Widget build(BuildContext context) {
