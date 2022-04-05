@@ -183,8 +183,7 @@ class ItemCategoryTextField extends StatelessWidget {
               data: Theme.of(context).copyWith(
                   canvasColor: Colors.grey.shade100,
                   buttonTheme: ButtonTheme.of(context).copyWith(
-                    alignedDropdown: true,
-                  ),
+                    alignedDropdown: true),
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<RestaurantCategory>(

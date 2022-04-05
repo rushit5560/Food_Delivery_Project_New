@@ -46,6 +46,12 @@ class AddProductScreenController extends GetxController{
   /// Addons List
   RxList<Addon1> allAddonsList = [Addon1()].obs;
 
+  /// Selected Attributes List For Add Product
+  RxList<Map<String, String>> selectedAttributesList = [{"value": "", "label": ""}].obs;
+
+  /// Selected Addons List For Add Product
+  RxList<Map<String, String>> selectedAddonList = [{"value": "", "label": ""}].obs;
+
   /// Add Product Function
   Future addProductFunction() async {
     isLoading(true);
@@ -82,11 +88,7 @@ class AddProductScreenController extends GetxController{
       request.fields['DiscountType'] = jsonEncode(discountType);
 
 
-      var multiPart = http.MultipartFile(
-        'Image',
-        stream,
-        length,
-      );
+      var multiPart = http.MultipartFile('Image', stream, length);
 
       request.files.add(multiPart);
 
@@ -101,10 +103,9 @@ class AddProductScreenController extends GetxController{
 
         if(isSuccessStatus.value){
           Fluttertoast.showToast(msg: "${response1.message}");
-          clearSignUpFieldsFunction();
+          clearAddProductFieldsFunction();
 
         } else {
-          // Fluttertoast.showToast(msg: "${response1.message}");
           print('False False');
         }
       });
@@ -229,7 +230,7 @@ class AddProductScreenController extends GetxController{
   }
 
   /// Clear All Fields Data After Add Product
-  clearSignUpFieldsFunction() {
+  clearAddProductFieldsFunction() {
     productTitleEditingController.clear();
     descriptionTextEditingController.clear();
     priceTextEditingController.clear();

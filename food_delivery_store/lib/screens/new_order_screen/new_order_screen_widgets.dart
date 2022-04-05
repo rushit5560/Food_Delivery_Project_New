@@ -92,10 +92,10 @@ class TodayOrdersModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return newOrderScreenController.todayOrderList.length == 0 ?
+    return newOrderScreenController.pendingOrderList.length == 0 ?
     Center(child: Text("There is No Today Order")):
     ListView.builder(
-      itemCount: newOrderScreenController.todayOrderList.length,
+      itemCount: newOrderScreenController.pendingOrderList.length,
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index){
@@ -140,8 +140,6 @@ class TodayOrdersModule extends StatelessWidget {
     );
   }
 
-
-
   Widget _orderImage() {
     return Image.asset('${Images.ic_category1}', scale: 2.5);
   }
@@ -150,7 +148,7 @@ class TodayOrdersModule extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          newOrderScreenController.todayOrderList[index].storeId.firstName +  " " + newOrderScreenController.todayOrderList[index].storeId.lastName,
+          newOrderScreenController.pendingOrderList[index].storeId.firstName +  " " + newOrderScreenController.pendingOrderList[index].storeId.lastName,
           textScaleFactor: 1.2,
           maxLines: 1,
           style: TextStyle(
@@ -158,14 +156,14 @@ class TodayOrdersModule extends StatelessWidget {
         ),
         SizedBox(height: 5,),
         Text(
-          newOrderScreenController.todayOrderList[index].orderNumber,
+          newOrderScreenController.pendingOrderList[index].orderNumber,
           textScaleFactor: 1.2,
           maxLines: 1,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 5,),
         Text(
-          newOrderScreenController.todayOrderList[index].details,
+          newOrderScreenController.pendingOrderList[index].details,
           maxLines: 2,
           textScaleFactor: 0.7,
         ),
@@ -173,13 +171,13 @@ class TodayOrdersModule extends StatelessWidget {
         SizedBox(height: 5,),
 
         Text(
-          'Order On ${newOrderScreenController.todayOrderList[index].orderDate}',
+          'Order On ${newOrderScreenController.pendingOrderList[index].orderDate}',
           maxLines: 1,
           textScaleFactor: 0.7,
         ),
         SizedBox(height: 5,),
         Text(
-          'Order ID ${newOrderScreenController.todayOrderList[index].id}',
+          'Order ID ${newOrderScreenController.pendingOrderList[index].id}',
           maxLines: 1,
           textScaleFactor: 0.7,
         ),
@@ -197,7 +195,7 @@ class TodayOrdersModule extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: [
         Text(
-          "\$" + newOrderScreenController.todayOrderList[index].amount.toString(),
+          "\$" + newOrderScreenController.pendingOrderList[index].amount.toString(),
           textScaleFactor: 1.3,
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -254,21 +252,22 @@ class TodayOrdersModule extends StatelessWidget {
 }
 
 class NewOrderModule extends StatelessWidget {
-  const NewOrderModule({Key? key}) : super(key: key);
+  NewOrderModule({Key? key}) : super(key: key);
+  final newOrderScreenController = Get.find<NewOrderScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 10,
+      itemCount: newOrderScreenController.allOrderList.length,
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index){
-        return _newOrderListTile();
+        return _newOrderListTile(index);
       },
     );
   }
 
-  Widget _newOrderListTile() {
+  Widget _newOrderListTile(index) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -283,9 +282,9 @@ class NewOrderModule extends StatelessWidget {
             children: [
               _orderImage(),
               const SizedBox(width: 10),
-              Expanded(child: _orderName()),
+              Expanded(child: _orderName(index)),
               const SizedBox(width: 10),
-              _amountAndButton(),
+              _amountAndButton(index),
 
             ],
           ),
@@ -297,12 +296,12 @@ class NewOrderModule extends StatelessWidget {
   Widget _orderImage() {
     return Image.asset('${Images.ic_category1}', scale: 2.5);
   }
-  Widget _orderName() {
+  Widget _orderName(index) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'John Doe',
+          '${newOrderScreenController.allOrderList[index].storeId.firstName}' +" " + '${newOrderScreenController.allOrderList[index].storeId.lastName}',
           textScaleFactor: 1.2,
           maxLines: 1,
           style: TextStyle(
@@ -310,7 +309,7 @@ class NewOrderModule extends StatelessWidget {
         ),
         SizedBox(height: 5,),
         Text(
-          '123456789',
+          '${newOrderScreenController.allOrderList[index].orderNumber}',
           textScaleFactor: 1.2,
           maxLines: 1,
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -342,12 +341,12 @@ class NewOrderModule extends StatelessWidget {
       ],
     );
   }
-  Widget _amountAndButton() {
+  Widget _amountAndButton(index) {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
         Text(
-          '\$150.00',
+          '\$${newOrderScreenController.allOrderList[index].amount}',
           textScaleFactor: 1.3,
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -365,7 +364,7 @@ class NewOrderModule extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               child: Text(
-                'Confirm',
+                '${newOrderScreenController.allOrderList[index].orderStatusId.status}',
                 textScaleFactor: 0.8,
                 style: TextStyle(
                   color: Colors.white,

@@ -13,7 +13,8 @@ class NewOrderScreenController extends GetxController {
   RxBool isNewOrderSelected = false.obs;
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
-  List<Order> todayOrderList = [];
+  List<Order> pendingOrderList = [];
+  List<Order> allOrderList = [];
 
   @override
   void onInit() {
@@ -37,12 +38,17 @@ class NewOrderScreenController extends GetxController {
       log("status : $isSuccessStatus");
 
       if(isSuccessStatus.value){
+
+        /// Restaurant All Order Add in List
+        allOrderList.addAll(getRestaurantOrderModel.order);
+
+        /// Restaurant Only Pending Orders Add in List
         for(int i = 0; i < getRestaurantOrderModel.order.length; i++) {
           if(getRestaurantOrderModel.order[i].orderStatusId.status == "PENDING") {
-            todayOrderList.add(getRestaurantOrderModel.order[i]);
+            pendingOrderList.add(getRestaurantOrderModel.order[i]);
           }
         }
-        log("todayOrderList : $todayOrderList");
+        log("todayOrderList : $pendingOrderList");
 
       } else {
         log('Get All Order Else Else');
