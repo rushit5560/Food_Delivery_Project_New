@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:food_delivery_admin/common/constants/api_url.dart';
-import 'package:food_delivery_admin/common/user_details.dart';
+import 'package:food_delivery_admin/common/store_details.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -23,9 +23,9 @@ class NewOrderScreenController extends GetxController {
   }
 
   getPendingOrderList() async {
-    log("Store Id: ${UserDetails.storeId}");
+    log("Store Id: ${StoreDetails.storeId}");
     isLoading(true);
-    String url = ApiUrl.RestaurantAllOrdersApi + "${UserDetails.storeId}";
+    String url = ApiUrl.RestaurantAllOrdersApi + "${StoreDetails.storeId}";
     log('Url : $url');
 
     try{

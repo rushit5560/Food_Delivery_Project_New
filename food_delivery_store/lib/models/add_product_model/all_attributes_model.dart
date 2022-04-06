@@ -17,12 +17,12 @@ class AllAttributesModule {
 
   bool status;
   String message;
-  List<ListElement> list;
+  List<ListElement1> list;
 
   factory AllAttributesModule.fromJson(Map<String, dynamic> json) => AllAttributesModule(
     status: json["status"] ?? false,
     message: json["message"] ?? "",
-    list: List<ListElement>.from(json["List"].map((x) => ListElement.fromJson(x)) ?? {}),
+    list: List<ListElement1>.from(json["List"].map((x) => ListElement1.fromJson(x)) ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
@@ -32,8 +32,8 @@ class AllAttributesModule {
   };
 }
 
-class ListElement {
-  ListElement({
+class ListElement1 {
+  ListElement1({
     this.id,
     this.name,
     this.isActive,
@@ -49,7 +49,7 @@ class ListElement {
   String? updatedAt;
   int? v;
 
-  factory ListElement.fromJson(Map<String, dynamic> json) => ListElement(
+  factory ListElement1.fromJson(Map<String, dynamic> json) => ListElement1(
     id: json["_id"] ?? "",
     name: json["Name"] ?? "",
     isActive: json["IsActive"] ?? false,

@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/constants/api_url.dart';
-import 'package:food_delivery_admin/common/user_details.dart';
+import 'package:food_delivery_admin/common/store_details.dart';
 import 'package:food_delivery_admin/models/add_product_model/add_product_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -32,19 +32,28 @@ class AddProductScreenController extends GetxController{
   final qtyTextEditingController = TextEditingController();
   final discountTextEditingController = TextEditingController();
 
+  TimeOfDay startTime = TimeOfDay.now();
+  RxString startTimeString = "".obs;
+  TimeOfDay endTime = TimeOfDay.now();
+  RxString endTimeString = "".obs;
 
-  /// Restaurant Category
+
+
+  /// Restaurant Category DD
   RxList<RestaurantCategory> getRestaurantCategoryList = [RestaurantCategory(name: "Select Category", id: "0")].obs;
   RestaurantCategory categoryDropDownValue = RestaurantCategory();
 
-  /// Restaurant Sub Category
+  /// Restaurant Sub Category DD
   RxList<SubCategory1> getSubCategoryList = [SubCategory1(name: "Select Sub Category", id: "0")].obs;
   SubCategory1? subCategoryDropDownValue;
 
-  /// Attributes List
-  RxList<ListElement> allAttributesList = [ListElement()].obs;
-  /// Addons List
-  RxList<Addon1> allAddonsList = [Addon1()].obs;
+  /// Attributes List DD
+  RxList<ListElement1> allAttributesList = [ListElement1(name: "Select Attributes", id: "0")].obs;
+  ListElement1? attributesDropDownValue;
+
+  /// Addons List DD
+  RxList<Addon1> allAddonsList = [Addon1(name: "Select Addons", id: "0")].obs;
+  Addon1? addonsDropDownValue;
 
   /// Selected Attributes List For Add Product
   RxList<Map<String, String>> selectedAttributesList = [{"value": "", "label": ""}].obs;
@@ -58,8 +67,7 @@ class AddProductScreenController extends GetxController{
     String url = ApiUrl.AddProductApi;
     print('url : $url');
 
-    Map<String , dynamic> attribute = {"value":"6204efcef08020bb6802f063","label":"Cheese"};
-    Map<String , dynamic> addon = {"value": "61fb726933f06cc75ed9b710","label": "Cheese"};
+
     Map<String , dynamic> productType = {"value": "Veg","label": "${foodTypeValue.value}"};
     Map<String , dynamic> discountType = {"value": "Amount","label": "${discountTypeValue.value}"};
 
@@ -77,15 +85,17 @@ class AddProductScreenController extends GetxController{
       request.fields['Quantity'] = "${qtyTextEditingController.text.trim()}";
       request.fields['MRP'] = "${mrpTextEditingController.text.trim()}";
       request.fields['Price'] = "${priceTextEditingController.text.trim()}";
-      request.fields['Attribute'] = jsonEncode([attribute]);
-      request.fields['Addon'] = jsonEncode([addon]);
-      request.fields['Store'] = "${UserDetails.storeId}";
+      request.fields['Attribute'] = jsonEncode(selectedAttributesList);
+      request.fields['Addon'] = jsonEncode(selectedAddonList);
+      request.fields['Store'] = "${StoreDetails.storeId}";
       request.fields['Category'] = "${categoryDropDownValue.id}";
       request.fields['SubCategory'] = "${subCategoryDropDownValue!.id}";
       request.fields['Description'] = "${descriptionTextEditingController.text.trim()}";
       request.fields['Discount'] = "${discountTextEditingController.text.trim()}";
       request.fields['ProductType'] = jsonEncode(productType);
       request.fields['DiscountType'] = jsonEncode(discountType);
+      request.fields['StartTime'] = "$startTime";
+      request.fields['EndTime'] = "$endTime";
 
 
       var multiPart = http.MultipartFile('Image', stream, length);
@@ -104,6 +114,7 @@ class AddProductScreenController extends GetxController{
         if(isSuccessStatus.value){
           Fluttertoast.showToast(msg: "${response1.message}");
           clearAddProductFieldsFunction();
+          Get.back();
 
         } else {
           print('False False');
@@ -120,7 +131,7 @@ class AddProductScreenController extends GetxController{
   /// Get Restaurant Category Function
   getRestaurantCategoryFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetRestaurantCategoryApi + UserDetails.storeId;
+    String url = ApiUrl.GetRestaurantCategoryApi + StoreDetails.storeId;
     log("URL : $url");
 
     try {
@@ -208,7 +219,7 @@ class AddProductScreenController extends GetxController{
   /// Get Restaurant Addons Function
   getRestaurantAddonsFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetRestaurantAddonsApi + "${UserDetails.storeId}";
+    String url = ApiUrl.GetRestaurantAddonsApi + "${StoreDetails.storeId}";
     log("URL : $url");
 
     try {
@@ -239,9 +250,110 @@ class AddProductScreenController extends GetxController{
   }
 
 
+  /// Add Attributes From DD in Local List
+  addAttributesInSelectedList(ListElement1 listElement1) {
+
+    Map<String, String> singleData = {
+      "value" : "${listElement1.id}",
+      "label" : "${listElement1.name}"
+    };
+    log("singleData ::::: $singleData");
+
+    for(int i = 0; i < selectedAttributesList.length; i++) {
+
+      if(selectedAttributesList[i]["value"] == listElement1.id) {
+        Fluttertoast.showToast(msg: "Attributes Already Added in List!");
+        log("selectedAttributesList 11 : $selectedAttributesList");
+      } else {
+
+        if(selectedAttributesList[0]["value"] == "") {
+          selectedAttributesList.add(singleData);
+          Fluttertoast.showToast(msg: "Attributes Added!");
+          selectedAttributesList.removeAt(0);
+          log("selectedAttributesList 22 : $selectedAttributesList");
+        } else {
+          selectedAttributesList.add(singleData);
+          Fluttertoast.showToast(msg: "Attributes Added!");
+          log("selectedAttributesList 33 : $selectedAttributesList");
+        }
+
+      }
+
+    }
+
+  }
+
+  /// Add Addons From DD in Local List
+  addAddonsInSelectedList(Addon1 addon1) {
+    Map<String, String> singleData = {
+      "value" : "${addon1.id}",
+      "label" : "${addon1.name}"
+    };
+    log("singleData ::::: $singleData");
+
+    for(int i = 0; i < selectedAddonList.length; i++) {
+
+      if(selectedAddonList[i]["value"] == addon1.id) {
+        Fluttertoast.showToast(msg: "Addon Already Added in List!");
+        log("selectedAddonList 11 : $selectedAddonList");
+      } else {
+
+        if(selectedAddonList[0]["value"] == "") {
+          selectedAddonList.add(singleData);
+          Fluttertoast.showToast(msg: "Addon Added!");
+          selectedAddonList.removeAt(0);
+          log("selectedAddonList 22 : $selectedAddonList");
+        } else {
+          selectedAddonList.add(singleData);
+          Fluttertoast.showToast(msg: "Addon Added!");
+          log("selectedAddonList 33 : $selectedAddonList");
+        }
+      }
+    }
+
+  }
+
+
+  /// Select Start Time Function
+  selectStartTime(BuildContext context) async {
+    TimeOfDay? startTimePicked = await showTimePicker(context: context, initialTime: startTime);
+
+    if(startTimePicked != null) {
+      startTime = startTimePicked;
+      startTimeString = "${startTimePicked.hour} : ${startTimePicked.minute}".obs;
+      log("startTimeString : $startTime");
+    }
+
+  }
+
+  selectEndTime(BuildContext context) async {
+    TimeOfDay? endTimePicked = await showTimePicker(context: context, initialTime: endTime);
+
+    if(endTimePicked != null) {
+      endTime = endTimePicked;
+      endTimeString = "${endTimePicked.hour} : ${endTimePicked.minute}".obs;
+    }
+  }
+
+
   @override
   void onInit() {
     getRestaurantCategoryFunction();
+
+    /// Give Initial Value of DropDown
+    subCategoryDropDownValue = getSubCategoryList[0];
+    attributesDropDownValue = allAttributesList[0];
+    addonsDropDownValue = allAddonsList[0];
+
+    startTimeString = "${startTime.hour}:${startTime.minute}".obs;
+    endTimeString = "${endTime.hour}:${endTime.minute}".obs;
+
+
     super.onInit();
+  }
+
+  loadUI() {
+    isLoading(true);
+    isLoading(false);
   }
 }

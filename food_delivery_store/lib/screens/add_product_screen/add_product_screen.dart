@@ -51,10 +51,27 @@ class AddProductScreen extends StatelessWidget {
                         FoodTypeDropDownModule(),
 
                         SizedBox(height: 20),
+                        FoodAttributeModule(),
+
+                        SizedBox(height: 20),
+                        FoodAddonModule(),
+
+                        SizedBox(height: 20),
                         ItemPriceTextField(),
 
                         SizedBox(height: 20),
                         ItemQtyTextField(),
+                        SizedBox(height: 20),
+
+                        StartTimeAndEndTimeTextModule(),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Expanded(child: StartTimeModule()),
+                            const SizedBox(width: 20),
+                            Expanded(child: EndTimeModule()),
+                          ],
+                        ),
                         SizedBox(height: 20),
 
                         // EANTextField(),

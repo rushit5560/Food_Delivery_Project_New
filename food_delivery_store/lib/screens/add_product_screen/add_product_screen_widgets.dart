@@ -10,8 +10,10 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../common/text_fields_decorations/add_product_textfield_decoration.dart';
 import '../../controllers/add_product_screen_controller/add_product_screen_controller.dart';
+import '../../models/add_product_model/all_attributes_model.dart';
 import '../../models/add_product_model/get_restaurants_category.dart';
 import '../../models/add_product_model/get_restaurant_sub_category_model.dart';
+import '../../models/add_product_model/restaurants_all_addons_model.dart';
 
 
 /// Add Product Image From Device Module
@@ -690,6 +692,236 @@ class AddProductButton extends StatelessWidget {
         child: Center(
           child: Text("Add Product",
             style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),),
+        ),
+      ),
+    );
+  }
+}
+
+class FoodAttributeModule extends StatelessWidget {
+  FoodAttributeModule({Key? key}) : super(key: key);
+  final addProductScreenController = Get.find<AddProductScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Attributes",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+        SizedBox(height: 10),
+        attributeDropDown(context),
+      ],
+    );
+  }
+
+  attributeDropDown(context){
+    return Obx(
+          () =>
+          Container(
+            padding: const EdgeInsets.only(left: 10),
+            width: Get.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.grey.shade200,
+            ),
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                canvasColor: Colors.grey.shade100,
+                buttonTheme: ButtonTheme.of(context).copyWith(
+                    alignedDropdown: true),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<ListElement1>(
+
+                  value: addProductScreenController.attributesDropDownValue,
+
+                  items: addProductScreenController.allAttributesList
+                      .map<DropdownMenuItem<ListElement1>>((ListElement1 listElement1) {
+                    return DropdownMenuItem<ListElement1>(
+                      value: listElement1,
+                      child: Text(
+                        "${listElement1.name}",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    );
+                  }).toList(),
+
+                  onChanged: (listElement1){
+                    addProductScreenController.isLoading(true);
+                    addProductScreenController.attributesDropDownValue = listElement1;
+                    log("attributesDropDownValue : ${addProductScreenController.attributesDropDownValue!.name}");
+                    addProductScreenController.addAttributesInSelectedList(listElement1!);
+                    addProductScreenController.isLoading(false);
+                  },
+                ),
+              ),
+            ),
+          ),
+    );
+  }
+
+}
+
+class FoodAddonModule extends StatelessWidget {
+  FoodAddonModule({Key? key}) : super(key: key);
+  final addProductScreenController = Get.find<AddProductScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Addon",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+        SizedBox(height: 10),
+        addonDropDown(context),
+      ],
+    );
+  }
+
+  addonDropDown(context){
+    return Obx(
+          () =>
+          Container(
+            padding: const EdgeInsets.only(left: 10),
+            width: Get.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.grey.shade200,
+            ),
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                canvasColor: Colors.grey.shade100,
+                buttonTheme: ButtonTheme.of(context).copyWith(
+                    alignedDropdown: true),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<Addon1>(
+
+                  value: addProductScreenController.addonsDropDownValue,
+
+                  items: addProductScreenController.allAddonsList
+                      .map<DropdownMenuItem<Addon1>>((Addon1 addon1) {
+                    return DropdownMenuItem<Addon1>(
+                      value: addon1,
+                      child: Text(
+                        "${addon1.name}",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    );
+                  }).toList(),
+
+                  onChanged: (addon1){
+                    addProductScreenController.isLoading(true);
+                    addProductScreenController.addonsDropDownValue = addon1;
+                    log("attributesDropDownValue : ${addProductScreenController.addonsDropDownValue!.name}");
+                    addProductScreenController.addAddonsInSelectedList(addon1!);
+                    addProductScreenController.isLoading(false);
+                  },
+                ),
+              ),
+            ),
+          ),
+    );
+  }
+
+}
+
+class StartTimeAndEndTimeTextModule extends StatelessWidget {
+  const StartTimeAndEndTimeTextModule({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Text("Start Time",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+        ),
+        const SizedBox(width: 20),
+        Expanded(
+          child: Text("End Time",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+        ),
+      ],
+    );
+  }
+}
+
+
+class StartTimeModule extends StatelessWidget {
+  StartTimeModule({Key? key}) : super(key: key);
+  final addProductScreenController = Get.find<AddProductScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.grey.shade200,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Obx(
+          ()=> Row(
+            children: [
+              Expanded(
+                child: Text(
+                  "${addProductScreenController.startTimeString.value}"
+                ),
+              ),
+              GestureDetector(
+                onTap: () async {
+                  await addProductScreenController.selectStartTime(context);
+                  addProductScreenController.loadUI();
+                },
+                child: Icon(
+                  Icons.watch_later_outlined,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class EndTimeModule extends StatelessWidget {
+  EndTimeModule({Key? key}) : super(key: key);
+  final addProductScreenController = Get.find<AddProductScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.grey.shade200,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Obx(
+              ()=> Row(
+            children: [
+              Expanded(
+                child: Text(
+                    "${addProductScreenController.endTimeString.value}"
+                ),
+              ),
+              GestureDetector(
+                onTap: () async {
+                  await addProductScreenController.selectEndTime(context);
+                  addProductScreenController.loadUI();
+                },
+                child: Icon(
+                  Icons.watch_later_outlined,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

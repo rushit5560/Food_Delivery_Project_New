@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:food_delivery_admin/common/constants/api_url.dart';
-import 'package:food_delivery_admin/common/user_details.dart';
+import 'package:food_delivery_admin/common/store_details.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../models/items_screen_models/get_all_admin_products_model.dart';
@@ -60,9 +60,9 @@ class ItemScreenController extends GetxController {
 
   /// Get Store Products List
   getStoreProductList() async {
-    print("Store Id: ${UserDetails.storeId}");
+    print("Store Id: ${StoreDetails.storeId}");
     isLoading(true);
-    String url = ApiUrl.GetRestaurantProductsApi + "${UserDetails.storeId}";
+    String url = ApiUrl.GetRestaurantProductsApi + "${StoreDetails.storeId}";
     print('Url : $url');
 
     try{

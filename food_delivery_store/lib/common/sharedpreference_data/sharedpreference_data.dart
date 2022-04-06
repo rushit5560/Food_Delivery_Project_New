@@ -1,4 +1,4 @@
-import 'package:food_delivery_admin/common/user_details.dart';
+import 'package:food_delivery_admin/common/store_details.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,15 +31,15 @@ class SharedPreferenceData{
     prefs.setString(userTokenKey, userToken);
 
     // Now Set Prefs Data in UserDetails in Code
-    UserDetails.isUserLoggedIn = prefs.getBool(isUserLoggedInKey) ?? false;
-    UserDetails.storeId = prefs.getString(userIdKey) ?? "";
-    UserDetails.storeRole = prefs.getString(userRoleKey) ?? "";
-    UserDetails.userToken = prefs.getString(userTokenKey) ?? "";
+    StoreDetails.isStoreLoggedIn = prefs.getBool(isUserLoggedInKey) ?? false;
+    StoreDetails.storeId = prefs.getString(userIdKey) ?? "";
+    StoreDetails.storeRole = prefs.getString(userRoleKey) ?? "";
+    StoreDetails.storeToken = prefs.getString(userTokenKey) ?? "";
 
-    print('UserDetails.isUserLoggedIn : ${UserDetails.isUserLoggedIn}');
-    print('UserDetails.userId : ${UserDetails.storeId}');
-    print('UserDetails.userRole : ${UserDetails.storeRole}');
-    print('UserDetails.userToken : ${UserDetails.userToken}');
+    print('UserDetails.isUserLoggedIn : ${StoreDetails.isStoreLoggedIn}');
+    print('UserDetails.userId : ${StoreDetails.storeId}');
+    print('UserDetails.userRole : ${StoreDetails.storeRole}');
+    print('UserDetails.userToken : ${StoreDetails.storeToken}');
   }
 
   /// Clear All UserLoggedIn Data

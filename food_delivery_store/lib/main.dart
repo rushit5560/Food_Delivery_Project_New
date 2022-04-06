@@ -5,6 +5,7 @@ import 'package:food_delivery_admin/screens/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
 
 import 'common/constants/app_theme.dart';
+import 'screens/category_screen/category_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: appLightTheme(),
-      home: SplashScreen(),
+
+      home: CategoryScreen(),
     );
   }
 }

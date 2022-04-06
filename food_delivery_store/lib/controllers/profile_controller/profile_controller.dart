@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/constants/api_url.dart';
-import 'package:food_delivery_admin/common/user_details.dart';
+import 'package:food_delivery_admin/common/store_details.dart';
 import 'package:food_delivery_admin/models/profile_model/profile_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -21,7 +21,7 @@ class ProfileController extends GetxController{
 
   getProfile() async {
     isLoading(true);
-    String url = ApiUrl.GetProfileApi + "${UserDetails.storeId}";
+    String url = ApiUrl.GetProfileApi + "${StoreDetails.storeId}";
     print('Url : $url');
 
     try{
