@@ -1,55 +1,46 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../common/constants/app_colors.dart';
 import '../../common/constants/field_validation.dart';
 import '../../common/text_fields_decorations/add_product_textfield_decoration.dart';
-import '../../controllers/addon_screen_controller/addon_screen_controller.dart';
+import '../../controllers/attribute_screen_controller/attribute_screen_controller.dart';
 
-
-class AddAddonsModule extends StatelessWidget {
-  AddAddonsModule({Key? key}) : super(key: key);
-  final screenController = Get.find<AddonScreenController>();
+class AddAttributeModule extends StatelessWidget {
+  AddAttributeModule({Key? key}) : super(key: key);
+  final screenController = Get.find<AttributeScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: screenController.addonFormKey,
+      key: screenController.attributeFormKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Add Addon',
+            'Add Attribute',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
           const SizedBox(height: 10),
           TextFormField(
             keyboardType: TextInputType.text,
-            controller: screenController.addonNameFieldController,
-            decoration: addProductTextFieldDecoration(hintText: "Addon Name"),
+            controller: screenController.attributeNameFieldController,
+            decoration: addProductTextFieldDecoration(hintText: "Attribute Name"),
             validator: (value) => FieldValidator().validateFullName(value!),
           ),
 
-          const SizedBox(height: 10),
-          TextFormField(
-            keyboardType: TextInputType.number,
-            controller: screenController.addonPriceFieldController,
-            decoration: addProductTextFieldDecoration(hintText: "Addon Price"),
-            validator: (value) => FieldValidator().validatePrice(value!),
-          ),
-
           const SizedBox(height: 20),
-          _addAddonButtonModule(),
+          _addAttributeButtonModule(),
         ],
       ),
     );
   }
 
-  Widget _addAddonButtonModule() {
+  Widget _addAttributeButtonModule() {
     return GestureDetector(
       onTap: () async {
-        if(screenController.addonFormKey.currentState!.validate()) {
-          await screenController.addNewAddonFunction();
+        if(screenController.attributeFormKey.currentState!.validate()) {
+          await screenController.addNewAttributeFunction();
         }
       },
       child: Container(
