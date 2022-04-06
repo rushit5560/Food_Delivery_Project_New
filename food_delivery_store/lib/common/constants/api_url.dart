@@ -27,4 +27,7 @@ class ApiUrl {
   static const CreateAttributeApi = ApiMainPath + "Attribute/create";
   static const GetAllAttributeApi = ApiMainPath + "Attribute/getAllAttributes";
 
+  static const CreateSubCategoryApi = ApiMainPath + "Subcategory/create";
+  static const GetAllSubCategoryApi = ApiMainPath + "Subcategory/getAllsubcategory";
+
 }
