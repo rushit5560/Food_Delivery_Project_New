@@ -38,4 +38,10 @@ class ApiUrl {
   static const GetRestaurantBankInfoApi = ApiMainPath + "BankInfo/find/";
   static const EditRestaurantBankInfoApi = ApiMainPath + "BankInfo/create";
 
+  static const GetCustomerFoodReviewApi = ApiMainPath + "FoodReview/getAllReview";
+
+  static const GetRestaurantEmployeeApi = ApiMainPath + "Employee/restaurant/find/";
+  static const AddRestaurantEmployeeApi = ApiMainPath + "Employee/create";
+
+  static const GetAllEmployeeRoleAPI = ApiMainPath + "EmployeeRole/getAllEmployeeRole";
 }

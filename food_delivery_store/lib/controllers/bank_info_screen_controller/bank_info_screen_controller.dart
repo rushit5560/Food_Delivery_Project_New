@@ -25,6 +25,7 @@ class BankInfoScreenController extends GetxController {
   TextEditingController accountNoFieldController = TextEditingController();
 
 
+  /// Get Bank Info Function
   getRestaurantBankInfoFunction() async {
     isLoading(true);
     String url = ApiUrl.GetRestaurantBankInfoApi + "622b09a668395c49dcb4aa73";
@@ -59,6 +60,7 @@ class BankInfoScreenController extends GetxController {
     }
   }
 
+  /// Update Bank Info Function
   updateRestaurantBankInfoFunction() async {
     isLoading(true);
     String url = ApiUrl.EditRestaurantBankInfoApi;

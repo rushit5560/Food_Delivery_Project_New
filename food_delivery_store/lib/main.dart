@@ -1,15 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_admin/screens/add_product_screen/add_product_screen.dart';
-import 'package:food_delivery_admin/screens/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
-
 import 'common/constants/app_theme.dart';
-import 'screens/attribute_screen/attribute_screen.dart';
-import 'screens/bank_info_screen/bank_info_screen.dart';
-import 'screens/category_screen/category_screen.dart';
-import 'screens/delivery_man_screen/delivery_man_screen.dart';
-import 'screens/sub_category_screen/sub_category_screen.dart';
+import 'screens/employee_screen/employee_screen.dart';
+
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appLightTheme(),
 
-      home: BankInfoScreen(),
+      home: EmployeeScreen(),
     );
   }
 }
