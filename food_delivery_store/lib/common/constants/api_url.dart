@@ -30,4 +30,9 @@ class ApiUrl {
   static const CreateSubCategoryApi = ApiMainPath + "Subcategory/create";
   static const GetAllSubCategoryApi = ApiMainPath + "Subcategory/getAllsubcategory";
 
+  static const GetAllDeliveryManApi = ApiMainPath + "deliveryperson/Restaurant/find/";
+  static const AddDeliveryManApi = ApiMainPath + "deliveryperson/signUp";
+
+  static const GetAllZoneApi = ApiMainPath + "area";
+
 }

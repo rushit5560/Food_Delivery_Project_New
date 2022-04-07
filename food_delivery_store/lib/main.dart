@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'common/constants/app_theme.dart';
 import 'screens/attribute_screen/attribute_screen.dart';
 import 'screens/category_screen/category_screen.dart';
+import 'screens/delivery_man_screen/delivery_man_screen.dart';
+import 'screens/sub_category_screen/sub_category_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appLightTheme(),
 
-      home: AttributeScreen(),
+      home: DeliveryManScreen(),
     );
   }
 }

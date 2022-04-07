@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/constants/app_colors.dart';
@@ -848,7 +847,6 @@ class StartTimeAndEndTimeTextModule extends StatelessWidget {
     );
   }
 }
-
 
 class StartTimeModule extends StatelessWidget {
   StartTimeModule({Key? key}) : super(key: key);
