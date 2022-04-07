@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -20,6 +21,7 @@ class SubCategoryScreenController extends GetxController {
 
   GlobalKey<FormState> subCategoryFormKey = GlobalKey();
   TextEditingController subCategoryFieldController = TextEditingController();
+  File? subCategoryImage;
 
   List<AllSubcategory> allSubCategoryList = [];
 
@@ -58,26 +60,40 @@ class SubCategoryScreenController extends GetxController {
     log("URL : $url");
 
     try {
-      Map<String, dynamic> data = {
-        "Name" : "${subCategoryFieldController.text.trim()}",
-        "Category" : "${categoryDropDownValue.id}",
-        "Restaurant" : "622b09a668395c49dcb4aa73"
-      };
-      log("data : $data");
 
-      http.Response response = await http.post(Uri.parse(url), body: data);
-      log("response : ${response.body}");
+      var stream = http.ByteStream(subCategoryImage!.openRead());
+      stream.cast();
 
-      AddSubCategoryModel addSubCategoryModel = AddSubCategoryModel.fromJson(json.decode(response.body));
-      isSuccessStatus = addSubCategoryModel.status.obs;
+      var length = await subCategoryImage!.length();
 
-      if(isSuccessStatus.value) {
-        subCategoryFieldController.clear();
-        Fluttertoast.showToast(msg: "${addSubCategoryModel.message}");
-      } else {
-        log("addSubCategoryFunction Else Else");
-      }
+      var request = http.MultipartRequest('POST', Uri.parse(url));
 
+      request.files.add(await http.MultipartFile.fromPath("Image", subCategoryImage!.path));
+      request.fields['Name'] = "${subCategoryFieldController.text.trim()}";
+      request.fields['Category'] = "${categoryDropDownValue.id}";
+      request.fields['Restaurant'] = "622b09a668395c49dcb4aa73" /*"${StoreDetails.storeId}"*/;
+
+      var multiPart = http.MultipartFile('Image', stream, length);
+
+      request.files.add(multiPart);
+
+      var response = await request.send();
+
+      log('request.fields: ${request.fields}');
+      log('request.files: ${request.files}');
+
+      response.stream.transform(utf8.decoder).listen((value) {
+        AddSubCategoryModel addSubCategoryModel = AddSubCategoryModel.fromJson(json.decode(value));
+        isSuccessStatus = addSubCategoryModel.status.obs;
+
+        if(isSuccessStatus.value){
+          subCategoryFieldController.clear();
+          subCategoryImage!.delete();
+          Fluttertoast.showToast(msg: "${addSubCategoryModel.message}");
+        } else {
+          log("addSubCategoryFunction False False");
+        }
+      });
 
     } catch(e){
       log("addSubCategoryFunction Error : $e");
@@ -120,6 +136,11 @@ class SubCategoryScreenController extends GetxController {
   void onInit() {
     getRestaurantCategoryFunction();
     super.onInit();
+  }
+
+  loadUI() {
+    isLoading(true);
+    isLoading(false);
   }
 
 }

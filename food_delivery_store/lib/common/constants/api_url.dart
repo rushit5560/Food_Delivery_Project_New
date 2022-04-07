@@ -35,4 +35,7 @@ class ApiUrl {
 
   static const GetAllZoneApi = ApiMainPath + "area";
 
+  static const GetRestaurantBankInfoApi = ApiMainPath + "BankInfo/find/";
+  static const EditRestaurantBankInfoApi = ApiMainPath + "BankInfo/create";
+
 }

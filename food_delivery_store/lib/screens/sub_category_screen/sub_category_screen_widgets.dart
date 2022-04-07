@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../common/constants/app_colors.dart';
 import '../../common/constants/field_validation.dart';
@@ -10,6 +14,7 @@ import '../../models/add_product_model/get_restaurants_category.dart';
 class AddSubCategoryModule extends StatelessWidget {
   AddSubCategoryModule({Key? key}) : super(key: key);
   final screenController = Get.find<SubCategoryScreenController>();
+  final ImagePicker imagePicker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +25,48 @@ class AddSubCategoryModule extends StatelessWidget {
         children: [
           Text("Add Sub Category",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          SizedBox(height: 10),
+
+          Container(
+            alignment: Alignment.center,
+            child: Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                screenController.subCategoryImage != null
+                    ? ClipRRect(
+                  borderRadius: BorderRadius.circular(80.0),
+                  child: Image.file(screenController.subCategoryImage!,
+                      height: 100, width: 100, fit: BoxFit.fill),
+                )
+                    : ClipRRect(
+                  borderRadius: BorderRadius.circular(80.0),
+                  child: Container(
+                    color: AppColors.colorLightPink,
+                    height: 100, width: 100,
+                    //child: FlutterLogo(),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    _showPicker(context);
+                  },
+                  child: Container(
+                    height: 25,
+                    width: 25,
+                    margin: EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: AppColors.colorDarkPink),
+                    child: Icon(
+                      Icons.camera_alt,
+                      color: Colors.white,
+                      size: 15,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 10),
 
@@ -88,7 +135,13 @@ class AddSubCategoryModule extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         if(screenController.subCategoryFormKey.currentState!.validate()) {
-          await screenController.addSubCategoryFunction();
+          if(screenController.subCategoryImage == null) {
+            Fluttertoast.showToast(msg: "Please Select Image!");
+          } else if(screenController.categoryDropDownValue.id == "0") {
+            Fluttertoast.showToast(msg: "Please Select Category!");
+          } else {
+            await screenController.addSubCategoryFunction();
+          }
         }
       },
       child: Container(
@@ -105,6 +158,53 @@ class AddSubCategoryModule extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        gallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      camera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
+
+  void gallery() async {
+    final image = await imagePicker.pickImage(source: ImageSource.gallery);
+    if(image != null){
+      screenController.subCategoryImage = File(image.path);
+      screenController.loadUI();
+    } else{}
+  }
+
+  void camera() async {
+    final image = await imagePicker.pickImage(source: ImageSource.camera);
+    if(image != null){
+      screenController.subCategoryImage = File(image.path);
+      screenController.loadUI();
+    } else{}
   }
 
 }
