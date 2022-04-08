@@ -24,6 +24,13 @@ class SubCategoryScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: AddSubCategoryModule(),
                   ),
+                  const Divider(thickness: 1),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SubCategoryListModule(),
+                    ),
+                  ),
                 ],
               ),
       ),

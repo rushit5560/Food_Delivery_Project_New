@@ -32,9 +32,11 @@ class ApiUrl {
   static const CreateAttributeApi = ApiMainPath + "Attribute/create";
   static const GetAllAttributeApi = ApiMainPath + "Attribute/getAllAttributes";
 
-
+  /// Sub Category API
   static const CreateSubCategoryApi = ApiMainPath + "Subcategory/create";
-  static const GetAllSubCategoryApi = ApiMainPath + "Subcategory/getAllsubcategory";
+  static const GetAllSubCategoryApi = ApiMainPath + "Subcategory/find/Restaurant/";
+  static const UpdateSubCategoryApi = ApiMainPath + "Subcategory/updatesubcategory/";
+  static const DeleteSubCategoryApi = ApiMainPath + "Subcategory/deletesubcategory/";
 
 
   static const GetAllDeliveryManApi = ApiMainPath + "deliveryperson/Restaurant/find/";

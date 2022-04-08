@@ -1,9 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_admin/screens/category_screen/category_screen.dart';
 import 'package:get/get.dart';
 import 'common/constants/app_theme.dart';
-import 'screens/addon_screen/addon_screen.dart';
+import 'screens/sub_category_screen/sub_category_screen.dart';
 
 
 void main() async{
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appLightTheme(),
 
-      home: CategoryScreen(),
+      home: SubCategoryScreen(),
     );
   }
 }

@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getAllSubCategoryModel = getAllSubCategoryModelFromJson(jsonString);
-
 import 'dart:convert';
 
 GetAllSubCategoryModel getAllSubCategoryModelFromJson(String str) => GetAllSubCategoryModel.fromJson(json.decode(str));
@@ -11,68 +7,68 @@ String getAllSubCategoryModelToJson(GetAllSubCategoryModel data) => json.encode(
 class GetAllSubCategoryModel {
   GetAllSubCategoryModel({
     required this.status,
-    required this.message,
-    required this.allSubcategory,
+    required this.subcategory,
   });
 
   bool status;
-  String message;
-  List<AllSubcategory> allSubcategory;
+  List<AllSubcategory> subcategory;
 
   factory GetAllSubCategoryModel.fromJson(Map<String, dynamic> json) => GetAllSubCategoryModel(
     status: json["status"] ?? false,
-    message: json["message"] ?? "",
-    allSubcategory: List<AllSubcategory>.from(json["allSubcategory"].map((x) => AllSubcategory.fromJson(x)) ?? {}),
+    subcategory: List<AllSubcategory>.from(json["subcategory"].map((x) => AllSubcategory.fromJson(x)) ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "message": message,
-    "allSubcategory": List<dynamic>.from(allSubcategory.map((x) => x.toJson())),
+    "subcategory": List<dynamic>.from(subcategory.map((x) => x.toJson())),
   };
 }
 
 class AllSubcategory {
   AllSubcategory({
     required this.id,
+    required this.category,
+    required this.restaurant,
     required this.name,
     required this.isActive,
     required this.createdAt,
     required this.updatedAt,
     required this.v,
-    required this.category,
-    required this.restaurant,
+    required this.image,
   });
 
   String id;
+  Category category;
+  Restaurant restaurant;
   String name;
   bool isActive;
   String createdAt;
   String updatedAt;
   int v;
-  Category category;
-  Restaurant restaurant;
+  String image;
 
   factory AllSubcategory.fromJson(Map<String, dynamic> json) => AllSubcategory(
     id: json["_id"] ?? "",
+    category: Category.fromJson(json["Category"] ?? {}),
+    restaurant: Restaurant.fromJson(json["Restaurant"] ?? {}),
     name: json["Name"] ?? "",
     isActive: json["IsActive"] ?? false,
     createdAt: json["createdAt"] ?? "",
     updatedAt: json["updatedAt"] ?? "",
     v: json["__v"] ?? 0,
-    category: Category.fromJson(json["Category"] ?? {}),
-    restaurant: Restaurant.fromJson(json["Restaurant"] ?? {}),
+    image: json["Image"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
     "_id": id,
+    "Category": category.toJson(),
+    "Restaurant": restaurant.toJson(),
     "Name": name,
     "IsActive": isActive,
     "createdAt": createdAt,
     "updatedAt": updatedAt,
     "__v": v,
-    "Category": category.toJson(),
-    "Restaurant": restaurant.toJson(),
+    "Image": image,
   };
 }
 
@@ -144,6 +140,12 @@ class Restaurant {
     required this.createdAt,
     required this.updatedAt,
     required this.v,
+    required this.latitude,
+    required this.longitude,
+    required this.maxDeliveryTime,
+    required this.minDeliveryTime,
+    required this.tax,
+    required this.zone,
   });
 
   String id;
@@ -168,6 +170,12 @@ class Restaurant {
   String createdAt;
   String updatedAt;
   int v;
+  String latitude;
+  String longitude;
+  String maxDeliveryTime;
+  String minDeliveryTime;
+  String tax;
+  String zone;
 
   factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
     id: json["_id"] ?? "",
@@ -192,6 +200,12 @@ class Restaurant {
     createdAt: json["createdAt"] ?? "",
     updatedAt: json["updatedAt"] ?? "",
     v: json["__v"] ?? 0,
+    latitude: json["Latitude"] ?? "",
+    longitude: json["Longitude"] ?? "",
+    maxDeliveryTime: json["MaxDeliveryTime"] ?? "",
+    minDeliveryTime: json["MinDeliveryTime"] ?? "",
+    tax: json["Tax"] ?? "",
+    zone: json["Zone"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -217,5 +231,11 @@ class Restaurant {
     "createdAt": createdAt,
     "updatedAt": updatedAt,
     "__v": v,
+    "Latitude": latitude,
+    "Longitude": longitude,
+    "MaxDeliveryTime": maxDeliveryTime,
+    "MinDeliveryTime": minDeliveryTime,
+    "Tax": tax,
+    "Zone": zone,
   };
 }
