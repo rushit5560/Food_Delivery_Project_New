@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../models/add_product_model/all_attributes_model.dart';
-import '../../models/add_product_model/get_restaurants_category.dart';
+import '../../models/category_models/get_restaurants_category.dart';
 import '../../models/add_product_model/get_restaurant_sub_category_model.dart';
 import '../../models/add_product_model/restaurants_all_addons_model.dart';
 

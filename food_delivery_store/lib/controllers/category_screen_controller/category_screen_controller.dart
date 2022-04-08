@@ -6,24 +6,30 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:get/get.dart';
-
 import '../../common/store_details.dart';
-import '../../models/add_category_model/add_category_model.dart';
-import '../../models/add_product_model/get_restaurants_category.dart';
-import '../../models/update_category_model/update_category_model.dart';
+import '../../models/category_models/delete_category_model.dart';
+import '../../models/category_models/get_restaurants_category.dart';
+import '../../models/category_models/add_category_model.dart';
+import '../../models/category_models/update_category_model.dart';
 
 class CategoryScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
 
-  File? categoryImage;
-  File? updateCategoryImage;
+
+  /// Add Category Fields
   GlobalKey<FormState> categoryFormKey = GlobalKey();
-  GlobalKey<FormState> updateCategoryFormKey = GlobalKey();
   TextEditingController categoryFieldController = TextEditingController();
+  File? categoryImage;
+
+  /// Update Category Fields
+  GlobalKey<FormState> updateCategoryFormKey = GlobalKey();
   TextEditingController updateCategoryFieldController = TextEditingController();
+  File? updateCategoryImage;
+
   List<RestaurantCategory> getRestaurantCategoryList = [];
 
+  /// Add New Category
   addNewCategoryFunction() async {
     isLoading(true);
     String url = ApiUrl.CreateRestaurantCategoryApi;
@@ -70,7 +76,7 @@ class CategoryScreenController extends GetxController {
 
   }
 
-  /// Get Restaurant Category Function
+  /// Get Restaurant Category
   getRestaurantCategoryFunction() async {
     isLoading(true);
     String url = ApiUrl.GetRestaurantCategoryApi + "622b09a668395c49dcb4aa73"/*StoreDetails.storeId*/;
@@ -83,7 +89,14 @@ class CategoryScreenController extends GetxController {
       isSuccessStatus = getRestaurantCategoryModel.status.obs;
 
       if(isSuccessStatus.value) {
-        getRestaurantCategoryList.addAll(getRestaurantCategoryModel.category);
+        getRestaurantCategoryList.clear();
+
+        for(int i = 0; i < getRestaurantCategoryModel.category.length; i++) {
+          if(getRestaurantCategoryModel.category[i].isActive == true) {
+            getRestaurantCategoryList.add(getRestaurantCategoryModel.category[i]);
+          }
+        }
+
         log("getRestaurantCategoryList Length : ${getRestaurantCategoryList.length}");
       }
 
@@ -95,45 +108,115 @@ class CategoryScreenController extends GetxController {
 
   }
 
-  updateRestaurantCategoryFunction({required String catId}) async {
+  /// Update Restaurant Category
+  updateRestaurantCategoryFunction({required RestaurantCategory category, String? oldImageFilePath}) async {
     isLoading(true);
-    String url = ApiUrl.UpdateRestaurantCategoryApi + catId;
+    String url = ApiUrl.UpdateRestaurantCategoryApi + "${category.id}";
     log("URL : $url");
 
     try {
-      var stream = http.ByteStream(updateCategoryImage!.openRead());
-      stream.cast();
 
-      var length = await updateCategoryImage!.length();
+      if(updateCategoryImage != null) {
+        var stream = http.ByteStream(updateCategoryImage!.openRead());
+        stream.cast();
 
-      var request = http.MultipartRequest('POST', Uri.parse(url));
+        var length = await updateCategoryImage!.length();
 
-      request.files.add(await http.MultipartFile.fromPath("Image", updateCategoryImage!.path));
-      request.fields['Name'] = "${updateCategoryFieldController.text.trim()}";
+        var request = http.MultipartRequest('POST', Uri.parse(url));
 
-      var multiPart = http.MultipartFile('Image', stream, length);
+        request.files.add(await http.MultipartFile.fromPath("Image", updateCategoryImage!.path));
+        request.fields['Name'] = "${updateCategoryFieldController.text.trim()}";
 
-      request.files.add(multiPart);
+        var multiPart = http.MultipartFile('Image', stream, length);
 
-      var response = await request.send();
+        request.files.add(multiPart);
 
-      response.stream.transform(utf8.decoder).listen((value) {
-        UpdateCategoryModel updateCategoryModel = UpdateCategoryModel.fromJson(json.decode(value));
-        isSuccessStatus = updateCategoryModel.status.obs;
+        var response = await request.send();
 
-        if(isSuccessStatus.value){
-          updateCategoryFieldController.clear();
-          updateCategoryImage!.delete();
-          Fluttertoast.showToast(msg: "${updateCategoryModel.message}");
-        } else {
-          log("updateRestaurantCategoryFunction False False");
-        }
-      });
+        response.stream.transform(utf8.decoder).listen((value) {
+          UpdateCategoryModel updateCategoryModel = UpdateCategoryModel.fromJson(json.decode(value));
+          isSuccessStatus = updateCategoryModel.status.obs;
+
+          if(isSuccessStatus.value){
+            updateCategoryFieldController.clear();
+            updateCategoryImage!.delete();
+            Get.back();
+            Fluttertoast.showToast(msg: "${updateCategoryModel.message}");
+          } else {
+            log("updateRestaurantCategoryFunction False False");
+          }
+        });
+
+      }
+
+      else if(updateCategoryImage == null) {
+
+        File oldImageFile = File(oldImageFilePath!);
+        var stream = http.ByteStream(oldImageFile.openRead());
+        stream.cast();
+
+        var length = await oldImageFile.length();
+
+        var request = http.MultipartRequest('POST', Uri.parse(url));
+
+        request.files.add(await http.MultipartFile.fromPath("Image", oldImageFile.path));
+        request.fields['Name'] = "${updateCategoryFieldController.text.trim()}";
+
+        var multiPart = http.MultipartFile('Image', stream, length);
+
+        request.files.add(multiPart);
+
+        var response = await request.send();
+
+        response.stream.transform(utf8.decoder).listen((value) {
+          UpdateCategoryModel updateCategoryModel = UpdateCategoryModel.fromJson(json.decode(value));
+          isSuccessStatus = updateCategoryModel.status.obs;
+
+          if(isSuccessStatus.value){
+            updateCategoryFieldController.clear();
+            updateCategoryImage!.delete();
+            Get.back();
+            Fluttertoast.showToast(msg: "${updateCategoryModel.message}");
+          } else {
+            log("updateRestaurantCategoryFunction False False");
+          }
+        });
+
+      }
+
 
     } catch(e) {
       log("updateRestaurantCategoryFunction Error : $e");
     } finally {
-      isLoading(false);
+      // isLoading(false);
+      await getRestaurantCategoryFunction();
+    }
+  }
+
+  /// Delete Restaurant Category
+  deleteRestaurantCategoryFunction({required String catId}) async {
+    isLoading(true);
+    String url = ApiUrl.DeleteRestaurantCategoryApi + catId;
+    log("URL : $url");
+
+    try{
+      http.Response response = await http.post(Uri.parse(url));
+      log("response : $response");
+
+      DeleteCategoryModel deleteCategoryModel = DeleteCategoryModel.fromJson(json.decode(response.body));
+      isSuccessStatus = deleteCategoryModel.status.obs;
+
+      if(isSuccessStatus.value) {
+        Fluttertoast.showToast(msg: "${deleteCategoryModel.message}");
+      } else {
+        log("deleteRestaurantCategoryFunction Else Else");
+      }
+
+    } catch(e) {
+      log("deleteRestaurantCategoryFunction Error :: $e");
+    } finally {
+      // isLoading(false);
+      await getRestaurantCategoryFunction();
     }
   }
 

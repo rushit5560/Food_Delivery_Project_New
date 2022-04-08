@@ -9,7 +9,7 @@ import '../../common/constants/app_colors.dart';
 import '../../common/constants/field_validation.dart';
 import '../../common/text_fields_decorations/add_product_textfield_decoration.dart';
 import '../../controllers/sub_category_screen_controller/sub_category_screen_controller.dart';
-import '../../models/add_product_model/get_restaurants_category.dart';
+import '../../models/category_models/get_restaurants_category.dart';
 
 class AddSubCategoryModule extends StatelessWidget {
   AddSubCategoryModule({Key? key}) : super(key: key);

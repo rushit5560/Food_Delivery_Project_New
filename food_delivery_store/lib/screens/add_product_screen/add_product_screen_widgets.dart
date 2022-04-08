@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../common/text_fields_decorations/add_product_textfield_decoration.dart';
 import '../../controllers/add_product_screen_controller/add_product_screen_controller.dart';
 import '../../models/add_product_model/all_attributes_model.dart';
-import '../../models/add_product_model/get_restaurants_category.dart';
+import '../../models/category_models/get_restaurants_category.dart';
 import '../../models/add_product_model/get_restaurant_sub_category_model.dart';
 import '../../models/add_product_model/restaurants_all_addons_model.dart';
 

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_admin/screens/category_screen/category_screen.dart';
 import 'package:get/get.dart';
 import 'common/constants/app_theme.dart';
 import 'screens/addon_screen/addon_screen.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appLightTheme(),
 
-      home: AddonScreen(),
+      home: CategoryScreen(),
     );
   }
 }

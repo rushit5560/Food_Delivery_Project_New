@@ -13,13 +13,15 @@ class ApiUrl {
   static const GetRestaurantProductsApi = ApiMainPath + "product/getAll/Restaurant/";
   static const GetAdminProductsApi = ApiMainPath + "product";
 
-  static const GetRestaurantCategoryApi = ApiMainPath + "Category/Restaurant/find/";
   static const GetSubCategoryApi = ApiMainPath + "Subcategory/find/Category/";
   static const GetAllAttributesApi = ApiMainPath + "Attribute/getAllAttributes";
   static const GetRestaurantAddonsApi = ApiMainPath + "Addon/find/Restaurant/";
 
+  /// Category API
+  static const GetRestaurantCategoryApi = ApiMainPath + "Category/Restaurant/find/";
   static const CreateRestaurantCategoryApi = ApiMainPath + "Category/create";
   static const UpdateRestaurantCategoryApi = ApiMainPath + "Category/updatecategory/";
+  static const DeleteRestaurantCategoryApi = ApiMainPath + "Category/deletecategory/";
 
   /// Addon API
   static const CreateAddonApi = ApiMainPath + "Addon/create";
@@ -30,8 +32,10 @@ class ApiUrl {
   static const CreateAttributeApi = ApiMainPath + "Attribute/create";
   static const GetAllAttributeApi = ApiMainPath + "Attribute/getAllAttributes";
 
+
   static const CreateSubCategoryApi = ApiMainPath + "Subcategory/create";
   static const GetAllSubCategoryApi = ApiMainPath + "Subcategory/getAllsubcategory";
+
 
   static const GetAllDeliveryManApi = ApiMainPath + "deliveryperson/Restaurant/find/";
   static const AddDeliveryManApi = ApiMainPath + "deliveryperson/signUp";

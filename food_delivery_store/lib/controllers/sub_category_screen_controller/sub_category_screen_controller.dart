@@ -7,7 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../common/constants/api_url.dart';
-import '../../models/add_product_model/get_restaurants_category.dart';
+import '../../models/category_models/get_restaurants_category.dart';
 import '../../models/sub_category_models/add_sub_category_model.dart';
 import '../../models/sub_category_models/get_all_sub_category_model.dart';
 

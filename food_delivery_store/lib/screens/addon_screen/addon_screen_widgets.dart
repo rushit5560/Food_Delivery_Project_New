@@ -132,7 +132,7 @@ class AllAddonListModule extends StatelessWidget {
                               screenController.updateAddonPriceFieldController.text = "${singleAddonItem.price}";
 
 
-                              editAddon(context, singleAddonItem.id);
+                              editAddonAlertDialog(context, singleAddonItem.id);
 
                               screenController.isLoading(false);
                             },
@@ -165,7 +165,7 @@ class AllAddonListModule extends StatelessWidget {
     );
   }
 
-  editAddon(BuildContext context, String addonId) {
+  editAddonAlertDialog(BuildContext context, String addonId) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {

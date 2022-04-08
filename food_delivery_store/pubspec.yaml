@@ -38,6 +38,7 @@ dependencies:
   http: ^0.13.4
   jwt_decoder: ^2.0.1
   fluttertoast: ^8.0.9
+  gallery_saver: ^2.3.2
 
 dev_dependencies:
   flutter_test:
