@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'common/constants/app_theme.dart';
-import 'screens/employee_screen/employee_screen.dart';
+import 'screens/addon_screen/addon_screen.dart';
 
 
 void main() async{
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appLightTheme(),
 
-      home: EmployeeScreen(),
+      home: AddonScreen(),
     );
   }
 }

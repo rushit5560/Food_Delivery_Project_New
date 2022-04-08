@@ -21,8 +21,11 @@ class ApiUrl {
   static const CreateRestaurantCategoryApi = ApiMainPath + "Category/create";
   static const UpdateRestaurantCategoryApi = ApiMainPath + "Category/updatecategory/";
 
+  /// Addon API
   static const CreateAddonApi = ApiMainPath + "Addon/create";
   static const GetAllAddonApi = ApiMainPath + "Addon/find/Restaurant/";
+  static const UpdateAddonApi = ApiMainPath + "Addon/update/";
+  static const DeleteAddonApi = ApiMainPath + "Addon/delete/";
 
   static const CreateAttributeApi = ApiMainPath + "Attribute/create";
   static const GetAllAttributeApi = ApiMainPath + "Attribute/getAllAttributes";

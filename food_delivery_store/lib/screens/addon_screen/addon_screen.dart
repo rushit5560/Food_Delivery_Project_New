@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_admin/common/common_widgets.dart';
 import 'package:food_delivery_admin/common/custom_appbar.dart';
 import 'package:get/get.dart';
 
@@ -12,16 +13,20 @@ class AddonScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: commonAppBarModule(title: "Addons"),
-
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: AddAddonsModule(),
-          ),
-        ],
+      body: Obx(
+        () => addonScreenController.isLoading.value
+            ? CustomCircularProgressIndicator()
+            : Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AddAddonsModule(),
+                  ),
+                  Divider(thickness: 1),
+                  Expanded(child: AllAddonListModule()),
+                ],
+              ),
       ),
     );
   }
