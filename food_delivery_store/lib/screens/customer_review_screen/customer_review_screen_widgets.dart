@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/constants/api_url.dart';
+import 'package:food_delivery_admin/screens/review_details_screen/review_details_screen.dart';
 import 'package:get/get.dart';
 import '../../controllers/customer_review_screen_controller/customer_review_screen_controller.dart';
 import '../../models/customer_review_models/get_product_review_model.dart';
@@ -19,23 +20,31 @@ class CustomerReviewListModule extends StatelessWidget {
         Review singleItem = screenController.reviewList[i];
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// Image & Food Name Module
-                  _imageAndFoodNameModule(singleItem: singleItem),
-                  const SizedBox(height: 2),
-                  _reviewDetails(singleItem: singleItem),
-                  // const SizedBox(height: 2),
-                  // _reviewDetails(),
-                ],
+          child: GestureDetector(
+            onTap: () {
+              Get.to(()=> ReviewDetailsScreen(),
+              transition: Transition.zoom,
+              arguments: singleItem.product.id,
+              );
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// Image & Food Name Module
+                    _imageAndFoodNameModule(singleItem: singleItem),
+                    const SizedBox(height: 2),
+                    _reviewDetails(singleItem: singleItem),
+                    // const SizedBox(height: 2),
+                    // _reviewDetails(),
+                  ],
+                ),
               ),
             ),
           ),

@@ -12,6 +12,7 @@ class ApiUrl {
 
   static const GetRestaurantProductsApi = ApiMainPath + "product/getAll/Restaurant/";
   static const GetAdminProductsApi = ApiMainPath + "product";
+  static const GetProductDetailsApi = ApiMainPath + "product/find/";
 
   static const GetSubCategoryApi = ApiMainPath + "Subcategory/find/Category/";
   static const GetAllAttributesApi = ApiMainPath + "Attribute/getAllAttributes";
@@ -50,6 +51,7 @@ class ApiUrl {
 
   /// Review API
   static const GetCustomerFoodReviewApi = ApiMainPath + "FoodReview/restaurant/find/";
+  static const GetFoodReviewsApi = ApiMainPath + "FoodReview/find/";
 
   /// Employee API
   static const GetRestaurantEmployeeApi = ApiMainPath + "Employee/restaurant/find/";
