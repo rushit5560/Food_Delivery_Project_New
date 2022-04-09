@@ -150,12 +150,13 @@ class SubCategoryScreenController extends GetxController {
   }
 
   /// Update Sub Category
-  updateSubCategoryFunction() async {
+  updateSubCategoryFunction({required AllSubcategory subCategorySingleItem}) async {
     isLoading(true);
-    String url = ApiUrl.UpdateSubCategoryApi + "622b09a668395c49dcb4aa73";
+    String url = ApiUrl.UpdateSubCategoryApi + "${subCategorySingleItem.id}";
     log("URL : $url");
 
     try{
+
       if(updateSubCategoryImage != null) {
 
         var stream = http.ByteStream(updateSubCategoryImage!.openRead());
@@ -190,7 +191,8 @@ class SubCategoryScreenController extends GetxController {
           }
         });
 
-      } else if(updateSubCategoryImage == null) {
+      }
+      else if(updateSubCategoryImage == null) {
 
         var request = http.MultipartRequest('POST', Uri.parse(url));
 
@@ -206,7 +208,6 @@ class SubCategoryScreenController extends GetxController {
 
           if(isSuccessStatus.value){
             updateSubCategoryFieldController.clear();
-            updateSubCategoryImage!.delete();
             Get.back();
             Fluttertoast.showToast(msg: "${updateSubCategoryModel.message}");
           } else {
@@ -219,7 +220,8 @@ class SubCategoryScreenController extends GetxController {
     } catch(e) {
       log("updateSubCategoryFunction Error : $e");
     } finally{
-      isLoading(false);
+      // isLoading(false);
+      await getRestaurantAllSubCategoryFunction();
     }
 
   }

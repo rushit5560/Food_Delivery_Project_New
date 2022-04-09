@@ -163,9 +163,6 @@ class CategoryScreenController extends GetxController {
 
           if(isSuccessStatus.value){
             updateCategoryFieldController.clear();
-            if(updateCategoryImage != null) {
-              updateCategoryImage!.delete();
-            }
             Get.back();
             Fluttertoast.showToast(msg: "${updateCategoryModel.message}");
           } else {

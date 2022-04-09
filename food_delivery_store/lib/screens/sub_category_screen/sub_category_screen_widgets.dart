@@ -465,11 +465,7 @@ class SubCategoryListModule extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         if(screenController.updateSubCategoryFormKey.currentState!.validate()) {
-          if(screenController.updateSubCategoryImage == null) {
-            Fluttertoast.showToast(msg: "Please Select Sub Category Image!");
-          } else {
-            await screenController.updateSubCategoryFunction();
-          }
+          await screenController.updateSubCategoryFunction(subCategorySingleItem: subCategorySingleItem);
         }
       },
       child: Center(
