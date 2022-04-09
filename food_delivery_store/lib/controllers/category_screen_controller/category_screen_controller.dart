@@ -151,20 +151,9 @@ class CategoryScreenController extends GetxController {
 
       else if(updateCategoryImage == null) {
 
-        File oldImageFile = File(oldImageFilePath!);
-        var stream = http.ByteStream(oldImageFile.openRead());
-        stream.cast();
-
-        var length = await oldImageFile.length();
-
         var request = http.MultipartRequest('POST', Uri.parse(url));
 
-        request.files.add(await http.MultipartFile.fromPath("Image", oldImageFile.path));
         request.fields['Name'] = "${updateCategoryFieldController.text.trim()}";
-
-        var multiPart = http.MultipartFile('Image', stream, length);
-
-        request.files.add(multiPart);
 
         var response = await request.send();
 
@@ -174,7 +163,9 @@ class CategoryScreenController extends GetxController {
 
           if(isSuccessStatus.value){
             updateCategoryFieldController.clear();
-            updateCategoryImage!.delete();
+            if(updateCategoryImage != null) {
+              updateCategoryImage!.delete();
+            }
             Get.back();
             Fluttertoast.showToast(msg: "${updateCategoryModel.message}");
           } else {

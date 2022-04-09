@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -375,12 +374,8 @@ class AllCategoryListModule extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         if(screenController.updateCategoryFormKey.currentState!.validate()) {
-          if(screenController.updateCategoryImage == null) {
-            Fluttertoast.showToast(msg: "Please Select Category Image!");
-          } else {
-            await screenController.updateRestaurantCategoryFunction(
-                category: category, oldImageFilePath: oldImageFilePath);
-          }
+          await screenController.updateRestaurantCategoryFunction(
+              category: category, oldImageFilePath: oldImageFilePath);
         }
       },
       child: Center(
