@@ -44,10 +44,12 @@ class ApiUrl {
 
   static const GetAllZoneApi = ApiMainPath + "area";
 
+  /// Bank Info API
   static const GetRestaurantBankInfoApi = ApiMainPath + "BankInfo/find/";
   static const EditRestaurantBankInfoApi = ApiMainPath + "BankInfo/create";
 
-  static const GetCustomerFoodReviewApi = ApiMainPath + "FoodReview/getAllReview";
+  /// Review API
+  static const GetCustomerFoodReviewApi = ApiMainPath + "FoodReview/restaurant/find/";
 
   /// Employee API
   static const GetRestaurantEmployeeApi = ApiMainPath + "Employee/restaurant/find/";
