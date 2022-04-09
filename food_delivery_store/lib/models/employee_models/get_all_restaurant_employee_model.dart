@@ -15,11 +15,11 @@ class GetAllRestaurantEmployeeModel {
   });
 
   bool status;
-  List<Employee> employee;
+  List<RestaurantEmployee> employee;
 
   factory GetAllRestaurantEmployeeModel.fromJson(Map<String, dynamic> json) => GetAllRestaurantEmployeeModel(
     status: json["status"] ?? false,
-    employee: List<Employee>.from(json["employee"].map((x) => Employee.fromJson(x)) ?? {}),
+    employee: List<RestaurantEmployee>.from(json["employee"].map((x) => RestaurantEmployee.fromJson(x)) ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
@@ -28,8 +28,8 @@ class GetAllRestaurantEmployeeModel {
   };
 }
 
-class Employee {
-  Employee({
+class RestaurantEmployee {
+  RestaurantEmployee({
     required this.id,
     required this.firstName,
     required this.lastName,
@@ -61,7 +61,7 @@ class Employee {
   String updatedAt;
   int v;
 
-  factory Employee.fromJson(Map<String, dynamic> json) => Employee(
+  factory RestaurantEmployee.fromJson(Map<String, dynamic> json) => RestaurantEmployee(
     id: json["_id"] ?? "",
     firstName: json["FirstName"] ?? "",
     lastName: json["LastName"] ?? "",

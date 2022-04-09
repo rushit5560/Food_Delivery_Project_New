@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_admin/common/common_widgets.dart';
 import 'package:food_delivery_admin/common/custom_appbar.dart';
 import 'package:get/get.dart';
 
@@ -13,16 +14,19 @@ class AddEmployeeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: commonAppBarModule(title: "Add Employee"),
-
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              AddEmployeeForm(),
-            ],
-          ),
-        ),
+      body: Obx(
+        () => screenController.isLoading.value
+            ? CustomCircularProgressIndicator()
+            : SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      AddEmployeeForm(),
+                    ],
+                  ),
+                ),
+              ),
       ),
     );
   }

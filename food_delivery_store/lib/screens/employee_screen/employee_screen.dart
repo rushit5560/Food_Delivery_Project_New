@@ -17,15 +17,20 @@ class EmployeeScreen extends StatelessWidget {
       body: Obx(
         () => employeeScreenController.isLoading.value
             ? CustomCircularProgressIndicator()
-            : Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: EmployeeListModule(),
+            : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: EmployeeListModule(),
+                      ),
+                      AddEmployeeButton(),
+                    ],
                   ),
-                  AddEmployeeButton(),
-                ],
               ),
+            ),
       ),
     );
   }

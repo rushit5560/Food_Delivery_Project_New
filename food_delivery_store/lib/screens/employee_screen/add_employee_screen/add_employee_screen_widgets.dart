@@ -282,12 +282,15 @@ class EmployeeRoleDropDownModule extends StatelessWidget {
 }
 
 class SubmitButton extends StatelessWidget {
-  const SubmitButton({Key? key}) : super(key: key);
+  SubmitButton({Key? key}) : super(key: key);
+  final screenController = Get.find<EmployeeScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () async {
+        await screenController.addRestaurantEmployeeFunction();
+      },
       child: Container(
         // height: 40,
         decoration: BoxDecoration(

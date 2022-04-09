@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'common/constants/app_theme.dart';
+import 'screens/employee_screen/employee_screen.dart';
 import 'screens/sub_category_screen/sub_category_screen.dart';
 
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appLightTheme(),
 
-      home: SubCategoryScreen(),
+      home: EmployeeScreen(),
     );
   }
 }

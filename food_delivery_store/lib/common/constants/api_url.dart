@@ -49,8 +49,11 @@ class ApiUrl {
 
   static const GetCustomerFoodReviewApi = ApiMainPath + "FoodReview/getAllReview";
 
+  /// Employee API
   static const GetRestaurantEmployeeApi = ApiMainPath + "Employee/restaurant/find/";
   static const AddRestaurantEmployeeApi = ApiMainPath + "Employee/create";
+  static const DeleteRestaurantEmployeeApi = ApiMainPath + "Employee/delete/";
+  static const UpdateRestaurantEmployeeApi = ApiMainPath + "Employee/update/";
 
   static const GetAllEmployeeRoleAPI = ApiMainPath + "EmployeeRole/getAllEmployeeRole";
 }
