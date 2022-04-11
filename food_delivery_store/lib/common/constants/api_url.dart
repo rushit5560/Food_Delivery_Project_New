@@ -40,11 +40,13 @@ class ApiUrl {
   static const DeleteSubCategoryApi = ApiMainPath + "Subcategory/deletesubcategory/";
 
 
+  /// Delivery Boy API
   static const GetAllDeliveryManApi = ApiMainPath + "deliveryperson/Restaurant/find/";
   static const AddDeliveryManApi = ApiMainPath + "deliveryperson/signUp";
   static const DeleteDeliveryManApi = ApiMainPath + "deliveryperson/delete/";
   static const UpdateDeliveryManApi = ApiMainPath + "deliveryperson/update/";
 
+  /// Zone API
   static const GetAllZoneApi = ApiMainPath + "area";
 
   /// Bank Info API

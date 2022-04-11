@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final getRestaurantAllProductModel = getRestaurantAllProductModelFromJson(jsonString);
+
 import 'dart:convert';
 
 GetRestaurantAllProductModel getRestaurantAllProductModelFromJson(String str) => GetRestaurantAllProductModel.fromJson(json.decode(str));
@@ -14,8 +18,8 @@ class GetRestaurantAllProductModel {
   List<Food> food;
 
   factory GetRestaurantAllProductModel.fromJson(Map<String, dynamic> json) => GetRestaurantAllProductModel(
-    status: json["status"],
-    food: List<Food>.from(json["food"].map((x) => Food.fromJson(x))),
+    status: json["status"] ?? false,
+    food: List<Food>.from(json["food"].map((x) => Food.fromJson(x)) ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
@@ -49,6 +53,8 @@ class Food {
     required this.createdAt,
     required this.updatedAt,
     required this.v,
+    required this.numberOfReviews,
+    required this.rating,
   });
 
   TType productType;
@@ -64,7 +70,7 @@ class Food {
   int price;
   String startTime;
   String endTime;
-  List<AttributeAddon> attribute;
+  List<Attribute> attribute;
   List<Addon> addon;
   bool isFeatured;
   String description;
@@ -74,6 +80,8 @@ class Food {
   String createdAt;
   String updatedAt;
   int v;
+  int numberOfReviews;
+  double rating;
 
   factory Food.fromJson(Map<String, dynamic> json) => Food(
     productType: TType.fromJson(json["ProductType"] ?? {}),
@@ -89,7 +97,7 @@ class Food {
     price: json["Price"] ?? 0,
     startTime: json["StartTime"] ?? "",
     endTime: json["EndTime"] ?? "",
-    attribute: List<AttributeAddon>.from(json["Attribute"].map((x) => AttributeAddon.fromJson(x)) ?? {}),
+    attribute: List<Attribute>.from(json["Attribute"].map((x) => Attribute.fromJson(x)) ?? {}),
     addon: List<Addon>.from(json["Addon"].map((x) => Addon.fromJson(x)) ?? {}),
     isFeatured: json["IsFeatured"] ?? false,
     description: json["Description"] ?? "",
@@ -99,6 +107,8 @@ class Food {
     createdAt: json["createdAt"] ?? "",
     updatedAt: json["updatedAt"] ?? "",
     v: json["__v"] ?? 0,
+    numberOfReviews: json["NumberOfReviews"] ?? 0,
+    rating: json["Rating"] ?? 0.0,
   );
 
   Map<String, dynamic> toJson() => {
@@ -125,90 +135,28 @@ class Food {
     "createdAt": createdAt,
     "updatedAt": updatedAt,
     "__v": v,
+    "NumberOfReviews": numberOfReviews,
+    "Rating": rating,
   };
 }
 
-class Addon {
-  Addon({
+class TType {
+  TType({
     required this.value,
     required this.label,
-    required this.id,
   });
 
-  RestaurantClass value;
+  String value;
   String label;
-  String id;
 
-  factory Addon.fromJson(Map<String, dynamic> json) => Addon(
-    value: RestaurantClass.fromJson(json["value"] ?? {}),
+  factory TType.fromJson(Map<String, dynamic> json) => TType(
+    value: json["value"] ?? "",
     label: json["label"] ?? "",
-    id: json["_id"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
-    "value": value.toJson(),
+    "value": value,
     "label": label,
-    "_id": id,
-  };
-}
-
-class AttributeAddon {
-  AttributeAddon({
-    required this.value,
-    required this.label,
-    required this.id,
-  });
-
-  Value value;
-  String label;
-  String id;
-
-  factory AttributeAddon.fromJson(Map<String, dynamic> json) => AttributeAddon(
-    value: Value.fromJson(json["value"] ?? {}),
-    label: json["label"] ?? "",
-    id: json["_id"] ?? "",
-  );
-
-  Map<String, dynamic> toJson() => {
-    "value": value.toJson(),
-    "label": label,
-    "_id": id,
-  };
-}
-
-class Value {
-  Value({
-    required this.id,
-    required this.name,
-    required this.isActive,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.v,
-  });
-
-  String id;
-  String name;
-  bool isActive;
-  String createdAt;
-  String updatedAt;
-  int v;
-
-  factory Value.fromJson(Map<String, dynamic> json) => Value(
-    id: json["_id"] ?? "",
-    name: json["Name"] ?? "",
-    isActive: json["IsActive"] ?? false,
-    createdAt: json["createdAt"] ?? "",
-    updatedAt: json["updatedAt"] ?? "",
-    v: json["__v"] ?? 0,
-  );
-
-  Map<String, dynamic> toJson() => {
-    "_id": id,
-    "Name": name,
-    "IsActive": isActive,
-    "createdAt": createdAt,
-    "updatedAt": updatedAt,
-    "__v": v,
   };
 }
 
@@ -300,8 +248,8 @@ class SubCategory {
   };
 }
 
-class RestaurantClass {
-  RestaurantClass({
+class Store {
+  Store({
     required this.id,
     required this.storeName,
     required this.address,
@@ -324,6 +272,261 @@ class RestaurantClass {
     required this.createdAt,
     required this.updatedAt,
     required this.v,
+    required this.latitude,
+    required this.longitude,
+    required this.maxDeliveryTime,
+    required this.minDeliveryTime,
+    required this.tax,
+    required this.zone,
+  });
+
+  String id;
+  String storeName;
+  String address;
+  String firstName;
+  String lastName;
+  String email;
+  String password;
+  int phone;
+  String deliveryRange;
+  String startTime;
+  String endTime;
+  String image;
+  String coverImage;
+  String roleId;
+  bool isActive;
+  bool isApproved;
+  String createdBy;
+  String updatedBy;
+  String approvedOn;
+  String createdAt;
+  String updatedAt;
+  int v;
+  String latitude;
+  String longitude;
+  String maxDeliveryTime;
+  String minDeliveryTime;
+  String tax;
+  String zone;
+
+  factory Store.fromJson(Map<String, dynamic> json) => Store(
+    id: json["_id"] ?? "",
+    storeName: json["StoreName"] ?? "",
+    address: json["Address"] ?? "",
+    firstName: json["FirstName"] ?? "",
+    lastName: json["LastName"] ?? "",
+    email: json["Email"] ?? "",
+    password: json["Password"] ?? "",
+    phone: json["Phone"] ?? 0,
+    deliveryRange: json["DeliveryRange"] ?? "",
+    startTime: json["StartTime"] ?? "",
+    endTime: json["EndTime"] ?? "",
+    image: json["Image"] ?? "",
+    coverImage: json["CoverImage"] ?? "",
+    roleId: json["RoleId"] ?? "",
+    isActive: json["IsActive"] ?? false,
+    isApproved: json["IsApproved"] ?? false,
+    createdBy: json["CreatedBy"] ?? "",
+    updatedBy: json["UpdatedBy"] ?? "",
+    approvedOn: json["ApprovedOn"] ?? "",
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
+    v: json["__v"] ?? 0,
+    latitude: json["Latitude"] ?? "",
+    longitude: json["Longitude"] ?? "",
+    maxDeliveryTime: json["MaxDeliveryTime"] ?? "",
+    minDeliveryTime: json["MinDeliveryTime"] ?? "",
+    tax: json["Tax"] ?? "",
+    zone: json["Zone"] ?? "",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "StoreName": storeName,
+    "Address": address,
+    "FirstName": firstName,
+    "LastName": lastName,
+    "Email": email,
+    "Password": password,
+    "Phone": phone,
+    "DeliveryRange": deliveryRange,
+    "StartTime": startTime,
+    "EndTime": endTime,
+    "Image": image,
+    "CoverImage": coverImage,
+    "RoleId": roleId,
+    "IsActive": isActive,
+    "IsApproved": isApproved,
+    "CreatedBy": createdBy,
+    "UpdatedBy": updatedBy,
+    "ApprovedOn": approvedOn,
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "__v": v,
+    "Latitude": latitude,
+    "Longitude": longitude,
+    "MaxDeliveryTime": maxDeliveryTime,
+    "MinDeliveryTime": minDeliveryTime,
+    "Tax": tax,
+    "Zone": zone,
+  };
+}
+
+class Attribute {
+  Attribute({
+    required this.value,
+    required this.label,
+    required this.id,
+  });
+
+  AttrValue value;
+  String label;
+  String id;
+
+  factory Attribute.fromJson(Map<String, dynamic> json) => Attribute(
+    value: AttrValue.fromJson(json["value"] ?? {}),
+    label: json["label"] ?? "",
+    id: json["_id"] ?? "",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "value": value.toJson(),
+    "label": label,
+    "_id": id,
+  };
+}
+class AttrValue {
+  AttrValue({
+    required this.id,
+    required this.name,
+    required this.isActive,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+  });
+
+  String id;
+  String name;
+  bool isActive;
+  String createdAt;
+  String updatedAt;
+  int v;
+
+  factory AttrValue.fromJson(Map<String, dynamic> json) => AttrValue(
+    id: json["_id"] ?? "",
+    name: json["Name"] ?? "",
+    isActive: json["IsActive"] ?? false,
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
+    v: json["__v"] ?? 0,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "Name": name,
+    "IsActive": isActive,
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "__v": v,
+  };
+}
+
+class Addon {
+  Addon({
+    required this.value,
+    required this.label,
+    required this.id,
+  });
+
+  Value value;
+  String label;
+  String id;
+
+  factory Addon.fromJson(Map<String, dynamic> json) => Addon(
+    value: Value.fromJson(json["value"] ?? {}),
+    label: json["label"] ?? "",
+    id: json["_id"] ?? "",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "value": value.toJson(),
+    "label": label,
+    "_id": id,
+  };
+}
+class Value {
+  Value({
+    required this.id,
+    required this.restaurant,
+    required this.name,
+    required this.price,
+    required this.isActive,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+  });
+
+  String id;
+  Restaurant restaurant;
+  String name;
+  String price;
+  bool isActive;
+  String createdAt;
+  String updatedAt;
+  int v;
+
+  factory Value.fromJson(Map<String, dynamic> json) => Value(
+    id: json["_id"] ?? "",
+    restaurant: Restaurant.fromJson(json["Restaurant"] ?? {}),
+    name: json["Name"] ?? "",
+    price: json["Price"] ?? "",
+    isActive: json["IsActive"] ?? false,
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
+    v: json["__v"] ?? 0,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "Restaurant": restaurant.toJson(),
+    "Name": name,
+    "Price": price,
+    "IsActive": isActive,
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "__v": v,
+  };
+}
+class Restaurant {
+  Restaurant({
+    required this.id,
+    required this.storeName,
+    required this.address,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.password,
+    required this.phone,
+    required this.deliveryRange,
+    required this.startTime,
+    required this.endTime,
+    required this.image,
+    required this.coverImage,
+    required this.roleId,
+    required this.isActive,
+    required this.isApproved,
+    required this.createdBy,
+    required this.updatedBy,
+    required this.approvedOn,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+    required this.latitude,
+    required this.longitude,
+    required this.maxDeliveryTime,
+    required this.minDeliveryTime,
+    required this.tax,
+    required this.zone,
   });
 
   String id;
@@ -348,8 +551,14 @@ class RestaurantClass {
   String createdAt;
   String updatedAt;
   int v;
+  String latitude;
+  String longitude;
+  String maxDeliveryTime;
+  String minDeliveryTime;
+  String tax;
+  String zone;
 
-  factory RestaurantClass.fromJson(Map<String, dynamic> json) => RestaurantClass(
+  factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
     id: json["_id"] ?? "",
     storeName: json["StoreName"] ?? "",
     address: json["Address"] ?? "",
@@ -372,6 +581,12 @@ class RestaurantClass {
     createdAt: json["createdAt"] ?? "",
     updatedAt: json["updatedAt"] ?? "",
     v: json["__v"] ?? 0,
+    latitude: json["Latitude"] ?? "",
+    longitude: json["Longitude"] ?? "",
+    maxDeliveryTime: json["MaxDeliveryTime"] ?? "",
+    minDeliveryTime: json["MinDeliveryTime"] ?? "",
+    tax: json["Tax"] ?? "",
+    zone: json["Zone"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -397,9 +612,14 @@ class RestaurantClass {
     "createdAt": createdAt,
     "updatedAt": updatedAt,
     "__v": v,
+    "Latitude": latitude,
+    "Longitude": longitude,
+    "MaxDeliveryTime": maxDeliveryTime,
+    "MinDeliveryTime": minDeliveryTime,
+    "Tax": tax,
+    "Zone": zone,
   };
 }
-
 class RoleId {
   RoleId({
     required this.id,
@@ -440,122 +660,14 @@ class RoleId {
   };
 }
 
-class TType {
-  TType({
-    required this.value,
-    required this.label,
-  });
 
-  String value;
-  String label;
 
-  factory TType.fromJson(Map<String, dynamic> json) => TType(
-    value: json["value"] ?? "",
-    label: json["label"] ?? "",
-  );
 
-  Map<String, dynamic> toJson() => {
-    "value": value,
-    "label": label,
-  };
-}
 
-class Store {
-  Store({
-    required this.id,
-    required this.storeName,
-    required this.address,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.password,
-    required this.phone,
-    required this.deliveryRange,
-    required this.startTime,
-    required this.endTime,
-    required this.image,
-    required this.coverImage,
-    required this.roleId,
-    required this.isActive,
-    required this.isApproved,
-    required this.createdBy,
-    required this.updatedBy,
-    required this.approvedOn,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.v,
-  });
 
-  String id;
-  String storeName;
-  String address;
-  String firstName;
-  String lastName;
-  String email;
-  String password;
-  int phone;
-  String deliveryRange;
-  String startTime;
-  String endTime;
-  String image;
-  String coverImage;
-  String roleId;
-  bool isActive;
-  bool isApproved;
-  String createdBy;
-  String updatedBy;
-  String approvedOn;
-  String createdAt;
-  String updatedAt;
-  int v;
 
-  factory Store.fromJson(Map<String, dynamic> json) => Store(
-    id: json["_id"] ?? "",
-    storeName: json["StoreName"] ?? "",
-    address: json["Address"] ?? "",
-    firstName: json["FirstName"] ?? "",
-    lastName: json["LastName"] ?? "",
-    email: json["Email"] ?? "",
-    password: json["Password"] ?? "",
-    phone: json["Phone"] ?? 0,
-    deliveryRange: json["DeliveryRange"] ?? "",
-    startTime: json["StartTime"] ?? "",
-    endTime: json["EndTime"] ?? "",
-    image: json["Image"] ?? "",
-    coverImage: json["CoverImage"] ?? "",
-    roleId: json["RoleId"] ?? "",
-    isActive: json["IsActive"] ?? false,
-    isApproved: json["IsApproved"] ?? false,
-    createdBy: json["CreatedBy"] ?? "",
-    updatedBy: json["UpdatedBy"] ?? "",
-    approvedOn: json["ApprovedOn"] ?? "",
-    createdAt: json["createdAt"] ?? "",
-    updatedAt: json["updatedAt"] ?? "",
-    v: json["__v"] ?? 0,
-  );
 
-  Map<String, dynamic> toJson() => {
-    "_id": id,
-    "StoreName": storeName,
-    "Address": address,
-    "FirstName": firstName,
-    "LastName": lastName,
-    "Email": email,
-    "Password": password,
-    "Phone": phone,
-    "DeliveryRange": deliveryRange,
-    "StartTime": startTime,
-    "EndTime": endTime,
-    "Image": image,
-    "CoverImage": coverImage,
-    "RoleId": roleId,
-    "IsActive": isActive,
-    "IsApproved": isApproved,
-    "CreatedBy": createdBy,
-    "UpdatedBy": updatedBy,
-    "ApprovedOn": approvedOn,
-    "createdAt": createdAt,
-    "updatedAt": updatedAt,
-    "__v": v,
-  };
-}
+
+
+
+
