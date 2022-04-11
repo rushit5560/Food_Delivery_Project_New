@@ -8,14 +8,16 @@ import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:get/get.dart';
 
 import '../../models/delivery_man_models/add_delivery_man_model.dart';
+import '../../models/delivery_man_models/delete_delivery_man_model.dart';
 import '../../models/delivery_man_models/get_all_delivery_man_model.dart';
 import '../../models/delivery_man_models/get_all_area_model.dart';
+import '../../models/delivery_man_models/update_delivery_man_model.dart';
 
 class DeliveryManScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
 
-  List<GetList> allDeliveryManList = [];
+  List<DeliveryManGetList> allDeliveryManList = [];
 
   /// All Zone DropDown List
   RxList<GetZoneList> allZoneList = [GetZoneList(areaName: "Select Area", id: "0")].obs;
@@ -34,11 +36,27 @@ class DeliveryManScreenController extends GetxController {
   File? identityImgFile;
   RxString identityTypeValue = 'Aadhaar Card'.obs;
 
+  /// Update Delivery Boy Fields Data
+  GlobalKey<FormState> updateDeliveryBoyFormKey = GlobalKey();
+  TextEditingController updateFNameFieldController = TextEditingController();
+  TextEditingController updateLNameFieldController = TextEditingController();
+  TextEditingController updatePhoneFieldController = TextEditingController();
+  TextEditingController updateAddressFieldController = TextEditingController();
+  TextEditingController updateIdentityNumberFieldController =
+      TextEditingController();
+  TextEditingController updateEmailFieldController = TextEditingController();
+  File? updateDeliveryBoyImgFile;
+  File? updateIdentityImgFile;
+  RxString deliveryManType = 'Freelancer'.obs;
+  RxString deliveryManGender = 'Male'.obs;
+  RxString deliveryManIdentity = 'passport'.obs;
+  GetZoneList updateZoneDropDownValue = GetZoneList();
 
   /// Get All DeliveryMan List Function
   getAllDeliveryManFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetAllDeliveryManApi + "622b09a668395c49dcb4aa73" /*StoreDetails.storeId*/;
+    String url = ApiUrl.GetAllDeliveryManApi +
+        "622b09a668395c49dcb4aa73" /*StoreDetails.storeId*/;
     log("URL : $url");
 
     try {
@@ -48,21 +66,26 @@ class DeliveryManScreenController extends GetxController {
       GetAllDeliveryManModel getAllDeliveryManModel = GetAllDeliveryManModel.fromJson(json.decode(response.body));
       isSuccessStatus = getAllDeliveryManModel.status.obs;
 
-      if(isSuccessStatus.value) {
-        allDeliveryManList.addAll(getAllDeliveryManModel.getList);
+      if (isSuccessStatus.value) {
+        allDeliveryManList.clear();
+
+        for (int i = 0; i < getAllDeliveryManModel.getList.length; i++) {
+          if (getAllDeliveryManModel.getList[i].isActive == true) {
+            allDeliveryManList.add(getAllDeliveryManModel.getList[i]);
+          }
+        }
+
         log("allDeliveryManList : $allDeliveryManList");
       } else {
         log("getAllDeliveryManFunction Else Else");
       }
-
-    } catch(e) {
+    } catch (e) {
       log("getAllDeliveryManFunction Error : $e");
     } finally {
       // isLoading(false);
       await getAllAreaFunction();
     }
   }
-
 
   /// Get All Zone List Function
   getAllAreaFunction() async {
@@ -74,12 +97,12 @@ class DeliveryManScreenController extends GetxController {
       http.Response response = await http.get(Uri.parse(url));
       log("response : $response");
 
-      GetAllAreaModel getAllAreaModel = GetAllAreaModel.fromJson(json.decode(response.body));
+      GetAllAreaModel getAllAreaModel =
+          GetAllAreaModel.fromJson(json.decode(response.body));
       isSuccessStatus = getAllAreaModel.status.obs;
 
-      if(isSuccessStatus.value) {
-
-        if(getAllAreaModel.getList.length == 0) {
+      if (isSuccessStatus.value) {
+        if (getAllAreaModel.getList.length == 0) {
           allZoneList.add(GetZoneList(id: "0", areaName: "Select Area"));
         } else {
           allZoneList.addAll(getAllAreaModel.getList);
@@ -89,8 +112,7 @@ class DeliveryManScreenController extends GetxController {
       } else {
         log("getAllAreaFunction Else Else");
       }
-
-    } catch(e) {
+    } catch (e) {
       log("getAllAreaFunction Error : $e");
     } finally {
       isLoading(false);
@@ -114,20 +136,23 @@ class DeliveryManScreenController extends GetxController {
 
       var request = http.MultipartRequest('POST', Uri.parse(url));
 
-      request.files.add(await http.MultipartFile.fromPath('Image', deliveryBoyImgFile!.path));
-      request.files.add(await http.MultipartFile.fromPath('IdentityImage', identityImgFile!.path));
+      request.files.add(
+          await http.MultipartFile.fromPath('Image', deliveryBoyImgFile!.path));
+      request.files.add(await http.MultipartFile.fromPath(
+          'IdentityImage', identityImgFile!.path));
 
       request.fields["FirstName"] = "${firstNameFieldController.text.trim()}";
       request.fields["LastName"] = "${lastNameFieldController.text.trim()}";
       request.fields["Zone"] = "${allZoneDropDownValue.id}";
       request.fields["IdentityType"] = "$identityTypeValue";
-      request.fields["IdentityNumber"] = "${identityNumberFieldController.text.trim()}";
+      request.fields["IdentityNumber"] =
+          "${identityNumberFieldController.text.trim()}";
       request.fields["Phone"] = "${phoneFieldController.text.trim()}";
       request.fields["Password"] = "${passwordFieldController.text.trim()}";
       request.fields["Email"] = "${emailFieldController.text.trim()}";
       request.fields["Address"] = "${addressFieldController.text.trim()}";
-      request.fields["Restaurant"] = "622b09a668395c49dcb4aa73" /*"${StoreDetails.storeId}"*/;
-
+      request.fields["Restaurant"] =
+          "622b09a668395c49dcb4aa73" /*"${StoreDetails.storeId}"*/;
 
       var multiPart = http.MultipartFile('Image', stream, length);
       var multiPart1 = http.MultipartFile('IdentityImage', stream1, length1);
@@ -142,24 +167,221 @@ class DeliveryManScreenController extends GetxController {
       print('response: ${response.request}');
 
       response.stream.transform(utf8.decoder).listen((value) {
-        AddDeliveryManModel addDeliveryManModel = AddDeliveryManModel.fromJson(json.decode(value));
+        AddDeliveryManModel addDeliveryManModel =
+            AddDeliveryManModel.fromJson(json.decode(value));
         print('response1 ::::::${addDeliveryManModel.status}');
         isSuccessStatus = addDeliveryManModel.status.obs;
         log("isSuccessStatus : $isSuccessStatus");
 
-        if(isSuccessStatus.value){
+        if (isSuccessStatus.value) {
           Fluttertoast.showToast(msg: "${addDeliveryManModel.message}");
         } else {
           print('False False');
         }
       });
-
-    } catch(e) {
+    } catch (e) {
       log("addDeliveryBoyFunction Error : $e");
     } finally {
       isLoading(false);
+      await getAllDeliveryManFunction();
     }
+  }
 
+  /// Delete Delivery Boy
+  deleteDeliveryBoyByIdFunction({required String deliveryBoyId}) async {
+    isLoading(true);
+    String url = ApiUrl.DeleteDeliveryManApi + deliveryBoyId;
+    log("URL : $url");
+
+    try {
+      http.Response response = await http.post(Uri.parse(url));
+      log("Response : $response");
+
+      DeleteDeliveryManModel deleteDeliveryManModel =
+          DeleteDeliveryManModel.fromJson(json.decode(response.body));
+      isSuccessStatus = deleteDeliveryManModel.status.obs;
+
+      if (isSuccessStatus.value) {
+        Fluttertoast.showToast(msg: "${deleteDeliveryManModel.message}");
+      } else {
+        log("deleteDeliveryBoyByIdFunction Else Else");
+      }
+    } catch (e) {
+      log("deleteDeliveryBoyByIdFunction Error :: $e");
+    } finally {
+      // isLoading(false);
+      await getAllDeliveryManFunction();
+    }
+  }
+
+  /// Update Delivery Boy
+  updateDeliveryBoyByIdFunction({required String deliveryBoyId}) async {
+    isLoading(true);
+    String url = ApiUrl.UpdateDeliveryManApi + deliveryBoyId;
+    log("URL : $url");
+
+    try {
+
+      if (updateDeliveryBoyImgFile == null && updateIdentityImgFile == null) {
+        var request = http.MultipartRequest('POST', Uri.parse(url));
+
+        request.fields['FirstName'] = "${updateFNameFieldController.text.trim()}";
+        request.fields['LastName'] = "${updateLNameFieldController.text.trim()}";
+        request.fields['Phone'] = "${updatePhoneFieldController.text.trim()}";
+        request.fields['Gender'] = "$deliveryManGender";
+        request.fields['Zone'] = "${updateZoneDropDownValue.id}";
+        request.fields['Restaurant'] = /*"${StoreDetails.storeId}"*/"622b09a668395c49dcb4aa73";
+        request.fields['Address'] = "${updateAddressFieldController.text.trim()}";
+        request.fields['IdentityType'] = "$deliveryManIdentity";
+        request.fields['Email'] = "${updateEmailFieldController.text.trim()}";
+
+        var response = await request.send();
+
+        response.stream.transform(utf8.decoder).listen((value) {
+          UpdateDeliveryManModel updateDeliveryManModel =
+              UpdateDeliveryManModel.fromJson(json.decode(value));
+          isSuccessStatus = updateDeliveryManModel.status.obs;
+          log("isSuccessStatus : $isSuccessStatus");
+
+          if (isSuccessStatus.value) {
+            Fluttertoast.showToast(msg: "${updateDeliveryManModel.message}");
+            Get.back();
+          } else {
+            print('False False');
+          }
+        });
+      }
+      else if (updateDeliveryBoyImgFile == null) {
+        var request = http.MultipartRequest('POST', Uri.parse(url));
+
+        var stream1 = http.ByteStream(updateIdentityImgFile!.openRead());
+        var length1 = await updateIdentityImgFile!.length();
+
+        request.files.add(await http.MultipartFile.fromPath("IdentityImage", updateIdentityImgFile!.path));
+
+        request.fields['FirstName'] = "${updateFNameFieldController.text.trim()}";
+        request.fields['LastName'] = "${updateLNameFieldController.text.trim()}";
+        request.fields['Phone'] = "${updatePhoneFieldController.text.trim()}";
+        request.fields['Gender'] = "$deliveryManGender";
+        request.fields['Zone'] = "${updateZoneDropDownValue.id}";
+        request.fields['Restaurant'] = /*"${StoreDetails.storeId}"*/"622b09a668395c49dcb4aa73";
+        request.fields['Address'] = "${updateAddressFieldController.text.trim()}";
+        request.fields['IdentityType'] = "$deliveryManIdentity";
+        request.fields['Email'] = "${updateEmailFieldController.text.trim()}";
+
+        var multiPart1 = http.MultipartFile('IdentityImage', stream1, length1);
+        request.files.add(multiPart1);
+
+        var response = await request.send();
+        print('response: ${response.request}');
+
+        response.stream.transform(utf8.decoder).listen((value) {
+          UpdateDeliveryManModel updateDeliveryManModel =
+              UpdateDeliveryManModel.fromJson(json.decode(value));
+          isSuccessStatus = updateDeliveryManModel.status.obs;
+          log("isSuccessStatus : $isSuccessStatus");
+
+          if (isSuccessStatus.value) {
+            Fluttertoast.showToast(msg: "${updateDeliveryManModel.message}");
+            Get.back();
+          } else {
+            print('False False');
+          }
+        });
+      }
+      else if (updateIdentityImgFile == null) {
+        var stream = http.ByteStream(updateDeliveryBoyImgFile!.openRead());
+        stream.cast();
+        var length = await updateDeliveryBoyImgFile!.length();
+        var request = http.MultipartRequest('POST', Uri.parse(url));
+
+        request.files.add(await http.MultipartFile.fromPath("Image", updateDeliveryBoyImgFile!.path));
+
+        request.fields['FirstName'] = "${updateFNameFieldController.text.trim()}";
+        request.fields['LastName'] = "${updateLNameFieldController.text.trim()}";
+        request.fields['Phone'] = "${updatePhoneFieldController.text.trim()}";
+        request.fields['Gender'] = "$deliveryManGender";
+        request.fields['Zone'] = "${updateZoneDropDownValue.id}";
+        request.fields['Restaurant'] = /*"${StoreDetails.storeId}"*/"622b09a668395c49dcb4aa73";
+        request.fields['Address'] = "${updateAddressFieldController.text.trim()}";
+        request.fields['IdentityType'] = "$deliveryManIdentity";
+        request.fields['Email'] = "${updateEmailFieldController.text.trim()}";
+
+        var multiPart = http.MultipartFile('Image', stream, length);
+        request.files.add(multiPart);
+
+        var response = await request.send();
+        print('response: ${response.request}');
+
+        response.stream.transform(utf8.decoder).listen((value) {
+          UpdateDeliveryManModel updateDeliveryManModel =
+              UpdateDeliveryManModel.fromJson(json.decode(value));
+          isSuccessStatus = updateDeliveryManModel.status.obs;
+          log("isSuccessStatus : $isSuccessStatus");
+
+          if (isSuccessStatus.value) {
+            Fluttertoast.showToast(msg: "${updateDeliveryManModel.message}");
+            Get.back();
+          } else {
+            print('False False');
+          }
+        });
+      }
+      else {
+        var stream = http.ByteStream(updateDeliveryBoyImgFile!.openRead());
+        stream.cast();
+        var length = await updateDeliveryBoyImgFile!.length();
+        var request = http.MultipartRequest('POST', Uri.parse(url));
+
+        request.files.add(await http.MultipartFile.fromPath(
+            "Image", updateDeliveryBoyImgFile!.path));
+
+        var stream1 = http.ByteStream(updateIdentityImgFile!.openRead());
+        stream.cast();
+        var length1 = await updateIdentityImgFile!.length();
+
+        request.files.add(await http.MultipartFile.fromPath(
+            "IdentityImage", updateIdentityImgFile!.path));
+
+        request.fields['FirstName'] = "${updateFNameFieldController.text.trim()}";
+        request.fields['LastName'] = "${updateLNameFieldController.text.trim()}";
+        request.fields['Phone'] = "${updatePhoneFieldController.text.trim()}";
+        request.fields['Gender'] = "$deliveryManGender";
+        request.fields['Zone'] = "${updateZoneDropDownValue.id}";
+        request.fields['Restaurant'] = /*"${StoreDetails.storeId}"*/"622b09a668395c49dcb4aa73";
+        request.fields['Address'] = "${updateAddressFieldController.text.trim()}";
+        request.fields['IdentityType'] = "$deliveryManIdentity";
+        request.fields['Email'] = "${updateEmailFieldController.text.trim()}";
+
+        var multiPart = http.MultipartFile('Image', stream, length);
+        request.files.add(multiPart);
+        var multiPart1 = http.MultipartFile('IdentityImage', stream1, length1);
+        request.files.add(multiPart1);
+
+        var response = await request.send();
+        print('response: ${response.request}');
+
+        response.stream.transform(utf8.decoder).listen((value) {
+          UpdateDeliveryManModel updateDeliveryManModel =
+              UpdateDeliveryManModel.fromJson(json.decode(value));
+          isSuccessStatus = updateDeliveryManModel.status.obs;
+          log("isSuccessStatus : $isSuccessStatus");
+
+          if (isSuccessStatus.value) {
+            Fluttertoast.showToast(msg: "${updateDeliveryManModel.message}");
+            Get.back();
+          } else {
+            print('False False');
+          }
+        });
+      }
+
+    } catch (e) {
+      log("updateDeliveryBoyByIdFunction Error :: $e");
+    } finally {
+      // isLoading(false);
+      await getAllDeliveryManFunction();
+    }
   }
 
   @override
@@ -167,6 +389,7 @@ class DeliveryManScreenController extends GetxController {
     getAllDeliveryManFunction();
 
     allZoneDropDownValue = allZoneList[0];
+    updateZoneDropDownValue = allZoneList[0];
     super.onInit();
   }
 
@@ -174,5 +397,4 @@ class DeliveryManScreenController extends GetxController {
     isLoading(true);
     isLoading(false);
   }
-
 }

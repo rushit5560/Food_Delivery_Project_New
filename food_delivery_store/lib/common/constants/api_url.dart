@@ -42,6 +42,8 @@ class ApiUrl {
 
   static const GetAllDeliveryManApi = ApiMainPath + "deliveryperson/Restaurant/find/";
   static const AddDeliveryManApi = ApiMainPath + "deliveryperson/signUp";
+  static const DeleteDeliveryManApi = ApiMainPath + "deliveryperson/delete/";
+  static const UpdateDeliveryManApi = ApiMainPath + "deliveryperson/update/";
 
   static const GetAllZoneApi = ApiMainPath + "area";
 

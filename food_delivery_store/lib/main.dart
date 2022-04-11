@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'common/constants/app_theme.dart';
-import 'screens/sub_category_screen/sub_category_screen.dart';
+import 'screens/delivery_man_screen/delivery_man_screen.dart';
 
 
 void main() async{
@@ -12,15 +12,15 @@ void main() async{
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Food Delivery Admin Application',
       debugShowCheckedModeBanner: false,
       theme: appLightTheme(),
 
-      home: SubCategoryScreen(),
+      home: DeliveryManScreen(),
     );
   }
 }

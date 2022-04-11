@@ -9,7 +9,7 @@ import '../../controllers/items_screen_controller/items_screen_controller.dart';
 import 'items_screen_widgets.dart';
 
 class ItemsScreen extends StatelessWidget {
-  ItemScreenController itemScreenController = Get.put(ItemScreenController());
+  final itemScreenController = Get.put(ItemScreenController());
 
   @override
   Widget build(BuildContext context) {
