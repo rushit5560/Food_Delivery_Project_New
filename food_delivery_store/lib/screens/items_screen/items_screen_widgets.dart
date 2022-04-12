@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/constants/app_colors.dart';
 import 'package:get/get.dart';
 import '../../common/constants/api_url.dart';
 import '../../controllers/items_screen_controller/items_screen_controller.dart';
+import '../../models/items_screen_models/get_restaurant_all_product_model.dart';
+import 'update_item_screen/update_item_screen.dart';
 
 class MainTabsModule extends StatelessWidget {
   final itemScreenController = Get.find<ItemScreenController>();
@@ -122,8 +126,9 @@ class StoreProductsListModule extends StatelessWidget {
                 crossAxisSpacing: 10,
               ),
               itemBuilder: (context, index) {
+                StoreFood storeSingleItem = itemScreenController.storeProductList[index];
                 return GestureDetector(
-                  // onTap: () => _onItemClick(index),
+                  onTap: () => _bottomSheetModule(context, storeSingleItem),
                   child: Container(
                     child: Column(
                       children: [
@@ -171,10 +176,10 @@ class StoreProductsListModule extends StatelessWidget {
 
   Widget _categoryItemNameModule(int index) {
     return Positioned(
-      bottom: -22,
+      bottom: -18,
       child: Container(
         width: Get.width / 4,
-        height: 45,
+        height: 38,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: AppColors.colorDarkPink,
@@ -210,6 +215,132 @@ class StoreProductsListModule extends StatelessWidget {
       ),
     );
   }
+
+
+ Future _bottomSheetModule(BuildContext context, StoreFood storeSingleItem) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      itemScreenController.isLoading(true);
+
+                      itemScreenController.updateFoodNameFieldController.text = storeSingleItem.productName;
+                      itemScreenController.updateFoodDescriptionFieldController.text = storeSingleItem.description;
+                      itemScreenController.updateFoodPriceFieldController.text = storeSingleItem.price.toString();
+                      itemScreenController.updateFoodDiscountFieldController.text = storeSingleItem.discount.toString();
+                      itemScreenController.updateFoodQtyFieldController.text = storeSingleItem.quantity.toString();
+                      itemScreenController.updateFoodMrpFieldController.text = storeSingleItem.mrp.toString();
+                      itemScreenController.updateStartTimeString.value = storeSingleItem.startTime;
+                      itemScreenController.updateEndTimeString.value = storeSingleItem.endTime;
+                      itemScreenController.updatePhotoUrl = ApiUrl.ApiMainPath + storeSingleItem.image;
+
+
+                      itemScreenController.updateFoodTypeValue.value = storeSingleItem.productType.value;
+
+
+                      for(int i = 0; i < itemScreenController.getRestaurantCategoryList.length; i++) {
+                        if(itemScreenController.getRestaurantCategoryList[i].id == storeSingleItem.category.id) {
+                          itemScreenController.updateCategoryDropDownValue = itemScreenController.getRestaurantCategoryList[i];
+                        }
+                      }
+
+                      for(int i = 0; i <itemScreenController.getSubCategoryList.length; i++) {
+                        if(itemScreenController.getSubCategoryList[i].id == storeSingleItem.subCategory.id) {
+                          itemScreenController.updateSubCategoryDropDownValue = itemScreenController.getSubCategoryList[i];
+                        }
+                      }
+
+                      itemScreenController.updateSelectedAttributesList.clear();
+                      for(int i = 0; i < storeSingleItem.attribute.length; i++) {
+                        Map<String, String> item = {"value" : "${storeSingleItem.attribute[i].id}", "label" : "${storeSingleItem.attribute[i].label}"};
+                        itemScreenController.updateSelectedAttributesList.add(item);
+                      }
+
+                      itemScreenController.updateSelectedAddonList.clear();
+                      for(int i = 0; i < storeSingleItem.addon.length; i++) {
+                        Map<String, String> item = {"value" : "${storeSingleItem.addon[i].id}", "label" : "${storeSingleItem.addon[i].label}"};
+                        itemScreenController.updateSelectedAddonList.add(item);
+                      }
+
+                      log("updateFoodNameFieldController : ${itemScreenController.updateFoodNameFieldController.text}");
+                      log("updateFoodDescriptionFieldController : ${itemScreenController.updateFoodDescriptionFieldController.text}");
+                      log("updateFoodPriceFieldController : ${itemScreenController.updateFoodPriceFieldController.text}");
+                      log("updateFoodDiscountFieldController : ${itemScreenController.updateFoodDiscountFieldController.text}");
+                      log("updateFoodQtyFieldController : ${itemScreenController.updateFoodQtyFieldController.text}");
+                      log("updateFoodMrpFieldController : ${itemScreenController.updateFoodMrpFieldController.text}");
+                      log("updateStartTimeString : ${itemScreenController.updateStartTimeString}");
+                      log("updateEndTimeString : ${itemScreenController.updateEndTimeString}");
+                      log("updateFoodTypeValue : ${itemScreenController.updateFoodTypeValue}");
+                      log("updateCategoryDropDownValue : ${itemScreenController.updateCategoryDropDownValue.name}");
+                      log("updateSubCategoryDropDownValue : ${itemScreenController.updateSubCategoryDropDownValue!.name}");
+                      log("updateSubCategoryDropDownValue : ${itemScreenController.updateSelectedAttributesList}");
+                      log("updateSelectedAddonList : ${itemScreenController.updateSelectedAddonList}");
+
+                      Get.back();
+                      Get.to(()=> UpdateItemScreen(productId: storeSingleItem.id), transition: Transition.zoom)!
+                      .then((value) async {
+                        await itemScreenController.getStoreProductList();
+                      });
+                      itemScreenController.isLoading(false);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: AppColors.colorDarkPink,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        child: Text(
+                          "Update",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () async {
+                      await itemScreenController.deleteStoreProductByIdFunction(productId: storeSingleItem.id);
+                      Get.back();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: AppColors.colorDarkPink,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        child: Text(
+                          "Delete",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+ }
+
+
 }
 
 class AdminProductsModule extends StatelessWidget {

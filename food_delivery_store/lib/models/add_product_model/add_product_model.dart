@@ -1,7 +1,4 @@
-// To parse this JSON data, do
-//
-//     final addProductModel = addProductModelFromJson(jsonString);
-
+/*
 import 'dart:convert';
 
 AddProductModel addProductModelFromJson(String str) => AddProductModel.fromJson(json.decode(str));
@@ -22,7 +19,7 @@ class AddProductModel {
   factory AddProductModel.fromJson(Map<String, dynamic> json) => AddProductModel(
     status: json["status"] == null ? false : json["status"],
     message: json["message"] == null ? "" : json["message"],
-    product: Product.fromJson(json["product"]),
+    product: Product.fromJson(json["product"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
@@ -169,5 +166,176 @@ class TType {
   Map<String, dynamic> toJson() => {
     "value": value.isEmpty ? "": value,
     "label": label.isEmpty ? "": label,
+  };
+}
+*/
+
+import 'dart:convert';
+
+AddProductModel addProductModelFromJson(String str) => AddProductModel.fromJson(json.decode(str));
+
+String addProductModelToJson(AddProductModel data) => json.encode(data.toJson());
+
+class AddProductModel {
+  AddProductModel({
+    required this.status,
+    required this.message,
+    required this.product,
+  });
+
+  bool status;
+  String message;
+  Product product;
+
+  factory AddProductModel.fromJson(Map<String, dynamic> json) => AddProductModel(
+    status: json["status"] ?? false,
+    message: json["message"] ?? "",
+    product: Product.fromJson(json["product"] ?? {}),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "status": status,
+    "message": message,
+    "product": product.toJson(),
+  };
+}
+
+class Product {
+  Product({
+    required this.category,
+    required this.subCategory,
+    required this.store,
+    required this.discount,
+    required this.productType,
+    required this.productName,
+    required this.quantity,
+    required this.mrp,
+    required this.price,
+    required this.discountType,
+    required this.attribute,
+    required this.addon,
+    required this.isFeatured,
+    required this.description,
+    required this.image,
+    required this.isApproved,
+    required this.isActive,
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+  });
+
+  String category;
+  String subCategory;
+  String store;
+  int discount;
+  TType productType;
+  String productName;
+  int quantity;
+  int mrp;
+  int price;
+  TType discountType;
+  List<Addon> attribute;
+  List<Addon> addon;
+  bool isFeatured;
+  String description;
+  String image;
+  bool isApproved;
+  bool isActive;
+  String id;
+  String createdAt;
+  String updatedAt;
+  int v;
+
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+    category: json["Category"] ?? "",
+    subCategory: json["SubCategory"] ?? "",
+    store: json["Store"] ?? "",
+    discount: json["Discount"] ?? 0,
+    productType: TType.fromJson(json["ProductType"] ?? {}),
+    productName: json["ProductName"] ?? "",
+    quantity: json["Quantity"] ?? 0,
+    mrp: json["MRP"] ?? 0,
+    price: json["Price"] ?? 0,
+    discountType: TType.fromJson(json["DiscountType"] ?? {}),
+    attribute: List<Addon>.from(json["Attribute"].map((x) => Addon.fromJson(x)) ?? {}),
+    addon: List<Addon>.from(json["Addon"].map((x) => Addon.fromJson(x)) ?? {}),
+    isFeatured: json["IsFeatured"] ?? false,
+    description: json["Description"] ?? "",
+    image: json["Image"] ?? "",
+    isApproved: json["IsApproved"] ?? false,
+    isActive: json["IsActive"] ?? false,
+    id: json["_id"] ?? "",
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
+    v: json["__v"] ?? 0,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "Category": category,
+    "SubCategory": subCategory,
+    "Store": store,
+    "Discount": discount,
+    "ProductType": productType.toJson(),
+    "ProductName": productName,
+    "Quantity": quantity,
+    "MRP": mrp,
+    "Price": price,
+    "DiscountType": discountType.toJson(),
+    "Attribute": List<dynamic>.from(attribute.map((x) => x.toJson())),
+    "Addon": List<dynamic>.from(addon.map((x) => x.toJson())),
+    "IsFeatured": isFeatured,
+    "Description": description,
+    "Image": image,
+    "IsApproved": isApproved,
+    "IsActive": isActive,
+    "_id": id,
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "__v": v,
+  };
+}
+
+class Addon {
+  Addon({
+    required this.value,
+    required this.label,
+    required this.id,
+  });
+
+  String value;
+  String label;
+  String id;
+
+  factory Addon.fromJson(Map<String, dynamic> json) => Addon(
+    value: json["value"] ?? "",
+    label: json["label"] ?? "",
+    id: json["_id"] ?? "",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "value": value,
+    "label": label,
+    "_id": id,
+  };
+}
+
+class TType {
+  TType({
+    required this.value,
+    required this.label,
+  });
+
+  String value;
+  String label;
+
+  factory TType.fromJson(Map<String, dynamic> json) => TType(
+    value: json["value"] ?? "",
+    label: json["label"] ?? "",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "value": value,
+    "label": label,
   };
 }

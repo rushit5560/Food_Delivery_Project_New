@@ -1,79 +1,35 @@
 // To parse this JSON data, do
 //
-//     final getRestaurantCategoryModel = getRestaurantCategoryModelFromJson(jsonString);
+//     final getStoreProfileModel = getStoreProfileModelFromJson(jsonString);
 
 import 'dart:convert';
 
-GetRestaurantCategoryModel getRestaurantCategoryModelFromJson(String str) => GetRestaurantCategoryModel.fromJson(json.decode(str));
+GetStoreProfileModel getStoreProfileModelFromJson(String str) => GetStoreProfileModel.fromJson(json.decode(str));
 
-String getRestaurantCategoryModelToJson(GetRestaurantCategoryModel data) => json.encode(data.toJson());
+String getStoreProfileModelToJson(GetStoreProfileModel data) => json.encode(data.toJson());
 
-class GetRestaurantCategoryModel {
-  GetRestaurantCategoryModel({
+class GetStoreProfileModel {
+  GetStoreProfileModel({
     required this.status,
-    required this.category,
+    required this.user,
   });
 
   bool status;
-  List<RestaurantCategory> category;
+  User user;
 
-  factory GetRestaurantCategoryModel.fromJson(Map<String, dynamic> json) => GetRestaurantCategoryModel(
+  factory GetStoreProfileModel.fromJson(Map<String, dynamic> json) => GetStoreProfileModel(
     status: json["status"] ?? false,
-    category: List<RestaurantCategory>.from(json["category"].map((x) => RestaurantCategory.fromJson(x)) ?? {}),
+    user: User.fromJson(json["user"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "category": List<dynamic>.from(category.map((x) => x.toJson())),
+    "user": user.toJson(),
   };
 }
 
-class RestaurantCategory {
-  RestaurantCategory({
-    this.id,
-    this.name,
-    this.restaurant,
-    this.image,
-    this.isActive,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
-  });
-
-  String? id;
-  String? name;
-  Restaurant? restaurant;
-  String? image;
-  bool? isActive;
-  String? createdAt;
-  String? updatedAt;
-  int? v;
-
-  factory RestaurantCategory.fromJson(Map<String, dynamic> json) => RestaurantCategory(
-    id: json["_id"] ?? "",
-    name: json["Name"] ?? "",
-    restaurant: Restaurant.fromJson(json["Restaurant"] ?? {}),
-    image: json["Image"] ?? "",
-    isActive: json["IsActive"] ?? false,
-    createdAt: json["createdAt"] ?? "",
-    updatedAt: json["updatedAt"] ?? "",
-    v: json["__v"] ?? 0,
-  );
-
-  Map<String, dynamic> toJson() => {
-    "_id": id,
-    "Name": name,
-    "Restaurant": restaurant!.toJson(),
-    "Image": image,
-    "IsActive": isActive,
-    "createdAt": createdAt,
-    "updatedAt": updatedAt,
-    "__v": v,
-  };
-}
-
-class Restaurant {
-  Restaurant({
+class User {
+  User({
     required this.id,
     required this.storeName,
     required this.address,
@@ -131,9 +87,9 @@ class Restaurant {
   String maxDeliveryTime;
   String minDeliveryTime;
   String tax;
-  String zone;
+  Zone zone;
 
-  factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
+  factory User.fromJson(Map<String, dynamic> json) => User(
     id: json["_id"] ?? "",
     storeName: json["StoreName"] ?? "",
     address: json["Address"] ?? "",
@@ -161,7 +117,7 @@ class Restaurant {
     maxDeliveryTime: json["MaxDeliveryTime"] ?? "",
     minDeliveryTime: json["MinDeliveryTime"] ?? "",
     tax: json["Tax"] ?? "",
-    zone: json["Zone"] ?? "",
+    zone: Zone.fromJson(json["Zone"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
@@ -192,6 +148,46 @@ class Restaurant {
     "MaxDeliveryTime": maxDeliveryTime,
     "MinDeliveryTime": minDeliveryTime,
     "Tax": tax,
-    "Zone": zone,
+    "Zone": zone.toJson(),
+  };
+}
+
+class Zone {
+  Zone({
+    required this.id,
+    required this.name,
+    required this.coordinates,
+    required this.isActive,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+  });
+
+  String id;
+  String name;
+  String coordinates;
+  bool isActive;
+  String createdAt;
+  String updatedAt;
+  int v;
+
+  factory Zone.fromJson(Map<String, dynamic> json) => Zone(
+    id: json["_id"] ?? "",
+    name: json["Name"] ?? "",
+    coordinates: json["Coordinates"] ?? "",
+    isActive: json["IsActive"] ?? false,
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
+    v: json["__v"] ?? 0,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "Name": name,
+    "Coordinates": coordinates,
+    "IsActive": isActive,
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "__v": v,
   };
 }

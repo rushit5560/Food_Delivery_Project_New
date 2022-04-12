@@ -15,11 +15,11 @@ class GetRestaurantAllProductModel {
   });
 
   bool status;
-  List<Food> food;
+  List<StoreFood> food;
 
   factory GetRestaurantAllProductModel.fromJson(Map<String, dynamic> json) => GetRestaurantAllProductModel(
     status: json["status"] ?? false,
-    food: List<Food>.from(json["food"].map((x) => Food.fromJson(x)) ?? {}),
+    food: List<StoreFood>.from(json["food"].map((x) => StoreFood.fromJson(x)) ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
@@ -28,8 +28,8 @@ class GetRestaurantAllProductModel {
   };
 }
 
-class Food {
-  Food({
+class StoreFood {
+  StoreFood({
     required this.productType,
     required this.discountType,
     required this.id,
@@ -83,7 +83,7 @@ class Food {
   int numberOfReviews;
   double rating;
 
-  factory Food.fromJson(Map<String, dynamic> json) => Food(
+  factory StoreFood.fromJson(Map<String, dynamic> json) => StoreFood(
     productType: TType.fromJson(json["ProductType"] ?? {}),
     discountType: TType.fromJson(json["DiscountType"] ?? {}),
     id: json["_id"] ?? "",

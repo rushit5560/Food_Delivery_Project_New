@@ -5,11 +5,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/constants/api_url.dart';
-import 'package:food_delivery_admin/common/store_details.dart';
 import 'package:food_delivery_admin/models/add_product_model/add_product_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
 import '../../models/add_product_model/all_attributes_model.dart';
 import '../../models/category_models/get_restaurants_category.dart';
 import '../../models/add_product_model/get_restaurant_sub_category_model.dart';
@@ -87,15 +85,15 @@ class AddProductScreenController extends GetxController{
       request.fields['Price'] = "${priceTextEditingController.text.trim()}";
       request.fields['Attribute'] = jsonEncode(selectedAttributesList);
       request.fields['Addon'] = jsonEncode(selectedAddonList);
-      request.fields['Store'] = "${StoreDetails.storeId}";
+      request.fields['Store'] = "622b09a668395c49dcb4aa73";
       request.fields['Category'] = "${categoryDropDownValue.id}";
       request.fields['SubCategory'] = "${subCategoryDropDownValue!.id}";
       request.fields['Description'] = "${descriptionTextEditingController.text.trim()}";
       request.fields['Discount'] = "${discountTextEditingController.text.trim()}";
       request.fields['ProductType'] = jsonEncode(productType);
       request.fields['DiscountType'] = jsonEncode(discountType);
-      request.fields['StartTime'] = "$startTime";
-      request.fields['EndTime'] = "$endTime";
+      request.fields['StartTime'] = "$startTimeString";
+      request.fields['EndTime'] = "$endTimeString";
 
 
       var multiPart = http.MultipartFile('Image', stream, length);
@@ -131,7 +129,7 @@ class AddProductScreenController extends GetxController{
   /// Get Restaurant Category Function
   getRestaurantCategoryFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetRestaurantCategoryApi + StoreDetails.storeId;
+    String url = ApiUrl.GetRestaurantCategoryApi + "622b09a668395c49dcb4aa73"/*StoreDetails.storeId*/;
     log("URL : $url");
 
     try {
@@ -219,7 +217,7 @@ class AddProductScreenController extends GetxController{
   /// Get Restaurant Addons Function
   getRestaurantAddonsFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetRestaurantAddonsApi + "${StoreDetails.storeId}";
+    String url = ApiUrl.GetRestaurantAddonsApi + "622b09a668395c49dcb4aa73"/*StoreDetails.storeId*/;
     log("URL : $url");
 
     try {
@@ -326,6 +324,7 @@ class AddProductScreenController extends GetxController{
 
   }
 
+  /// Select End Time Function
   selectEndTime(BuildContext context) async {
     TimeOfDay? endTimePicked = await showTimePicker(context: context, initialTime: endTime);
 

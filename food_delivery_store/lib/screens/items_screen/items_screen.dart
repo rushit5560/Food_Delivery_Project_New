@@ -36,9 +36,14 @@ class ItemsScreen extends StatelessWidget {
       ),
 
       floatingActionButton: GestureDetector(
-        onTap: () {
+        onTap: () async {
           if(itemScreenController.isStoreProductsSelected.value){
-            Get.to(()=> AddProductScreen());
+            Get.to(
+              () => AddProductScreen(),
+              transition: Transition.rightToLeft,
+            )!.then((value) async {
+              await itemScreenController.getStoreProductList();
+            });
           } else if(itemScreenController.isAdminProductsSelected.value) {
             print('DEF');
           }

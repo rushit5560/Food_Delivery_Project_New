@@ -10,9 +10,12 @@ class ApiUrl {
   static const AddProductApi = ApiMainPath + "product/create";
   static const GetProfileApi = ApiMainPath + "store/find/";
 
+  /// Store Product
   static const GetRestaurantProductsApi = ApiMainPath + "product/getAll/Restaurant/";
   static const GetAdminProductsApi = ApiMainPath + "product";
   static const GetProductDetailsApi = ApiMainPath + "product/find/";
+  static const DeleteProductApi = ApiMainPath + "product/delete/";
+  static const UpdateProductApi = ApiMainPath + "product/update/";
 
   static const GetSubCategoryApi = ApiMainPath + "Subcategory/find/Category/";
   static const GetAllAttributesApi = ApiMainPath + "Attribute/getAllAttributes";
@@ -64,4 +67,7 @@ class ApiUrl {
   static const UpdateRestaurantEmployeeApi = ApiMainPath + "Employee/update/";
 
   static const GetAllEmployeeRoleAPI = ApiMainPath + "EmployeeRole/getAllEmployeeRole";
+
+  static const GetStoreDetailsApi = ApiMainPath + "store/find/";
+  static const UpdateStoreDetailsApi = ApiMainPath + "store/update/";
 }

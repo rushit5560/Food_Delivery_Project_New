@@ -26,26 +26,26 @@ class GetAllSubCategoryModel {
 
 class AllSubcategory {
   AllSubcategory({
-    required this.id,
-    required this.category,
-    required this.restaurant,
-    required this.name,
-    required this.isActive,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.v,
-    required this.image,
+    this.id,
+    this.category,
+    this.restaurant,
+    this.name,
+    this.isActive,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+    this.image,
   });
 
-  String id;
-  Category category;
-  Restaurant restaurant;
-  String name;
-  bool isActive;
-  String createdAt;
-  String updatedAt;
-  int v;
-  String image;
+  String? id;
+  Category? category;
+  Restaurant? restaurant;
+  String? name;
+  bool? isActive;
+  String? createdAt;
+  String? updatedAt;
+  int? v;
+  String? image;
 
   factory AllSubcategory.fromJson(Map<String, dynamic> json) => AllSubcategory(
     id: json["_id"] ?? "",
@@ -61,8 +61,8 @@ class AllSubcategory {
 
   Map<String, dynamic> toJson() => {
     "_id": id,
-    "Category": category.toJson(),
-    "Restaurant": restaurant.toJson(),
+    "Category": category!.toJson(),
+    "Restaurant": restaurant!.toJson(),
     "Name": name,
     "IsActive": isActive,
     "createdAt": createdAt,

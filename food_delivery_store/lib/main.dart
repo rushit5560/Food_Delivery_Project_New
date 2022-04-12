@@ -1,9 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_admin/screens/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
 import 'common/constants/app_theme.dart';
-import 'screens/delivery_man_screen/delivery_man_screen.dart';
-import 'screens/items_screen/items_screen.dart';
 
 
 void main() async{
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appLightTheme(),
 
-      home: ItemsScreen(),
+      home: SplashScreen(),
     );
   }
 }

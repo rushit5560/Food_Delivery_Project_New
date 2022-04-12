@@ -263,9 +263,9 @@ class SubCategoryListModule extends StatelessWidget {
                         GestureDetector(
                           onTap: () async {
                             screenController.isLoading(true);
-                            screenController.updateSubCategoryFieldController.text = subCategorySingleItem.name;
+                            screenController.updateSubCategoryFieldController.text = subCategorySingleItem.name!;
                             for(int i = 0; i < screenController.getRestaurantCategoryList.length; i++) {
-                              if(screenController.getRestaurantCategoryList[i].id == subCategorySingleItem.category.id){
+                              if(screenController.getRestaurantCategoryList[i].id == subCategorySingleItem.category!.id){
                                 screenController.updateCategoryDropDownValue = screenController.getRestaurantCategoryList[i];
                               }
                             }
