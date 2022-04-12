@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/screens/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
 import 'common/constants/app_theme.dart';
+import 'z_extra/extra_screen.dart';
 
 
 void main() async{
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appLightTheme(),
 
-      home: SplashScreen(),
+      home: ExtraScreen(),
     );
   }
 }
