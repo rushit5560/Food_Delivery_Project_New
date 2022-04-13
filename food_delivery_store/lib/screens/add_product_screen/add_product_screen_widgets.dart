@@ -7,6 +7,7 @@ import 'package:food_delivery_admin/common/constants/app_images.dart';
 import 'package:food_delivery_admin/common/constants/field_validation.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../../common/text_fields_decorations/add_product_textfield_decoration.dart';
 import '../../controllers/add_product_screen_controller/add_product_screen_controller.dart';
 import '../../models/add_product_model/all_attributes_model.dart';
@@ -14,12 +15,12 @@ import '../../models/category_models/get_restaurants_category.dart';
 import '../../models/add_product_model/get_restaurant_sub_category_model.dart';
 import '../../models/add_product_model/restaurants_all_addons_model.dart';
 
-
 /// Add Product Image From Device Module
 class ProductImage extends StatefulWidget {
   @override
   State<ProductImage> createState() => _ProductImageState();
 }
+
 class _ProductImageState extends State<ProductImage> {
   //const ProductImage({Key? key}) : super(key: key);
   final addProductScreenController = Get.find<AddProductScreenController>();
@@ -31,37 +32,39 @@ class _ProductImageState extends State<ProductImage> {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        addProductScreenController.productImage != null ?
-        ClipRRect(
-          borderRadius: BorderRadius.circular(80.0),
-          child: Image.file(addProductScreenController.productImage!, height: 100 ,width: 100, fit: BoxFit.fill ),
-        )
-            :
-        ClipRRect(
-          borderRadius: BorderRadius.circular(80.0),
-          child: Container(
-            color: AppColors.colorLightPink,
-            height: 100 ,width: 100,
-            //child: FlutterLogo(),
-          ),
-        ),
-
+        addProductScreenController.productImage != null
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(80.0),
+                child: Image.file(addProductScreenController.productImage!,
+                    height: 100, width: 100, fit: BoxFit.fill),
+              )
+            : ClipRRect(
+                borderRadius: BorderRadius.circular(80.0),
+                child: Container(
+                  color: AppColors.colorLightPink,
+                  height: 100, width: 100,
+                  //child: FlutterLogo(),
+                ),
+              ),
         GestureDetector(
-          onTap: (){
+          onTap: () {
             _showPicker(context);
           },
           child: Container(
-            height: 25, width: 25,
+            height: 25,
+            width: 25,
             margin: EdgeInsets.only(bottom: 5),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                color: AppColors.colorDarkPink
+                color: AppColors.colorDarkPink),
+            child: Icon(
+              Icons.camera_alt,
+              color: Colors.white,
+              size: 15,
             ),
-            child: Icon(Icons.camera_alt, color: Colors.white,size: 15,),
           ),
         ),
       ],
-
     );
   }
 
@@ -92,26 +95,25 @@ class _ProductImageState extends State<ProductImage> {
               ),
             ),
           );
-        }
-    );
+        });
   }
 
   void gallery() async {
     final image = await imagePicker.pickImage(source: ImageSource.gallery);
-    if(image != null){
+    if (image != null) {
       setState(() {
         addProductScreenController.productImage = File(image.path);
       });
-    } else{}
+    } else {}
   }
 
   void camera() async {
     final image = await imagePicker.pickImage(source: ImageSource.camera);
-    if(image != null){
+    if (image != null) {
       setState(() {
         addProductScreenController.productImage = File(image.path);
       });
-    } else{}
+    } else {}
   }
 }
 
@@ -124,11 +126,11 @@ class ItemInfoTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Item Info",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-
+        Text(
+          "Item Info",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
         SizedBox(height: 10),
-
         TextFormField(
           keyboardType: TextInputType.text,
           controller: addProductScreenController.productTitleEditingController,
@@ -136,11 +138,12 @@ class ItemInfoTextField extends StatelessWidget {
           validator: (value) => FieldValidator().validateProduct(value!),
         ),
         SizedBox(height: 10),
-
         TextFormField(
           keyboardType: TextInputType.text,
-          controller: addProductScreenController.descriptionTextEditingController,
-          decoration: addProductTextFieldDecoration(hintText: "Brief Your Product"),
+          controller:
+              addProductScreenController.descriptionTextEditingController,
+          decoration:
+              addProductTextFieldDecoration(hintText: "Brief Your Product"),
           validator: (value) => FieldValidator().validateDescription(value!),
         ),
       ],
@@ -148,6 +151,7 @@ class ItemInfoTextField extends StatelessWidget {
   }
 }
 
+/// Item Category
 class ItemCategoryTextField extends StatelessWidget {
   final addProductScreenController = Get.find<AddProductScreenController>();
 
@@ -156,72 +160,134 @@ class ItemCategoryTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Item Category & Sub Category",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-
+        Text(
+          "Item Category & Sub Category",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
         SizedBox(height: 10),
-
         categoryDropDown(context),
         SizedBox(height: 10),
         subCategoryDropDown(context),
-
-
       ],
     );
   }
 
-  categoryDropDown(context){
+  categoryDropDown(context) {
     return Obx(
-          () =>
-          Container(
-            padding: const EdgeInsets.only(left: 10),
-            width: MediaQuery.of(context).size.width, //gives the width of the dropdown button
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.grey.shade200,
-            ),
-            child: Theme(
-              data: Theme.of(context).copyWith(
-                  canvasColor: Colors.grey.shade100,
-                  buttonTheme: ButtonTheme.of(context).copyWith(
-                    alignedDropdown: true),
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<RestaurantCategory>(
-
-                  value: addProductScreenController.categoryDropDownValue,
-
-                  items: addProductScreenController.getRestaurantCategoryList
-                  .map<DropdownMenuItem<RestaurantCategory>>((RestaurantCategory restaurantCategory) {
-                    return DropdownMenuItem<RestaurantCategory>(
-                      value: restaurantCategory,
-                      child: Text(
-                        "${restaurantCategory.name}",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    );
-                  }).toList(),
-
-                  onChanged: (restaurantCategory){
-                    addProductScreenController.isLoading(true);
-                    addProductScreenController.categoryDropDownValue = restaurantCategory!;
-                    log("categoryDropDownValue : ${addProductScreenController.categoryDropDownValue.name}");
-                    addProductScreenController.getRestaurantSubCategoryFunction(catId: "${addProductScreenController.categoryDropDownValue.id}");
-                    addProductScreenController.isLoading(false);
-                  },
-                ),
-              ),
+      () => Container(
+        padding: const EdgeInsets.only(left: 10),
+        width: MediaQuery.of(context)
+            .size
+            .width, //gives the width of the dropdown button
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Colors.grey.shade200,
+        ),
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Colors.grey.shade100,
+            buttonTheme:
+                ButtonTheme.of(context).copyWith(alignedDropdown: true),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<RestaurantCategory>(
+              value: addProductScreenController.categoryDropDownValue,
+              items: addProductScreenController.getRestaurantCategoryList
+                  .map<DropdownMenuItem<RestaurantCategory>>(
+                      (RestaurantCategory restaurantCategory) {
+                return DropdownMenuItem<RestaurantCategory>(
+                  value: restaurantCategory,
+                  child: Text(
+                    "${restaurantCategory.name}",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                );
+              }).toList(),
+              onChanged: (restaurantCategory) {
+                addProductScreenController.isLoading(true);
+                addProductScreenController.categoryDropDownValue =
+                    restaurantCategory!;
+                log("categoryDropDownValue : ${addProductScreenController.categoryDropDownValue.name}");
+                addProductScreenController.getRestaurantSubCategoryFunction(
+                    catId:
+                        "${addProductScreenController.categoryDropDownValue.id}");
+                addProductScreenController.isLoading(false);
+              },
             ),
           ),
+        ),
+      ),
     );
   }
 
-  subCategoryDropDown(context){
+  subCategoryDropDown(context) {
     return Obx(
-          () =>
-          Container(
+      () => Container(
+        padding: const EdgeInsets.only(left: 10),
+        width: MediaQuery.of(context)
+            .size
+            .width, //gives the width of the dropdown button
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Colors.grey.shade200,
+        ),
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Colors.grey.shade100,
+            buttonTheme: ButtonTheme.of(context).copyWith(
+              alignedDropdown: true,
+            ),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<SubCategory1>(
+              value: addProductScreenController.subCategoryDropDownValue,
+              items: addProductScreenController.getSubCategoryList
+                  .map<DropdownMenuItem<SubCategory1>>(
+                      (SubCategory1 subCategory1) {
+                return DropdownMenuItem<SubCategory1>(
+                  value: subCategory1,
+                  child: Text(
+                    "${subCategory1.name}",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                );
+              }).toList(),
+              onChanged: (subCategory1) {
+                addProductScreenController.isLoading(true);
+                addProductScreenController.subCategoryDropDownValue =
+                    subCategory1!;
+                log("categoryDropDownValue : ${addProductScreenController.subCategoryDropDownValue!.name}");
+                addProductScreenController.isLoading(false);
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Discount Type DD
+class DiscountTypeDropDownModule extends StatelessWidget {
+  DiscountTypeDropDownModule({Key? key}) : super(key: key);
+  final addProductScreenController = Get.find<AddProductScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Discount Type",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        SizedBox(height: 10),
+        Obx(
+          () => Container(
             padding: const EdgeInsets.only(left: 10),
-            width: MediaQuery.of(context).size.width, //gives the width of the dropdown button
+            width: MediaQuery.of(context)
+                .size
+                .width, //gives the width of the dropdown button
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               color: Colors.grey.shade200,
@@ -234,92 +300,30 @@ class ItemCategoryTextField extends StatelessWidget {
                 ),
               ),
               child: DropdownButtonHideUnderline(
-                child: DropdownButton<SubCategory1>(
-
-                  value: addProductScreenController.subCategoryDropDownValue,
-
-                  items: addProductScreenController.getSubCategoryList
-                      .map<DropdownMenuItem<SubCategory1>>((SubCategory1 subCategory1) {
-                    return DropdownMenuItem<SubCategory1>(
-                      value: subCategory1,
+                child: DropdownButton<String>(
+                  value: addProductScreenController.discountTypeValue.value,
+                  items: <String>[
+                    'Amount',
+                    'Percentage',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
                       child: Text(
-                        "${subCategory1.name}",
+                        value,
                         style: TextStyle(color: Colors.black),
                       ),
                     );
                   }).toList(),
-
-                  onChanged: (subCategory1){
+                  onChanged: (value) {
                     addProductScreenController.isLoading(true);
-                    addProductScreenController.subCategoryDropDownValue = subCategory1!;
-                    log("categoryDropDownValue : ${addProductScreenController.subCategoryDropDownValue!.name}");
+                    addProductScreenController.discountTypeValue.value = value!;
                     addProductScreenController.isLoading(false);
                   },
                 ),
               ),
             ),
           ),
-    );
-  }
-}
-
-class DiscountTypeDropDownModule extends StatelessWidget {
-  DiscountTypeDropDownModule({Key? key}) : super(key: key);
-  final addProductScreenController = Get.find<AddProductScreenController>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Discount Type",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-        SizedBox(height: 10),
-        Obx(
-              () =>
-              Container(
-                padding: const EdgeInsets.only(left: 10),
-                width: MediaQuery.of(context).size.width, //gives the width of the dropdown button
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Colors.grey.shade200,
-                ),
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    canvasColor: Colors.grey.shade100,
-                    buttonTheme: ButtonTheme.of(context).copyWith(
-                      alignedDropdown: true,
-                    ),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-
-                      value: addProductScreenController.discountTypeValue.value,
-
-                      items: <String>[
-                        'Amount',
-                        'Percentage',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        );
-                      }).toList(),
-
-                      onChanged: (value){
-                        addProductScreenController.isLoading(true);
-                        addProductScreenController.discountTypeValue.value = value!;
-                        addProductScreenController.isLoading(false);
-                      },
-                    ),
-                  ),
-                ),
-              ),
         ),
-
         SizedBox(height: 10),
         TextFormField(
           keyboardType: TextInputType.number,
@@ -332,6 +336,7 @@ class DiscountTypeDropDownModule extends StatelessWidget {
   }
 }
 
+/// Food Type DD
 class FoodTypeDropDownModule extends StatelessWidget {
   FoodTypeDropDownModule({Key? key}) : super(key: key);
   final addProductScreenController = Get.find<AddProductScreenController>();
@@ -341,60 +346,61 @@ class FoodTypeDropDownModule extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Food Type",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+        Text(
+          "Food Type",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
         SizedBox(height: 10),
         Obx(
-              () =>
-              Container(
-                padding: const EdgeInsets.only(left: 10),
-                width: MediaQuery.of(context).size.width, //gives the width of the dropdown button
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Colors.grey.shade200,
-                ),
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    canvasColor: Colors.grey.shade100,
-                    buttonTheme: ButtonTheme.of(context).copyWith(
-                      alignedDropdown: true,
-                    ),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-
-                      value: addProductScreenController.foodTypeValue.value,
-
-                      items: <String>[
-                        'Veg',
-                        'Non-Veg',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        );
-                      }).toList(),
-
-                      onChanged: (value){
-                        addProductScreenController.isLoading(true);
-                        addProductScreenController.foodTypeValue.value = value!;
-                        addProductScreenController.isLoading(false);
-                      },
-                    ),
-                  ),
+          () => Container(
+            padding: const EdgeInsets.only(left: 10),
+            width: MediaQuery.of(context)
+                .size
+                .width, //gives the width of the dropdown button
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.grey.shade200,
+            ),
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                canvasColor: Colors.grey.shade100,
+                buttonTheme: ButtonTheme.of(context).copyWith(
+                  alignedDropdown: true,
                 ),
               ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: addProductScreenController.foodTypeValue.value,
+                  items: <String>[
+                    'Veg',
+                    'Non-Veg',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    addProductScreenController.isLoading(true);
+                    addProductScreenController.foodTypeValue.value = value!;
+                    addProductScreenController.isLoading(false);
+                  },
+                ),
+              ),
+            ),
+          ),
         ),
       ],
     );
   }
 }
 
+/// Description TextField
 class ItemDescriptionTextField extends StatelessWidget {
- // const ItemDescriptionTextField({Key? key}) : super(key: key);
+  // const ItemDescriptionTextField({Key? key}) : super(key: key);
   final addProductScreenController = Get.find<AddProductScreenController>();
 
   @override
@@ -402,17 +408,19 @@ class ItemDescriptionTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Description",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-
-        SizedBox(height: 10,),
-
-
+        Text(
+          "Description",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        SizedBox(
+          height: 10,
+        ),
       ],
     );
   }
 }
 
+/// Price TextField
 class ItemPriceTextField extends StatelessWidget {
   final addProductScreenController = Get.find<AddProductScreenController>();
 
@@ -421,11 +429,11 @@ class ItemPriceTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Pricing & MRP",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-
+        Text(
+          "Pricing & MRP",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
         SizedBox(height: 10),
-
         TextFormField(
           keyboardType: TextInputType.text,
           controller: addProductScreenController.priceTextEditingController,
@@ -438,26 +446,20 @@ class ItemPriceTextField extends StatelessWidget {
             fillColor: Colors.grey.shade200,
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
           ),
           validator: (value) => FieldValidator().validatePrice(value!),
         ),
-
         SizedBox(height: 10),
-
         TextFormField(
           keyboardType: TextInputType.text,
           controller: addProductScreenController.mrpTextEditingController,
@@ -470,20 +472,16 @@ class ItemPriceTextField extends StatelessWidget {
             fillColor: Colors.grey.shade200,
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
           ),
           validator: (value) => FieldValidator().validatePrice(value!),
         )
@@ -492,6 +490,7 @@ class ItemPriceTextField extends StatelessWidget {
   }
 }
 
+/// Item Qty TextField
 class ItemQtyTextField extends StatelessWidget {
   final addProductScreenController = Get.find<AddProductScreenController>();
 
@@ -500,11 +499,11 @@ class ItemQtyTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Quantity",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-
+        Text(
+          "Quantity",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
         SizedBox(height: 10),
-
         TextFormField(
           keyboardType: TextInputType.text,
           controller: addProductScreenController.qtyTextEditingController,
@@ -517,20 +516,16 @@ class ItemQtyTextField extends StatelessWidget {
             fillColor: Colors.grey.shade200,
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
           ),
           validator: (value) => FieldValidator().validateQty(value!),
         ),
@@ -570,6 +565,7 @@ class ItemQtyTextField extends StatelessWidget {
   }
 }
 
+/// EAN TextField
 class EANTextField extends StatelessWidget {
   const EANTextField({Key? key}) : super(key: key);
 
@@ -578,17 +574,23 @@ class EANTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("EAN",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-
-        SizedBox(height: 10,),
-
+        Text(
+          "EAN",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        SizedBox(
+          height: 10,
+        ),
         TextFormField(
           keyboardType: TextInputType.text,
           //controller: nameTextEditingController,
           decoration: InputDecoration(
             hintText: "Enter Your Product EAN",
-            suffixIcon: Image.asset(Images.ic_scanner, scale: 2, color: Colors.grey,),
+            suffixIcon: Image.asset(
+              Images.ic_scanner,
+              scale: 2,
+              color: Colors.grey,
+            ),
             //prefixIcon: Icon(icon, color: Colors.black),
             // isDense: true,
             contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -596,20 +598,16 @@ class EANTextField extends StatelessWidget {
             fillColor: Colors.grey.shade200,
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
           ),
         ),
       ],
@@ -617,6 +615,7 @@ class EANTextField extends StatelessWidget {
   }
 }
 
+/// Tag TextField
 class TagTextField extends StatelessWidget {
   const TagTextField({Key? key}) : super(key: key);
 
@@ -625,11 +624,13 @@ class TagTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Tags",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-
-        SizedBox(height: 10,),
-
+        Text(
+          "Tags",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        SizedBox(
+          height: 10,
+        ),
         TextFormField(
           keyboardType: TextInputType.text,
           //controller: nameTextEditingController,
@@ -643,60 +644,62 @@ class TagTextField extends StatelessWidget {
             fillColor: Colors.grey.shade200,
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.grey.shade200)
-            ),
+                borderSide: BorderSide(color: Colors.grey.shade200)),
           ),
         ),
-
-        SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
       ],
     );
   }
 }
 
+/// Add Button
 class AddProductButton extends StatelessWidget {
   final addProductScreenController = Get.find<AddProductScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-          if(addProductScreenController.productFormKey.currentState!.validate()) {
-            if(addProductScreenController.productImage == null){
-              Fluttertoast.showToast(msg: 'Product Image required...!');
-            }else{
-              addProductScreenController.addProductFunction();
-            }
-
+      onTap: () {
+        if (addProductScreenController.productFormKey.currentState!
+            .validate()) {
+          if (addProductScreenController.productImage == null) {
+            Fluttertoast.showToast(msg: 'Product Image required...!');
+          } else {
+            addProductScreenController.addProductFunction();
           }
-        },
+        }
+      },
       child: Container(
-        height: 40, width: Get.width/3,
+        height: 40,
+        width: Get.width / 3,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: AppColors.colorDarkPink
-        ),
+            borderRadius: BorderRadius.circular(10),
+            color: AppColors.colorDarkPink),
         child: Center(
-          child: Text("Add Product",
-            style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),),
+          child: Text(
+            "Add Product",
+            style: TextStyle(
+                color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );
   }
 }
 
+/// Attribute DD
 class FoodAttributeModule extends StatelessWidget {
   FoodAttributeModule({Key? key}) : super(key: key);
   final addProductScreenController = Get.find<AddProductScreenController>();
@@ -706,62 +709,48 @@ class FoodAttributeModule extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Attributes",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+        Text(
+          "Attributes",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
         SizedBox(height: 10),
         attributeDropDown(context),
       ],
     );
   }
 
-  attributeDropDown(context){
-    return Obx(
-          () =>
-          Container(
-            padding: const EdgeInsets.only(left: 10),
-            width: Get.width,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.grey.shade200,
-            ),
-            child: Theme(
-              data: Theme.of(context).copyWith(
-                canvasColor: Colors.grey.shade100,
-                buttonTheme: ButtonTheme.of(context).copyWith(
-                    alignedDropdown: true),
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<ListElement1>(
+  attributeDropDown(context) {
+    return MultiSelectDialogField(
+      items: addProductScreenController.attributeDropDownData,
+      dialogHeight: Get.height * 0.25,
+      title: Text(
+        "Select Attribute",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      selectedColor: AppColors.colorDarkPink,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Colors.grey.shade200,
+      ),
+      buttonIcon: Icon(Icons.arrow_drop_down_outlined),
+      onConfirm: (result) {
+        addProductScreenController.selectedAttributes.clear();
 
-                  value: addProductScreenController.attributesDropDownValue,
-
-                  items: addProductScreenController.allAttributesList
-                      .map<DropdownMenuItem<ListElement1>>((ListElement1 listElement1) {
-                    return DropdownMenuItem<ListElement1>(
-                      value: listElement1,
-                      child: Text(
-                        "${listElement1.name}",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    );
-                  }).toList(),
-
-                  onChanged: (listElement1){
-                    addProductScreenController.isLoading(true);
-                    addProductScreenController.attributesDropDownValue = listElement1;
-                    log("attributesDropDownValue : ${addProductScreenController.attributesDropDownValue!.name}");
-                    addProductScreenController.addAttributesInSelectedList(listElement1!);
-                    addProductScreenController.isLoading(false);
-                  },
-                ),
-              ),
-            ),
-          ),
+        for (int i = 0; i < result.length; i++) {
+          ListElement1 data = result[i] as ListElement1;
+          Map<String, dynamic> oneObject = {
+            "value": "${data.id}",
+            "label": "${data.name}"
+          };
+          addProductScreenController.selectedAttributes.add(oneObject);
+        }
+        log("selectedAttributes ::: ${addProductScreenController.selectedAttributes}");
+      },
     );
   }
-
 }
 
+/// Addon DD
 class FoodAddonModule extends StatelessWidget {
   FoodAddonModule({Key? key}) : super(key: key);
   final addProductScreenController = Get.find<AddProductScreenController>();
@@ -771,62 +760,48 @@ class FoodAddonModule extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Addon",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+        Text(
+          "Addon",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
         SizedBox(height: 10),
         addonDropDown(context),
       ],
     );
   }
 
-  addonDropDown(context){
-    return Obx(
-          () =>
-          Container(
-            padding: const EdgeInsets.only(left: 10),
-            width: Get.width,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.grey.shade200,
-            ),
-            child: Theme(
-              data: Theme.of(context).copyWith(
-                canvasColor: Colors.grey.shade100,
-                buttonTheme: ButtonTheme.of(context).copyWith(
-                    alignedDropdown: true),
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<Addon1>(
+  addonDropDown(context) {
+    return MultiSelectDialogField(
+      items: addProductScreenController.addonDropDownData,
+      dialogHeight: Get.height * 0.25,
+      title: Text(
+        "Select Addon",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      selectedColor: AppColors.colorDarkPink,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Colors.grey.shade200,
+      ),
+      buttonIcon: Icon(Icons.arrow_drop_down_outlined),
+      onConfirm: (result) {
+        addProductScreenController.selectedAddons.clear();
 
-                  value: addProductScreenController.addonsDropDownValue,
-
-                  items: addProductScreenController.allAddonsList
-                      .map<DropdownMenuItem<Addon1>>((Addon1 addon1) {
-                    return DropdownMenuItem<Addon1>(
-                      value: addon1,
-                      child: Text(
-                        "${addon1.name}",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    );
-                  }).toList(),
-
-                  onChanged: (addon1){
-                    addProductScreenController.isLoading(true);
-                    addProductScreenController.addonsDropDownValue = addon1;
-                    log("attributesDropDownValue : ${addProductScreenController.addonsDropDownValue!.name}");
-                    addProductScreenController.addAddonsInSelectedList(addon1!);
-                    addProductScreenController.isLoading(false);
-                  },
-                ),
-              ),
-            ),
-          ),
+        for (int i = 0; i < result.length; i++) {
+          Addon1 data = result[i] as Addon1;
+          Map<String, dynamic> oneObject = {
+            "value": "${data.id}",
+            "label": "${data.name}"
+          };
+          addProductScreenController.selectedAddons.add(oneObject);
+        }
+        log("selectedAttributes ::: ${addProductScreenController.selectedAddons}");
+      },
     );
   }
-
 }
 
+/// Start & End Time
 class StartTimeAndEndTimeTextModule extends StatelessWidget {
   const StartTimeAndEndTimeTextModule({Key? key}) : super(key: key);
 
@@ -835,19 +810,22 @@ class StartTimeAndEndTimeTextModule extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Text("Start Time",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+          child: Text(
+            "Start Time",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
         ),
         const SizedBox(width: 20),
         Expanded(
-          child: Text("End Time",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+          child: Text(
+            "End Time",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
         ),
       ],
     );
   }
 }
-
 class StartTimeModule extends StatelessWidget {
   StartTimeModule({Key? key}) : super(key: key);
   final addProductScreenController = Get.find<AddProductScreenController>();
@@ -862,12 +840,11 @@ class StartTimeModule extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Obx(
-          ()=> Row(
+          () => Row(
             children: [
               Expanded(
-                child: Text(
-                  "${addProductScreenController.startTimeString.value}"
-                ),
+                child:
+                    Text("${addProductScreenController.startTimeString.value}"),
               ),
               GestureDetector(
                 onTap: () async {
@@ -886,7 +863,6 @@ class StartTimeModule extends StatelessWidget {
     );
   }
 }
-
 class EndTimeModule extends StatelessWidget {
   EndTimeModule({Key? key}) : super(key: key);
   final addProductScreenController = Get.find<AddProductScreenController>();
@@ -901,12 +877,11 @@ class EndTimeModule extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Obx(
-              ()=> Row(
+          () => Row(
             children: [
               Expanded(
-                child: Text(
-                    "${addProductScreenController.endTimeString.value}"
-                ),
+                child:
+                    Text("${addProductScreenController.endTimeString.value}"),
               ),
               GestureDetector(
                 onTap: () async {
@@ -925,6 +900,3 @@ class EndTimeModule extends StatelessWidget {
     );
   }
 }
-
-
-

@@ -63,6 +63,12 @@ class UpdateItemScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
 
+                  FoodAttributeModule(),
+                  const SizedBox(height: 10),
+
+                  FoodAddonModule(),
+                  const SizedBox(height: 10),
+
                   UpdateProductQtyFieldModule(),
                   const SizedBox(height: 10),
 

@@ -7,6 +7,7 @@ import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:food_delivery_admin/common/store_details.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../../models/add_product_model/all_attributes_model.dart';
 import '../../models/add_product_model/restaurants_all_addons_model.dart';
 import '../../models/category_models/get_restaurants_category.dart';
@@ -55,17 +56,22 @@ class ItemScreenController extends GetxController {
 
   /// Attributes List DD
   RxList<ListElement1> allAttributesList = [ListElement1(name: "Select Attributes", id: "0")].obs;
-  ListElement1? updateAttributesDropDownValue;
+  List<MultiSelectItem> attributeDropDownData = [];
+  List<Map<String, dynamic>> updateSelectedAttributes = [];
+  // ListElement1? updateAttributesDropDownValue;
+
 
   /// Addons List DD
   RxList<Addon1> allAddonsList = [Addon1(name: "Select Addons", id: "0")].obs;
-  Addon1? updateAddonsDropDownValue;
+  List<MultiSelectItem> addonDropDownData = [];
+  List<Map<String, dynamic>> updateSelectedAddons = [];
+  // Addon1? updateAddonsDropDownValue;
 
   /// Selected Attributes List For Add Product
-  RxList<Map<String, String>> updateSelectedAttributesList = [{"value": "", "label": ""}].obs;
+  // RxList<Map<String, String>> updateSelectedAttributesList = [{"value": "", "label": ""}].obs;
 
   /// Selected Addons List For Add Product
-  RxList<Map<String, String>> updateSelectedAddonList = [{"value": "", "label": ""}].obs;
+  // RxList<Map<String, String>> updateSelectedAddonList = [{"value": "", "label": ""}].obs;
 
 
   /// Get Admin All Products List
@@ -180,8 +186,8 @@ class ItemScreenController extends GetxController {
         request.fields['Quantity'] = "${updateFoodQtyFieldController.text.trim()}";
         request.fields['MRP'] = "${updateFoodMrpFieldController.text.trim()}";
         request.fields['Price'] = "${updateFoodPriceFieldController.text.trim()}";
-        request.fields['Attribute'] = jsonEncode(updateSelectedAttributesList);
-        request.fields['Addon'] = jsonEncode(updateSelectedAddonList);
+        request.fields['Attribute'] = jsonEncode(updateSelectedAttributes);
+        request.fields['Addon'] = jsonEncode(updateSelectedAddons);
         request.fields['Store'] = "622b09a668395c49dcb4aa73";
         request.fields['Category'] = "${updateCategoryDropDownValue.id}";
         request.fields['SubCategory'] = "${updateSubCategoryDropDownValue!.id}";
@@ -230,8 +236,8 @@ class ItemScreenController extends GetxController {
         request.fields['Quantity'] = "${updateFoodQtyFieldController.text.trim()}";
         request.fields['MRP'] = "${updateFoodMrpFieldController.text.trim()}";
         request.fields['Price'] = "${updateFoodPriceFieldController.text.trim()}";
-        request.fields['Attribute'] = jsonEncode(updateSelectedAttributesList);
-        request.fields['Addon'] = jsonEncode(updateSelectedAddonList);
+        request.fields['Attribute'] = jsonEncode(updateSelectedAttributes);
+        request.fields['Addon'] = jsonEncode(updateSelectedAddons);
         request.fields['Store'] = "622b09a668395c49dcb4aa73";
         request.fields['Category'] = "${updateCategoryDropDownValue.id}";
         request.fields['SubCategory'] = "${updateSubCategoryDropDownValue!.id}";
@@ -324,8 +330,19 @@ class ItemScreenController extends GetxController {
       isSuccessStatus = allAttributesModule.status.obs;
 
       if(isSuccessStatus.value) {
-        allAttributesList.addAll(allAttributesModule.list);
-        log("allAttributesList : $allAttributesList");
+        allAttributesList.clear();
+        attributeDropDownData.clear();
+
+        if(allAttributesModule.list.length == 0) {
+          allAttributesList.add(ListElement1(name: "Select Attributes", id: "0"));
+        } else {
+          allAttributesList.addAll(allAttributesModule.list);
+          attributeDropDownData = allAttributesList.map((element) {
+            return MultiSelectItem(element, element.name!);
+          }).toList();
+
+        }
+        log("List Length : ${allAttributesList.length}");
       } else {
         log("getAllAttributesFunction Else Else");
       }
@@ -353,7 +370,19 @@ class ItemScreenController extends GetxController {
       isSuccessStatus = restaurantsAllAddonsModule.status.obs;
 
       if(isSuccessStatus.value) {
-        allAddonsList.addAll(restaurantsAllAddonsModule.addon);
+        allAddonsList.clear();
+        addonDropDownData.clear();
+
+        if(restaurantsAllAddonsModule.addon.length == 0) {
+          allAddonsList.add(Addon1(name: "Select Addon", id: "0"));
+        } else {
+          allAddonsList.addAll(restaurantsAllAddonsModule.addon);
+          addonDropDownData = allAddonsList.map((element) {
+            return MultiSelectItem(element, element.name!);
+          }).toList();
+        }
+
+        log("allAddonsList : ${allAddonsList.length}");
       } else {
         log("getRestaurantAddonsFunction Else Else");
       }

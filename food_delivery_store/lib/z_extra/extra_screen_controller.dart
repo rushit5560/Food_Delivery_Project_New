@@ -15,6 +15,8 @@ class ExtraScreenController extends GetxController {
 
   List<MultiSelectItem> attributeDropDownData = [];
 
+  List<Map<String, dynamic>> selectedAttributes = [];
+
 
 
   /// Attributes

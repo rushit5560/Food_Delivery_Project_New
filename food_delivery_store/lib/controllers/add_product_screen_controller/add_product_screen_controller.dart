@@ -8,6 +8,7 @@ import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:food_delivery_admin/models/add_product_model/add_product_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../../models/add_product_model/all_attributes_model.dart';
 import '../../models/category_models/get_restaurants_category.dart';
 import '../../models/add_product_model/get_restaurant_sub_category_model.dart';
@@ -36,7 +37,6 @@ class AddProductScreenController extends GetxController{
   RxString endTimeString = "".obs;
 
 
-
   /// Restaurant Category DD
   RxList<RestaurantCategory> getRestaurantCategoryList = [RestaurantCategory(name: "Select Category", id: "0")].obs;
   RestaurantCategory categoryDropDownValue = RestaurantCategory();
@@ -47,11 +47,15 @@ class AddProductScreenController extends GetxController{
 
   /// Attributes List DD
   RxList<ListElement1> allAttributesList = [ListElement1(name: "Select Attributes", id: "0")].obs;
-  ListElement1? attributesDropDownValue;
+  List<MultiSelectItem> attributeDropDownData = [];
+  List<Map<String, dynamic>> selectedAttributes = [];
+  // ListElement1? attributesDropDownValue;
 
   /// Addons List DD
   RxList<Addon1> allAddonsList = [Addon1(name: "Select Addons", id: "0")].obs;
-  Addon1? addonsDropDownValue;
+  List<MultiSelectItem> addonDropDownData = [];
+  List<Map<String, dynamic>> selectedAddons = [];
+  // Addon1? addonsDropDownValue;
 
   /// Selected Attributes List For Add Product
   RxList<Map<String, String>> selectedAttributesList = [{"value": "", "label": ""}].obs;
@@ -69,6 +73,13 @@ class AddProductScreenController extends GetxController{
     Map<String , dynamic> productType = {"value": "Veg","label": "${foodTypeValue.value}"};
     Map<String , dynamic> discountType = {"value": "Amount","label": "${discountTypeValue.value}"};
 
+    if(selectedAttributes.length == 0) {
+      selectedAttributes.add({"value": "", "label": ""});
+    }
+    if(selectedAddons.length == 0) {
+      selectedAddons.add({"value": "", "label": ""});
+    }
+
     try {
       var stream = http.ByteStream(productImage!.openRead());
       stream.cast();
@@ -83,8 +94,8 @@ class AddProductScreenController extends GetxController{
       request.fields['Quantity'] = "${qtyTextEditingController.text.trim()}";
       request.fields['MRP'] = "${mrpTextEditingController.text.trim()}";
       request.fields['Price'] = "${priceTextEditingController.text.trim()}";
-      request.fields['Attribute'] = jsonEncode(selectedAttributesList);
-      request.fields['Addon'] = jsonEncode(selectedAddonList);
+      request.fields['Attribute'] = jsonEncode(selectedAttributes);
+      request.fields['Addon'] = jsonEncode(selectedAddons);
       request.fields['Store'] = "622b09a668395c49dcb4aa73";
       request.fields['Category'] = "${categoryDropDownValue.id}";
       request.fields['SubCategory'] = "${subCategoryDropDownValue!.id}";
@@ -198,8 +209,19 @@ class AddProductScreenController extends GetxController{
       isSuccessStatus = allAttributesModule.status.obs;
 
       if(isSuccessStatus.value) {
-        allAttributesList.addAll(allAttributesModule.list);
-        log("allAttributesList : $allAttributesList");
+        allAttributesList.clear();
+        attributeDropDownData.clear();
+
+        if(allAttributesModule.list.length == 0) {
+          allAttributesList.add(ListElement1(name: "Select Attributes", id: "0"));
+        } else {
+          allAttributesList.addAll(allAttributesModule.list);
+          attributeDropDownData = allAttributesList.map((element) {
+            return MultiSelectItem(element, element.name!);
+          }).toList();
+
+        }
+        log("List Length : ${allAttributesList.length}");
       } else {
         log("getAllAttributesFunction Else Else");
       }
@@ -227,7 +249,19 @@ class AddProductScreenController extends GetxController{
       isSuccessStatus = restaurantsAllAddonsModule.status.obs;
 
       if(isSuccessStatus.value) {
-        allAddonsList.addAll(restaurantsAllAddonsModule.addon);
+        allAddonsList.clear();
+        addonDropDownData.clear();
+
+        if(restaurantsAllAddonsModule.addon.length == 0) {
+          allAddonsList.add(Addon1(name: "Select Addon", id: "0"));
+        } else {
+          allAddonsList.addAll(restaurantsAllAddonsModule.addon);
+          addonDropDownData = allAddonsList.map((element) {
+            return MultiSelectItem(element, element.name!);
+          }).toList();
+        }
+
+        log("allAddonsList : ${allAddonsList.length}");
       } else {
         log("getRestaurantAddonsFunction Else Else");
       }
@@ -274,11 +308,8 @@ class AddProductScreenController extends GetxController{
           Fluttertoast.showToast(msg: "Attributes Added!");
           log("selectedAttributesList 33 : $selectedAttributesList");
         }
-
       }
-
     }
-
   }
 
   /// Add Addons From DD in Local List
@@ -341,8 +372,8 @@ class AddProductScreenController extends GetxController{
 
     /// Give Initial Value of DropDown
     subCategoryDropDownValue = getSubCategoryList[0];
-    attributesDropDownValue = allAttributesList[0];
-    addonsDropDownValue = allAddonsList[0];
+    // attributesDropDownValue = allAttributesList[0];
+    // addonsDropDownValue = allAddonsList[0];
 
     startTimeString = "${startTime.hour}:${startTime.minute}".obs;
     endTimeString = "${endTime.hour}:${endTime.minute}".obs;

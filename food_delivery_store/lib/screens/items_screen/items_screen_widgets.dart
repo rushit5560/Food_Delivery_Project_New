@@ -256,16 +256,16 @@ class StoreProductsListModule extends StatelessWidget {
                         }
                       }
 
-                      itemScreenController.updateSelectedAttributesList.clear();
+                      itemScreenController.updateSelectedAttributes.clear();
                       for(int i = 0; i < storeSingleItem.attribute.length; i++) {
                         Map<String, String> item = {"value" : "${storeSingleItem.attribute[i].id}", "label" : "${storeSingleItem.attribute[i].label}"};
-                        itemScreenController.updateSelectedAttributesList.add(item);
+                        itemScreenController.updateSelectedAttributes.add(item);
                       }
 
-                      itemScreenController.updateSelectedAddonList.clear();
+                      itemScreenController.updateSelectedAddons.clear();
                       for(int i = 0; i < storeSingleItem.addon.length; i++) {
                         Map<String, String> item = {"value" : "${storeSingleItem.addon[i].id}", "label" : "${storeSingleItem.addon[i].label}"};
-                        itemScreenController.updateSelectedAddonList.add(item);
+                        itemScreenController.updateSelectedAddons.add(item);
                       }
 
                       log("updateFoodNameFieldController : ${itemScreenController.updateFoodNameFieldController.text}");
@@ -279,8 +279,8 @@ class StoreProductsListModule extends StatelessWidget {
                       log("updateFoodTypeValue : ${itemScreenController.updateFoodTypeValue}");
                       log("updateCategoryDropDownValue : ${itemScreenController.updateCategoryDropDownValue.name}");
                       log("updateSubCategoryDropDownValue : ${itemScreenController.updateSubCategoryDropDownValue!.name}");
-                      log("updateSubCategoryDropDownValue : ${itemScreenController.updateSelectedAttributesList}");
-                      log("updateSelectedAddonList : ${itemScreenController.updateSelectedAddonList}");
+                      log("updateSubCategoryDropDownValue : ${itemScreenController.updateSelectedAttributes}");
+                      log("updateSelectedAddonList : ${itemScreenController.updateSelectedAddons}");
 
                       Get.back();
                       Get.to(()=> UpdateItemScreen(productId: storeSingleItem.id), transition: Transition.zoom)!

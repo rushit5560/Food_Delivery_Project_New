@@ -4,10 +4,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../../../common/constants/app_colors.dart';
 import '../../../common/constants/field_validation.dart';
 import '../../../common/text_fields_decorations/add_product_textfield_decoration.dart';
 import '../../../controllers/items_screen_controller/items_screen_controller.dart';
+import '../../../models/add_product_model/all_attributes_model.dart';
+import '../../../models/add_product_model/restaurants_all_addons_model.dart';
 import '../../../models/category_models/get_restaurants_category.dart';
 import '../../../models/sub_category_models/get_all_sub_category_model.dart';
 
@@ -634,7 +637,107 @@ class UpdateSubCategoryDropDownModule extends StatelessWidget {
   }
 }
 
+/// Attribute DD
+class FoodAttributeModule extends StatelessWidget {
+  FoodAttributeModule({Key? key}) : super(key: key);
+  final itemScreenController = Get.find<ItemScreenController>();
 
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Attributes",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        SizedBox(height: 10),
+        attributeDropDown(context),
+      ],
+    );
+  }
+
+  attributeDropDown(context) {
+    return MultiSelectDialogField(
+      items: itemScreenController.attributeDropDownData,
+      dialogHeight: Get.height * 0.25,
+      title: Text(
+        "Select Attribute",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      selectedColor: AppColors.colorDarkPink,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Colors.grey.shade200,
+      ),
+      buttonIcon: Icon(Icons.arrow_drop_down_outlined),
+      onConfirm: (result) {
+        itemScreenController.updateSelectedAttributes.clear();
+
+        for (int i = 0; i < result.length; i++) {
+          ListElement1 data = result[i] as ListElement1;
+          Map<String, dynamic> oneObject = {
+            "value": "${data.id}",
+            "label": "${data.name}"
+          };
+          itemScreenController.updateSelectedAttributes.add(oneObject);
+        }
+        log("selectedAttributes ::: ${itemScreenController.updateSelectedAttributes}");
+      },
+    );
+  }
+}
+
+/// Addon DD
+class FoodAddonModule extends StatelessWidget {
+  FoodAddonModule({Key? key}) : super(key: key);
+  final itemScreenController = Get.find<ItemScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Addon",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        SizedBox(height: 10),
+        addonDropDown(context),
+      ],
+    );
+  }
+
+  addonDropDown(context) {
+    return MultiSelectDialogField(
+      items: itemScreenController.addonDropDownData,
+      dialogHeight: Get.height * 0.25,
+      title: Text(
+        "Select Addon",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      selectedColor: AppColors.colorDarkPink,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Colors.grey.shade200,
+      ),
+      buttonIcon: Icon(Icons.arrow_drop_down_outlined),
+      onConfirm: (result) {
+        itemScreenController.updateSelectedAddons.clear();
+
+        for (int i = 0; i < result.length; i++) {
+          Addon1 data = result[i] as Addon1;
+          Map<String, dynamic> oneObject = {
+            "value": "${data.id}",
+            "label": "${data.name}"
+          };
+          itemScreenController.updateSelectedAddons.add(oneObject);
+        }
+        log("selectedAttributes ::: ${itemScreenController.updateSelectedAddons}");
+      },
+    );
+  }
+}
 
 /// Update Button Module
 class UpdateProductButtonModule extends StatelessWidget {
