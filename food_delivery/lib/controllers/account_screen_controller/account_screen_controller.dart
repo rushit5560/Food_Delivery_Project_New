@@ -44,10 +44,11 @@ class AccountScreenController extends GetxController {
         );
       } else {
        print('Get User Account Else Else');
-       Fluttertoast.showToast(msg: "");
+       Fluttertoast.showToast(msg: "Something Went Wrong!");
      }
    } catch(e) {
      print('Get User Account Details : $e');
+     Fluttertoast.showToast(msg: "Something Went Wrong!");
    } finally {
      isLoading(false);
    }
