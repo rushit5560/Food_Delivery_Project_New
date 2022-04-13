@@ -79,7 +79,7 @@ class CategoryScreenController extends GetxController {
   /// Get Restaurant Category
   getRestaurantCategoryFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetRestaurantCategoryApi + "622b09a668395c49dcb4aa73"/*StoreDetails.storeId*/;
+    String url = ApiUrl.GetRestaurantCategoryApi + StoreDetails.storeId;
     log("URL : $url");
 
     try {

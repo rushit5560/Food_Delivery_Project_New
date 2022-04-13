@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class SplashScreen extends StatelessWidget {
   // const SplashView({Key? key}) : super(key: key);
 
-  // Connection Of View And Their Controller
+
   final splashViewController = Get.put(SplashScreenController());
 
   @override

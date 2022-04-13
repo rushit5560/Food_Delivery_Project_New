@@ -7,7 +7,6 @@ import 'package:food_delivery_admin/models/all_city_model/city_model.dart';
 import 'package:food_delivery_admin/screens/sign_up_screen/sign_up_screen_widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../controllers/signup_screen_controller/signup_screen_controller.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -18,15 +17,8 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  //var _SignUpformKey = GlobalKey<FormState>();
   final signUpScreenController = Get.put(SignUpScreenController());
-
-  String ? _chosenValue;
-
   String ? areaValue;
-
-  //File? file;
-
   final ImagePicker imagePicker = ImagePicker();
 
   @override
@@ -182,11 +174,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<GetList>(
-                                focusColor:Colors.white,
+                                // focusColor:Colors.white,
                                 value: signUpScreenController.cityDropDownValue,
                                 //elevation: 5,
-                                style: TextStyle(color: Colors.white),
-                                iconEnabledColor:Colors.black,
+                                // style: TextStyle(color: Colors.white),
+                                // iconEnabledColor:Colors.black,
+
                                 items:signUpScreenController.cityLists
                                       .map<DropdownMenuItem<GetList>>((GetList value) {
                                   return DropdownMenuItem<GetList>(
@@ -194,16 +187,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     child: Text(value.cityName!,style:TextStyle(color:Colors.black),),
                                   );
                                 }).toList(),
-                                hint:Text(
-                                  "Select City",
-                                ),
+                                // hint:Text(
+                                //   "Select City",
+                                // ),
                                 onChanged: (newValue) {
-                                  signUpScreenController.cityDropDownValue!.cityName = newValue!.cityName;
-                                  signUpScreenController.cityDropDownValue!.sId = newValue.sId;
-                                  //authScreenController.areaLists.clear();
+                                  signUpScreenController.cityDropDownValue = newValue!;
                                   print("cityDropDownValue : ${signUpScreenController.cityDropDownValue}");
-                                  print('newValue.name : ${newValue.cityName}');
-                                  print('city: ${newValue.sId!}');
                                   signUpScreenController.loading();
                                 },
                               ),
@@ -263,7 +252,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
    }
 
    void gallery() async {
-     final image = await imagePicker.getImage(source: ImageSource.gallery);
+     final image = await imagePicker.pickImage(source: ImageSource.gallery);
      if(image != null){
        setState(() {
          signUpScreenController.file = File(image.path);
@@ -272,7 +261,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
    }
 
    void camera() async {
-     final image = await imagePicker.getImage(source: ImageSource.camera);
+     final image = await imagePicker.pickImage(source: ImageSource.camera);
      if(image != null){
       setState(() {
         signUpScreenController.file = File(image.path);
@@ -312,7 +301,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void coverGallery() async {
-    final image = await imagePicker.getImage(source: ImageSource.gallery);
+    final image = await imagePicker.pickImage(source: ImageSource.gallery);
     if(image != null){
       setState(() {
         signUpScreenController.coverFile = File(image.path);
@@ -321,7 +310,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void coverCamera() async {
-    final image = await imagePicker.getImage(source: ImageSource.camera);
+    final image = await imagePicker.pickImage(source: ImageSource.camera);
     if(image != null){
       setState(() {
         signUpScreenController.coverFile = File(image.path);

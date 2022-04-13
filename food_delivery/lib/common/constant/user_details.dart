@@ -4,4 +4,6 @@ class UserDetails {
   static String userId = "";
   static String userRole = "";
   static String userWallet = "";
+  static String userName = "";
+  static String userProfilePic = "";
 }

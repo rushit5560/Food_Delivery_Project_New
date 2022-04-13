@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           child: Column(
             children: [
               SearchContainer(),
-              SizedBox(height: 15,),
+              SizedBox(height: 15),
               Stack(
                 alignment: Alignment.bottomCenter,
                 children: [

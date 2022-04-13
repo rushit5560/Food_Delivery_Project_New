@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:get/get.dart';
 
+import '../../common/store_details.dart';
 import '../../models/customer_review_models/get_product_review_model.dart';
 
 class CustomerReviewScreenController extends GetxController {
@@ -13,7 +14,7 @@ class CustomerReviewScreenController extends GetxController {
 
   getCustomerReviewFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetCustomerFoodReviewApi + "622b09a668395c49dcb4aa73" /*StoreDetails.storeId*/;
+    String url = ApiUrl.GetCustomerFoodReviewApi + StoreDetails.storeId;
     log("URL : $url");
 
     try{

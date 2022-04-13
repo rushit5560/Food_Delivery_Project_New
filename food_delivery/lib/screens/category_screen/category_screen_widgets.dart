@@ -55,7 +55,9 @@ class CategoryListModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: GridView.builder(
+      child: categoryScreenController.restaurantWiseCategoryList.isEmpty
+      ? Center(child: Text("No Category Available!"))
+      : GridView.builder(
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         itemCount: categoryScreenController.restaurantWiseCategoryList.length,
@@ -115,6 +117,7 @@ class CategoryListModule extends StatelessWidget {
     return Positioned(
       bottom: -15,
       child: Container(
+        width: Get.width * 0.22,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: AppColors.colorDarkPink,
@@ -124,6 +127,8 @@ class CategoryListModule extends StatelessWidget {
           child: Center(
             child: Text(
               '${categoryScreenController.restaurantWiseCategoryList[index].name}',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               textScaleFactor: 0.85,
               style: TextStyle(
                 fontWeight: FontWeight.bold,

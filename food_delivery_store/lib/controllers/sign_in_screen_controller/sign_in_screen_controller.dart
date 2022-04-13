@@ -1,14 +1,12 @@
 import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:food_delivery_admin/common/sharedpreference_data/sharedpreference_data.dart';
 import 'package:food_delivery_admin/models/sign_in_model/sign_in_model.dart';
 import 'package:food_delivery_admin/screens/new_order_screen/new_order_screen.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -25,8 +23,6 @@ class SignInScreenController extends GetxController{
 
   @override
   void onInit() {
-    print('-----------Controller Init Method Called.-----------');
-    //Timer(Duration(seconds: 5), () => getOnBoardingValue());
     super.onInit();
     updateLoginInfo();
   }
@@ -58,6 +54,7 @@ class SignInScreenController extends GetxController{
         Get.snackbar('User LoggedIn Successfully.', '');
       } else {
         print('SignIn False False');
+        Fluttertoast.showToast(msg: "Something went Wrong!");
       }
 
     } catch(e) {
@@ -67,7 +64,7 @@ class SignInScreenController extends GetxController{
     }
   }
 
-  Future googleAuthentication(context) async {
+  /*Future googleAuthentication(context) async {
     // try {
     //   googleSignInManager.signOut();
     //   final result = await googleSignInManager.signIn();
@@ -130,7 +127,7 @@ class SignInScreenController extends GetxController{
       }
     }
     isLoading(false);
-  }
+  }*/
 
   Future<void> updateLoginInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

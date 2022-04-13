@@ -287,6 +287,7 @@ class StoreProductsListModule extends StatelessWidget {
                       .then((value) async {
                         await itemScreenController.getStoreProductList();
                       });
+
                       itemScreenController.isLoading(false);
                     },
                     child: Container(

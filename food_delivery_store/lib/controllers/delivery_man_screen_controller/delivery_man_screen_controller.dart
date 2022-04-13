@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:get/get.dart';
 
+import '../../common/store_details.dart';
 import '../../models/delivery_man_models/add_delivery_man_model.dart';
 import '../../models/delivery_man_models/delete_delivery_man_model.dart';
 import '../../models/delivery_man_models/get_all_delivery_man_model.dart';
@@ -55,8 +56,7 @@ class DeliveryManScreenController extends GetxController {
   /// Get All DeliveryMan List Function
   getAllDeliveryManFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetAllDeliveryManApi +
-        "622b09a668395c49dcb4aa73" /*StoreDetails.storeId*/;
+    String url = ApiUrl.GetAllDeliveryManApi + StoreDetails.storeId;
     log("URL : $url");
 
     try {
@@ -151,8 +151,7 @@ class DeliveryManScreenController extends GetxController {
       request.fields["Password"] = "${passwordFieldController.text.trim()}";
       request.fields["Email"] = "${emailFieldController.text.trim()}";
       request.fields["Address"] = "${addressFieldController.text.trim()}";
-      request.fields["Restaurant"] =
-          "622b09a668395c49dcb4aa73" /*"${StoreDetails.storeId}"*/;
+      request.fields["Restaurant"] = "${StoreDetails.storeId}";
 
       var multiPart = http.MultipartFile('Image', stream, length);
       var multiPart1 = http.MultipartFile('IdentityImage', stream1, length1);
@@ -230,7 +229,7 @@ class DeliveryManScreenController extends GetxController {
         request.fields['Phone'] = "${updatePhoneFieldController.text.trim()}";
         request.fields['Gender'] = "$deliveryManGender";
         request.fields['Zone'] = "${updateZoneDropDownValue.id}";
-        request.fields['Restaurant'] = /*"${StoreDetails.storeId}"*/"622b09a668395c49dcb4aa73";
+        request.fields['Restaurant'] = "${StoreDetails.storeId}";
         request.fields['Address'] = "${updateAddressFieldController.text.trim()}";
         request.fields['IdentityType'] = "$deliveryManIdentity";
         request.fields['Email'] = "${updateEmailFieldController.text.trim()}";
@@ -264,7 +263,7 @@ class DeliveryManScreenController extends GetxController {
         request.fields['Phone'] = "${updatePhoneFieldController.text.trim()}";
         request.fields['Gender'] = "$deliveryManGender";
         request.fields['Zone'] = "${updateZoneDropDownValue.id}";
-        request.fields['Restaurant'] = /*"${StoreDetails.storeId}"*/"622b09a668395c49dcb4aa73";
+        request.fields['Restaurant'] = "${StoreDetails.storeId}";
         request.fields['Address'] = "${updateAddressFieldController.text.trim()}";
         request.fields['IdentityType'] = "$deliveryManIdentity";
         request.fields['Email'] = "${updateEmailFieldController.text.trim()}";
@@ -302,7 +301,7 @@ class DeliveryManScreenController extends GetxController {
         request.fields['Phone'] = "${updatePhoneFieldController.text.trim()}";
         request.fields['Gender'] = "$deliveryManGender";
         request.fields['Zone'] = "${updateZoneDropDownValue.id}";
-        request.fields['Restaurant'] = /*"${StoreDetails.storeId}"*/"622b09a668395c49dcb4aa73";
+        request.fields['Restaurant'] = "${StoreDetails.storeId}";
         request.fields['Address'] = "${updateAddressFieldController.text.trim()}";
         request.fields['IdentityType'] = "$deliveryManIdentity";
         request.fields['Email'] = "${updateEmailFieldController.text.trim()}";
@@ -348,7 +347,7 @@ class DeliveryManScreenController extends GetxController {
         request.fields['Phone'] = "${updatePhoneFieldController.text.trim()}";
         request.fields['Gender'] = "$deliveryManGender";
         request.fields['Zone'] = "${updateZoneDropDownValue.id}";
-        request.fields['Restaurant'] = /*"${StoreDetails.storeId}"*/"622b09a668395c49dcb4aa73";
+        request.fields['Restaurant'] = "${StoreDetails.storeId}";
         request.fields['Address'] = "${updateAddressFieldController.text.trim()}";
         request.fields['IdentityType'] = "$deliveryManIdentity";
         request.fields['Email'] = "${updateEmailFieldController.text.trim()}";

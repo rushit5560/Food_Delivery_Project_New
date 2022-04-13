@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:get/get.dart';
 
+import '../../common/store_details.dart';
 import '../../models/store_profile_model/store_profile_model.dart';
 import '../../models/store_profile_model/update_store_model.dart';
 
@@ -30,7 +31,7 @@ class StoreProfileScreenController extends GetxController {
 
   getStoreDetailsByIdFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetStoreDetailsApi + /*StoreDetails.storeId*/ "622b09a668395c49dcb4aa73";
+    String url = ApiUrl.GetStoreDetailsApi + StoreDetails.storeId;
     log("URL : $url");
 
     try{
@@ -65,7 +66,7 @@ class StoreProfileScreenController extends GetxController {
 
   updateStoreProfileByIdFunction() async {
     isLoading(true);
-    String url = ApiUrl.UpdateStoreDetailsApi + "622b09a668395c49dcb4aa73"/*StoreDetails.storeId*/;
+    String url = ApiUrl.UpdateStoreDetailsApi + StoreDetails.storeId;
     log("URL : $url");
 
     try{

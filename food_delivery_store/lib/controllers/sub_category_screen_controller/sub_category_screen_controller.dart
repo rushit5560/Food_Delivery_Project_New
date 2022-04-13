@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../common/constants/api_url.dart';
+import '../../common/store_details.dart';
 import '../../models/category_models/get_restaurants_category.dart';
 import '../../models/sub_category_models/add_sub_category_model.dart';
 import '../../models/sub_category_models/delete_sub_category_model.dart';
@@ -53,7 +54,7 @@ class SubCategoryScreenController extends GetxController {
       request.files.add(await http.MultipartFile.fromPath("Image", subCategoryImage!.path));
       request.fields['Name'] = "${subCategoryFieldController.text.trim()}";
       request.fields['Category'] = "${categoryDropDownValue.id}";
-      request.fields['Restaurant'] = "622b09a668395c49dcb4aa73" /*"${StoreDetails.storeId}"*/;
+      request.fields['Restaurant'] = "${StoreDetails.storeId}";
 
       var multiPart = http.MultipartFile('Image', stream, length);
 
@@ -89,7 +90,7 @@ class SubCategoryScreenController extends GetxController {
   /// Get Sub Category Function
   getRestaurantAllSubCategoryFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetAllSubCategoryApi + "622b09a668395c49dcb4aa73" /*StoreDetails.storeId*/;
+    String url = ApiUrl.GetAllSubCategoryApi + StoreDetails.storeId;
     log("URL : $url");
 
     try{
@@ -168,7 +169,7 @@ class SubCategoryScreenController extends GetxController {
 
         request.files.add(await http.MultipartFile.fromPath("Image", updateSubCategoryImage!.path));
         request.fields['Name'] = "${updateSubCategoryFieldController.text.trim()}";
-        request.fields['Restaurant'] = "622b09a668395c49dcb4aa73";
+        request.fields['Restaurant'] = "${StoreDetails.storeId}";
         request.fields['Category'] = "${updateCategoryDropDownValue.id}";
 
         var multiPart = http.MultipartFile('Image', stream, length);
@@ -197,7 +198,7 @@ class SubCategoryScreenController extends GetxController {
         var request = http.MultipartRequest('POST', Uri.parse(url));
 
         request.fields['Name'] = "${updateSubCategoryFieldController.text.trim()}";
-        request.fields['Restaurant'] = "622b09a668395c49dcb4aa73";
+        request.fields['Restaurant'] = "${StoreDetails.storeId}";
         request.fields['Category'] = "${updateCategoryDropDownValue.id}";
 
         var response = await request.send();
@@ -236,7 +237,7 @@ class SubCategoryScreenController extends GetxController {
   /// Get Restaurant Category Function
   getRestaurantCategoryFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetRestaurantCategoryApi + "622b09a668395c49dcb4aa73" /*StoreDetails.storeId*/;
+    String url = ApiUrl.GetRestaurantCategoryApi + StoreDetails.storeId;
     log("URL : $url");
 
     try {

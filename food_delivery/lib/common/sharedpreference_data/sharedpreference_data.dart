@@ -1,37 +1,42 @@
+import 'dart:developer';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 import '../constant/user_details.dart';
 
 class SharedPreferenceData {
+  /// All Prefs Key
   String isUserLoggedInKey = "isUserLoggedInKey";
   String userIdKey = "userIdKey";
   String userRoleKey = "userRoleKey";
   String userTokenKey = "userTokenKey";
   String userWalletIdKey = "userWalletIdKey";
+  String userNameKey = "userNameKey";
+  String userProfileImageKey = "userProfileImageKey";
 
   // This Function Use For Set UserLoginStatus, UserId & Token in sharedPreference
   setUserLoginDetailsInPrefs({required String userToken}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // Decode the JWT and Get UserId & Role
+    /// Decode the JWT and Get UserId & Role
     Map<String, dynamic> decodedToken = JwtDecoder.decode(userToken);
     String userId = decodedToken["_id"];
     String userRole = decodedToken["role"];
     print('userId : $userId');
 
-    //Remove Old Id & Token
+    /// Remove Old Id & Token
     prefs.remove(userIdKey);
     prefs.remove(userTokenKey);
     prefs.remove(userRoleKey);
 
-    //Add UserId, Token & UserLoggedInStatus
+    /// Add UserId, Token & UserLoggedInStatus
     prefs.setBool(isUserLoggedInKey, true);
     prefs.setString(userIdKey, userId);
     prefs.setString(userRoleKey, userRole);
     prefs.setString(userTokenKey, userToken);
 
-    // Now Set Prefs Data in UserDetails in Code
+    /// Now Set Prefs Data in UserDetails in Code
     UserDetails.isUserLoggedIn = prefs.getBool(isUserLoggedInKey) ?? false;
     UserDetails.userId = prefs.getString(userIdKey) ?? "";
     UserDetails.userRole = prefs.getString(userRoleKey) ?? "";
@@ -41,6 +46,25 @@ class SharedPreferenceData {
     print('UserDetails.userId : ${UserDetails.userId}');
     print('UserDetails.userRole : ${UserDetails.userRole}');
     print('UserDetails.userToken : ${UserDetails.userToken}');
+  }
+
+  /// Set UserName & Profile Pic
+  setUserNameAndProfileImageInPrefs({required String userName, required String userProfile}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    /// Remove Old Data
+    prefs.remove(userNameKey);
+    prefs.remove(userProfileImageKey);
+
+    /// Add New Data
+    prefs.setString(userNameKey, "$userName");
+    prefs.setString(userProfileImageKey, userProfile);
+
+    /// Set Data in Local Variable
+    UserDetails.userName = prefs.getString(userNameKey) ?? "UserName";
+    UserDetails.userProfilePic = prefs.getString(userProfileImageKey) ?? "";
+
+    log("userName : ${UserDetails.userName}");
+    log("userProfilePic : ${UserDetails.userProfilePic}");
   }
 
   setWalletIdInPrefs({required String walletId}) async {
@@ -60,11 +84,6 @@ class SharedPreferenceData {
     prefs.setString(userTokenKey, "");
     prefs.setString(userWalletIdKey, "");
 
-    // print('Clear isUserLoggedInKey : ${prefs.getBool(isUserLoggedInKey)}');
-    // print('Clear userIdKey : ${prefs.getString(userIdKey)}');
-    // print('Clear userRoleKey : ${prefs.getString(userRoleKey)}');
-    // print('Clear userTokenKey : ${prefs.getString(userTokenKey)}');
-    // print('Clear userWalletIdKey : ${prefs.getString(userWalletIdKey)}');
   }
 
 

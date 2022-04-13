@@ -226,13 +226,10 @@ class ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        //
       if(signInScreenController.loginFormKey.currentState!.validate()) {
         await signInScreenController.userSignInFunction(
-          email: signInScreenController.signInTextEditingController.text.trim()
-              .toLowerCase(),
-          password: signInScreenController.passwordTextEditingController.text
-              .trim(),
+          email: signInScreenController.signInTextEditingController.text.trim().toLowerCase(),
+          password: signInScreenController.passwordTextEditingController.text.trim(),
         );
       }
       },
@@ -271,7 +268,7 @@ class _SocialLoginState extends State<SocialLogin> {
       children: [
         GestureDetector(
           onTap: (){
-            signInScreenController.googleAuthentication(context);
+            // signInScreenController.googleAuthentication(context);
           },
           child: Container(
             height: 40,

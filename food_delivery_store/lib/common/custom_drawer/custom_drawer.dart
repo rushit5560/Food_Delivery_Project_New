@@ -24,7 +24,7 @@ class CustomDrawer extends StatelessWidget {
                       SizedBox(height: 5),
                       ProfilePicAndName(),
                       SizedBox(height: 20),
-                      DrawerList()
+                      DrawerList(),
                     ],
                   ),
                 ),

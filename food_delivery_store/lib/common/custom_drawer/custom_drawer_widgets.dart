@@ -1,18 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/sharedpreference_data/sharedpreference_data.dart';
 import 'package:food_delivery_admin/screens/about_us_screen/about_us_screen.dart';
+import 'package:food_delivery_admin/screens/addon_screen/addon_screen.dart';
+import 'package:food_delivery_admin/screens/bank_info_screen/bank_info_screen.dart';
 import 'package:food_delivery_admin/screens/contact_us_screen/contact_us_screen.dart';
+import 'package:food_delivery_admin/screens/customer_review_screen/customer_review_screen.dart';
+import 'package:food_delivery_admin/screens/delivery_man_screen/delivery_man_screen.dart';
 import 'package:food_delivery_admin/screens/earnings_screen/earnings_screen.dart';
-import 'package:food_delivery_admin/screens/edit_profile_screen/edit_profile_screen.dart';
+import 'package:food_delivery_admin/screens/employee_screen/employee_screen.dart';
 import 'package:food_delivery_admin/screens/insight_screen/insight_screen.dart';
 import 'package:food_delivery_admin/screens/items_screen/items_screen.dart';
 import 'package:food_delivery_admin/screens/language_screen/language_screen.dart';
 import 'package:food_delivery_admin/screens/sign_in_screen/sign_in_screen.dart';
+import 'package:food_delivery_admin/screens/store_profile_screen/store_profile_screen.dart';
 import 'package:food_delivery_admin/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
 import 'package:get/get.dart';
-
+import '../../screens/campaign_screen/campaign_screen.dart';
+import '../../screens/category_screen/category_screen.dart';
+import '../../screens/sub_category_screen/sub_category_screen.dart';
 import '../constants/app_images.dart';
+
 
 class ProfilePicAndName extends StatelessWidget {
   const ProfilePicAndName({Key? key}) : super(key: key);
@@ -37,8 +44,8 @@ class ProfilePicAndName extends StatelessWidget {
           Container(
             child: Text("Hey John Doe",
               textScaleFactor: 1.3,
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
-          )
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+          ),
         ],
       ),
     );
@@ -46,23 +53,28 @@ class ProfilePicAndName extends StatelessWidget {
 }
 
 class DrawerList extends StatelessWidget {
-  //const DrawerList({Key? key}) : super(key: key);
-  SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
+  final SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: [
-          myOrders(),
-          insight(),
+          // myOrders(),
+          // insight(),
           myItems(),
-          myEarnings(),
+          addonModule(),
+          categoryModule(),
+          subCategoryModule(),
+          campaignModule(),
+          employeeModule(),
+          deliveryManModule(),
+          bankInfoModule(),
+          customerReviewModule(),
           myProfile(),
           aboutUs(),
           termsAndCondition(),
           helpCenter(),
-          //language(),
           SizedBox(height: 10),
           logout()
         ],
@@ -129,7 +141,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        Get.to(() => EditProfileScreen());
+        Get.to(() => StoreProfileScreen());
         // Get.to(() => ProfileScreen());
       },
       leading: Image.asset(Images.ic_profile, color: Colors.white,scale: 2.5,),
@@ -204,6 +216,112 @@ class DrawerList extends StatelessWidget {
       title: Text('Logout',
         textScaleFactor: 1.2,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  /// New Routes
+  Widget addonModule() {
+    return ListTile(
+      onTap: () {
+        Get.back();
+        Get.to(() => AddonScreen());
+      },
+      leading: Image.asset(Images.ic_about_us, color: Colors.white,scale: 2.5,),
+      title: Text('Addon',
+        textScaleFactor: 1,
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
+  Widget categoryModule() {
+    return ListTile(
+      onTap: () {
+        Get.back();
+        Get.to(() => CategoryScreen());
+      },
+      leading: Image.asset(Images.ic_about_us, color: Colors.white,scale: 2.5,),
+      title: Text('Category',
+        textScaleFactor: 1,
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
+  Widget subCategoryModule() {
+    return ListTile(
+      onTap: () {
+        Get.back();
+        Get.to(() => SubCategoryScreen());
+      },
+      leading: Image.asset(Images.ic_about_us, color: Colors.white,scale: 2.5,),
+      title: Text('Sub Category',
+        textScaleFactor: 1,
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
+  Widget employeeModule() {
+    return ListTile(
+      onTap: () {
+        Get.back();
+        Get.to(() => EmployeeScreen());
+      },
+      leading: Image.asset(Images.ic_about_us, color: Colors.white,scale: 2.5,),
+      title: Text('Employee',
+        textScaleFactor: 1,
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
+  Widget deliveryManModule() {
+    return ListTile(
+      onTap: () {
+        Get.back();
+        Get.to(() => DeliveryManScreen());
+      },
+      leading: Image.asset(Images.ic_about_us, color: Colors.white,scale: 2.5,),
+      title: Text('Delivery Man',
+        textScaleFactor: 1,
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
+  Widget bankInfoModule() {
+    return ListTile(
+      onTap: () {
+        Get.back();
+        Get.to(() => BankInfoScreen());
+      },
+      leading: Image.asset(Images.ic_about_us, color: Colors.white,scale: 2.5,),
+      title: Text('Bank Information',
+        textScaleFactor: 1,
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
+  Widget customerReviewModule() {
+    return ListTile(
+      onTap: () {
+        Get.back();
+        Get.to(() => CustomerReviewScreen());
+      },
+      leading: Image.asset(Images.ic_about_us, color: Colors.white,scale: 2.5,),
+      title: Text('Customer Review',
+        textScaleFactor: 1,
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
+  Widget campaignModule() {
+    return ListTile(
+      onTap: () {
+        Get.back();
+        Get.to(() => CampaignScreen());
+      },
+      leading: Image.asset(Images.ic_about_us, color: Colors.white,scale: 2.5,),
+      title: Text('Campaign',
+        textScaleFactor: 1,
+        style: TextStyle(color: Colors.white),
       ),
     );
   }

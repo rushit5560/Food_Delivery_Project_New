@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../common/constants/api_url.dart';
+import '../../common/store_details.dart';
 import '../../models/addon_models/add_addon_model.dart';
 import '../../models/addon_models/delete_addon_model.dart';
 import '../../models/addon_models/get_all_addons_model.dart';
@@ -39,7 +40,7 @@ class AddonScreenController extends GetxController {
 
       Map<String, dynamic> data = {
         "Name": "${addonNameFieldController.text.trim()}",
-        "Restaurant": "622b09a668395c49dcb4aa73"/*"${StoreDetails.storeId}"*/,
+        "Restaurant": "${StoreDetails.storeId}",
         "Price": "${addonPriceFieldController.text.trim()}"
       };
       log("data : $data");
@@ -69,7 +70,7 @@ class AddonScreenController extends GetxController {
   /// Get All Addon Function
   getAllAddonFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetAllAddonApi + "622b09a668395c49dcb4aa73" /*StoreDetails.storeId*/;
+    String url = ApiUrl.GetAllAddonApi + StoreDetails.storeId;
     log("URL : $url");
 
     try{

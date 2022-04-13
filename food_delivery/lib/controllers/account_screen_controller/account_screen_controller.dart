@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/common/constant/user_details.dart';
@@ -8,6 +9,7 @@ import 'package:food_delivery/models/account_screen_model/account_info_model.dar
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../../common/sharedpreference_data/sharedpreference_data.dart';
 import '../../models/account_screen_model/user_account_model.dart';
 
 
@@ -17,6 +19,7 @@ class AccountScreenController extends GetxController {
   String userName = '';
   String userEmail = '';
   String userPhone = '';
+  SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
   getUserAccount() async {
    isLoading(true);
@@ -35,8 +38,13 @@ class AccountScreenController extends GetxController {
        userName = userAccountModel.user.userName;
        userEmail = userAccountModel.user.email;
        userPhone = userAccountModel.user.phone;
-     } else {
+       sharedPreferenceData.setUserNameAndProfileImageInPrefs(
+          userName: userAccountModel.user.userName,
+          userProfile: "${ApiUrl.ApiMainPath}${userAccountModel.user.photo}",
+        );
+      } else {
        print('Get User Account Else Else');
+       Fluttertoast.showToast(msg: "");
      }
    } catch(e) {
      print('Get User Account Details : $e');

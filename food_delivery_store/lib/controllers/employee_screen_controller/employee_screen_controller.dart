@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:get/get.dart';
+import '../../common/store_details.dart';
 import '../../models/employee_models/add_restaurant_employee_model.dart';
 import '../../models/employee_models/delete_restaurant_employee_model.dart';
 import '../../models/employee_models/get_all_restaurant_employee_model.dart';
@@ -44,7 +45,7 @@ class EmployeeScreenController extends GetxController {
   /// Get All Employee
   getRestaurantAllEmployeeFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetRestaurantEmployeeApi + "622b09a668395c49dcb4aa73";
+    String url = ApiUrl.GetRestaurantEmployeeApi + StoreDetails.storeId;
     log("URL : $url");
 
     try {
@@ -134,7 +135,7 @@ class EmployeeScreenController extends GetxController {
       request.fields['Email'] = "${emailFieldController.text.trim()}";
       request.fields['Password'] = "${passwordFieldController.text.trim()}";
       request.fields['EmployeeRole'] = "${employeeRoleDropDownValue.id}";
-      request.fields['Restaurant'] = "622b09a668395c49dcb4aa73" /*"${StoreDetails.storeId}"*/;
+      request.fields['Restaurant'] = "${StoreDetails.storeId}";
 
       var multiPart = http.MultipartFile('Image', stream, length);
 

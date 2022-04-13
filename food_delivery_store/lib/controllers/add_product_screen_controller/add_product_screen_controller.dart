@@ -9,12 +9,13 @@ import 'package:food_delivery_admin/models/add_product_model/add_product_model.d
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import '../../common/store_details.dart';
 import '../../models/add_product_model/all_attributes_model.dart';
 import '../../models/category_models/get_restaurants_category.dart';
 import '../../models/add_product_model/get_restaurant_sub_category_model.dart';
 import '../../models/add_product_model/restaurants_all_addons_model.dart';
 
-class AddProductScreenController extends GetxController{
+class AddProductScreenController extends GetxController {
   RxString itemCategory = 'Surat'.obs;
   RxString addressType = 'Surat'.obs;
   RxString discountTypeValue = 'Amount'.obs;
@@ -36,17 +37,19 @@ class AddProductScreenController extends GetxController{
   TimeOfDay endTime = TimeOfDay.now();
   RxString endTimeString = "".obs;
 
-
   /// Restaurant Category DD
-  RxList<RestaurantCategory> getRestaurantCategoryList = [RestaurantCategory(name: "Select Category", id: "0")].obs;
+  RxList<RestaurantCategory> getRestaurantCategoryList =
+      [RestaurantCategory(name: "Select Category", id: "0")].obs;
   RestaurantCategory categoryDropDownValue = RestaurantCategory();
 
   /// Restaurant Sub Category DD
-  RxList<SubCategory1> getSubCategoryList = [SubCategory1(name: "Select Sub Category", id: "0")].obs;
+  RxList<SubCategory1> getSubCategoryList =
+      [SubCategory1(name: "Select Sub Category", id: "0")].obs;
   SubCategory1? subCategoryDropDownValue;
 
   /// Attributes List DD
-  RxList<ListElement1> allAttributesList = [ListElement1(name: "Select Attributes", id: "0")].obs;
+  RxList<ListElement1> allAttributesList =
+      [ListElement1(name: "Select Attributes", id: "0")].obs;
   List<MultiSelectItem> attributeDropDownData = [];
   List<Map<String, dynamic>> selectedAttributes = [];
   // ListElement1? attributesDropDownValue;
@@ -58,10 +61,14 @@ class AddProductScreenController extends GetxController{
   // Addon1? addonsDropDownValue;
 
   /// Selected Attributes List For Add Product
-  RxList<Map<String, String>> selectedAttributesList = [{"value": "", "label": ""}].obs;
+  RxList<Map<String, String>> selectedAttributesList = [
+    {"value": "", "label": ""}
+  ].obs;
 
   /// Selected Addons List For Add Product
-  RxList<Map<String, String>> selectedAddonList = [{"value": "", "label": ""}].obs;
+  RxList<Map<String, String>> selectedAddonList = [
+    {"value": "", "label": ""}
+  ].obs;
 
   /// Add Product Function
   Future addProductFunction() async {
@@ -69,14 +76,19 @@ class AddProductScreenController extends GetxController{
     String url = ApiUrl.AddProductApi;
     print('url : $url');
 
+    Map<String, dynamic> productType = {
+      "value": "Veg",
+      "label": "${foodTypeValue.value}"
+    };
+    Map<String, dynamic> discountType = {
+      "value": "Amount",
+      "label": "${discountTypeValue.value}"
+    };
 
-    Map<String , dynamic> productType = {"value": "Veg","label": "${foodTypeValue.value}"};
-    Map<String , dynamic> discountType = {"value": "Amount","label": "${discountTypeValue.value}"};
-
-    if(selectedAttributes.length == 0) {
+    if (selectedAttributes.length == 0) {
       selectedAttributes.add({"value": "", "label": ""});
     }
-    if(selectedAddons.length == 0) {
+    if (selectedAddons.length == 0) {
       selectedAddons.add({"value": "", "label": ""});
     }
 
@@ -88,24 +100,27 @@ class AddProductScreenController extends GetxController{
 
       var request = http.MultipartRequest('POST', Uri.parse(url));
 
-      request.files.add(await http.MultipartFile.fromPath("Image", productImage!.path));
+      request.files
+          .add(await http.MultipartFile.fromPath("Image", productImage!.path));
 
-      request.fields['ProductName'] = "${productTitleEditingController.text.trim()}";
+      request.fields['ProductName'] =
+          "${productTitleEditingController.text.trim()}";
       request.fields['Quantity'] = "${qtyTextEditingController.text.trim()}";
       request.fields['MRP'] = "${mrpTextEditingController.text.trim()}";
       request.fields['Price'] = "${priceTextEditingController.text.trim()}";
       request.fields['Attribute'] = jsonEncode(selectedAttributes);
       request.fields['Addon'] = jsonEncode(selectedAddons);
-      request.fields['Store'] = "622b09a668395c49dcb4aa73";
+      request.fields['Store'] = "${StoreDetails.storeId}";
       request.fields['Category'] = "${categoryDropDownValue.id}";
       request.fields['SubCategory'] = "${subCategoryDropDownValue!.id}";
-      request.fields['Description'] = "${descriptionTextEditingController.text.trim()}";
-      request.fields['Discount'] = "${discountTextEditingController.text.trim()}";
+      request.fields['Description'] =
+          "${descriptionTextEditingController.text.trim()}";
+      request.fields['Discount'] =
+          "${discountTextEditingController.text.trim()}";
       request.fields['ProductType'] = jsonEncode(productType);
       request.fields['DiscountType'] = jsonEncode(discountType);
       request.fields['StartTime'] = "$startTimeString";
       request.fields['EndTime'] = "$endTimeString";
-
 
       var multiPart = http.MultipartFile('Image', stream, length);
 
@@ -115,21 +130,20 @@ class AddProductScreenController extends GetxController{
       print('response: ${response.request}');
 
       response.stream.transform(utf8.decoder).listen((value) {
-        AddProductModel response1 = AddProductModel.fromJson(json.decode(value));
+        AddProductModel response1 =
+            AddProductModel.fromJson(json.decode(value));
         print('response1 ::::::${response1.status}');
         isSuccessStatus = response1.status.obs;
         print('status : $isSuccessStatus');
 
-        if(isSuccessStatus.value){
+        if (isSuccessStatus.value) {
           Fluttertoast.showToast(msg: "${response1.message}");
           clearAddProductFieldsFunction();
           Get.back();
-
         } else {
           print('False False');
         }
       });
-
     } catch (e) {
       print('User SignUp Error : $e');
     } finally {
@@ -140,28 +154,27 @@ class AddProductScreenController extends GetxController{
   /// Get Restaurant Category Function
   getRestaurantCategoryFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetRestaurantCategoryApi + "622b09a668395c49dcb4aa73"/*StoreDetails.storeId*/;
+    String url = ApiUrl.GetRestaurantCategoryApi + StoreDetails.storeId;
     log("URL : $url");
 
     try {
       http.Response response = await http.get(Uri.parse(url));
 
-      GetRestaurantCategoryModel getRestaurantCategoryModel = GetRestaurantCategoryModel.fromJson(json.decode(response.body));
+      GetRestaurantCategoryModel getRestaurantCategoryModel =
+          GetRestaurantCategoryModel.fromJson(json.decode(response.body));
       isSuccessStatus = getRestaurantCategoryModel.status.obs;
 
-      if(isSuccessStatus.value) {
+      if (isSuccessStatus.value) {
         getRestaurantCategoryList.addAll(getRestaurantCategoryModel.category);
         categoryDropDownValue = getRestaurantCategoryList[0];
         log("getRestaurantCategoryList Length : ${getRestaurantCategoryList.length}");
       }
-
-    } catch(e) {
+    } catch (e) {
       log("getRestaurantCategoryFunction : $e");
     } finally {
       // isLoading(false);
       await getAllAttributesFunction();
     }
-
   }
 
   /// Get Restaurant Sub Category Function
@@ -174,21 +187,22 @@ class AddProductScreenController extends GetxController{
       http.Response response = await http.get(Uri.parse(url));
       log("Response : ${response.body}");
 
-      GetSubCategoryModel getSubCategoryModel = GetSubCategoryModel.fromJson(json.decode(response.body));
+      GetSubCategoryModel getSubCategoryModel =
+          GetSubCategoryModel.fromJson(json.decode(response.body));
       isSuccessStatus = getSubCategoryModel.status.obs;
       log("isSuccessStatus : $isSuccessStatus");
 
-      if(isSuccessStatus.value) {
+      if (isSuccessStatus.value) {
         getSubCategoryList.clear();
-        getSubCategoryList.add(SubCategory1(name: "Select Sub Category", id: "0"));
+        getSubCategoryList
+            .add(SubCategory1(name: "Select Sub Category", id: "0"));
         getSubCategoryList.addAll(getSubCategoryModel.subcategory);
         subCategoryDropDownValue = getSubCategoryList[0];
         log("getSubCategoryList : ${getSubCategoryList.length}");
       } else {
         log("getRestaurantSubCategoryFunction Else Else");
       }
-
-    } catch(e) {
+    } catch (e) {
       log("getRestaurantSubCategoryFunction Error : $e");
     } finally {
       isLoading(false);
@@ -201,58 +215,57 @@ class AddProductScreenController extends GetxController{
     String url = ApiUrl.GetAllAttributesApi;
     log("URL : $url");
 
-    try{
+    try {
       http.Response response = await http.get(Uri.parse(url));
       log("Response : $response");
 
-      AllAttributesModule allAttributesModule = AllAttributesModule.fromJson(json.decode(response.body));
+      AllAttributesModule allAttributesModule =
+          AllAttributesModule.fromJson(json.decode(response.body));
       isSuccessStatus = allAttributesModule.status.obs;
 
-      if(isSuccessStatus.value) {
+      if (isSuccessStatus.value) {
         allAttributesList.clear();
         attributeDropDownData.clear();
 
-        if(allAttributesModule.list.length == 0) {
-          allAttributesList.add(ListElement1(name: "Select Attributes", id: "0"));
+        if (allAttributesModule.list.length == 0) {
+          allAttributesList
+              .add(ListElement1(name: "Select Attributes", id: "0"));
         } else {
           allAttributesList.addAll(allAttributesModule.list);
           attributeDropDownData = allAttributesList.map((element) {
             return MultiSelectItem(element, element.name!);
           }).toList();
-
         }
         log("List Length : ${allAttributesList.length}");
       } else {
         log("getAllAttributesFunction Else Else");
       }
-
-
-    } catch(e) {
+    } catch (e) {
       log("getAllAttributesFunction Error : $e");
     } finally {
       // isLoading(false);
       await getRestaurantAddonsFunction();
     }
-
   }
 
   /// Get Restaurant Addons Function
   getRestaurantAddonsFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetRestaurantAddonsApi + "622b09a668395c49dcb4aa73"/*StoreDetails.storeId*/;
+    String url = ApiUrl.GetRestaurantAddonsApi + StoreDetails.storeId;
     log("URL : $url");
 
     try {
       http.Response response = await http.get(Uri.parse(url));
 
-      RestaurantsAllAddonsModule restaurantsAllAddonsModule = RestaurantsAllAddonsModule.fromJson(json.decode(response.body));
+      RestaurantsAllAddonsModule restaurantsAllAddonsModule =
+          RestaurantsAllAddonsModule.fromJson(json.decode(response.body));
       isSuccessStatus = restaurantsAllAddonsModule.status.obs;
 
-      if(isSuccessStatus.value) {
+      if (isSuccessStatus.value) {
         allAddonsList.clear();
         addonDropDownData.clear();
 
-        if(restaurantsAllAddonsModule.addon.length == 0) {
+        if (restaurantsAllAddonsModule.addon.length == 0) {
           allAddonsList.add(Addon1(name: "Select Addon", id: "0"));
         } else {
           allAddonsList.addAll(restaurantsAllAddonsModule.addon);
@@ -265,9 +278,9 @@ class AddProductScreenController extends GetxController{
       } else {
         log("getRestaurantAddonsFunction Else Else");
       }
-    } catch(e) {
+    } catch (e) {
       log("getRestaurantAddonsFunction Error : $e");
-    } finally{
+    } finally {
       isLoading(false);
     }
   }
@@ -281,24 +294,20 @@ class AddProductScreenController extends GetxController{
     qtyTextEditingController.clear();
   }
 
-
   /// Add Attributes From DD in Local List
   addAttributesInSelectedList(ListElement1 listElement1) {
-
     Map<String, String> singleData = {
-      "value" : "${listElement1.id}",
-      "label" : "${listElement1.name}"
+      "value": "${listElement1.id}",
+      "label": "${listElement1.name}"
     };
     log("singleData ::::: $singleData");
 
-    for(int i = 0; i < selectedAttributesList.length; i++) {
-
-      if(selectedAttributesList[i]["value"] == listElement1.id) {
+    for (int i = 0; i < selectedAttributesList.length; i++) {
+      if (selectedAttributesList[i]["value"] == listElement1.id) {
         Fluttertoast.showToast(msg: "Attributes Already Added in List!");
         log("selectedAttributesList 11 : $selectedAttributesList");
       } else {
-
-        if(selectedAttributesList[0]["value"] == "") {
+        if (selectedAttributesList[0]["value"] == "") {
           selectedAttributesList.add(singleData);
           Fluttertoast.showToast(msg: "Attributes Added!");
           selectedAttributesList.removeAt(0);
@@ -315,19 +324,17 @@ class AddProductScreenController extends GetxController{
   /// Add Addons From DD in Local List
   addAddonsInSelectedList(Addon1 addon1) {
     Map<String, String> singleData = {
-      "value" : "${addon1.id}",
-      "label" : "${addon1.name}"
+      "value": "${addon1.id}",
+      "label": "${addon1.name}"
     };
     log("singleData ::::: $singleData");
 
-    for(int i = 0; i < selectedAddonList.length; i++) {
-
-      if(selectedAddonList[i]["value"] == addon1.id) {
+    for (int i = 0; i < selectedAddonList.length; i++) {
+      if (selectedAddonList[i]["value"] == addon1.id) {
         Fluttertoast.showToast(msg: "Addon Already Added in List!");
         log("selectedAddonList 11 : $selectedAddonList");
       } else {
-
-        if(selectedAddonList[0]["value"] == "") {
+        if (selectedAddonList[0]["value"] == "") {
           selectedAddonList.add(singleData);
           Fluttertoast.showToast(msg: "Addon Added!");
           selectedAddonList.removeAt(0);
@@ -339,32 +346,31 @@ class AddProductScreenController extends GetxController{
         }
       }
     }
-
   }
-
 
   /// Select Start Time Function
   selectStartTime(BuildContext context) async {
-    TimeOfDay? startTimePicked = await showTimePicker(context: context, initialTime: startTime);
+    TimeOfDay? startTimePicked =
+        await showTimePicker(context: context, initialTime: startTime);
 
-    if(startTimePicked != null) {
+    if (startTimePicked != null) {
       startTime = startTimePicked;
-      startTimeString = "${startTimePicked.hour} : ${startTimePicked.minute}".obs;
+      startTimeString =
+          "${startTimePicked.hour} : ${startTimePicked.minute}".obs;
       log("startTimeString : $startTime");
     }
-
   }
 
   /// Select End Time Function
   selectEndTime(BuildContext context) async {
-    TimeOfDay? endTimePicked = await showTimePicker(context: context, initialTime: endTime);
+    TimeOfDay? endTimePicked =
+        await showTimePicker(context: context, initialTime: endTime);
 
-    if(endTimePicked != null) {
+    if (endTimePicked != null) {
       endTime = endTimePicked;
       endTimeString = "${endTimePicked.hour} : ${endTimePicked.minute}".obs;
     }
   }
-
 
   @override
   void onInit() {
@@ -377,7 +383,6 @@ class AddProductScreenController extends GetxController{
 
     startTimeString = "${startTime.hour}:${startTime.minute}".obs;
     endTimeString = "${endTime.hour}:${endTime.minute}".obs;
-
 
     super.onInit();
   }

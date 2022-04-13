@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../common/constants/api_url.dart';
+import '../../common/store_details.dart';
 import '../../models/bank_info_models/get_bank_info_model.dart';
 import '../../models/bank_info_models/update_bank_info_model.dart';
 
@@ -28,7 +29,7 @@ class BankInfoScreenController extends GetxController {
   /// Get Bank Info Function
   getRestaurantBankInfoFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetRestaurantBankInfoApi + "622b09a668395c49dcb4aa73";
+    String url = ApiUrl.GetRestaurantBankInfoApi + StoreDetails.storeId;
     log("URL : $url");
 
     try{
@@ -72,7 +73,7 @@ class BankInfoScreenController extends GetxController {
         "BranchName" : "${branchCodeFieldController.text.trim()}",
         "HolderName" : "${holderNameFieldController.text.trim()}",
         "AccountNo" : "${accountNoFieldController.text.trim()}",
-        "RestaurantId" : "622b09a668395c49dcb4aa73"
+        "RestaurantId" : "${StoreDetails.storeId}"
       };
       log("data : $data");
 

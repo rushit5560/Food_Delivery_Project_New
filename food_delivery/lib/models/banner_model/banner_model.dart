@@ -131,8 +131,8 @@ class GetList {
   Category category;
   bool isCommon;
   bool isActive;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String createdAt;
+  String updatedAt;
   int v;
 
   factory GetList.fromJson(Map<String, dynamic> json) => GetList(
@@ -142,8 +142,8 @@ class GetList {
     category: Category.fromJson(json["Category"] ?? {}),
     isCommon: json["IsCommon"] ?? false,
     isActive: json["IsActive"] ?? false,
-    createdAt: DateTime.parse(json["createdAt"] ?? DateTime.now()),
-    updatedAt: DateTime.parse(json["updatedAt"] ?? DateTime.now()),
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
     v: json["__v"] ?? 0,
   );
 
@@ -154,8 +154,8 @@ class GetList {
     "Category": category.toJson(),
     "IsCommon": isCommon,
     "IsActive": isActive,
-    "createdAt": createdAt.toIso8601String(),
-    "updatedAt": updatedAt.toIso8601String(),
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
     "__v": v,
   };
 }
@@ -176,8 +176,8 @@ class Category {
   String name;
   String image;
   bool isActive;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String createdAt;
+  String updatedAt;
   int v;
   String restaurant;
 
@@ -186,8 +186,8 @@ class Category {
     name: json["Name"] ?? "",
     image: json["Image"] ?? "",
     isActive: json["IsActive"] ?? false,
-    createdAt: DateTime.parse(json["createdAt"] ?? DateTime.now()),
-    updatedAt: DateTime.parse(json["updatedAt"] ?? DateTime.now()),
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
     v: json["__v"] ?? 0,
     restaurant: json["Restaurant"] ?? "",
   );
@@ -197,8 +197,8 @@ class Category {
     "Name": name,
     "Image": image,
     "IsActive": isActive,
-    "createdAt": createdAt.toIso8601String(),
-    "updatedAt": updatedAt.toIso8601String(),
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
     "__v": v,
     "Restaurant": restaurant,
   };

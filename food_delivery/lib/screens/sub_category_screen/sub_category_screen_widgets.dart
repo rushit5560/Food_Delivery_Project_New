@@ -1,10 +1,6 @@
-
-
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../common/constant/api_url.dart';
 import '../../common/constant/app_colors.dart';
 import '../../common/constant/enums.dart';
@@ -60,7 +56,9 @@ class SubCategoryListModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: GridView.builder(
+      child: screenController.subCategoryList.isEmpty
+      ? Center(child: Text("No Sub Category Available!"),)
+      : GridView.builder(
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         itemCount: screenController.subCategoryList.length,
@@ -120,6 +118,7 @@ class SubCategoryListModule extends StatelessWidget {
     return Positioned(
       bottom: -15,
       child: Container(
+        width: Get.width * 0.22,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: AppColors.colorDarkPink,
@@ -129,6 +128,7 @@ class SubCategoryListModule extends StatelessWidget {
           child: Center(
             child: Text(
               '${screenController.subCategoryList[index].name}',
+              maxLines: 1,
               textScaleFactor: 0.85,
               style: TextStyle(
                 fontWeight: FontWeight.bold,

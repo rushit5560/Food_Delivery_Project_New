@@ -17,7 +17,6 @@ import '../../models/items_screen_models/get_restaurant_all_product_model.dart';
 import '../../models/items_screen_models/update_product_model.dart';
 import '../../models/sub_category_models/get_all_sub_category_model.dart';
 
-
 class ItemScreenController extends GetxController {
   RxBool isStoreProductsSelected = true.obs;
   RxBool isAdminProductsSelected = false.obs;
@@ -26,13 +25,15 @@ class ItemScreenController extends GetxController {
   List<StoreFood> storeProductList = [];
   List<ListElement> adminProductsList = [];
 
-
   /// Update Item Fields
   GlobalKey<FormState> updateItemFormKey = GlobalKey();
   TextEditingController updateFoodNameFieldController = TextEditingController();
-  TextEditingController updateFoodDescriptionFieldController = TextEditingController();
-  TextEditingController updateFoodPriceFieldController = TextEditingController();
-  TextEditingController updateFoodDiscountFieldController = TextEditingController();
+  TextEditingController updateFoodDescriptionFieldController =
+      TextEditingController();
+  TextEditingController updateFoodPriceFieldController =
+      TextEditingController();
+  TextEditingController updateFoodDiscountFieldController =
+      TextEditingController();
   TextEditingController updateFoodQtyFieldController = TextEditingController();
   TextEditingController updateFoodMrpFieldController = TextEditingController();
   String updatePhotoUrl = "";
@@ -45,21 +46,22 @@ class ItemScreenController extends GetxController {
   RxString updateDiscountTypeValue = 'Amount'.obs;
   String productId = "";
 
-
   /// Restaurant Category DD
-  RxList<RestaurantCategory> getRestaurantCategoryList = [RestaurantCategory(name: "Select Category", id: "0")].obs;
+  RxList<RestaurantCategory> getRestaurantCategoryList =
+      [RestaurantCategory(name: "Select Category", id: "0")].obs;
   RestaurantCategory updateCategoryDropDownValue = RestaurantCategory();
 
   /// Restaurant Sub Category DD
-  RxList<AllSubcategory> getSubCategoryList = [AllSubcategory(name: "Select Sub Category", id: "0")].obs;
+  RxList<AllSubcategory> getSubCategoryList =
+      [AllSubcategory(name: "Select Sub Category", id: "0")].obs;
   AllSubcategory? updateSubCategoryDropDownValue;
 
   /// Attributes List DD
-  RxList<ListElement1> allAttributesList = [ListElement1(name: "Select Attributes", id: "0")].obs;
+  RxList<ListElement1> allAttributesList =
+      [ListElement1(name: "Select Attributes", id: "0")].obs;
   List<MultiSelectItem> attributeDropDownData = [];
   List<Map<String, dynamic>> updateSelectedAttributes = [];
   // ListElement1? updateAttributesDropDownValue;
-
 
   /// Addons List DD
   RxList<Addon1> allAddonsList = [Addon1(name: "Select Addons", id: "0")].obs;
@@ -73,25 +75,25 @@ class ItemScreenController extends GetxController {
   /// Selected Addons List For Add Product
   // RxList<Map<String, String>> updateSelectedAddonList = [{"value": "", "label": ""}].obs;
 
-
   /// Get Admin All Products List
   getAdminProductsListFunction() async {
     isLoading(true);
     String url = ApiUrl.GetAdminProductsApi;
     log("URL : $url");
 
-    try{
+    try {
       http.Response response = await http.get(Uri.parse(url));
 
-      GetAllAdminProductsModule getAllAdminProductsModule = GetAllAdminProductsModule.fromJson(json.decode(response.body));
+      GetAllAdminProductsModule getAllAdminProductsModule =
+          GetAllAdminProductsModule.fromJson(json.decode(response.body));
       isSuccessStatus = getAllAdminProductsModule.status.obs;
 
-      if(isSuccessStatus.value) {
+      if (isSuccessStatus.value) {
         adminProductsList.addAll(getAllAdminProductsModule.list);
       } else {
         log("getAdminProductsListFunction Else Else");
       }
-    } catch(e) {
+    } catch (e) {
       log("getAdminProductsListFunction Error : $e");
     } finally {
       // isLoading(false);
@@ -99,28 +101,28 @@ class ItemScreenController extends GetxController {
     }
   }
 
-
   /// Get Store Products List
   getStoreProductList() async {
     print("Store Id: ${StoreDetails.storeId}");
     isLoading(true);
-    String url = ApiUrl.GetRestaurantProductsApi + /*"${StoreDetails.storeId}"*/"622b09a668395c49dcb4aa73";
+    String url = ApiUrl.GetRestaurantProductsApi + "${StoreDetails.storeId}";
     print('Url : $url');
 
-    try{
+    try {
       http.Response response = await http.get(Uri.parse(url));
 
       print('Response : ${response.body}');
 
-      GetRestaurantAllProductModel getRestaurantAllProductModel = GetRestaurantAllProductModel.fromJson(json.decode(response.body));
+      GetRestaurantAllProductModel getRestaurantAllProductModel =
+          GetRestaurantAllProductModel.fromJson(json.decode(response.body));
       isSuccessStatus = getRestaurantAllProductModel.status.obs;
       print("status : $isSuccessStatus");
 
-      if(isSuccessStatus.value){
+      if (isSuccessStatus.value) {
         storeProductList.clear();
 
-        for(int i = 0; i < getRestaurantAllProductModel.food.length; i++) {
-          if(getRestaurantAllProductModel.food[i].isActive == true) {
+        for (int i = 0; i < getRestaurantAllProductModel.food.length; i++) {
+          if (getRestaurantAllProductModel.food[i].isActive == true) {
             storeProductList.add(getRestaurantAllProductModel.food[i]);
           }
         }
@@ -128,13 +130,12 @@ class ItemScreenController extends GetxController {
       } else {
         print('Get All Store Products Else Else');
       }
-    } catch(e) {
+    } catch (e) {
       print('Error : $e');
     } finally {
       isLoading(false);
     }
   }
-
 
   /// Delete Product
   deleteStoreProductByIdFunction({required String productId}) async {
@@ -142,20 +143,20 @@ class ItemScreenController extends GetxController {
     String url = ApiUrl.DeleteProductApi + productId;
     log("URL  :$url");
 
-    try{
+    try {
       http.Response response = await http.post(Uri.parse(url));
       log("response : $response");
 
-      DeleteStoreProductModel deleteStoreProductModel = DeleteStoreProductModel.fromJson(json.decode(response.body));
+      DeleteStoreProductModel deleteStoreProductModel =
+          DeleteStoreProductModel.fromJson(json.decode(response.body));
       isSuccessStatus = deleteStoreProductModel.status.obs;
 
-      if(isSuccessStatus.value) {
+      if (isSuccessStatus.value) {
         Fluttertoast.showToast(msg: "${deleteStoreProductModel.message}");
       } else {
         log("deleteStoreProductByIdFunction Else Else");
       }
-
-    } catch(e) {
+    } catch (e) {
       log("deleteStoreProductByIdFunction Error :: $e");
     } finally {
       // isLoading(false);
@@ -170,29 +171,40 @@ class ItemScreenController extends GetxController {
     log("URL : $url");
 
     try {
-
-      if(updateFoodImage != null) {
+      if (updateFoodImage != null) {
         var request = http.MultipartRequest('POST', Uri.parse(url));
 
         var stream = http.ByteStream(updateFoodImage!.openRead());
         stream.cast();
         var length = await updateFoodImage!.length();
-        request.files.add(await http.MultipartFile.fromPath("Image", updateFoodImage!.path));
+        request.files.add(
+            await http.MultipartFile.fromPath("Image", updateFoodImage!.path));
 
-        Map<String , dynamic> productType = {"value": "Veg","label": "${updateFoodTypeValue.value}"};
-        Map<String , dynamic> discountType = {"value": "Amount","label": "${updateDiscountTypeValue.value}"};
+        Map<String, dynamic> productType = {
+          "value": "Veg",
+          "label": "${updateFoodTypeValue.value}"
+        };
+        Map<String, dynamic> discountType = {
+          "value": "Amount",
+          "label": "${updateDiscountTypeValue.value}"
+        };
 
-        request.fields['ProductName'] = "${updateFoodNameFieldController.text.trim()}";
-        request.fields['Quantity'] = "${updateFoodQtyFieldController.text.trim()}";
+        request.fields['ProductName'] =
+            "${updateFoodNameFieldController.text.trim()}";
+        request.fields['Quantity'] =
+            "${updateFoodQtyFieldController.text.trim()}";
         request.fields['MRP'] = "${updateFoodMrpFieldController.text.trim()}";
-        request.fields['Price'] = "${updateFoodPriceFieldController.text.trim()}";
+        request.fields['Price'] =
+            "${updateFoodPriceFieldController.text.trim()}";
         request.fields['Attribute'] = jsonEncode(updateSelectedAttributes);
         request.fields['Addon'] = jsonEncode(updateSelectedAddons);
-        request.fields['Store'] = "622b09a668395c49dcb4aa73";
+        request.fields['Store'] = "${StoreDetails.storeId}";
         request.fields['Category'] = "${updateCategoryDropDownValue.id}";
         request.fields['SubCategory'] = "${updateSubCategoryDropDownValue!.id}";
-        request.fields['Description'] = "${updateFoodDescriptionFieldController.text.trim()}";
-        request.fields['Discount'] = "${updateFoodDiscountFieldController.text.trim()}";
+        request.fields['Description'] =
+            "${updateFoodDescriptionFieldController.text.trim()}";
+        request.fields['Discount'] =
+            "${updateFoodDiscountFieldController.text.trim()}";
         request.fields['ProductType'] = jsonEncode(productType);
         request.fields['DiscountType'] = jsonEncode(discountType);
         request.fields['StartTime'] = "$updateStartTimeString";
@@ -204,13 +216,13 @@ class ItemScreenController extends GetxController {
         var response = await request.send();
         print('response: ${response.request}');
 
-
         response.stream.transform(utf8.decoder).listen((value) {
-          UpdateProductModel updateProductModel = UpdateProductModel.fromJson(json.decode(value));
+          UpdateProductModel updateProductModel =
+              UpdateProductModel.fromJson(json.decode(value));
           isSuccessStatus = updateProductModel.status.obs;
           print('status : $isSuccessStatus');
 
-          if(isSuccessStatus.value){
+          if (isSuccessStatus.value) {
             Fluttertoast.showToast(msg: "${updateProductModel.message}");
             clearAllUpdateProductFields();
             Get.back();
@@ -218,10 +230,7 @@ class ItemScreenController extends GetxController {
             print('False False');
           }
         });
-
-      }
-      else if(updateFoodImage == null){
-
+      } else if (updateFoodImage == null) {
         var request = http.MultipartRequest('POST', Uri.parse(url));
 
         // var stream = http.ByteStream(updateFoodImage!.openRead());
@@ -229,20 +238,31 @@ class ItemScreenController extends GetxController {
         // var length = await updateFoodImage!.length();
         // request.files.add(await http.MultipartFile.fromPath("Image", updateFoodImage!.path));
 
-        Map<String , dynamic> productType = {"value": "Veg","label": "${updateFoodTypeValue.value}"};
-        Map<String , dynamic> discountType = {"value": "Amount","label": "${updateDiscountTypeValue.value}"};
+        Map<String, dynamic> productType = {
+          "value": "Veg",
+          "label": "${updateFoodTypeValue.value}"
+        };
+        Map<String, dynamic> discountType = {
+          "value": "Amount",
+          "label": "${updateDiscountTypeValue.value}"
+        };
 
-        request.fields['ProductName'] = "${updateFoodNameFieldController.text.trim()}";
-        request.fields['Quantity'] = "${updateFoodQtyFieldController.text.trim()}";
+        request.fields['ProductName'] =
+            "${updateFoodNameFieldController.text.trim()}";
+        request.fields['Quantity'] =
+            "${updateFoodQtyFieldController.text.trim()}";
         request.fields['MRP'] = "${updateFoodMrpFieldController.text.trim()}";
-        request.fields['Price'] = "${updateFoodPriceFieldController.text.trim()}";
+        request.fields['Price'] =
+            "${updateFoodPriceFieldController.text.trim()}";
         request.fields['Attribute'] = jsonEncode(updateSelectedAttributes);
         request.fields['Addon'] = jsonEncode(updateSelectedAddons);
-        request.fields['Store'] = "622b09a668395c49dcb4aa73";
+        request.fields['Store'] = "${StoreDetails.storeId}";
         request.fields['Category'] = "${updateCategoryDropDownValue.id}";
         request.fields['SubCategory'] = "${updateSubCategoryDropDownValue!.id}";
-        request.fields['Description'] = "${updateFoodDescriptionFieldController.text.trim()}";
-        request.fields['Discount'] = "${updateFoodDiscountFieldController.text.trim()}";
+        request.fields['Description'] =
+            "${updateFoodDescriptionFieldController.text.trim()}";
+        request.fields['Discount'] =
+            "${updateFoodDiscountFieldController.text.trim()}";
         request.fields['ProductType'] = jsonEncode(productType);
         request.fields['DiscountType'] = jsonEncode(discountType);
         request.fields['StartTime'] = "$updateStartTimeString";
@@ -255,13 +275,13 @@ class ItemScreenController extends GetxController {
 
         log("request.fields : ${request.fields}");
 
-
         response.stream.transform(utf8.decoder).listen((value) {
-          UpdateProductModel updateProductModel = UpdateProductModel.fromJson(json.decode(value));
+          UpdateProductModel updateProductModel =
+              UpdateProductModel.fromJson(json.decode(value));
           isSuccessStatus = updateProductModel.status.obs;
           print('status : $isSuccessStatus');
 
-          if(isSuccessStatus.value){
+          if (isSuccessStatus.value) {
             Fluttertoast.showToast(msg: "${updateProductModel.message}");
             clearAllUpdateProductFields();
             Get.back();
@@ -269,16 +289,13 @@ class ItemScreenController extends GetxController {
             print('False False');
           }
         });
-
       }
-
-    } catch(e) {
+    } catch (e) {
       log("updateProductByIdFunction Error ::: $e");
     } finally {
       isLoading(false);
       // await getStoreProductList();
     }
-
   }
 
   @override
@@ -287,33 +304,31 @@ class ItemScreenController extends GetxController {
     getRestaurantCategoryFunction();
   }
 
-
   /// Get Restaurant Category Function
   getRestaurantCategoryFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetRestaurantCategoryApi + "622b09a668395c49dcb4aa73"/*StoreDetails.storeId*/;
+    String url = ApiUrl.GetRestaurantCategoryApi + StoreDetails.storeId;
     log("URL : $url");
 
     try {
       http.Response response = await http.get(Uri.parse(url));
 
-      GetRestaurantCategoryModel getRestaurantCategoryModel = GetRestaurantCategoryModel.fromJson(json.decode(response.body));
+      GetRestaurantCategoryModel getRestaurantCategoryModel =
+          GetRestaurantCategoryModel.fromJson(json.decode(response.body));
       isSuccessStatus = getRestaurantCategoryModel.status.obs;
 
-      if(isSuccessStatus.value) {
+      if (isSuccessStatus.value) {
         getRestaurantCategoryList.clear();
         getRestaurantCategoryList.addAll(getRestaurantCategoryModel.category);
         updateCategoryDropDownValue = getRestaurantCategoryList[0];
         log("getRestaurantCategoryList Length : ${getRestaurantCategoryList.length}");
       }
-
-    } catch(e) {
+    } catch (e) {
       log("getRestaurantCategoryFunction : $e");
     } finally {
       // isLoading(false);
       await getRestaurantSubCategoryFunction();
     }
-
   }
 
   /// Get All Attributes Function
@@ -322,58 +337,57 @@ class ItemScreenController extends GetxController {
     String url = ApiUrl.GetAllAttributesApi;
     log("URL : $url");
 
-    try{
+    try {
       http.Response response = await http.get(Uri.parse(url));
       log("Response : $response");
 
-      AllAttributesModule allAttributesModule = AllAttributesModule.fromJson(json.decode(response.body));
+      AllAttributesModule allAttributesModule =
+          AllAttributesModule.fromJson(json.decode(response.body));
       isSuccessStatus = allAttributesModule.status.obs;
 
-      if(isSuccessStatus.value) {
+      if (isSuccessStatus.value) {
         allAttributesList.clear();
         attributeDropDownData.clear();
 
-        if(allAttributesModule.list.length == 0) {
-          allAttributesList.add(ListElement1(name: "Select Attributes", id: "0"));
+        if (allAttributesModule.list.length == 0) {
+          allAttributesList
+              .add(ListElement1(name: "Select Attributes", id: "0"));
         } else {
           allAttributesList.addAll(allAttributesModule.list);
           attributeDropDownData = allAttributesList.map((element) {
             return MultiSelectItem(element, element.name!);
           }).toList();
-
         }
         log("List Length : ${allAttributesList.length}");
       } else {
         log("getAllAttributesFunction Else Else");
       }
-
-
-    } catch(e) {
+    } catch (e) {
       log("getAllAttributesFunction Error : $e");
     } finally {
       // isLoading(false);
       await getRestaurantAddonsFunction();
     }
-
   }
 
   /// Get Restaurant Addons Function
   getRestaurantAddonsFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetRestaurantAddonsApi + "622b09a668395c49dcb4aa73"/*StoreDetails.storeId*/;
+    String url = ApiUrl.GetRestaurantAddonsApi + StoreDetails.storeId;
     log("URL : $url");
 
     try {
       http.Response response = await http.get(Uri.parse(url));
 
-      RestaurantsAllAddonsModule restaurantsAllAddonsModule = RestaurantsAllAddonsModule.fromJson(json.decode(response.body));
+      RestaurantsAllAddonsModule restaurantsAllAddonsModule =
+          RestaurantsAllAddonsModule.fromJson(json.decode(response.body));
       isSuccessStatus = restaurantsAllAddonsModule.status.obs;
 
-      if(isSuccessStatus.value) {
+      if (isSuccessStatus.value) {
         allAddonsList.clear();
         addonDropDownData.clear();
 
-        if(restaurantsAllAddonsModule.addon.length == 0) {
+        if (restaurantsAllAddonsModule.addon.length == 0) {
           allAddonsList.add(Addon1(name: "Select Addon", id: "0"));
         } else {
           allAddonsList.addAll(restaurantsAllAddonsModule.addon);
@@ -386,9 +400,9 @@ class ItemScreenController extends GetxController {
       } else {
         log("getRestaurantAddonsFunction Else Else");
       }
-    } catch(e) {
+    } catch (e) {
       log("getRestaurantAddonsFunction Error : $e");
-    } finally{
+    } finally {
       // isLoading(false);
       await getStoreProductList();
     }
@@ -397,20 +411,22 @@ class ItemScreenController extends GetxController {
   /// Get Restaurant Sub Category Function
   getRestaurantSubCategoryFunction() async {
     isLoading(true);
-    String url = ApiUrl.GetAllSubCategoryApi + "622b09a668395c49dcb4aa73";
+    String url = ApiUrl.GetAllSubCategoryApi + StoreDetails.storeId;
     log("URL : $url");
 
     try {
       http.Response response = await http.get(Uri.parse(url));
       // log("Response : ${response.body}");
 
-      GetAllSubCategoryModel getAllSubCategoryModel = GetAllSubCategoryModel.fromJson(json.decode(response.body));
+      GetAllSubCategoryModel getAllSubCategoryModel =
+          GetAllSubCategoryModel.fromJson(json.decode(response.body));
       isSuccessStatus = getAllSubCategoryModel.status.obs;
       log("isSuccessStatus : $isSuccessStatus");
 
-      if(isSuccessStatus.value) {
+      if (isSuccessStatus.value) {
         getSubCategoryList.clear();
-        getSubCategoryList.add(AllSubcategory(name: "Select Sub Category", id: "0"));
+        getSubCategoryList
+            .add(AllSubcategory(name: "Select Sub Category", id: "0"));
         getSubCategoryList.addAll(getAllSubCategoryModel.subcategory);
         updateSubCategoryDropDownValue = getSubCategoryList[0];
         log("updateSubCategoryDropDownValue : $updateSubCategoryDropDownValue");
@@ -418,8 +434,7 @@ class ItemScreenController extends GetxController {
       } else {
         log("getRestaurantSubCategoryFunction Else Else");
       }
-
-    } catch(e) {
+    } catch (e) {
       log("getRestaurantSubCategoryFunction Error : $e");
     } finally {
       // isLoading(false);
@@ -434,23 +449,26 @@ class ItemScreenController extends GetxController {
 
   /// Select Start Time Function
   selectStartTime(BuildContext context) async {
-    TimeOfDay? startTimePicked = await showTimePicker(context: context, initialTime: startTime);
+    TimeOfDay? startTimePicked =
+        await showTimePicker(context: context, initialTime: startTime);
 
-    if(startTimePicked != null) {
+    if (startTimePicked != null) {
       startTime = startTimePicked;
-      updateStartTimeString = "${startTimePicked.hour} : ${startTimePicked.minute}".obs;
+      updateStartTimeString =
+          "${startTimePicked.hour} : ${startTimePicked.minute}".obs;
       log("startTimeString : $startTime");
     }
-
   }
 
   /// Select End Time Function
   selectEndTime(BuildContext context) async {
-    TimeOfDay? endTimePicked = await showTimePicker(context: context, initialTime: endTime);
+    TimeOfDay? endTimePicked =
+        await showTimePicker(context: context, initialTime: endTime);
 
-    if(endTimePicked != null) {
+    if (endTimePicked != null) {
       endTime = endTimePicked;
-      updateEndTimeString = "${endTimePicked.hour} : ${endTimePicked.minute}".obs;
+      updateEndTimeString =
+          "${endTimePicked.hour} : ${endTimePicked.minute}".obs;
     }
   }
 
@@ -470,5 +488,4 @@ class ItemScreenController extends GetxController {
     updateFoodTypeValue.value = "Veg";
     updateDiscountTypeValue.value = "Amount";
   }
-
 }

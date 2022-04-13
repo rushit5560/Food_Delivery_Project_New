@@ -9,10 +9,9 @@ import '../../controllers/sign_in_screen_controller/sign_in_screen_controller.da
 class SignInScreen extends StatelessWidget {
   //const SignInScreen({Key? key}) : super(key: key);
 
-  var _SignInformKey = GlobalKey<FormState>();
 
 
-  GoogleSignIn googleSignInManager = GoogleSignIn(
+  final GoogleSignIn googleSignInManager = GoogleSignIn(
     scopes: ['email'],
   );
   final signInScreenController = Get.put(SignInScreenController());
@@ -39,7 +38,7 @@ class SignInScreen extends StatelessWidget {
               ContinueButton(),
               const SizedBox(height: 20),
 
-              SocialLogin()
+              // SocialLogin(),
             ],
           ),
         ),

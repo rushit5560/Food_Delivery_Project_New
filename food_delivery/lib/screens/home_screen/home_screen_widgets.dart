@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/controllers/home_screen_controller/home_screen_controller.dart';
-import 'package:food_delivery/screens/category_screen/category_screen.dart';
 import 'package:food_delivery/screens/home_screen/deal_products_tab/deal_products_tab.dart';
 import 'package:food_delivery/screens/home_screen/recent_selling_tab/recent_selling_tab.dart';
 import 'package:food_delivery/screens/home_screen/top_selling_tab/top_selling_tab.dart';
 import 'package:food_delivery/screens/home_screen/whats_new_tab/whats_new_tab.dart';
 import 'package:food_delivery/screens/products_list_screen/products_list_screen.dart';
+import 'package:food_delivery/screens/restaurant_list_screen/restaurant_list_screen.dart';
 import 'package:get/get.dart';
 
 import '../../common/constant/app_images.dart';
@@ -40,8 +40,7 @@ class SearchContainer extends StatelessWidget {
 }
 
 class BannerList extends StatelessWidget {
-  HomeScreenController homeScreenController = Get.find<HomeScreenController>();
-  // BannerList({required this.homeScreenController});
+  final homeScreenController = Get.find<HomeScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +94,7 @@ class BannerList extends StatelessWidget {
 }
 
 class CarouselIndicator extends StatelessWidget {
-  HomeScreenController homeScreenController = Get.find<HomeScreenController>();
-  // CarouselIndicator({required this.homeScreenController});
+  final homeScreenController = Get.find<HomeScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +137,7 @@ class RestaurantList extends StatelessWidget {
 
               GestureDetector(
                 onTap: () {
-                  Get.to(()=> CategoryScreen());
+                  Get.to(()=> RestaurantListScreen());
                 },
                 child: Text("View All",
                   style: TextStyle(color: Colors.black, fontSize: 20),),

@@ -70,4 +70,7 @@ class ApiUrl {
 
   static const GetStoreDetailsApi = ApiMainPath + "store/find/";
   static const UpdateStoreDetailsApi = ApiMainPath + "store/update/";
+
+  /// Campaign API
+  static const GetAllCampaignApi = ApiMainPath + "BasicCampaign/getAllCampaign";
 }

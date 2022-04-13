@@ -35,9 +35,6 @@ class SignUpScreenController extends GetxController{
   void onInit() {
     super.onInit();
     getAllCityList();
-    cityDropDownValue = cityLists[0];
-    //selectedAreaValue = areaLists[0];
-    // updateLoginInfo();
   }
 
   Future adminSignUpFunction() async {
@@ -131,8 +128,6 @@ class SignUpScreenController extends GetxController{
 
       if(isSuccessStatus.value){
         print("Success");
-        // cityLists.clear();
-        //cityLists.add(GetList(cityName: 'Select City', stateId: StateId(sId: '0'), ));
         cityLists.addAll(allCityModel.getList!);
         cityDropDownValue = cityLists[0];
         print('cityLists : ${cityLists.length}');
