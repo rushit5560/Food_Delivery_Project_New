@@ -34,15 +34,12 @@ class AllRestaurantModel {
 
 class AllStore {
   AllStore({
+    required this.campaignjoin,
+    required this.numberOfReviews,
+    required this.rating,
     required this.id,
     required this.storeName,
-    required this.tax,
     required this.address,
-    required this.minDeliveryTime,
-    required this.maxDeliveryTime,
-    required this.zone,
-    required this.latitude,
-    required this.longitude,
     required this.firstName,
     required this.lastName,
     required this.email,
@@ -52,6 +49,7 @@ class AllStore {
     required this.startTime,
     required this.endTime,
     required this.image,
+    required this.coverImage,
     required this.roleId,
     required this.isActive,
     required this.isApproved,
@@ -61,18 +59,20 @@ class AllStore {
     required this.createdAt,
     required this.updatedAt,
     required this.v,
-    required this.coverImage,
+    required this.latitude,
+    required this.longitude,
+    required this.maxDeliveryTime,
+    required this.minDeliveryTime,
+    required this.tax,
+    required this.zone,
   });
 
+  List<String> campaignjoin;
+  int numberOfReviews;
+  double rating;
   String id;
   String storeName;
-  String tax;
   String address;
-  String minDeliveryTime;
-  String maxDeliveryTime;
-  Zone zone;
-  String latitude;
-  String longitude;
   String firstName;
   String lastName;
   String email;
@@ -82,6 +82,7 @@ class AllStore {
   String startTime;
   String endTime;
   String image;
+  String coverImage;
   RoleId roleId;
   bool isActive;
   bool isApproved;
@@ -91,18 +92,20 @@ class AllStore {
   String createdAt;
   String updatedAt;
   int v;
-  String coverImage;
+  String latitude;
+  String longitude;
+  String maxDeliveryTime;
+  String minDeliveryTime;
+  String tax;
+  Zone zone;
 
   factory AllStore.fromJson(Map<String, dynamic> json) => AllStore(
+    campaignjoin: List<String>.from(json["campaignjoin"].map((x) => x) ?? {}),
+    numberOfReviews: json["NumberOfReviews"] ?? 0,
+    rating: json["Rating"] ?? 0.0,
     id: json["_id"] ?? "",
     storeName: json["StoreName"] ?? "",
-    tax: json["Tax"] ?? "",
     address: json["Address"] ?? "",
-    minDeliveryTime: json["MinDeliveryTime"] ?? "",
-    maxDeliveryTime: json["MaxDeliveryTime"] ?? "",
-    zone: Zone.fromJson(json["Zone"] ?? {}),
-    latitude: json["Latitude"] ?? "",
-    longitude: json["Longitude"] ?? "",
     firstName: json["FirstName"] ?? "",
     lastName: json["LastName"] ?? "",
     email: json["Email"] ?? "",
@@ -112,6 +115,7 @@ class AllStore {
     startTime: json["StartTime"] ?? "",
     endTime: json["EndTime"] ?? "",
     image: json["Image"] ?? "",
+    coverImage: json["CoverImage"] ?? "",
     roleId: RoleId.fromJson(json["RoleId"] ?? {}),
     isActive: json["IsActive"] ?? false,
     isApproved: json["IsApproved"] ?? false,
@@ -121,19 +125,21 @@ class AllStore {
     createdAt: json["createdAt"] ?? "",
     updatedAt: json["updatedAt"] ?? "",
     v: json["__v"] ?? 0,
-    coverImage: json["CoverImage"] ?? "",
+    latitude: json["Latitude"] ?? "",
+    longitude: json["Longitude"] ?? "",
+    maxDeliveryTime: json["MaxDeliveryTime"] ?? "",
+    minDeliveryTime: json["MinDeliveryTime"] ?? "",
+    tax: json["Tax"] ?? "",
+    zone: Zone.fromJson(json["Zone"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
+    "campaignjoin": List<dynamic>.from(campaignjoin.map((x) => x)),
+    "NumberOfReviews": numberOfReviews,
+    "Rating": rating,
     "_id": id,
     "StoreName": storeName,
-    "Tax": tax,
     "Address": address,
-    "MinDeliveryTime": minDeliveryTime,
-    "MaxDeliveryTime": maxDeliveryTime,
-    "Zone": zone.toJson(),
-    "Latitude": latitude,
-    "Longitude": longitude,
     "FirstName": firstName,
     "LastName": lastName,
     "Email": email,
@@ -142,17 +148,23 @@ class AllStore {
     "DeliveryRange": deliveryRange,
     "StartTime": startTime,
     "EndTime": endTime,
-    "Image": image.isEmpty ? null : image,
+    "Image": image,
+    "CoverImage": coverImage,
     "RoleId": roleId.toJson(),
     "IsActive": isActive,
     "IsApproved": isApproved,
-    "CreatedBy": createdBy.isEmpty ? null : createdBy,
-    "UpdatedBy": updatedBy.isEmpty ? null : updatedBy,
+    "CreatedBy": createdBy,
+    "UpdatedBy": updatedBy,
     "ApprovedOn": approvedOn,
     "createdAt": createdAt,
     "updatedAt": updatedAt,
     "__v": v,
-    "CoverImage": coverImage.isEmpty ? null : coverImage,
+    "Latitude": latitude,
+    "Longitude": longitude,
+    "MaxDeliveryTime": maxDeliveryTime,
+    "MinDeliveryTime": minDeliveryTime,
+    "Tax": tax,
+    "Zone": zone.toJson(),
   };
 }
 
@@ -235,4 +247,3 @@ class Zone {
     "__v": v,
   };
 }
-

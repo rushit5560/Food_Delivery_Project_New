@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/common/field_validation.dart';
 import 'package:get/get.dart';
 
+import '../../common/constant/app_colors.dart';
 import '../../controllers/auth_screen_controller/auth_screen_conroller.dart';
 
 class SignInText extends StatelessWidget {
@@ -59,12 +60,14 @@ class PasswordTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: TextInputType.visiblePassword,
-      controller: authScreenController.signInPasswordTextFieldController,
-      obscureText: true,
-      decoration: _inputDecoration(hintText: hintText),
-      validator: (value) => FieldValidator().validatePassword(value!),
+    return Obx(
+      ()=> TextFormField(
+        keyboardType: TextInputType.visiblePassword,
+        controller: authScreenController.signInPasswordTextFieldController,
+        obscureText: authScreenController.signInObsecureValue.value,
+        decoration: _passwordInputDecoration(hintText: hintText, authScreenController: authScreenController),
+        validator: (value) => FieldValidator().validatePassword(value!),
+      ),
     );
   }
 }
@@ -88,5 +91,42 @@ InputDecoration _inputDecoration({hintText}) {
     focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         borderSide: BorderSide(color: Colors.grey.shade200)),
+  );
+}
+
+InputDecoration _passwordInputDecoration({required String hintText, required AuthScreenController authScreenController}) {
+  return InputDecoration(
+    hintText: "$hintText",
+    contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+    filled: true,
+    fillColor: Colors.grey.shade200,
+    counterText: '',
+    enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)),
+    focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)),
+    errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)),
+    focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)),
+    suffixIcon: GestureDetector(
+      onTap: () {
+        authScreenController.signInPasswordProtect.value
+        = !authScreenController.signInPasswordProtect.value;
+        authScreenController.signInObsecureValue.value
+        = !authScreenController.signInObsecureValue.value;
+      },
+      child: Icon(
+        authScreenController.signInPasswordProtect.value == true
+            ? Icons.visibility_rounded
+            : Icons.visibility_off_rounded,
+        size: 20,
+        color: AppColors.colorDarkPink,
+      ),
+    ),
   );
 }

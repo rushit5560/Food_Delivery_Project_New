@@ -3,18 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
-// import 'package:food_delivery/common/constant/user_details.dart';
 import 'package:food_delivery/models/all_area_model/all_area_model.dart';
 import 'package:food_delivery/models/all_city_model/city_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
-import '../../common/constant/user_details.dart';
 import '../../common/sharedpreference_data/sharedpreference_data.dart';
 import '../../models/auth_screen_models/registration_user_model.dart';
-import '../../models/create_user_wallet_model/create_user_wallet_model.dart';
 import '../../models/sign_in_model/sign_in_model.dart';
 import '../../screens/index_screen/index_screen.dart';
+
 
 
 class AuthScreenController extends GetxController {
@@ -39,12 +36,17 @@ class AuthScreenController extends GetxController {
   final signInPasswordTextFieldController = TextEditingController();
 
   File? file;
-  String? selectedCityValue;
-  String? selectedAreaValue;
   String selectedGenderValue = "Male";
   SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
+  RxBool signInPasswordProtect = false.obs;
+  RxBool signInObsecureValue = true.obs;
 
+  RxBool signUpPasswordProtect = false.obs;
+  RxBool signUpObsecureValue = false.obs;
+
+
+  /// Get City List
   getAllCityList() async {
     isLoading(true);
     String url = ApiUrl.AllCityApi;
@@ -75,6 +77,7 @@ class AuthScreenController extends GetxController {
     }
   }
 
+  /// Get Area Using City Id
   getAreaUsingCityId({required String cityId}) async {
     isLoading(true);
 
@@ -103,18 +106,18 @@ class AuthScreenController extends GetxController {
     }
   }
 
+  /// Create User
   Future userSignUpFunction() async {
     isLoading(true);
     String url = ApiUrl.RegisterApi;
     print('url : $url');
 
     try {
-        var stream = http.ByteStream(file!.openRead());
-        stream.cast();
-
-      var length = await file!.length();
-
       var request = http.MultipartRequest('POST', Uri.parse(url));
+
+      var stream = http.ByteStream(file!.openRead());
+      stream.cast();
+      var length = await file!.length();
 
       request.files.add(await http.MultipartFile.fromPath("Photo", file!.path));
 
@@ -124,16 +127,12 @@ class AuthScreenController extends GetxController {
       request.fields['Password'] = "${passwordTextFieldController.text.trim()}";
       request.fields['Address'] = "${addressTextFieldController.text.trim()}";
       request.fields['Gender'] = "$selectedGenderValue";
-      request.fields['CityId'] = "61f8f6a51467b5c3867ba67d";
-      request.fields['AreaId'] = "61f8f7381467b5c3867ba68f";
+      request.fields['CityId'] = "${cityDropDownValue.sId}";
+      request.fields['AreaId'] = "${areaDropDownValue!.id}";
       request.fields['Email'] = "${emailTextFieldController.text.trim().toLowerCase()}";
       request.fields['RoleId'] = "6179367e616b99f3c785a68e";
 
-      var multiPart = http.MultipartFile(
-        'Photo',
-        stream,
-        length,
-      );
+      var multiPart = http.MultipartFile('Photo', stream, length);
 
       request.files.add(multiPart);
 
@@ -144,23 +143,23 @@ class AuthScreenController extends GetxController {
         print('response1 ::::::${response1.status}');
         isSuccessStatus = response1.status.obs;
 
-        if(isSuccessStatus.value){
+        if (isSuccessStatus.value) {
           Fluttertoast.showToast(msg: "${response1.message}");
           clearSignUpFieldsFunction();
-
         } else {
-          // Fluttertoast.showToast(msg: "${response1.message}");
+          Fluttertoast.showToast(msg: "Something went wrong!");
           print('False False');
         }
       });
-
     } catch (e) {
       print('User SignUp Error : $e');
+      Fluttertoast.showToast(msg: "Something went wrong!");
     } finally {
       isLoading(false);
     }
   }
 
+  /// Clear SignUp Fields
   clearSignUpFieldsFunction() {
     userNameTextFieldController.clear();
     fullNameTextFieldController.clear();
@@ -172,43 +171,43 @@ class AuthScreenController extends GetxController {
   }
 
   /// Create User Wallet API
-  createUserWallet() async {
-    isLoading(true);
-    String url = ApiUrl.CreateUserWalletApi;
-    print('Url : $url');
+  // createUserWallet() async {
+  //   isLoading(true);
+  //   String url = ApiUrl.CreateUserWalletApi;
+  //   print('Url : $url');
+  //
+  //   try{
+  //     Map data = {
+  //       "UserId" : "${UserDetails.userId}",
+  //       "Amount" : "0",
+  //       "Status" : "Active",
+  //       "Source" : "GooglePay"
+  //     };
+  //
+  //     http.Response response = await http.post(Uri.parse(url), body: data);
+  //     print('response : ${response.body}');
+  //
+  //     CreateUserWalletModel createUserWalletModel = CreateUserWalletModel.fromJson(json.decode(response.body));
+  //     isSuccessStatus = createUserWalletModel.status.obs;
+  //     print('isSuccessStatus : $isSuccessStatus');
+  //
+  //     if(isSuccessStatus.value) {
+  //       String userWalletId = createUserWalletModel.wallet.id;
+  //       print('userWalletId : $userWalletId');
+  //       sharedPreferenceData.setWalletIdInPrefs(walletId: userWalletId);
+  //     } else {
+  //       print('createUserWallet Else Else');
+  //     }
+  //
+  //   } catch(e) {
+  //     print('Create User Waller Error : $e');
+  //   } finally {
+  //     isLoading(false);
+  //   }
+  // }
 
-    try{
-      Map data = {
-        "UserId" : "${UserDetails.userId}",
-        "Amount" : "0",
-        "Status" : "Active",
-        "Source" : "GooglePay"
-      };
 
-      http.Response response = await http.post(Uri.parse(url), body: data);
-      print('response : ${response.body}');
-
-      CreateUserWalletModel createUserWalletModel = CreateUserWalletModel.fromJson(json.decode(response.body));
-      isSuccessStatus = createUserWalletModel.status.obs;
-      print('isSuccessStatus : $isSuccessStatus');
-
-      if(isSuccessStatus.value) {
-        String userWalletId = createUserWalletModel.wallet.id;
-        print('userWalletId : $userWalletId');
-        sharedPreferenceData.setWalletIdInPrefs(walletId: userWalletId);
-      } else {
-        print('createUserWallet Else Else');
-      }
-
-    } catch(e) {
-      print('Create User Waller Error : $e');
-    } finally {
-      isLoading(false);
-    }
-  }
-
-
-
+  /// User SignIn
   userSignInFunction({required String email, required String phoneNo, required String password}) async {
     isLoading(true);
 
@@ -229,11 +228,12 @@ class AuthScreenController extends GetxController {
       SignInModel signInModel = SignInModel.fromJson(json.decode(response.body));
       isSuccessStatus = signInModel.status.obs;
 
+
       if(isSuccessStatus.value) {
         String userToken = signInModel.token;
         print('userToken : $userToken');
         await sharedPreferenceData.setUserLoginDetailsInPrefs(userToken: "$userToken");
-        await createUserWallet();
+        // await createUserWallet();
         Get.offAll(() => IndexScreen());
         Get.snackbar('User LoggedIn Successfully.', '');
       } else {
@@ -248,17 +248,10 @@ class AuthScreenController extends GetxController {
   }
 
 
-  // RxBool isLoading = false.obs;
-  // FacebookUserProfile? profile;
-  // final FacebookLogin  plugin = FacebookLogin(debug: true);
-
   @override
   void onInit() {
     super.onInit();
     getAllCityList();
-    //cityDropDownValue = cityLists[0];
-    //selectedAreaValue = areaLists[0];
-    // updateLoginInfo();
   }
 
   Map<String, dynamic> signInSelectedOption({String? email,String? phoneNo, required String password}) {

@@ -103,14 +103,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  bool validateInputs() {
-    if (authScreenController.signUpFormKey.currentState!.validate()) {
-      authScreenController.signUpFormKey.currentState!.save();
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // bool validateInputs() {
+  //   if (authScreenController.signUpFormKey.currentState!.validate()) {
+  //     authScreenController.signUpFormKey.currentState!.save();
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   void _showPicker(context) {
     showModalBottomSheet(

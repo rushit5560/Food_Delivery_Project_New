@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/constant/enums.dart';
 import 'package:get/get.dart';
 
 import '../../common/common_widgets.dart';
@@ -22,15 +21,16 @@ class ProductsListScreen extends StatelessWidget {
             ? CustomCircularProgressIndicator()
             : Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: productsListScreenController.productsEnum ==
-                        ProductsEnum.AllProducts
-                    ? productsListScreenController.allProductList.isEmpty
-                        ? Center(child: Text('No Products'))
-                        : AllProductsListModule()
-                    : productsListScreenController
-                            .productsListByCategoryId.isEmpty
-                        ? Center(child: Text('No Products'))
-                        : ProductsListByCategoryIdModule(),
+                child: AllProductsListModule(),
+                // child: productsListScreenController.productsEnum ==
+                //         ProductsEnum.AllProducts
+                //     ? productsListScreenController.allProductList.isEmpty
+                //         ? Center(child: Text('No Products'))
+                //         : AllProductsListModule()
+                //     : productsListScreenController
+                //             .productsListByCategoryId.isEmpty
+                //         ? Center(child: Text('No Products'))
+                //         : ProductsListByCategoryIdModule(),
               ),
       ),
     );

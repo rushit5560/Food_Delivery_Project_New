@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:food_delivery/common/constant/api_url.dart';
-import 'package:food_delivery/common/constant/enums.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,7 +8,7 @@ import '../../models/products_list_screen_model/get_products_by_cat_id_model.dar
 
 
 class ProductsListScreenController extends GetxController {
-  ProductsEnum productsEnum = Get.arguments[0];
+  // ProductsEnum productsEnum = Get.arguments[0];
   String categoryId = Get.arguments[1];
 
   RxBool isLoading = false.obs;
@@ -33,7 +31,13 @@ class ProductsListScreenController extends GetxController {
       print('isSuccessStatus : $isSuccessStatus');
 
       if(isSuccessStatus.value){
-        allProductList = getAllProductsModel.list!;
+        allProductList.clear();
+
+        for(int i = 0; i <getAllProductsModel.list!.length; i++) {
+          if(getAllProductsModel.list![i].isActive == true) {
+            allProductList.add(getAllProductsModel.list![i]);
+          }
+        }
         print('allProductList : $allProductList');
       } else {
         print('Get All Products Else Else');
@@ -110,13 +114,14 @@ class ProductsListScreenController extends GetxController {
   @override
   void onInit() {
     /// Product GetByCategoryId Or All Product
-    if(productsEnum == ProductsEnum.AllProducts){
-      print('ProductsEnum.AllProducts');
-      getAllProducts();
-    } else if(productsEnum == ProductsEnum.SubCategoryWiseProducts) {
-      print('ProductsEnum.CategoryWiseProducts');
-      getProductsByCategoryId(categoryId);
-    }
+    // if(productsEnum == ProductsEnum.AllProducts){
+    //   print('ProductsEnum.AllProducts');
+    //   getAllProducts();
+    // } else if(productsEnum == ProductsEnum.SubCategoryWiseProducts) {
+    //   print('ProductsEnum.CategoryWiseProducts');
+    //   getProductsByCategoryId(categoryId);
+    // }
+    getAllProducts();
 
     super.onInit();
   }

@@ -4,6 +4,7 @@ import 'package:food_delivery/common/field_validation.dart';
 import 'package:food_delivery/models/all_area_model/all_area_model.dart';
 import 'package:get/get.dart';
 
+import '../../common/constant/app_colors.dart';
 import '../../controllers/auth_screen_controller/auth_screen_conroller.dart';
 import '../../models/all_city_model/city_model.dart';
 
@@ -77,12 +78,14 @@ class PasswordTextFieldModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: TextInputType.text,
-      obscureText: true,
-      controller: authScreenController.passwordTextFieldController,
-      decoration: _inputDecoration(hintText: hintText),
-      validator: (value) => FieldValidator().validatePassword(value!),
+    return Obx(
+      ()=> TextFormField(
+        keyboardType: TextInputType.text,
+        obscureText: authScreenController.signUpObsecureValue.value,
+        controller: authScreenController.passwordTextFieldController,
+        decoration: _passwordInputDecoration(hintText: hintText, authScreenController: authScreenController),
+        validator: (value) => FieldValidator().validatePassword(value!),
+      ),
     );
   }
 }
@@ -149,11 +152,9 @@ class _SelectCityDropDownModuleState extends State<SelectCityDropDownModule> {
                 )),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<GetList>(
-                focusColor: Colors.white,
+
                 value: authScreenController.cityDropDownValue,
-                //elevation: 5,
-                style: TextStyle(color: Colors.white),
-                iconEnabledColor: Colors.black,
+
                 items: authScreenController.cityLists.
                 map<DropdownMenuItem<GetList>>((GetList value) {
                   return DropdownMenuItem<GetList>(
@@ -164,17 +165,14 @@ class _SelectCityDropDownModuleState extends State<SelectCityDropDownModule> {
                     ),
                   );
                 }).toList(),
-                hint: Text("Select City"),
+
                 onChanged: (newValue) {
                   authScreenController.isLoading(true);
-                  authScreenController.cityDropDownValue.cityName = newValue!.cityName;
-                  authScreenController.cityDropDownValue.sId = newValue.sId;
+                  authScreenController.cityDropDownValue = newValue!;
                   authScreenController.areaList.clear();
                   authScreenController.areaList.add(GetAreaList(areaName: 'Select Area'));
                   authScreenController.getAreaUsingCityId(cityId: "${authScreenController.cityDropDownValue.sId}");
                   print("cityDropDownValue : ${authScreenController.cityDropDownValue}");
-                  print('newValue.name : ${newValue.cityName}');
-                  print('city: ${newValue.sId!}');
                   authScreenController.isLoading(false);
                 },
               ),
@@ -238,13 +236,9 @@ class _SelectAreaDropDownModuleState extends State<SelectAreaDropDownModule> {
                       style: TextStyle(color: Colors.black),
                     ),
                     onChanged: (newValue) {
+                      authScreenController.isLoading(true);
                       authScreenController.areaDropDownValue = newValue;
-                      authScreenController.areaDropDownValue!.areaName =
-                          newValue!.areaName;
-                      authScreenController.areaDropDownValue!.id = newValue.id;
-                      print('newValue.name : ${newValue.areaName}');
-                      print('area: ${newValue.id}');
-                      authScreenController.loading();
+                      authScreenController.isLoading(false);
                     },
                   ),
                 ),
@@ -337,6 +331,48 @@ InputDecoration _inputDecoration({hintText}) {
     focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         borderSide: BorderSide(color: Colors.grey.shade200)
+    ),
+  );
+}
+
+InputDecoration _passwordInputDecoration({hintText, required AuthScreenController authScreenController}) {
+  return InputDecoration(
+    hintText: "$hintText",
+    isDense: true,
+    contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+    filled: true,
+    fillColor: Colors.grey.shade200,
+    counterText: '',
+    enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)
+    ),
+    focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)
+    ),
+    errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)
+    ),
+    suffixIcon: GestureDetector(
+      onTap: () {
+        authScreenController.signUpPasswordProtect.value
+        = !authScreenController.signUpPasswordProtect.value;
+        authScreenController.signUpObsecureValue.value
+        = !authScreenController.signUpObsecureValue.value;
+      },
+      child: Icon(
+        authScreenController.signUpPasswordProtect.value == true
+            ? Icons.visibility_rounded
+            : Icons.visibility_off_rounded,
+        size: 20,
+        color: AppColors.colorDarkPink,
+      ),
     ),
   );
 }
