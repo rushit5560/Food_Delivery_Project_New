@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'category_screen_widgets.dart';
 
 class CategoryScreen extends StatelessWidget {
-  CategoryScreenController categoryScreenController = Get.put(CategoryScreenController());
+  final categoryScreenController = Get.put(CategoryScreenController());
 
 
   @override

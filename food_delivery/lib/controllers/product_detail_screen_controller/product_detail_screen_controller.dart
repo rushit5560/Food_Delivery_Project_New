@@ -1,11 +1,13 @@
 import 'dart:convert';
-
+import 'dart:developer';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
+import '../../common/constant/user_details.dart';
+import '../../models/cart_models/create_cart_model.dart';
 import '../../models/product_details_model/give_product_review_model.dart';
 import '../../models/product_details_model/product_details_model.dart';
+
 
 
 class ProductDetailScreenController extends GetxController{
@@ -19,23 +21,34 @@ class ProductDetailScreenController extends GetxController{
   int productPrice = 0;
   String productDescription = '';
 
+  RxDouble subTotalAmount = 0.0.obs;
+  String? selectedProductRestaurantId;
+  double? itemTotalPrice;
+  RxDouble itemAddonPrice = 0.0.obs;
+
 
   void onClickedDec() {
     isLoading(true);
-    if (qty > 0) {
+    if (qty > 1) {
       qty--;
+      subTotalAmount.value = (productPrice * qty.value).toDouble();
+      itemTotalPrice = subTotalAmount.value + itemAddonPrice.value;
     }
     isLoading(false);
   }
 
   void onClickedInc() {
     isLoading(true);
-    if(qty < 9){
-      qty++;
-    }
+    qty++;
+    subTotalAmount.value = (productPrice * qty.value).toDouble();
+    itemTotalPrice = subTotalAmount.value + itemAddonPrice.value;
+    // if(qty < 9){
+    //   qty++;
+    // }
     isLoading(false);
   }
 
+  /// Product Review
   giveProductReview(double rating) async {
     // isLoading(true);
     String url = ApiUrl.ProductReviewApi;
@@ -44,7 +57,7 @@ class ProductDetailScreenController extends GetxController{
     try{
       Map<String, dynamic> data = {
         "Product" : "$productId",
-        "Customer" : "61f0ffb3927a090dae0cd777",
+        "Customer" : "${UserDetails.userId}",
         "Review" : "Testy Dish",
         "Rating" : "$rating"
       };
@@ -69,6 +82,7 @@ class ProductDetailScreenController extends GetxController{
     }
   }
 
+  /// Product details
   getProductByProductId() async {
     isLoading(true);
     String url = ApiUrl.ProductByIdApi;
@@ -87,9 +101,8 @@ class ProductDetailScreenController extends GetxController{
         productName = productDetailsModel.product.productName;
         productPrice = productDetailsModel.product.price;
         productDescription = productDetailsModel.product.description;
-        print('productName : $productName');
-        print('productPrice : $productPrice');
-        print('productDescription : $productDescription');
+        subTotalAmount.value = (productPrice * qty.value).toDouble();
+        selectedProductRestaurantId = productDetailsModel.product.store.id;
       } else {
         print('Get Product By Id Else Else');
       }
@@ -98,6 +111,46 @@ class ProductDetailScreenController extends GetxController{
     } finally {
       isLoading(false);
     }
+  }
+
+  /// Add Product In Cart
+  addUserCartItemFunction() async {
+    isLoading(true);
+    String url = ApiUrl.CreateUserCartApi;
+    log("Create Cart URL : $url");
+
+    try {
+      Map<String, dynamic> bodyData = {
+        "UserId" : "${UserDetails.userId}",
+        "RestaurantId" : "$selectedProductRestaurantId",
+        "Quantity" : "$qty",
+        "SubTotal" : "$subTotalAmount",
+        "ProductId" : "$productId",
+        "ProductQuantity" : "$qty",
+        "ProductPrice" : "$productPrice",
+        "ItemTotalPrice" : "$itemTotalPrice",
+        "AddonTotalPrice" : "$itemAddonPrice"
+      };
+      log("bodyData : $bodyData");
+
+      http.Response response = await http.post(Uri.parse(url), body: bodyData);
+
+      CreateCartModel createCartModel = CreateCartModel.fromJson(json.decode(response.body));
+      isSuccessStatus = createCartModel.status.obs;
+
+      if(isSuccessStatus.value) {
+        log("Cart Added Details : ${createCartModel.cart.quantity}");
+      } else {
+        log("addUserCartItemFunction Else Else");
+      }
+
+
+    } catch(e) {
+      log("addUserCartItemFunction Error :: $e");
+    } finally {
+      isLoading(false);
+    }
+
   }
 
   @override

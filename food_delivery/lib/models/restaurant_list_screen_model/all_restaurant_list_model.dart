@@ -77,7 +77,7 @@ class AllStore {
   String lastName;
   String email;
   String password;
-  int phone;
+  double phone;
   String deliveryRange;
   String startTime;
   String endTime;
@@ -102,7 +102,7 @@ class AllStore {
   factory AllStore.fromJson(Map<String, dynamic> json) => AllStore(
     campaignjoin: List<String>.from(json["campaignjoin"].map((x) => x) ?? {}),
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"] ?? 0.0,
+    rating: json["Rating"].toDouble(),
     id: json["_id"] ?? "",
     storeName: json["StoreName"] ?? "",
     address: json["Address"] ?? "",
@@ -110,7 +110,7 @@ class AllStore {
     lastName: json["LastName"] ?? "",
     email: json["Email"] ?? "",
     password: json["Password"] ?? "",
-    phone: json["Phone"] ?? 0,
+    phone: json["Phone"].toDouble() ?? 0.0,
     deliveryRange: json["DeliveryRange"] ?? "",
     startTime: json["StartTime"] ?? "",
     endTime: json["EndTime"] ?? "",
@@ -167,6 +167,7 @@ class AllStore {
     "Zone": zone.toJson(),
   };
 }
+
 
 class RoleId {
   RoleId({
@@ -247,3 +248,4 @@ class Zone {
     "__v": v,
   };
 }
+

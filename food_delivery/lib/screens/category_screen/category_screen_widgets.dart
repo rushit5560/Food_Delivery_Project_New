@@ -107,6 +107,7 @@ class CategoryListModule extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           child: Image(
             image: NetworkImage("${ApiUrl.ApiMainPath}${categoryScreenController.restaurantWiseCategoryList[index].image}"),
+            fit: BoxFit.cover,
           ),
         ),
       ),

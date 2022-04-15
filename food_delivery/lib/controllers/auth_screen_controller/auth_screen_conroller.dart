@@ -130,7 +130,7 @@ class AuthScreenController extends GetxController {
       request.fields['CityId'] = "${cityDropDownValue.sId}";
       request.fields['AreaId'] = "${areaDropDownValue!.id}";
       request.fields['Email'] = "${emailTextFieldController.text.trim().toLowerCase()}";
-      request.fields['RoleId'] = "6179367e616b99f3c785a68e";
+      // request.fields['RoleId'] = "6179367e616b99f3c785a68e";
 
       var multiPart = http.MultipartFile('Photo', stream, length);
 

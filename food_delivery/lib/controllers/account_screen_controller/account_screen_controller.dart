@@ -19,6 +19,7 @@ class AccountScreenController extends GetxController {
   String userName = '';
   String userEmail = '';
   String userPhone = '';
+  String userProfilePic = '';
   SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
   getUserAccount() async {
@@ -38,6 +39,7 @@ class AccountScreenController extends GetxController {
        userName = userAccountModel.user.userName;
        userEmail = userAccountModel.user.email;
        userPhone = userAccountModel.user.phone;
+       userProfilePic = "${ApiUrl.ApiMainPath}${userAccountModel.user.photo}";
        sharedPreferenceData.setUserNameAndProfileImageInPrefs(
           userName: userAccountModel.user.userName,
           userProfile: "${ApiUrl.ApiMainPath}${userAccountModel.user.photo}",

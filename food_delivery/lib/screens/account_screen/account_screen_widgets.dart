@@ -17,6 +17,7 @@ import 'package:food_delivery/screens/wishlist_screen/wishlist_screen.dart';
 import 'package:get/get.dart';
 import 'package:share/share.dart';
 
+
 class AccountDetailsModule extends StatelessWidget {
   AccountDetailsModule({Key? key}) : super(key: key);
   final accountScreenController = Get.find<AccountScreenController>();
@@ -26,6 +27,7 @@ class AccountDetailsModule extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Container(
+        height: 100,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: Colors.grey.shade200
@@ -33,12 +35,14 @@ class AccountDetailsModule extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                flex: 65,
+                // flex: 65,
                 child: Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         '${accountScreenController.userName}',
@@ -59,15 +63,22 @@ class AccountDetailsModule extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
-                flex: 35,
+
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
                 child: Container(
-                  child: Image.asset(
-                      '${Images.ic_food_logo2}',
-                    scale: 2.2,
+                    height: 78,
+                    width: 78,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage("${accountScreenController.userProfilePic}"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                ),
               ),
+
             ],
           ),
         ),
@@ -108,7 +119,7 @@ class EditProfileButtonModule extends StatelessWidget {
 }
 
 class HeaderTextModule extends StatelessWidget {
-  String text;
+  final String text;
   HeaderTextModule({required this.text});
 
   @override
@@ -137,9 +148,7 @@ class HeaderTextModule extends StatelessWidget {
 }
 
 class AccountInfoListModule extends StatelessWidget {
-  AccountScreenController accountScreenController = Get.find<AccountScreenController>();
-
-  // AccountInfoListModule({required this.accountScreenController});
+  final accountScreenController = Get.find<AccountScreenController>();
 
   @override
   Widget build(BuildContext context) {

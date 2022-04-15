@@ -45,4 +45,7 @@ class ApiUrl {
   /// Restaurant API
   static const AllRestaurantApi = ApiMainPath + "store/getAllStore";
 
+  /// Cart API
+  static const GetUserCartApi = ApiMainPath + "cart/user/find/";
+  static const CreateUserCartApi = ApiMainPath + "cart/create";
 }

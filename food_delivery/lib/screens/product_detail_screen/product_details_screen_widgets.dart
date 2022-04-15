@@ -6,45 +6,54 @@ import 'package:food_delivery/controllers/product_detail_screen_controller/produ
 import 'package:get/get.dart';
 
 class AddButton extends StatelessWidget {
-  const AddButton({Key? key}) : super(key: key);
+  AddButton({Key? key}) : super(key: key);
+  final productDetailScreenController =
+  Get.put(ProductDetailScreenController());
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      padding: EdgeInsets.only(left: 20, right: 20),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(topRight: Radius.circular(15),
-              topLeft: Radius.circular(15)),
-          color: AppColors.colorDarkPink
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            child: Text("\$150.00", style: TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold
-            ),),
-          ),
-          Container(
-            height: 40,width: 80,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Add", style: TextStyle(
-                    color: AppColors.colorDarkPink, fontSize: 18, fontWeight: FontWeight.bold
+    return GestureDetector(
+      onTap: () async {
+        await productDetailScreenController.addUserCartItemFunction();
+      },
+      child: Container(
+        height: 60,
+        padding: EdgeInsets.only(left: 20, right: 20),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(topRight: Radius.circular(15),
+                topLeft: Radius.circular(15)),
+            color: AppColors.colorDarkPink
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Obx(
+              ()=> Container(
+                child: Text("\$${productDetailScreenController.subTotalAmount.value}", style: TextStyle(
+                    color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold
                 ),),
-
-                Icon(Icons.add, color: AppColors.colorDarkPink)
-              ],
+              ),
             ),
+            Container(
+              height: 40,width: 80,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Add", style: TextStyle(
+                      color: AppColors.colorDarkPink, fontSize: 18, fontWeight: FontWeight.bold
+                  ),),
 
-          )
-        ],
+                  Icon(Icons.add, color: AppColors.colorDarkPink)
+                ],
+              ),
+
+            )
+          ],
+        ),
       ),
     );
   }

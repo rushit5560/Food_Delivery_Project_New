@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/custom_appbar.dart';
-import 'package:food_delivery/controllers/basket_screen_controller/basket_screen_controller.dart';
 import 'package:get/get.dart';
-import 'basket_screen_widgets.dart';
 
-class BasketScreen extends StatelessWidget {
-  final basketScreenController = Get.put(BasketScreenController());
+import '../../common/custom_appbar.dart';
+import '../../controllers/cart_screen_controller/cart_screen_controller.dart';
+import 'cart_screen_widgets.dart';
+
+class CartScreen extends StatelessWidget {
+  CartScreen({Key? key}) : super(key: key);
+  final cartScreenController = Get.put(CartScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +20,13 @@ class BasketScreen extends StatelessWidget {
           SavingModule(),
           ContinueModule(),
           Expanded(
-              child: CartItemsList(),
+            child: CartItemsList(),
           ),
 
         ],
       ),
+
+
     );
   }
 }
-
-

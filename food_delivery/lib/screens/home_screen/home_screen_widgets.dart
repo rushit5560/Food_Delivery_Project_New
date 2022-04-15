@@ -9,31 +9,36 @@ import 'package:food_delivery/screens/home_screen/top_selling_tab/top_selling_ta
 import 'package:food_delivery/screens/home_screen/whats_new_tab/whats_new_tab.dart';
 import 'package:food_delivery/screens/products_list_screen/products_list_screen.dart';
 import 'package:food_delivery/screens/restaurant_list_screen/restaurant_list_screen.dart';
+import 'package:food_delivery/screens/search_screen/search_screen.dart';
 import 'package:get/get.dart';
 
 import '../../common/constant/app_images.dart';
 import '../../common/constant/enums.dart';
 import '../../controllers/restaurant_list_screen_controller/restaurant_list_screen_controller.dart';
+import '../category_screen/category_screen.dart';
 
 class SearchContainer extends StatelessWidget {
   const SearchContainer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      margin: EdgeInsets.only(left: 15, right: 15, top: 15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.grey.shade200
-      ),
-      child: Row(
-        children: [
-          SizedBox(width: 10,),
-          Icon(Icons.search_outlined, color: Colors.grey.shade400, size: 27,),
-          SizedBox(width: 30,),
-          Text("Search", style: TextStyle(color: Colors.grey, fontSize: 20),)
-        ],
+    return GestureDetector(
+      onTap: () => Get.to(()=> SearchScreen(), transition: Transition.zoom),
+      child: Container(
+        height: 50,
+        margin: EdgeInsets.only(left: 15, right: 15, top: 15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.grey.shade200
+        ),
+        child: Row(
+          children: [
+            SizedBox(width: 10,),
+            Icon(Icons.search_outlined, color: Colors.grey.shade400, size: 27,),
+            SizedBox(width: 30,),
+            Text("Search", style: TextStyle(color: Colors.grey, fontSize: 20),)
+          ],
+        ),
       ),
     );
   }
@@ -149,37 +154,44 @@ class RestaurantList extends StatelessWidget {
           Container(
             height: Get.height * 0.2,
             child: ListView.builder(
-              itemCount: 5,
+              itemCount: restaurantListScreenController.allRestaurantList.length > 8
+                  ? 7
+                  : restaurantListScreenController.allRestaurantList.length,
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index){
-                  return Container(
-                    width: 125,
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.colorGrey
-                    ),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          flex: 8,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                image: NetworkImage("${ApiUrl.ApiMainPath}${restaurantListScreenController.allRestaurantList[index].image}"),
-                                fit: BoxFit.cover,
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(()=> CategoryScreen(), arguments: restaurantListScreenController.allRestaurantList[index].id);
+                    },
+                    child: Container(
+                      width: 125,
+                      margin: EdgeInsets.only(left: 5, right: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: AppColors.colorGrey
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 8,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: NetworkImage("${ApiUrl.ApiMainPath}${restaurantListScreenController.allRestaurantList[index].image}"),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          ),
 
-                        ),
-                        const SizedBox(height: 10),
-                        Expanded(
-                          flex: 2,
-                            child: Text(restaurantListScreenController.allRestaurantList[index].storeName))
-                      ],
+                          ),
+                          const SizedBox(height: 10),
+                          Expanded(
+                            flex: 2,
+                              child: Text(restaurantListScreenController.allRestaurantList[index].storeName))
+                        ],
+                      ),
                     ),
                   );
                 }),
@@ -192,7 +204,7 @@ class RestaurantList extends StatelessWidget {
 
 
 class ProductTab extends StatelessWidget {
-  TabController tabController;
+  final TabController tabController;
   ProductTab({required this.tabController});
 
   @override

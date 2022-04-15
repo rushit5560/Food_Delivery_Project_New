@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/screens/account_screen/account_screen.dart';
-import 'package:food_delivery/screens/basket_screen/basket_screen.dart';
 import 'package:food_delivery/screens/home_screen/home_screen.dart';
 import 'package:food_delivery/screens/search_screen/search_screen.dart';
 
+import '../cart_screen/cart_screen.dart';
 import '../restaurant_list_screen/restaurant_list_screen.dart';
 
 class IndexScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class _IndexScreenState extends State<IndexScreen> {
     HomeScreen(),
     RestaurantListScreen(),
     SearchScreen(),
-    BasketScreen(),
+    CartScreen(),
     AccountScreen()
   ];
 
