@@ -16,17 +16,21 @@ class ProductDetailScreen extends StatelessWidget {
         appBar: productDetailScreenController.isLoading.value
             ? commonAppBarModule(title: '')
             : commonAppBarModule(title: '${productDetailScreenController.productName}'),
-        bottomNavigationBar: productDetailScreenController.isLoading.value
-            ? Container()
-            : AddButton(),
-        body: productDetailScreenController.isLoading.value
-            ? CustomCircularProgressIndicator()
-            : Container(
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [ProductImage(), ProductDetails()],
+        bottomNavigationBar: Obx(
+            () => productDetailScreenController.isLoading.value
+                ? Container()
+                : AddButton(),
+        ),
+        body: Obx(
+          () => productDetailScreenController.isLoading.value
+              ? CustomCircularProgressIndicator()
+              : Container(
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [ProductImage(), ProductDetails()],
+                  ),
                 ),
-              ),
+        ),
       ),
     );
   }

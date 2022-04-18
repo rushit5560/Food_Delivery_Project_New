@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
+import '../constant/user_cart_details.dart';
 import '../constant/user_details.dart';
 
 class SharedPreferenceData {
@@ -14,6 +15,9 @@ class SharedPreferenceData {
   String userWalletIdKey = "userWalletIdKey";
   String userNameKey = "userNameKey";
   String userProfileImageKey = "userProfileImageKey";
+  String isUserCartCreatedKey = "isUserCartCreatedKey";
+  String userCartIdKey = "userCartIdKey";
+  String userCartRestaurantIdKey = "userCartRestaurantIdKey";
 
   // This Function Use For Set UserLoginStatus, UserId & Token in sharedPreference
   setUserLoginDetailsInPrefs({required String userToken}) async {
@@ -71,6 +75,24 @@ class SharedPreferenceData {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(userWalletIdKey, walletId);
     print('Prefs Wallet Id : ${prefs.getString(userWalletIdKey)}');
+  }
+
+  setUserCartDetails({required String cartId, required String cartRestaurantId}) async {
+    /// Set Cart Details in Prefs
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(isUserCartCreatedKey, true);
+    prefs.setString(userCartIdKey, cartId);
+    prefs.setString(userCartRestaurantIdKey, cartRestaurantId);
+
+    /// Set Cart Details in Local Variable
+    UserCartDetails.isCartCreated = prefs.getBool(isUserCartCreatedKey) ?? false;
+    UserCartDetails.userCartId = prefs.getString(userCartIdKey) ?? "";
+    UserCartDetails.userCartRestaurantId = prefs.getString(userCartRestaurantIdKey) ?? "";
+
+    log("isCartCreated ::: ${UserCartDetails.isCartCreated}");
+    log("userCartId ::: ${UserCartDetails.userCartId}");
+    log("userCartRestaurantId ::: ${UserCartDetails.userCartRestaurantId}");
+
   }
 
 

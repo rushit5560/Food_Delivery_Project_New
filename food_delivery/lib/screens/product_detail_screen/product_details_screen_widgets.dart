@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/common/constant/app_images.dart';
+import 'package:food_delivery/common/constant/user_cart_details.dart';
 import 'package:food_delivery/controllers/product_detail_screen_controller/product_detail_screen_controller.dart';
 import 'package:get/get.dart';
+import '../../controllers/cart_screen_controller/cart_screen_controller.dart';
+
 
 class AddButton extends StatelessWidget {
   AddButton({Key? key}) : super(key: key);
-  final productDetailScreenController =
-  Get.put(ProductDetailScreenController());
+  final productDetailScreenController = Get.find<ProductDetailScreenController>();
+  final cartScreenController = Get.find<CartScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await productDetailScreenController.addUserCartItemFunction();
+
+        if(productDetailScreenController.productRestaurantId != UserCartDetails.userCartRestaurantId) {
+          Fluttertoast.showToast(msg: "You Selected From other Restaurant!");
+        } else {
+          await productDetailScreenController.addUserCartItemFunction();
+        }
+
+
       },
       child: Container(
         height: 60,
@@ -38,16 +49,20 @@ class AddButton extends StatelessWidget {
               height: 40,width: 80,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.white
+                  color: Colors.white,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Add", style: TextStyle(
-                      color: AppColors.colorDarkPink, fontSize: 18, fontWeight: FontWeight.bold
-                  ),),
-
-                  Icon(Icons.add, color: AppColors.colorDarkPink)
+                  Text(
+                    "Add",
+                    style: TextStyle(
+                        color: AppColors.colorDarkPink,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Icon(Icons.add, color: AppColors.colorDarkPink),
                 ],
               ),
 
@@ -57,6 +72,10 @@ class AddButton extends StatelessWidget {
       ),
     );
   }
+
+
+
+
 }
 
 class ProductImage extends StatelessWidget {

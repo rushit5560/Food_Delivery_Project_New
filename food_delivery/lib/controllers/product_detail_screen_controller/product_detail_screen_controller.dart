@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -7,17 +8,22 @@ import '../../common/constant/user_details.dart';
 import '../../models/cart_models/create_cart_model.dart';
 import '../../models/product_details_model/give_product_review_model.dart';
 import '../../models/product_details_model/product_details_model.dart';
+import '../cart_screen_controller/cart_screen_controller.dart';
 
 
 
 class ProductDetailScreenController extends GetxController{
   String productId = Get.arguments;
 
+  /// Use For Get Cart API Call
+  final cartScreenController = Get.find<CartScreenController>();
+
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   RxInt qty = 1.obs;
 
   String productName = '';
+  String productRestaurantId = '';
   int productPrice = 0;
   String productDescription = '';
 
@@ -98,11 +104,13 @@ class ProductDetailScreenController extends GetxController{
       isSuccessStatus = productDetailsModel.status.obs;
 
       if (isSuccessStatus.value) {
+        productRestaurantId = productDetailsModel.product.store.id;
         productName = productDetailsModel.product.productName;
         productPrice = productDetailsModel.product.price;
         productDescription = productDetailsModel.product.description;
         subTotalAmount.value = (productPrice * qty.value).toDouble();
         selectedProductRestaurantId = productDetailsModel.product.store.id;
+        itemTotalPrice = subTotalAmount.value + itemAddonPrice.value;
       } else {
         print('Get Product By Id Else Else');
       }
@@ -134,14 +142,20 @@ class ProductDetailScreenController extends GetxController{
       log("bodyData : $bodyData");
 
       http.Response response = await http.post(Uri.parse(url), body: bodyData);
+      log("response : ${response.body}");
 
       CreateCartModel createCartModel = CreateCartModel.fromJson(json.decode(response.body));
       isSuccessStatus = createCartModel.status.obs;
 
       if(isSuccessStatus.value) {
         log("Cart Added Details : ${createCartModel.cart.quantity}");
+        Fluttertoast.showToast(msg: "Product Added in Cart!");
+        await cartScreenController.getUserCartDetailsByIdFunction();
       } else {
         log("addUserCartItemFunction Else Else");
+        if(createCartModel.message.contains("This product has already been used")) {
+          Fluttertoast.showToast(msg: "Product Already in Cart!");
+        }
       }
 
 
