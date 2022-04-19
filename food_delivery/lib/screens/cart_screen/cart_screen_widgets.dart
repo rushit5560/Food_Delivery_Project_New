@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:get/get.dart';
@@ -82,9 +84,9 @@ class CartItemsList extends StatelessWidget {
                 Container(
                   child: Row(
                     children: [
-                      _decrementButton(index),
+                      _decrementButton(singleItem),
                       _itemQty(singleItem),
-                      _incrementButton(index),
+                      _incrementButton(singleItem),
                     ],
                   ),
                 ),
@@ -128,9 +130,34 @@ class CartItemsList extends StatelessWidget {
     );
   }
 
-  Widget _decrementButton(int index) {
+  Widget _decrementButton(CartItem singleItem) {
     return GestureDetector(
-      // onTap: () => screenController.onClickedDec(index),
+      onTap: () async {
+        log("Before productQuantity : ${singleItem.productQuantity}");
+
+        if(singleItem.productQuantity == 1) {
+
+          /// if Cart List Length == 1 then Delete Full Cart
+          if(screenController.cartItemsList.length == 1) {
+            await screenController.deleteCartByIdFunction();
+          } else {
+            /// if Cart List Length != 1 then Delete Cart Item Only
+            await screenController.deleteCartItemByIdFunction(cartItemId: singleItem.id);
+          }
+
+        } else {
+          int itemQty = singleItem.productQuantity - 1;
+          log("Cart Item Id : ${singleItem.id}");
+          log("Item Qty : $itemQty");
+
+          /// Decrease Cart Item Qty
+          await screenController.updateCartItemQuantityByIdFunction(
+              cartItemId: "${singleItem.id}",
+              productQty: "$itemQty"
+          );
+        }
+
+      },
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
@@ -146,9 +173,19 @@ class CartItemsList extends StatelessWidget {
     );
   }
 
-  Widget _incrementButton(int index) {
+  Widget _incrementButton(CartItem singleItem) {
     return GestureDetector(
-      // onTap: () => screenController.onClickedInc(index),
+      onTap: () async {
+        int itemQty = singleItem.productQuantity + 1;
+        log("Cart Item Id : ${singleItem.id}");
+        log("Item Qty : $itemQty");
+
+        /// Increase Cart Qty
+        screenController.updateCartItemQuantityByIdFunction(
+            cartItemId: "${singleItem.id}",
+            productQty: "$itemQty"
+        );
+      },
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,

@@ -48,4 +48,8 @@ class ApiUrl {
   /// Cart API
   static const GetUserCartApi = ApiMainPath + "cart/user/find/";
   static const CreateUserCartApi = ApiMainPath + "cart/create";
+  static const DeleteUserCartApi = ApiMainPath + "cart/delete/Cart";
+  static const UpdateCartItemQuantityApi = ApiMainPath + "cart/quantity";
+  static const DeleteCartItemApi = ApiMainPath + "cart/delete/CartItem";
+
 }

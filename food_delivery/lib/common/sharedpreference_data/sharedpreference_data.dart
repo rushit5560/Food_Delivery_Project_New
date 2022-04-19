@@ -15,6 +15,7 @@ class SharedPreferenceData {
   String userWalletIdKey = "userWalletIdKey";
   String userNameKey = "userNameKey";
   String userProfileImageKey = "userProfileImageKey";
+
   String isUserCartCreatedKey = "isUserCartCreatedKey";
   String userCartIdKey = "userCartIdKey";
   String userCartRestaurantIdKey = "userCartRestaurantIdKey";
@@ -93,6 +94,21 @@ class SharedPreferenceData {
     log("userCartId ::: ${UserCartDetails.userCartId}");
     log("userCartRestaurantId ::: ${UserCartDetails.userCartRestaurantId}");
 
+  }
+
+  deleteUserCartDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(isUserCartCreatedKey, false);
+    prefs.setString(userCartIdKey, "");
+    prefs.setString(userCartRestaurantIdKey, "");
+
+    log("isUserCartCreatedKey : ${prefs.getBool(isUserCartCreatedKey)}");
+    log("userCartIdKey : ${prefs.getString(userCartIdKey)}");
+    log("userCartRestaurantIdKey : ${prefs.getString(userCartRestaurantIdKey)}");
+
+    UserCartDetails.isCartCreated = false;
+    UserCartDetails.userCartId = "";
+    UserCartDetails.userCartRestaurantId = "";
   }
 
 

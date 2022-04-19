@@ -1,6 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/common/constant/user_cart_details.dart';
@@ -18,12 +19,27 @@ class AddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
+        log("productDetailScreenController.productRestaurantId : ${productDetailScreenController.productRestaurantId}");
+        log("UserCartDetails.userCartRestaurantId : ${UserCartDetails.userCartRestaurantId}");
 
-        if(productDetailScreenController.productRestaurantId != UserCartDetails.userCartRestaurantId) {
-          Fluttertoast.showToast(msg: "You Selected From other Restaurant!");
-        } else {
+        if(productDetailScreenController.productRestaurantId == UserCartDetails.userCartRestaurantId) {
           await productDetailScreenController.addUserCartItemFunction();
+        } else if(UserCartDetails.userCartRestaurantId == "") {
+          await productDetailScreenController.addUserCartItemFunction();
+        } else {
+          showUpdateCartDialog(context);
         }
+
+        // if(productDetailScreenController.productRestaurantId != UserCartDetails.userCartRestaurantId) {
+        //   if(UserCartDetails.userCartRestaurantId == "") {
+        //     await productDetailScreenController.addUserCartItemFunction();
+        //   } else {
+        //     showUpdateCartDialog(context);
+        //   }
+        // }
+        // else {
+        //   await productDetailScreenController.addUserCartItemFunction();
+        // }
 
 
       },
@@ -73,8 +89,102 @@ class AddButton extends StatelessWidget {
     );
   }
 
+  showUpdateCartDialog(BuildContext context) {
+
+    Widget noButton() {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: GestureDetector(
+          onTap: () => Get.back(),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: AppColors.colorLightPink,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                "No",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: AppColors.colorDarkPink,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget replaceButton() {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: GestureDetector(
+          onTap: () async {
+            /// First Delete Old Cart & Create New Cart
+            Get.back();
+            await cartScreenController.deleteCartByIdFunction();
+            await productDetailScreenController.addUserCartItemFunction();
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: AppColors.colorDarkPink,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                "Replace",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: AppColors.colorLightPink,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
 
 
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: Text(
+            "Replace cart item ?",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        content: Text("You have food from another restaurant in cart. If you continue, your all previous food from cart will be removed."),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        actions: [
+          // okButton,
+          Row(
+            children: [
+              Expanded(child: noButton()),
+              Expanded(child: replaceButton()),
+            ],
+          ),
+        ],
+      );
+
+
+      // show the dialog
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
 
 }
 

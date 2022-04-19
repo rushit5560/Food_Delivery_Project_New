@@ -110,6 +110,7 @@ class ProductDetailScreenController extends GetxController{
         productDescription = productDetailsModel.product.description;
         subTotalAmount.value = (productPrice * qty.value).toDouble();
         selectedProductRestaurantId = productDetailsModel.product.store.id;
+        log("selectedProductRestaurantId : $selectedProductRestaurantId");
         itemTotalPrice = subTotalAmount.value + itemAddonPrice.value;
       } else {
         print('Get Product By Id Else Else');
@@ -155,6 +156,8 @@ class ProductDetailScreenController extends GetxController{
         log("addUserCartItemFunction Else Else");
         if(createCartModel.message.contains("This product has already been used")) {
           Fluttertoast.showToast(msg: "Product Already in Cart!");
+        } else if(createCartModel.message.contains("")) {
+
         }
       }
 
@@ -166,6 +169,26 @@ class ProductDetailScreenController extends GetxController{
     }
 
   }
+
+  /// Delete Cart
+  /*deleteCartFunction() async {
+    // isLoading(true);
+    String url = ApiUrl.DeleteUserCartApi;
+    log("Delete User Cart API URL : $url");
+
+    try{
+      Map<String, dynamic> data = {"cartid" : "${UserCartDetails.userCartId}"};
+      log("data : $data");
+
+      http.Response response = await http.post(Uri.parse(url), body: data);
+
+    } catch(e) {
+
+    } finally {
+      // isLoading(false);
+    }
+
+  }*/
 
   @override
   void onInit() {
