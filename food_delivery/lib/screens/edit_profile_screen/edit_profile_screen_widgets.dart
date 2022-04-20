@@ -11,7 +11,6 @@ import '../../models/all_city_model/city_model.dart';
 
 class ProfilePicModule extends StatefulWidget {
   const ProfilePicModule({Key? key}) : super(key: key);
-
   @override
   _ProfilePicModuleState createState() => _ProfilePicModuleState();
 }
@@ -24,19 +23,16 @@ class _ProfilePicModuleState extends State<ProfilePicModule> {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        editProfileScreenController.file != null
+        editProfileScreenController.userProfile != null
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(80.0),
-                child: Image.file(editProfileScreenController.file!,
+                child: Image.file(editProfileScreenController.userProfile!,
                     height: 120, width: 120, fit: BoxFit.fill),
               )
             : ClipRRect(
                 borderRadius: BorderRadius.circular(80.0),
-                child: Container(
-                  color: AppColors.colorLightPink,
-                  height: 120, width: 120,
-                  //child: FlutterLogo(),
-                ),
+                child: Image.network(editProfileScreenController.userProfilePicLink,
+                    height: 120, width: 120, fit: BoxFit.fill),
               ),
         GestureDetector(
           onTap: () {
@@ -94,7 +90,7 @@ class _ProfilePicModuleState extends State<ProfilePicModule> {
     final image = await imagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
-        editProfileScreenController.file = File(image.path);
+        editProfileScreenController.userProfile = File(image.path);
       });
     } else {}
   }
@@ -103,7 +99,7 @@ class _ProfilePicModuleState extends State<ProfilePicModule> {
     final image = await imagePicker.pickImage(source: ImageSource.camera);
     if (image != null) {
       setState(() {
-        editProfileScreenController.file = File(image.path);
+        editProfileScreenController.userProfile = File(image.path);
       });
     } else {}
   }
@@ -123,7 +119,7 @@ class FullNameTextField extends StatelessWidget {
   }
 }
 
-class EmailTextField extends StatelessWidget {
+/*class EmailTextField extends StatelessWidget {
   final editProfileScreenController = Get.find<EditProfileScreenController>();
 
   @override
@@ -135,9 +131,9 @@ class EmailTextField extends StatelessWidget {
       decoration: inputDecoration('Email'),
     );
   }
-}
+}*/
 
-class PhoneNoTextField extends StatelessWidget {
+/*class PhoneNoTextField extends StatelessWidget {
   final editProfileScreenController = Get.find<EditProfileScreenController>();
 
   @override
@@ -149,7 +145,7 @@ class PhoneNoTextField extends StatelessWidget {
       decoration: inputDecoration('Phone No.'),
     );
   }
-}
+}*/
 
 class CityDropDownModule extends StatefulWidget {
   CityDropDownModule({Key? key}) : super(key: key);
@@ -216,54 +212,9 @@ class _CityDropDownModuleState extends State<CityDropDownModule> {
   }
 }
 
-/*class CityDropDownModule extends StatelessWidget {
-  final editProfileScreenController = Get.find<EditProfileScreenController>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(
-      () => Container(
-        padding: const EdgeInsets.only(left: 10),
-        height: 50,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            color: Colors.grey.shade200
-            ),
-        child: Theme(
-          data: Theme.of(context).copyWith(
-              canvasColor: Colors.grey.shade100,
-              buttonTheme: ButtonTheme.of(context).copyWith(
-                alignedDropdown: true, //If false (the default), then the dropdown's menu will be wider than its button.
-              )),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<GetList>(
-              focusColor: Colors.white,
-              value: editProfileScreenController.cityLists[0],
-              //elevation: 5,
-              style: TextStyle(color: Colors.white),
-              iconEnabledColor: Colors.black,
-              items: editProfileScreenController.cityLists
-                  .map<DropdownMenuItem<GetList>>((GetList value) {
-                return DropdownMenuItem<GetList>(
-                  value: value,
-                  child: Text(value.cityName!),
-                );
-              }).toList(),
-              hint: Text("Select Address Type"),
-              onChanged: (GetList? value) {
-                editProfileScreenController.selectedCity!.cityName = value!.cityName;
-              },
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}*/
 
 class AreaDropDownModule extends StatelessWidget {
-  EditProfileScreenController editProfileScreenController =
+  final editProfileScreenController =
       Get.find<EditProfileScreenController>();
 
   @override

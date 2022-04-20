@@ -88,18 +88,17 @@ class AccountDetailsModule extends StatelessWidget {
 
 /// Edit Profile Button
 class EditProfileButtonModule extends StatelessWidget {
-  const EditProfileButtonModule({Key? key}) : super(key: key);
+  EditProfileButtonModule({Key? key}) : super(key: key);
+  final accountScreenController = Get.find<AccountScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: GestureDetector(
-        // todo
-        onTap: () => Get.to(
-                ()=> EditProfileScreen(),
-          // arguments: []
-        ),
+        onTap: () => Get.to(()=> EditProfileScreen())!.then((value) async {
+          await accountScreenController.getUserAccount();
+        }),
         child: Container(
           decoration: BoxDecoration(
             color: AppColors.colorDarkPink,
@@ -121,6 +120,28 @@ class EditProfileButtonModule extends StatelessWidget {
   }
 
 }
+
+class ChangePassTextModule extends StatelessWidget {
+  const ChangePassTextModule({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Text(
+        "Change Password?",
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: AppColors.colorDarkPink,
+          fontSize: 14,
+        ),
+      ),
+    );
+  }
+}
+
 
 
 class HeaderTextModule extends StatelessWidget {

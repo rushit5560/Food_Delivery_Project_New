@@ -20,7 +20,13 @@ class AccountScreen extends StatelessWidget {
             Obx(() => accountScreenController.isLoading.value
                 ? CustomCircularProgressIndicator()
                 : AccountDetailsModule()),
-            EditProfileButtonModule(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                EditProfileButtonModule(),
+                ChangePassTextModule(),
+              ],
+            ),
             HeaderTextModule(text: 'Account Information'),
             AccountInfoListModule(),
             HeaderTextModule(text: 'Others'),

@@ -30,7 +30,6 @@ class UpdateUserModel {
 
 class UpdatedUser {
   UpdatedUser({
-    required this.reseLink,
     required this.id,
     required this.userName,
     required this.fullName,
@@ -45,15 +44,12 @@ class UpdatedUser {
     required this.isActive,
     required this.roleId,
     required this.isVerified,
-    required this.createdBy,
-    required this.updatedBy,
     required this.createdAt,
     required this.updatedAt,
     required this.v,
     required this.lastLogin,
   });
 
-  String reseLink;
   String id;
   String userName;
   String fullName;
@@ -68,15 +64,12 @@ class UpdatedUser {
   bool isActive;
   String roleId;
   bool isVerified;
-  String createdBy;
-  String updatedBy;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String createdAt;
+  String updatedAt;
   int v;
-  DateTime lastLogin;
+  String lastLogin;
 
   factory UpdatedUser.fromJson(Map<String, dynamic> json) => UpdatedUser(
-    reseLink: json["reseLink"] ?? "",
     id: json["_id"] ?? "",
     userName: json["UserName"] ?? "",
     fullName: json["FullName"] ?? "",
@@ -91,16 +84,13 @@ class UpdatedUser {
     isActive: json["IsActive"] ?? false,
     roleId: json["RoleId"] ?? "",
     isVerified: json["IsVerified"] ?? false,
-    createdBy: json["CreatedBy"] ?? "",
-    updatedBy: json["UpdatedBy"] ?? "",
-    createdAt: DateTime.parse(json["createdAt"] ?? DateTime.now()),
-    updatedAt: DateTime.parse(json["updatedAt"] ?? DateTime.now()),
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
     v: json["__v"] ?? 0,
-    lastLogin: DateTime.parse(json["LastLogin"] ?? DateTime.now()),
+    lastLogin: json["LastLogin"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
-    "reseLink": reseLink,
     "_id": id,
     "UserName": userName,
     "FullName": fullName,
@@ -115,11 +105,9 @@ class UpdatedUser {
     "IsActive": isActive,
     "RoleId": roleId,
     "IsVerified": isVerified,
-    "CreatedBy": createdBy,
-    "UpdatedBy": updatedBy,
-    "createdAt": createdAt.toIso8601String(),
-    "updatedAt": updatedAt.toIso8601String(),
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
     "__v": v,
-    "LastLogin": lastLogin.toIso8601String(),
+    "LastLogin": lastLogin,
   };
 }

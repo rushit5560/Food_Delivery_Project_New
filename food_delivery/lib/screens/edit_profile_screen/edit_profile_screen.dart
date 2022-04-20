@@ -3,16 +3,9 @@ import 'package:food_delivery/common/common_widgets.dart';
 import 'package:food_delivery/common/custom_appbar.dart';
 import 'package:food_delivery/controllers/edit_profile_screen_controller/edit_profile_screen_controller.dart';
 import 'package:get/get.dart';
-
 import 'edit_profile_screen_widgets.dart';
 
-class EditProfileScreen extends StatefulWidget {
-  @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
-}
-
-class _EditProfileScreenState extends State<EditProfileScreen> {
-  // const EditProfileScreen({Key? key}) : super(key: key);
+class EditProfileScreen extends StatelessWidget {
   final editProfileScreenController = Get.put(EditProfileScreenController());
 
   @override
@@ -36,10 +29,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const SizedBox(height: 20),
                   FullNameTextField(),
                   const SizedBox(height: 15),
-                  EmailTextField(),
-                  const SizedBox(height: 15),
-                  PhoneNoTextField(),
-                  const SizedBox(height: 15),
+                  // EmailTextField(),
+                  // const SizedBox(height: 15),
+                  // PhoneNoTextField(),
+                  // const SizedBox(height: 15),
                   CityDropDownModule(),
                   const SizedBox(height: 15),
                   AreaDropDownModule(),

@@ -11,6 +11,7 @@ class ApiUrl {
 
   /// User Profile API
   static const UpdateUserProfile = ApiMainPath + "user/";
+  static const GetUserProfileApi = ApiMainPath + "user/find/";
 
   /// Category & Sub Category API
   static const AllCategoryApi = ApiMainPath + "Category/getAllCategory";
