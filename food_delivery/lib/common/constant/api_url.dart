@@ -52,4 +52,7 @@ class ApiUrl {
   static const UpdateCartItemQuantityApi = ApiMainPath + "cart/quantity";
   static const DeleteCartItemApi = ApiMainPath + "cart/delete/CartItem";
 
+  /// Search Products API
+  static const SearchFoodProductsApi = ApiMainPath + "product/getsearchdata";
+
 }

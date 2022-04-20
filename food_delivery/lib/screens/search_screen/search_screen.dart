@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/constant/app_colors.dart';
+import 'package:get/get.dart';
+
+import '../../controllers/search_screen_controller/search_screen_controller.dart';
+import 'search_screen_widgets.dart';
 
 class SearchScreen extends StatelessWidget {
-  TextEditingController searchFieldController = TextEditingController();
+  final searchScreenController = Get.put(SearchScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -12,28 +15,9 @@ class SearchScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              TextFormField(
-                controller: searchFieldController,
-                cursorColor: Colors.grey,
-                onChanged: (value){
-                  print('$value');
-                },
-                decoration: InputDecoration(
-                  fillColor: Colors.grey.shade200,
-                  filled: true,
-                  hintText: 'Search',
-                  isDense: true,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.grey.shade200),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.grey.shade200),
-                  ),
-                  prefixIcon: Icon(Icons.search_rounded, color: AppColors.colorDarkPink),
-                ),
+              SearchTextFieldModule(),
+              Expanded(
+                child: SearchFoodListModule(),
               ),
             ],
           ),
