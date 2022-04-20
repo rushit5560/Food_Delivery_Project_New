@@ -8,13 +8,13 @@ import 'package:food_delivery/screens/auth_screen/auth_screen.dart';
 import 'package:food_delivery/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery/screens/notification_screen/notification_screen.dart';
 import 'package:food_delivery/screens/order_screen/order_screen.dart';
-import 'package:food_delivery/screens/profile_screen/profile_screen.dart';
-import 'package:food_delivery/screens/settings_screen/settings_screen.dart';
 import 'package:food_delivery/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
 import 'package:food_delivery/screens/wallet_screen/wallet_screen.dart';
 import 'package:food_delivery/screens/wishlist_screen/wishlist_screen.dart';
 import 'package:get/get.dart';
 import 'package:share/share.dart';
+
+import '../edit_profile_screen/edit_profile_screen.dart';
 
 
 class AccountDetailsModule extends StatelessWidget {
@@ -57,7 +57,7 @@ class AccountDetailsModule extends StatelessWidget {
                         maxLines: 1,
                       ),
                       SizedBox(height: 3),
-                      Text('${accountScreenController.userPhone}', maxLines: 1,),
+                      Text('${accountScreenController.userPhone}', maxLines: 1),
                     ],
                   ),
                 ),
@@ -86,6 +86,7 @@ class AccountDetailsModule extends StatelessWidget {
   }
 }
 
+/// Edit Profile Button
 class EditProfileButtonModule extends StatelessWidget {
   const EditProfileButtonModule({Key? key}) : super(key: key);
 
@@ -94,7 +95,11 @@ class EditProfileButtonModule extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: GestureDetector(
-        onTap: () => Get.to(()=> ProfileScreen()),
+        // todo
+        onTap: () => Get.to(
+                ()=> EditProfileScreen(),
+          // arguments: []
+        ),
         child: Container(
           decoration: BoxDecoration(
             color: AppColors.colorDarkPink,
@@ -116,6 +121,7 @@ class EditProfileButtonModule extends StatelessWidget {
   }
 
 }
+
 
 class HeaderTextModule extends StatelessWidget {
   final String text;

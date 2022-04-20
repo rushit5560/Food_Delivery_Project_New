@@ -20,7 +20,7 @@ class SharedPreferenceData {
   String userCartIdKey = "userCartIdKey";
   String userCartRestaurantIdKey = "userCartRestaurantIdKey";
 
-  // This Function Use For Set UserLoginStatus, UserId & Token in sharedPreference
+  /// This Function Use For Set UserLoginStatus, UserId & Token in sharedPreference
   setUserLoginDetailsInPrefs({required String userToken}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 

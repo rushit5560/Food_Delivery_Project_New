@@ -32,14 +32,8 @@ class RestaurantListScreenController extends GetxController {
       // log("isSuccessStatus : $isSuccessStatus");
 
       if(isSuccessStatus.value) {
-
-        for(int i = 0; i < allRestaurantModel.allStore.length; i++) {
-          /// Only Active Store Add in List
-          allRestaurantList.clear();
-          if(allRestaurantModel.allStore[i].isActive == true) {
-            allRestaurantList.add(allRestaurantModel.allStore[i]);
-          }
-        }
+        allRestaurantList.clear();
+        allRestaurantList.addAll(allRestaurantModel.allStore);
 
         log("allRestaurantList Length : ${allRestaurantList.length}");
       } else {
