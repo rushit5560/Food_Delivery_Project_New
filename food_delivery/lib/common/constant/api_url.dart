@@ -57,4 +57,7 @@ class ApiUrl {
   /// Search Products API
   static const SearchFoodProductsApi = ApiMainPath + "product/getsearchdata";
 
+  /// Change Password API
+  static const ChangePasswordApi = ApiMainPath + "user/changepassword";
+
 }

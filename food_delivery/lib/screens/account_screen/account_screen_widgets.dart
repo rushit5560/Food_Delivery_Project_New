@@ -5,6 +5,7 @@ import 'package:food_delivery/common/sharedpreference_data/sharedpreference_data
 import 'package:food_delivery/controllers/account_screen_controller/account_screen_controller.dart';
 import 'package:food_delivery/screens/about_us_screen/about_us_screen.dart';
 import 'package:food_delivery/screens/auth_screen/auth_screen.dart';
+import 'package:food_delivery/screens/change_password_screen/change_password_screen.dart';
 import 'package:food_delivery/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery/screens/notification_screen/notification_screen.dart';
 import 'package:food_delivery/screens/order_screen/order_screen.dart';
@@ -122,20 +123,28 @@ class EditProfileButtonModule extends StatelessWidget {
 }
 
 class ChangePassTextModule extends StatelessWidget {
-  const ChangePassTextModule({Key? key}) : super(key: key);
+  ChangePassTextModule({Key? key}) : super(key: key);
+  final accountScreenController = Get.find<AccountScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Text(
-        "Change Password?",
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: AppColors.colorDarkPink,
-          fontSize: 14,
+      child: GestureDetector(
+        onTap: () => Get.to(
+          () => ChangePasswordScreen(),
+          transition: Transition.rightToLeft,
+          arguments: "${accountScreenController.userEmail}",
+        ),
+        child: Text(
+          "Change Password?",
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.colorDarkPink,
+            fontSize: 14,
+          ),
         ),
       ),
     );
