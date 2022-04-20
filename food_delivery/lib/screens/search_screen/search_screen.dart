@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/common_widgets.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/search_screen_controller/search_screen_controller.dart';
@@ -17,7 +19,22 @@ class SearchScreen extends StatelessWidget {
             children: [
               SearchTextFieldModule(),
               Expanded(
-                child: SearchFoodListModule(),
+                child: Obx(
+                  () => searchScreenController.isLoading.value
+                      ? CustomCircularProgressIndicator()
+                      : searchScreenController.searchedFoodList.isEmpty
+                          ? Center(
+                              child: Text(
+                                "No Food Available",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.colorDarkPink,
+                                ),
+                              ),
+                            )
+                          : SearchFoodListModule(),
+                ),
               ),
             ],
           ),

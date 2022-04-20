@@ -26,6 +26,7 @@ class SearchScreenController extends GetxController {
       log("data : $data");
 
       http.Response response = await http.post(Uri.parse(url), body: data);
+      log("response : ${response.body}");
 
       SearchProductsModel searchProductsModel = SearchProductsModel.fromJson(json.decode(response.body));
       isSuccessStatus = searchProductsModel.status.obs;
