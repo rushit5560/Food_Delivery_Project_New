@@ -17,9 +17,6 @@ class SearchTextFieldModule extends StatelessWidget {
     return TextFormField(
       controller: screenController.searchFieldController,
       cursorColor: Colors.grey,
-      onChanged: (value){
-        print('$value');
-      },
       decoration: InputDecoration(
         fillColor: Colors.grey.shade200,
         filled: true,
@@ -44,7 +41,7 @@ class SearchTextFieldModule extends StatelessWidget {
           child: Icon(
               Icons.search_rounded,
               color: AppColors.colorDarkPink,
-            size: 22,
+              size: 25,
           ),
         ),
       ),

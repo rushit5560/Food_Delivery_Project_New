@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/common_functions.dart';
 import 'package:food_delivery/common/common_widgets.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:get/get.dart';
@@ -12,31 +13,34 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              SearchTextFieldModule(),
-              Expanded(
-                child: Obx(
-                  () => searchScreenController.isLoading.value
-                      ? CustomCircularProgressIndicator()
-                      : searchScreenController.searchedFoodList.isEmpty
-                          ? Center(
-                              child: Text(
-                                "No Food Available",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.colorDarkPink,
+      body: GestureDetector(
+        onTap: () => hideKeyboard(),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                SearchTextFieldModule(),
+                Expanded(
+                  child: Obx(
+                    () => searchScreenController.isLoading.value
+                        ? CustomCircularProgressIndicator()
+                        : searchScreenController.searchedFoodList.isEmpty
+                            ? Center(
+                                child: Text(
+                                  "Search Your Favourite Food",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.colorDarkPink,
+                                  ),
                                 ),
-                              ),
-                            )
-                          : SearchFoodListModule(),
+                              )
+                            : SearchFoodListModule(),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
