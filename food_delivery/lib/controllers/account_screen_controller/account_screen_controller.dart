@@ -59,10 +59,10 @@ class AccountScreenController extends GetxController {
   }
 
   List<AccountInfoModel> accountInfoList = [
-    AccountInfoModel(
+    /*AccountInfoModel(
       image: '${Images.ic_account_info_1}',
       name: 'Manage Addresses',
-    ),
+    ),*/
     AccountInfoModel(
       image: '${Images.ic_account_info_2}',
       name: 'Your Orders',
@@ -106,10 +106,10 @@ class AccountScreenController extends GetxController {
       image: Images.ic_other_4,
       name: 'About Us',
     ),
-    AccountInfoModel(
+    /*AccountInfoModel(
       image: Images.ic_other_5,
       name: 'Settings',
-    ),
+    ),*/
   ];
 
   @override

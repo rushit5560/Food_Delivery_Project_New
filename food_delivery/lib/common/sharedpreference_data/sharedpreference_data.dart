@@ -122,6 +122,10 @@ class SharedPreferenceData {
     prefs.setString(userTokenKey, "");
     prefs.setString(userWalletIdKey, "");
 
+    prefs.setBool(isUserCartCreatedKey, false);
+    prefs.setString(userCartIdKey, "");
+    prefs.setString(userCartRestaurantIdKey, "");
+
   }
 
 

@@ -89,7 +89,7 @@ class AllOrderListModule extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.colorDarkPink,
-                          fontSize: Get.height * 0.025
+                          fontSize: Get.height * 0.025,
                       ),
                     ),
                   ),

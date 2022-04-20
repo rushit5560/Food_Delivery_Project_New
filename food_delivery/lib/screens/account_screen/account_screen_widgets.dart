@@ -4,7 +4,6 @@ import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/common/sharedpreference_data/sharedpreference_data.dart';
 import 'package:food_delivery/controllers/account_screen_controller/account_screen_controller.dart';
 import 'package:food_delivery/screens/about_us_screen/about_us_screen.dart';
-import 'package:food_delivery/screens/addresses_screen/addresses_screen.dart';
 import 'package:food_delivery/screens/auth_screen/auth_screen.dart';
 import 'package:food_delivery/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery/screens/notification_screen/notification_screen.dart';
@@ -213,26 +212,26 @@ class AccountInfoListModule extends StatelessWidget {
 
   void clickedOnSingleItem(int index) {
     switch (index) {
-      case 0:
+      /*case 0:
         Get.to(()=> AddressesScreen());
-        break;
-      case 1:
+        break;*/
+      case 0:
         Get.to(()=> OrderScreen());
         break;
-      case 2:
+      case 1:
         Get.to(()=> WishListScreen());
         break;
-      case 3:
+      case 2:
         Get.to(()=> WalletScreen());
         break;
-      case 4:
+      case 3:
         // Get.to(()=> );
         print('Offer Zone');
         break;
       /*case 5:
         Get.to(()=> LanguageScreen());
         break;*/
-      case 5:
+      case 4:
         Get.to(()=> NotificationScreen());
         break;
     }
@@ -241,7 +240,7 @@ class AccountInfoListModule extends StatelessWidget {
 }
 
 class OtherInfoListModule extends StatelessWidget {
-  AccountScreenController accountScreenController = Get.find<AccountScreenController>();
+  final accountScreenController = Get.find<AccountScreenController>();
   // OtherInfoListModule({required this.accountScreenController});
 
   @override
@@ -319,20 +318,20 @@ class OtherInfoListModule extends StatelessWidget {
       case 3:
         Get.to(()=> AboutUsScreen());
         break;
-      case 4:
+      /*case 4:
         Get.to(()=> SettingsScreen());
-        break;
+        break;*/
     }
   }
 
   clickedOnShareButton() {
-    Share.share('Food Delivery User');
+    Share.share('OmTec Web Food Delivery Project');
   }
 }
 
 class LogoutButtonModule extends StatelessWidget {
   LogoutButtonModule({Key? key}) : super(key: key);
-  SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
+  final SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
   @override
   Widget build(BuildContext context) {

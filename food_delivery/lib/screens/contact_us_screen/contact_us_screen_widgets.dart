@@ -47,13 +47,8 @@ class CityDropDown extends StatelessWidget {
                 //   "Select City",
                 // ),
                 onChanged: (newValue) {
-                  screenController.cityDropDownValue!.cityName = newValue!.cityName;
-                  screenController.cityDropDownValue!.sId = newValue.sId;
-                  // screenController.areaLists.clear();
+                  screenController.cityDropDownValue = newValue;
                   print("cityDropDownValue : ${screenController.cityDropDownValue}");
-                  print('newValue.name : ${newValue.cityName}');
-                  // screenController.getAllAreaList(newValue.sId!);
-                  print('city: ${newValue.sId!}');
                   screenController.loading();
                 },
               ),

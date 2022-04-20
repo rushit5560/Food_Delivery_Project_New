@@ -35,8 +35,10 @@ class RestaurantSearchFieldModule extends StatelessWidget {
         onTap: () {
           log('Restaurant Name : ${screenController.restaurantSearchFieldController.text}');
           if(screenController.restaurantSearchFieldController.text.trim().isEmpty) {
+            screenController.isLoading(true);
             screenController.searchRestaurantList.clear();
-            screenController.loadUI();
+            screenController.isLoading(false);
+            // screenController.loadUI();
           } else {
             screenController.searchRestaurantListFunction();
           }
