@@ -13,8 +13,11 @@ class NewOrderScreenController extends GetxController {
   RxBool isNewOrderSelected = false.obs;
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
+  RxInt selectedTabIndex = 1.obs;
   List<Order> pendingOrderList = [];
   List<Order> allOrderList = [];
+  List<Order> onTheWayList = [];
+  List<Order> deliveredList = [];
 
   @override
   void onInit() {
@@ -41,6 +44,7 @@ class NewOrderScreenController extends GetxController {
 
         /// Restaurant All Order Add in List
         allOrderList.addAll(getRestaurantOrderModel.order);
+        log("allOrderList : $allOrderList");
 
         /// Restaurant Only Pending Orders Add in List
         for(int i = 0; i < getRestaurantOrderModel.order.length; i++) {
@@ -48,7 +52,23 @@ class NewOrderScreenController extends GetxController {
             pendingOrderList.add(getRestaurantOrderModel.order[i]);
           }
         }
-        log("todayOrderList : $pendingOrderList");
+        log("pendingOrderList : $pendingOrderList");
+
+        /// Restaurant Only On The Way Orders Add in List
+        for(int i = 0; i < getRestaurantOrderModel.order.length; i++) {
+          if(getRestaurantOrderModel.order[i].orderStatusId.status == "PICKUP TO DELIVERY MAN") {
+            onTheWayList.add(getRestaurantOrderModel.order[i]);
+          }
+        }
+        log("onTheWayList : $onTheWayList");
+
+        /// Restaurant Only Delivered Orders Add in List
+        for(int i = 0; i < getRestaurantOrderModel.order.length; i++) {
+          if(getRestaurantOrderModel.order[i].orderStatusId.status == "DELIVERED") {
+            deliveredList.add(getRestaurantOrderModel.order[i]);
+          }
+        }
+        log("deliveredList : $deliveredList");
 
       } else {
         log('Get All Order Else Else');

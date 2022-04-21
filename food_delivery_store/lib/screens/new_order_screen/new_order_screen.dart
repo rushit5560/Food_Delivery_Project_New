@@ -30,8 +30,14 @@ class NewOrderScreen extends StatelessWidget {
             const SizedBox(height: 20),
             Expanded(
               child: Container(
-                child: newOrderScreenController.isTodayOrderSelected.value
-                       ? TodayOrdersModule() : NewOrderModule(),
+                child: newOrderScreenController.selectedTabIndex.value == 1
+                       //? TodayOrdersModule() : NewOrderModule(),
+                      ? AllOrderModule()
+                      : newOrderScreenController.selectedTabIndex.value == 2
+                      ? PendingOrderModule()
+                      : newOrderScreenController.selectedTabIndex.value == 3
+                      ? OnTheWayModule()
+                      : DeliveredModule()
               ),
             ),
 
