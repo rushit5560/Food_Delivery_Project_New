@@ -234,6 +234,8 @@ class DeliveryManScreenController extends GetxController {
         request.fields['IdentityType'] = "$deliveryManIdentity";
         request.fields['Email'] = "${updateEmailFieldController.text.trim()}";
 
+        log('request.fields: ${request.fields}');
+        log('request.files: ${request.files}');
         var response = await request.send();
 
         response.stream.transform(utf8.decoder).listen((value) {
@@ -267,6 +269,9 @@ class DeliveryManScreenController extends GetxController {
         request.fields['Address'] = "${updateAddressFieldController.text.trim()}";
         request.fields['IdentityType'] = "$deliveryManIdentity";
         request.fields['Email'] = "${updateEmailFieldController.text.trim()}";
+
+        log('request.fields: ${request.fields}');
+        log('request.files: ${request.files}');
 
         var multiPart1 = http.MultipartFile('IdentityImage', stream1, length1);
         request.files.add(multiPart1);
@@ -352,6 +357,9 @@ class DeliveryManScreenController extends GetxController {
         request.fields['IdentityType'] = "$deliveryManIdentity";
         request.fields['Email'] = "${updateEmailFieldController.text.trim()}";
 
+        log('request.fields: ${request.fields}');
+        log('request.files: ${request.files}');
+
         var multiPart = http.MultipartFile('Image', stream, length);
         request.files.add(multiPart);
         var multiPart1 = http.MultipartFile('IdentityImage', stream1, length1);
@@ -389,6 +397,7 @@ class DeliveryManScreenController extends GetxController {
 
     allZoneDropDownValue = allZoneList[0];
     updateZoneDropDownValue = allZoneList[0];
+    log('updateZoneDropDownValue: ${updateZoneDropDownValue.areaName}');
     super.onInit();
   }
 

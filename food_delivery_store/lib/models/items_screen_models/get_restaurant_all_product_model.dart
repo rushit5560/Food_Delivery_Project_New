@@ -81,7 +81,7 @@ class StoreFood {
   String updatedAt;
   int v;
   int numberOfReviews;
-  double rating;
+  int rating;
 
   factory StoreFood.fromJson(Map<String, dynamic> json) => StoreFood(
     productType: TType.fromJson(json["ProductType"] ?? {}),
@@ -108,7 +108,7 @@ class StoreFood {
     updatedAt: json["updatedAt"] ?? "",
     v: json["__v"] ?? 0,
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"] ?? 0.0,
+    rating: json["Rating"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {

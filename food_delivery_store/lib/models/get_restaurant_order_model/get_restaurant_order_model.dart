@@ -251,8 +251,8 @@ class StoreId {
   String password;
   int phone;
   String deliveryRange;
-  DateTime startTime;
-  DateTime endTime;
+  String startTime;
+  String endTime;
   String image;
   String coverImage;
   String roleId;
@@ -260,9 +260,9 @@ class StoreId {
   bool isApproved;
   String createdBy;
   String updatedBy;
-  DateTime approvedOn;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String approvedOn;
+  String createdAt;
+  String updatedAt;
   int v;
 
   factory StoreId.fromJson(Map<String, dynamic> json) => StoreId(
@@ -275,8 +275,8 @@ class StoreId {
     password: json["Password"],
     phone: json["Phone"],
     deliveryRange: json["DeliveryRange"],
-    startTime: DateTime.parse(json["StartTime"] ?? DateTime.now()),
-    endTime: DateTime.parse(json["EndTime"] ?? DateTime.now()),
+    startTime: json["StartTime"] ?? "",
+    endTime: json["EndTime"] ?? "",
     image: json["Image"],
     coverImage: json["CoverImage"],
     roleId: json["RoleId"],
@@ -284,9 +284,9 @@ class StoreId {
     isApproved: json["IsApproved"] ?? false,
     createdBy: json["CreatedBy"],
     updatedBy: json["UpdatedBy"],
-    approvedOn: DateTime.parse(json["ApprovedOn"] ?? DateTime.now()),
-    createdAt: DateTime.parse(json["createdAt"] ?? DateTime.now()),
-    updatedAt: DateTime.parse(json["updatedAt"] ?? DateTime.now()),
+    approvedOn: json["ApprovedOn"] ?? "",
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
     v: json["__v"],
   );
 
@@ -300,8 +300,8 @@ class StoreId {
     "Password": password,
     "Phone": phone,
     "DeliveryRange": deliveryRange,
-    "StartTime": startTime.toIso8601String(),
-    "EndTime": endTime.toIso8601String(),
+    "StartTime": startTime,
+    "EndTime": endTime,
     "Image": image,
     "CoverImage": coverImage,
     "RoleId": roleId,
@@ -309,9 +309,9 @@ class StoreId {
     "IsApproved": isApproved,
     "CreatedBy": createdBy,
     "UpdatedBy": updatedBy,
-    "ApprovedOn": approvedOn.toIso8601String(),
-    "createdAt": createdAt.toIso8601String(),
-    "updatedAt": updatedAt.toIso8601String(),
+    "ApprovedOn": approvedOn,
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
     "__v": v,
   };
 }
@@ -351,8 +351,8 @@ class UserId {
   bool isActive;
   String roleId;
   bool isVerified;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String createdAt;
+  String updatedAt;
   int v;
 
   factory UserId.fromJson(Map<String, dynamic> json) => UserId(
@@ -370,8 +370,8 @@ class UserId {
     isActive: json["IsActive"] ?? false,
     roleId: json["RoleId"] ?? "",
     isVerified: json["IsVerified"] ?? false,
-    createdAt: DateTime.parse(json["createdAt"] ?? DateTime.now()),
-    updatedAt: DateTime.parse(json["updatedAt"] ?? DateTime.now()),
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
     v: json["__v"] ?? 0,
   );
 
@@ -390,8 +390,8 @@ class UserId {
     "IsActive": isActive,
     "RoleId": roleId,
     "IsVerified": isVerified,
-    "createdAt": createdAt.toIso8601String(),
-    "updatedAt": updatedAt.toIso8601String(),
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
     "__v": v,
   };
 }

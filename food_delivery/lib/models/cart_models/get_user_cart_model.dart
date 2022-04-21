@@ -301,7 +301,7 @@ class ProductId {
   TType productType;
   TType discountType;
   int numberOfReviews;
-  int rating;
+  double rating;
   String id;
   String category;
   String subCategory;
@@ -328,7 +328,7 @@ class ProductId {
     productType: TType.fromJson(json["ProductType"] ?? {}),
     discountType: TType.fromJson(json["DiscountType"] ?? {}),
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"] ?? 0,
+    rating: json["Rating"].toDouble() ?? 0.0,
     id: json["_id"] ?? "",
     category: json["Category"] ?? "",
     subCategory: json["SubCategory"] ?? "",

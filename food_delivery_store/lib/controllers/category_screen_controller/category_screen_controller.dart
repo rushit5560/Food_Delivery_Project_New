@@ -55,7 +55,7 @@ class CategoryScreenController extends GetxController {
       var response = await request.send();
 
 
-      response.stream.transform(utf8.decoder).listen((value) {
+      response.stream.transform(utf8.decoder).listen((value) async{
         AddCategoryModel addCategoryModel = AddCategoryModel.fromJson(json.decode(value));
         isSuccessStatus = addCategoryModel.status.obs;
         
@@ -63,6 +63,7 @@ class CategoryScreenController extends GetxController {
           categoryFieldController.clear();
           categoryImage!.delete();
           Fluttertoast.showToast(msg: "${addCategoryModel.message}");
+          await getRestaurantCategoryFunction();
         } else {
           log("addNewCategoryFunction : $addNewCategoryFunction");
         }

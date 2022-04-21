@@ -416,7 +416,7 @@ class FoodTypeDropDownModule extends StatelessWidget {
 
                       items: <String>[
                         'Veg',
-                        'Non-Veg',
+                        'NonVeg',
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
