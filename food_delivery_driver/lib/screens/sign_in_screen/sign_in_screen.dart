@@ -3,11 +3,11 @@ import 'package:food_delivery_driver/common/constant/app_colors.dart';
 import 'package:food_delivery_driver/screens/sign_in_screen/sign_in_screen_widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
 import '../../controllers/sign_in_screen_controller/sign_in_screen_controller.dart';
 
+
 class SignInScreen extends StatelessWidget {
-  GoogleSignIn googleSignInManager = GoogleSignIn(scopes: ['email']);
+  final GoogleSignIn googleSignInManager = GoogleSignIn(scopes: ['email']);
   final signInScreenController = Get.put(SignInScreenController());
 
   @override
@@ -65,7 +65,7 @@ class SignInScreen extends StatelessWidget {
                     const SizedBox(height: 50),
                     ContinueButton(),
                     const SizedBox(height: 20),
-                    socialLogin(),
+                    SocialLogin(),
                   ],
                 ),
               ),
@@ -147,4 +147,5 @@ class SignInScreen extends StatelessWidget {
       print(error);
     }
   }*/
+
 }

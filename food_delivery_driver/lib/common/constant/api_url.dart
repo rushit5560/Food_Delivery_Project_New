@@ -11,4 +11,10 @@ class ApiUrl {
   static const GetAllRestaurantsApi = ApiMainPath + "store/getAllStore";
   static const GetAllZoneApi = ApiMainPath + "Zone/getAllZone";
 
+  /// Change Password API
+  static const ChangePasswordApi = ApiMainPath + "deliveryperson/changepassword";
+
+  /// Forgot Password API
+  static const ForgotPasswordApi = ApiMainPath + "deliveryperson/forgotpassword";
+
 }

@@ -1,20 +1,24 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../../common/constant/enums.dart';
 import '../../models/products_list_screen_model/get_all_products_model.dart';
+import '../../models/products_list_screen_model/get_product_by_sub_cat_id_model.dart';
 import '../../models/products_list_screen_model/get_products_by_cat_id_model.dart';
 
 
 class ProductsListScreenController extends GetxController {
-  // ProductsEnum productsEnum = Get.arguments[0];
-  String categoryId = Get.arguments[1];
+  ProductsEnum productsEnum = Get.arguments[0];
+  String subCategoryId = Get.arguments[1];
 
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   List<GetAllProductList> allProductList = [];
-  List<Product> productsListByCategoryId = [];
+  List<Food> productsListBySubCategoryId = [];
+  // List<Product> productsListByCategoryId = [];
 
 
   getAllProducts() async {
@@ -50,6 +54,34 @@ class ProductsListScreenController extends GetxController {
     }
   }
 
+  getSubCategoryWiseProductsFunction(String subCategoryId) async {
+    isLoading(true);
+    String url = ApiUrl.SubCategoryWiseProductApi + subCategoryId;
+    log("Sub Category API URL : $url");
+
+    try {
+      http.Response response = await http.get(Uri.parse(url));
+      log("Sub Category Wise Product Response : ${response.body}");
+
+      SubCategoryWiseProductsModel subCategoryWiseProductsModel = SubCategoryWiseProductsModel.fromJson(json.decode(response.body));
+      isSuccessStatus = subCategoryWiseProductsModel.status.obs;
+      log("isSuccessStatus : $isSuccessStatus");
+
+      if(isSuccessStatus.value) {
+        productsListBySubCategoryId =  subCategoryWiseProductsModel.food;
+        log("productsListBySubCategoryId Length : ${productsListBySubCategoryId.length}");
+      } else {
+        log("productsListBySubCategoryId Else Else");
+      }
+
+    } catch(e) {
+      log("getSubCategoryWiseProductsFunction Error :::$e");
+    } finally {
+      isLoading(false);
+    }
+
+  }
+
   // getProductsByCategoryId(String categoryId) async {
   //   isLoading(true);
   //   print('categoryId : $categoryId');
@@ -80,7 +112,7 @@ class ProductsListScreenController extends GetxController {
   //
   // }
 
-  getProductsByCategoryId(String categoryId) async {
+  /*getProductsByCategoryId(String categoryId) async {
     isLoading(true);
     print('categoryId : $categoryId');
     String url = ApiUrl.CategoryWiseProductApi;
@@ -109,19 +141,19 @@ class ProductsListScreenController extends GetxController {
       isLoading(false);
     }
 
-  }
+  }*/
 
   @override
   void onInit() {
     /// Product GetByCategoryId Or All Product
-    // if(productsEnum == ProductsEnum.AllProducts){
-    //   print('ProductsEnum.AllProducts');
-    //   getAllProducts();
-    // } else if(productsEnum == ProductsEnum.SubCategoryWiseProducts) {
-    //   print('ProductsEnum.CategoryWiseProducts');
-    //   getProductsByCategoryId(categoryId);
-    // }
-    getAllProducts();
+    if(productsEnum == ProductsEnum.AllProducts){
+      print('ProductsEnum.AllProducts');
+      getAllProducts();
+    } else if(productsEnum == ProductsEnum.SubCategoryWiseProducts) {
+      print('ProductsEnum.CategoryWiseProducts');
+      getSubCategoryWiseProductsFunction(subCategoryId);
+    }
+    // getAllProducts();
 
     super.onInit();
   }

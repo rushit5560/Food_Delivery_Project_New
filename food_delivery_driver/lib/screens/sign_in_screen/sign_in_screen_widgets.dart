@@ -8,6 +8,7 @@ import 'package:food_delivery_driver/screens/sign_up_screen/sign_up_screen.dart'
 import 'package:get/get.dart';
 
 import '../../controllers/sign_in_screen_controller/sign_in_screen_controller.dart';
+import '../forgot_password_screen/forgot_password_screen.dart';
 
 class WelcomeText extends StatelessWidget {
   const WelcomeText({Key? key}) : super(key: key);
@@ -65,6 +66,8 @@ class LoginForm extends StatelessWidget {
             EmailTextField(hintText: "Enter Email",),
             SizedBox(height: 10,),
             PasswordTextField(hintText: "Password",),
+            SizedBox(height: 20),
+            ForgotPasswordTextModule(),
             SizedBox(height: 40,),
             NotUserText(),
             // SizedBox(height: 40,),
@@ -138,7 +141,7 @@ class PreferredLang extends StatelessWidget {
 class EmailTextField extends StatelessWidget {
   // const SignInTextField({Key? key}) : super(key: key);
   final signInScreenController = Get.find<SignInScreenController>();
-  String hintText;
+  final String hintText;
 
   EmailTextField({required this.hintText});
 
@@ -156,7 +159,7 @@ class EmailTextField extends StatelessWidget {
 
 class PasswordTextField extends StatelessWidget {
   final signInScreenController = Get.find<SignInScreenController>();
-  String hintText;
+  final String hintText;
 
   PasswordTextField({required this.hintText});
 
@@ -172,9 +175,34 @@ class PasswordTextField extends StatelessWidget {
   }
 }
 
+class ForgotPasswordTextModule extends StatelessWidget {
+  const ForgotPasswordTextModule({Key? key}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        GestureDetector(
+          onTap: () {
+            Get.to(()=> ForgotPasswordScreen());
+          },
+          child: Text(
+            "Forgot Password?",
+            // textAlign: TextAlign.right,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: AppColors.colorDarkPink,
+              fontSize: 14,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
 
-InputDecoration _inputDecoration({hintText, icon}) {
+InputDecoration _inputDecoration({hintText}) {
   return InputDecoration(
     hintText: "$hintText",
     //prefixIcon: Icon(icon, color: Colors.black),
@@ -232,14 +260,14 @@ class ContinueButton extends StatelessWidget {
   }
 }
 
-class socialLogin extends StatefulWidget {
+class SocialLogin extends StatefulWidget {
 
 
   @override
-  _socialLoginState createState() => _socialLoginState();
+  _SocialLoginState createState() => _SocialLoginState();
 }
 
-class _socialLoginState extends State<socialLogin> {
+class _SocialLoginState extends State<SocialLogin> {
   // FacebookAccessToken? _token;
   // FacebookUserProfile? _profile;
   // String? _imageUrl;

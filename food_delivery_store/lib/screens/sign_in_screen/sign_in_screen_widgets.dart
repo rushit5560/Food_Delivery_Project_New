@@ -8,6 +8,7 @@ import 'package:food_delivery_admin/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/sign_in_screen_controller/sign_in_screen_controller.dart';
+import '../forgot_password_screen/forgot_password_screen.dart';
 
 
 class WelcomeText extends StatelessWidget {
@@ -70,10 +71,12 @@ class LoginForm extends StatelessWidget {
             SizedBox(height: 30,),
             LoginText(),
             SizedBox(height: 30,),
-            EmailTextField( hintText: "Email",),
+            EmailTextField( hintText: "Email"),
             SizedBox(height: 10,),
-            PasswordTextField( hintText: "Password",),
-            SizedBox(height: 40,),
+            PasswordTextField( hintText: "Password"),
+            SizedBox(height: 20),
+            ForgotPasswordTextModule(),
+            SizedBox(height: 40),
             NotUserText(),
             // SizedBox(height: 20,),
             // PreferredLang(),
@@ -187,7 +190,32 @@ class PasswordTextField extends StatelessWidget {
   }
 }
 
+class ForgotPasswordTextModule extends StatelessWidget {
+  const ForgotPasswordTextModule({Key? key}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        GestureDetector(
+          onTap: () {
+            Get.to(()=> ForgotPasswordScreen());
+          },
+          child: Text(
+            "Forgot Password?",
+            // textAlign: TextAlign.right,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: AppColors.colorDarkPink,
+              fontSize: 14,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 InputDecoration _inputDecoration({hintText}) {
   return InputDecoration(

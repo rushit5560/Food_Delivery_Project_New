@@ -73,4 +73,10 @@ class ApiUrl {
 
   /// Campaign API
   static const GetAllCampaignApi = ApiMainPath + "BasicCampaign/getAllCampaign";
+
+  /// Forgot Password API
+  static const ForgotPasswordApi = ApiMainPath + "store/forgotpassword";
+
+  /// Change Password API
+  static const ChangePasswordApi = ApiMainPath + "store/changepassword";
 }

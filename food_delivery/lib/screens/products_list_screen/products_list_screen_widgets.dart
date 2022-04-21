@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../common/constant/app_colors.dart';
 import '../../controllers/products_list_screen_controller/products_list_screen_controller.dart';
 import '../../models/products_list_screen_model/get_all_products_model.dart';
+import '../../models/products_list_screen_model/get_product_by_sub_cat_id_model.dart';
 
 
 /// All Products Module
@@ -135,29 +136,30 @@ class AllProductsListTile extends StatelessWidget {
 
 
 /// Sub Category Wise Product Module
-/*class ProductsListByCategoryIdModule extends StatelessWidget {
-  ProductsListByCategoryIdModule({Key? key}) : super(key: key);
+class ProductsListBySubCategoryIdModule extends StatelessWidget {
+  ProductsListBySubCategoryIdModule({Key? key}) : super(key: key);
   final productsListScreenController = Get.find<ProductsListScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: productsListScreenController.productsListByCategoryId.length,
+        itemCount: productsListScreenController.productsListBySubCategoryId.length,
       itemBuilder: (context, i) {
-        Product product = productsListScreenController.productsListByCategoryId[i];
-          return ProductsListByCategoryIdTile(product: product);
+        Food product = productsListScreenController.productsListBySubCategoryId[i];
+          return ProductsListBySubCategoryIdTile(product: product);
       },
     );
   }
 }
 
-class ProductsListByCategoryIdTile extends StatelessWidget {
-  final Product product;
-  ProductsListByCategoryIdTile({Key? key, required this.product}) : super(key: key);
+class ProductsListBySubCategoryIdTile extends StatelessWidget {
+  final Food product;
+  ProductsListBySubCategoryIdTile({Key? key, required this.product}) : super(key: key);
   final productsListScreenController = Get.find<ProductsListScreenController>();
 
   @override
   Widget build(BuildContext context) {
+    String productImage = ApiUrl.ApiMainPath + "${product.image}";
     return GestureDetector(
       onTap: () {
         print('Product Id : ${product.id}');
@@ -174,7 +176,7 @@ class ProductsListByCategoryIdTile extends StatelessWidget {
               flex: 7,
               child: Row(
                 children: [
-                  Expanded(flex: 2, child: Image.asset(Images.ic_category1)),
+                  Expanded(flex: 2, child: Image.network(productImage)),
                   Expanded(
                     flex: 8,
                     child: Container(
@@ -212,7 +214,7 @@ class ProductsListByCategoryIdTile extends StatelessWidget {
                                     fontSize: 19, fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(width: 5),
-                              Text("Type - Regular"),
+                              Text("Type - ${product.productType.value}"),
                               const SizedBox(width: 5),
                               Expanded(
                                 child: Text(
@@ -243,4 +245,4 @@ class ProductsListByCategoryIdTile extends StatelessWidget {
       ),
     );
   }
-}*/
+}

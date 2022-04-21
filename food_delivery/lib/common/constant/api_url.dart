@@ -33,6 +33,7 @@ class ApiUrl {
   static const ProductByIdApi = ApiMainPath + "product/find/";
   static const ProductReviewApi = ApiMainPath + "FoodReview/create";
   static const CategoryWiseProductApi = ApiMainPath + "product/find/category/";
+  static const SubCategoryWiseProductApi = ApiMainPath + "product/getAll/SubCategory/";
 
   /// User Orders API
   static const UserAllOrderApi = ApiMainPath + "order/getAllOrder/Customer/";
