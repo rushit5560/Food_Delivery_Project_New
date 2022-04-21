@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../common/constant/api_url.dart';
-import '../../screens/change_password_model/change_password_model.dart';
+import '../../models/change_password_model/change_password_model.dart';
 
 class ChangePasswordScreenController extends GetxController {
   String userEmail = Get.arguments;

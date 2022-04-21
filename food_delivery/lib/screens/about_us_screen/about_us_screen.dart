@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class AboutUsScreen extends StatelessWidget {
   AboutUsScreen({Key? key}) : super(key: key);
 
-  String content = 'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum is simply dummy text of the printing and typesetting industry.';
+  final String content = 'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum is simply dummy text of the printing and typesetting industry.';
 
   @override
   Widget build(BuildContext context) {

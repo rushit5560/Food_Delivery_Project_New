@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../common/constant/app_colors.dart';
 import '../../controllers/auth_screen_controller/auth_screen_conroller.dart';
+import '../forgot_password_screen/forgot_password_screen.dart';
 
 class SignInText extends StatelessWidget {
   const SignInText({Key? key}) : super(key: key);
@@ -71,6 +72,34 @@ class PasswordTextField extends StatelessWidget {
     );
   }
 }
+
+class ForgotPasswordTextModule extends StatelessWidget {
+  const ForgotPasswordTextModule({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        GestureDetector(
+          onTap: () {
+            Get.to(()=> ForgotPasswordScreen());
+          },
+          child: Text(
+            "Forgot Password?",
+            // textAlign: TextAlign.right,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: AppColors.colorDarkPink,
+              fontSize: 14,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 
 InputDecoration _inputDecoration({hintText}) {
   return InputDecoration(

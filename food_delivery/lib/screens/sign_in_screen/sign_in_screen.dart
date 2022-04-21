@@ -60,6 +60,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         SizedBox(height: 15),
                         PasswordTextField(hintText: "Password"),
                         SizedBox(height: 15),
+                        ForgotPasswordTextModule(),
+                        SizedBox(height: 15),
                       ],
                     ),
                   ),

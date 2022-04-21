@@ -60,4 +60,6 @@ class ApiUrl {
   /// Change Password API
   static const ChangePasswordApi = ApiMainPath + "user/changepassword";
 
+  /// Forgot Password API
+  static const ForgotPasswordApi = ApiMainPath + "user/forgotpassword";
 }
