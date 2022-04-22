@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../common/constant/user_details.dart';
 import '../../models/cart_models/create_cart_model.dart';
+import '../../models/my_wishlist_model/add_food_in_wishlist_model.dart';
 import '../../models/product_details_model/give_product_review_model.dart';
 import '../../models/product_details_model/product_details_model.dart';
 import '../cart_screen_controller/cart_screen_controller.dart';
@@ -189,6 +190,43 @@ class ProductDetailScreenController extends GetxController{
     }
 
   }*/
+
+  /// Add Food in Wishlist
+  addFoodInWishlistFunction({required String productId, required String restaurantId}) async {
+    isLoading(true);
+    String url = ApiUrl.AddFoodInWishlistApi;
+    log("Add Food In Wishlist Function : $url");
+
+    try {
+      Map<String, dynamic> data = {
+        "UserId" : "${UserDetails.userId}",
+        "ProductId" : "$productId",
+        "RestaurantId" : "$restaurantId"
+      };
+      log("data : $data");
+
+      http.Response response = await http.post(Uri.parse(url), body: data);
+      log("Add Food Wishlist Response : ${response.body}");
+
+      AddFoodInWishlistModel addFoodInWishlistModel = AddFoodInWishlistModel.fromJson(json.decode(response.body));
+      isSuccessStatus = addFoodInWishlistModel.status.obs;
+      log("isSuccessStatus : $isSuccessStatus");
+
+      if(isSuccessStatus.value) {
+        Fluttertoast.showToast(msg: "${addFoodInWishlistModel.message}");
+      } else {
+        log("addFoodInWishlistFunction Else Else");
+        if(addFoodInWishlistModel.message.contains("Food already exist")) {
+          Fluttertoast.showToast(msg: "Food already exist in wishlist!");
+        }
+      }
+
+    } catch(e) {
+      log("addFoodInWishlistFunction Error ::: $e");
+    } finally {
+      isLoading(false);
+    }
+  }
 
   @override
   void onInit() {

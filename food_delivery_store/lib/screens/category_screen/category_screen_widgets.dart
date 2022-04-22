@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -143,7 +144,13 @@ class AddCategoryModule extends StatelessWidget {
   Widget _addCategoryButton() {
     return GestureDetector(
       onTap: () async {
-        await screenController.addNewCategoryFunction();
+        if(screenController.categoryFormKey.currentState!.validate()) {
+          if(screenController.categoryImage == null) {
+            Fluttertoast.showToast(msg: "Please Select Image!");
+          } else {
+            await screenController.addNewCategoryFunction();
+          }
+        }
       },
       child: Container(
         height: 40, width: Get.width/3,

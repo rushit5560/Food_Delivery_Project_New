@@ -61,7 +61,8 @@ class CategoryScreenController extends GetxController {
         
         if(isSuccessStatus.value){
           categoryFieldController.clear();
-          categoryImage!.delete();
+          // categoryImage!.delete();
+          categoryImage = null;
           Fluttertoast.showToast(msg: "${addCategoryModel.message}");
           await getRestaurantCategoryFunction();
         } else {

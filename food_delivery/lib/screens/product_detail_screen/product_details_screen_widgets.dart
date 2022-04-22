@@ -256,9 +256,19 @@ class ProductDetails extends StatelessWidget {
                       child: CircleAvatar(
                         radius: 25,
                         backgroundColor: AppColors.colorDarkPink,
-                        child: Image.asset(
-                          Images.ic_wishlist,
-                          scale: 2,
+                        child: GestureDetector(
+                          onTap: () async {
+                            log("Click");
+                            await productDetailScreenController.
+                            addFoodInWishlistFunction(
+                              productId: "${productDetailScreenController.productId}",
+                              restaurantId: "${productDetailScreenController.productRestaurantId}"
+                            );
+                          },
+                          child: Image.asset(
+                            Images.ic_wishlist,
+                            scale: 2,
+                          ),
                         ),
                       ),
                     ),

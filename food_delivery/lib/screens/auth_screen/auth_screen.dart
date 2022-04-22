@@ -60,7 +60,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                   const SizedBox(height: 20),
 
                   //authentication()
-                  socialLogin()
+                  // socialLogin()
                 ],
               ),
             ),

@@ -63,4 +63,7 @@ class ApiUrl {
 
   /// Forgot Password API
   static const ForgotPasswordApi = ApiMainPath + "user/forgotpassword";
+
+  /// Wishlist API
+  static const AddFoodInWishlistApi = ApiMainPath + "Wishlist/create";
 }

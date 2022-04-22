@@ -20,6 +20,7 @@ class ForgotPasswordFormModule extends StatelessWidget {
           TextFormField(
             controller: screenController.emailFieldController,
             cursorColor: AppColors.colorDarkPink,
+            keyboardType: TextInputType.emailAddress,
             validator: (value) => FieldValidator().validateEmail(value!),
             decoration: emailInputDecoration('Enter Email'),
           ),
