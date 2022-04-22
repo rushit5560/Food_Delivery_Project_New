@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
-import 'package:food_delivery/common/constant/app_images.dart';
 import 'package:food_delivery/controllers/my_wishlist_screen_controller/my_wishlist_screen_controller.dart';
 import 'package:get/get.dart';
 
-class WishList extends StatelessWidget {
-  MyWishListScreenController wishListScreenController;
 
-  WishList({required this.wishListScreenController});
+class WishListModule extends StatelessWidget {
+  final screenController = Get.find<MyWishListScreenController>();
+
+  // WishList({required this.wishListScreenController});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class WishList extends StatelessWidget {
       child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          itemCount: wishListScreenController.wishList.length,
+          itemCount: screenController.wishList.length,
           itemBuilder: (context, index) {
             return Container(
               margin: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
@@ -35,7 +34,7 @@ class WishList extends StatelessWidget {
                         Expanded(
                             flex: 2,
                             child: Image.asset(
-                                wishListScreenController.wishList[index].img)),
+                                screenController.wishList[index].img)),
                         SizedBox(
                           width: 5,
                         ),
@@ -48,7 +47,7 @@ class WishList extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  wishListScreenController.wishList[index].name,
+                                  screenController.wishList[index].name,
                                   style: TextStyle(
                                       color: AppColors.colorDarkPink,
                                       fontSize: 20,
@@ -63,7 +62,7 @@ class WishList extends StatelessWidget {
                                     Expanded(
                                       flex: 1,
                                       child: Text(
-                                        wishListScreenController
+                                        screenController
                                             .wishList[index].price,
                                         maxLines: 1,
                                         style: TextStyle(
@@ -80,7 +79,7 @@ class WishList extends StatelessWidget {
                                         children: [
                                           Text(
                                             "Type - " +
-                                                wishListScreenController
+                                                screenController
                                                     .wishList[index].type,
                                             style: TextStyle(
                                               fontSize: 14,
@@ -91,7 +90,7 @@ class WishList extends StatelessWidget {
                                           ),
                                           Text(
                                             "Qty - " +
-                                                wishListScreenController
+                                                screenController
                                                     .wishList[index].qty,
                                             style: TextStyle(fontSize: 14),
                                           ),

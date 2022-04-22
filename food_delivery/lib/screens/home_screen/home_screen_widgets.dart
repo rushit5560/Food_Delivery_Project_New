@@ -3,19 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/controllers/home_screen_controller/home_screen_controller.dart';
-import 'package:food_delivery/screens/home_screen/deal_products_tab/deal_products_tab.dart';
-import 'package:food_delivery/screens/home_screen/recent_selling_tab/recent_selling_tab.dart';
-import 'package:food_delivery/screens/home_screen/top_selling_tab/top_selling_tab.dart';
+import 'package:food_delivery/screens/home_screen/best_in_review_tab/best_in_review_tab.dart';
 import 'package:food_delivery/screens/home_screen/whats_new_tab/whats_new_tab.dart';
 import 'package:food_delivery/screens/products_list_screen/products_list_screen.dart';
 import 'package:food_delivery/screens/restaurant_list_screen/restaurant_list_screen.dart';
 import 'package:food_delivery/screens/search_screen/search_screen.dart';
 import 'package:get/get.dart';
-
 import '../../common/constant/app_images.dart';
 import '../../common/constant/enums.dart';
 import '../../controllers/restaurant_list_screen_controller/restaurant_list_screen_controller.dart';
 import '../category_screen/category_screen.dart';
+
+
 
 class SearchContainer extends StatelessWidget {
   const SearchContainer({Key? key}) : super(key: key);
@@ -227,8 +226,6 @@ class ProductTab extends StatelessWidget {
               labelPadding: EdgeInsets.only(right: 10, top: 5, bottom: 5),
               unselectedLabelColor: Colors.grey,
               controller:  tabController,
-              // labelStyle: TextStyle(fontSize: 18),
-              // automaticIndicatorColorAdjustment: true,
 
               tabs: [
                 Container(
@@ -241,7 +238,7 @@ class ProductTab extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Tab(
-                      text: 'Recent Selling',
+                      text: 'Best In Review',
                     ),
                   ),
                 ),
@@ -260,51 +257,51 @@ class ProductTab extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: Tab(
-                        text: 'Top Selling',
+                        text: "What's New",
                       ),
                     ),
                   ),
                 ),
 
-                GestureDetector(
-                  onTap: (){
-                    tabController.index = 2;
-                  },
-                  child: Container(
-                    height: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: AppColors.colorDarkPink),
-                      // color: tabController.index == 2 ? AppColors.colorDarkPink : Colors.white,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Tab(
-                        text: 'Whats New',
-                      ),
-                    ),
-                  ),
-                ),
-
-                GestureDetector(
-                  onTap: (){
-                    tabController.index = 3;
-                  },
-                  child: Container(
-                    height: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: AppColors.colorDarkPink),
-                      // color: tabController.index == 3 ? AppColors.colorDarkPink : Colors.white,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Tab(
-                        text: 'Deal Product',
-                      ),
-                    ),
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: (){
+                //     tabController.index = 2;
+                //   },
+                //   child: Container(
+                //     height: 40,
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(10),
+                //       border: Border.all(color: AppColors.colorDarkPink),
+                //       // color: tabController.index == 2 ? AppColors.colorDarkPink : Colors.white,
+                //     ),
+                //     child: Padding(
+                //       padding: const EdgeInsets.symmetric(horizontal: 5),
+                //       child: Tab(
+                //         text: 'Whats New',
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                //
+                // GestureDetector(
+                //   onTap: (){
+                //     tabController.index = 3;
+                //   },
+                //   child: Container(
+                //     height: 40,
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(10),
+                //       border: Border.all(color: AppColors.colorDarkPink),
+                //       // color: tabController.index == 3 ? AppColors.colorDarkPink : Colors.white,
+                //     ),
+                //     child: Padding(
+                //       padding: const EdgeInsets.symmetric(horizontal: 5),
+                //       child: Tab(
+                //         text: 'Deal Product',
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -314,10 +311,10 @@ class ProductTab extends StatelessWidget {
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  RecentSelling(),
-                  TopSellingTab(),
+                  BestInReview(),
+                  // TopSellingTab(),
                   WhatsNewTab(),
-                  DealProductsTab()
+                  // DealProductsTab()
                 ],
               ),
             ),

@@ -66,4 +66,5 @@ class ApiUrl {
 
   /// Wishlist API
   static const AddFoodInWishlistApi = ApiMainPath + "Wishlist/create";
+  static const GetWishlistFoodApi = ApiMainPath + "Wishlist/GetAll/";
 }

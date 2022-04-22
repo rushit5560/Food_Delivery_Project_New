@@ -17,7 +17,7 @@ import 'package:share/share.dart';
 
 import '../edit_profile_screen/edit_profile_screen.dart';
 
-
+/// Account Details
 class AccountDetailsModule extends StatelessWidget {
   AccountDetailsModule({Key? key}) : super(key: key);
   final accountScreenController = Get.find<AccountScreenController>();
@@ -122,6 +122,7 @@ class EditProfileButtonModule extends StatelessWidget {
 
 }
 
+/// Change Password Text
 class ChangePassTextModule extends StatelessWidget {
   ChangePassTextModule({Key? key}) : super(key: key);
   final accountScreenController = Get.find<AccountScreenController>();
@@ -152,7 +153,7 @@ class ChangePassTextModule extends StatelessWidget {
 }
 
 
-
+/// Header Text Module
 class HeaderTextModule extends StatelessWidget {
   final String text;
   HeaderTextModule({required this.text});
@@ -182,6 +183,7 @@ class HeaderTextModule extends StatelessWidget {
   }
 }
 
+/// Account Info
 class AccountInfoListModule extends StatelessWidget {
   final accountScreenController = Get.find<AccountScreenController>();
 
@@ -275,6 +277,7 @@ class AccountInfoListModule extends StatelessWidget {
 
 }
 
+/// Other Info
 class OtherInfoListModule extends StatelessWidget {
   final accountScreenController = Get.find<AccountScreenController>();
   // OtherInfoListModule({required this.accountScreenController});
@@ -365,6 +368,7 @@ class OtherInfoListModule extends StatelessWidget {
   }
 }
 
+/// Logout Button
 class LogoutButtonModule extends StatelessWidget {
   LogoutButtonModule({Key? key}) : super(key: key);
   final SharedPreferenceData sharedPreferenceData = SharedPreferenceData();

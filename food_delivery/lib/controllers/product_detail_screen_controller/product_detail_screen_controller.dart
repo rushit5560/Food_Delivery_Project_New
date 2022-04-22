@@ -206,7 +206,7 @@ class ProductDetailScreenController extends GetxController{
       log("data : $data");
 
       http.Response response = await http.post(Uri.parse(url), body: data);
-      log("Add Food Wishlist Response : ${response.body}");
+      // log("Add Food Wishlist Response : ${response.body}");
 
       AddFoodInWishlistModel addFoodInWishlistModel = AddFoodInWishlistModel.fromJson(json.decode(response.body));
       isSuccessStatus = addFoodInWishlistModel.status.obs;

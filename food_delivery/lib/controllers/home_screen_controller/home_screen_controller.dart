@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/models/banner_model/banner_model.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../models/food_campaign_model/food_campaign_model.dart';
+import '../../models/home_screen_models/get_products_filter_wise_model.dart';
 
 
 class HomeScreenController extends GetxController {
@@ -15,6 +17,8 @@ class HomeScreenController extends GetxController {
   RxBool isSuccessStatus = false.obs;
   List<GetList> bannerList = [];
   List<GetCampaignList> foodCampaignList = [];
+  List<BestReviewListElement> whatsNewList = [];
+  List<BestReviewListElement> bestReviewList = [];
 
 
   getBannerList() async {
@@ -64,8 +68,44 @@ class HomeScreenController extends GetxController {
     } catch(e) {
       print('Campaign Error : $e');
     } finally {
+      // isLoading(false);
+      await getFilterWiseProductListFunction();
+    }
+  }
+
+  getFilterWiseProductListFunction() async {
+    isLoading(true);
+    String url = ApiUrl.AllProductsApi;
+    log("Filter Wise Product List API URL : $url");
+
+    try {
+      http.Response response = await http.get(Uri.parse(url));
+      log("Filter Wise Product List Response : $response");
+
+      GetProductsFilterWiseModel getProductsFilterWiseModel = GetProductsFilterWiseModel.fromJson(json.decode(response.body));
+      isSuccessStatus = getProductsFilterWiseModel.status.obs;
+
+      log("isSuccessStatus :: $isSuccessStatus");
+
+      if(isSuccessStatus.value) {
+        whatsNewList.clear();
+        bestReviewList.clear();
+
+        whatsNewList = getProductsFilterWiseModel.list;
+        bestReviewList = getProductsFilterWiseModel.bestReviewList;
+
+        log("whatsNewList :: ${whatsNewList.length}");
+        log("bestReviewList :: ${bestReviewList.length}");
+      } else {
+        log("getFilterWiseProductListFunction Else Else");
+      }
+
+    } catch(e) {
+      log("getFilterWiseProductListFunction Error :: $e");
+    } finally {
       isLoading(false);
     }
+
   }
 
   @override
