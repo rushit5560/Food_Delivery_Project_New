@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final profileModel = profileModelFromJson(jsonString);
-
 import 'dart:convert';
 
 ProfileModel profileModelFromJson(String str) => ProfileModel.fromJson(json.decode(str));
@@ -18,12 +14,12 @@ class ProfileModel {
   User user;
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
-    status: json["status"] == null ? "" : json["status"],
-    user: User.fromJson(json["user"]),
+    status: json["status"] ?? false,
+    user: User.fromJson(json["user"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
-    "status": status.toString().isEmpty ? "" : status,
+    "status": status,
     "user": user.toJson(),
   };
 }
@@ -42,6 +38,7 @@ class User {
     required this.startTime,
     required this.endTime,
     required this.image,
+    required this.coverImage,
     required this.roleId,
     required this.isActive,
     required this.isApproved,
@@ -51,6 +48,15 @@ class User {
     required this.createdAt,
     required this.updatedAt,
     required this.v,
+    required this.latitude,
+    required this.longitude,
+    required this.maxDeliveryTime,
+    required this.minDeliveryTime,
+    required this.tax,
+    required this.zone,
+    required this.numberOfReviews,
+    required this.rating,
+    required this.campaignjoin,
   });
 
   String id;
@@ -62,64 +68,174 @@ class User {
   String password;
   int phone;
   String deliveryRange;
-  DateTime startTime;
-  DateTime endTime;
+  String startTime;
+  String endTime;
   String image;
-  String roleId;
+  String coverImage;
+  RoleId roleId;
   bool isActive;
   bool isApproved;
   String createdBy;
   String updatedBy;
-  DateTime approvedOn;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String approvedOn;
+  String createdAt;
+  String updatedAt;
   int v;
+  String latitude;
+  String longitude;
+  String maxDeliveryTime;
+  String minDeliveryTime;
+  String tax;
+  Zone zone;
+  int numberOfReviews;
+  double rating;
+  List<String> campaignjoin;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-    id: json["_id"] == null ? "" : json["_id"],
-    storeName: json["StoreName"] == null ? "": json["StoreName"],
-    address: json["Address"] == null ? "": json["Address"],
-    firstName: json["FirstName"] == null ? "" : json["FirstName"],
-    lastName: json["LastName"] == null ? "": json["LastName"],
-    email: json["Email"] == null ? "": json["Email"],
-    password: json["Password"] == null ? "" : json["Password"],
-    phone: json["Phone"] == null ? 0 : json["Phone"],
-    deliveryRange: json["DeliveryRange"] == null ? "": json["DeliveryRange"],
-    startTime: DateTime.parse(json["StartTime"]),
-    endTime: DateTime.parse(json["EndTime"]),
-    image: json["Image"] == null ? "": json["Image"],
-    roleId: json["RoleId"] == null ? "": json["RoleId"],
-    isActive: json["IsActive"] == null ? false : json["IsActive"],
-    isApproved: json["IsApproved"] == null ? false : json["IsApproved"],
-    createdBy: json["CreatedBy"] == null ? "": json["CreatedBy"],
-    updatedBy: json["UpdatedBy"] == null ? "": json["UpdatedBy"],
-    approvedOn: DateTime.parse(json["ApprovedOn"]),
-    createdAt: DateTime.parse(json["createdAt"]),
-    updatedAt: DateTime.parse(json["updatedAt"]),
-    v: json["__v"] == null ? 0 : json["__v"],
+    id: json["_id"] ?? "",
+    storeName: json["StoreName"] ?? "",
+    address: json["Address"] ?? "",
+    firstName: json["FirstName"] ?? "",
+    lastName: json["LastName"] ?? "",
+    email: json["Email"] ?? "",
+    password: json["Password"] ?? "",
+    phone: json["Phone"] ?? 0,
+    deliveryRange: json["DeliveryRange"] ?? "",
+    startTime: json["StartTime"] ?? "",
+    endTime: json["EndTime"] ?? "",
+    image: json["Image"] ?? "",
+    coverImage: json["CoverImage"] ?? "",
+    roleId: RoleId.fromJson(json["RoleId"] ?? {}),
+    isActive: json["IsActive"] ?? false,
+    isApproved: json["IsApproved"] ?? false,
+    createdBy: json["CreatedBy"] ?? "",
+    updatedBy: json["UpdatedBy"] ?? "",
+    approvedOn: json["ApprovedOn"] ?? "",
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
+    v: json["__v"] ?? 0,
+    latitude: json["Latitude"] ?? "",
+    longitude: json["Longitude"] ?? "",
+    maxDeliveryTime: json["MaxDeliveryTime"] ?? "",
+    minDeliveryTime: json["MinDeliveryTime"] ?? "",
+    tax: json["Tax"] ?? "",
+    zone: Zone.fromJson(json["Zone"] ?? {}),
+    numberOfReviews: json["NumberOfReviews"] ?? 0,
+    rating: json["Rating"].toDouble(),
+    campaignjoin: List<String>.from(json["campaignjoin"].map((x) => x) ?? ""),
   );
 
   Map<String, dynamic> toJson() => {
-    "_id": id.isEmpty ? "": id,
-    "StoreName": storeName.isEmpty ? "": storeName,
-    "Address": address.isEmpty ? "": address,
-    "FirstName": firstName.isEmpty ? "": firstName,
-    "LastName": lastName.isEmpty ? "": lastName,
-    "Email": email.isEmpty ? "": email,
-    "Password": password.isEmpty ? "": password,
-    "Phone": phone.toString().isEmpty ? 0 : phone,
-    "DeliveryRange": deliveryRange.isEmpty ? "": deliveryRange,
-    "StartTime": startTime.toIso8601String(),
-    "EndTime": endTime.toIso8601String(),
-    "Image": image.isEmpty ? "": image,
-    "RoleId": roleId.isEmpty ? "": roleId,
-    "IsActive": isActive.toString().isEmpty ? false : isActive,
-    "IsApproved": isApproved.toString().isEmpty ? false : isApproved,
-    "CreatedBy": createdBy.isEmpty ? "": createdBy,
-    "UpdatedBy": updatedBy.isEmpty ? "": updatedBy,
-    "ApprovedOn": approvedOn.toIso8601String(),
-    "createdAt": createdAt.toIso8601String(),
-    "updatedAt": updatedAt.toIso8601String(),
-    "__v": v.toString().isEmpty ? 0: v
+    "_id": id,
+    "StoreName": storeName,
+    "Address": address,
+    "FirstName": firstName,
+    "LastName": lastName,
+    "Email": email,
+    "Password": password,
+    "Phone": phone,
+    "DeliveryRange": deliveryRange,
+    "StartTime": startTime,
+    "EndTime": endTime,
+    "Image": image,
+    "CoverImage": coverImage,
+    "RoleId": roleId.toJson(),
+    "IsActive": isActive,
+    "IsApproved": isApproved,
+    "CreatedBy": createdBy,
+    "UpdatedBy": updatedBy,
+    "ApprovedOn": approvedOn,
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "__v": v,
+    "Latitude": latitude,
+    "Longitude": longitude,
+    "MaxDeliveryTime": maxDeliveryTime,
+    "MinDeliveryTime": minDeliveryTime,
+    "Tax": tax,
+    "Zone": zone.toJson(),
+    "NumberOfReviews": numberOfReviews,
+    "Rating": rating,
+    "campaignjoin": List<dynamic>.from(campaignjoin.map((x) => x)),
+  };
+}
+
+class RoleId {
+  RoleId({
+    required this.id,
+    required this.roleName,
+    required this.isActive,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+    required this.rolestatus,
+  });
+
+  String id;
+  String roleName;
+  bool isActive;
+  String createdAt;
+  String updatedAt;
+  int v;
+  int rolestatus;
+
+  factory RoleId.fromJson(Map<String, dynamic> json) => RoleId(
+    id: json["_id"] ?? "",
+    roleName: json["RoleName"] ?? "",
+    isActive: json["IsActive"] ?? false,
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
+    v: json["__v"] ?? 0,
+    rolestatus: json["Rolestatus"] ?? 0,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "RoleName": roleName,
+    "IsActive": isActive,
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "__v": v,
+    "Rolestatus": rolestatus,
+  };
+}
+
+class Zone {
+  Zone({
+    required this.id,
+    required this.name,
+    required this.coordinates,
+    required this.isActive,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+  });
+
+  String id;
+  String name;
+  String coordinates;
+  bool isActive;
+  String createdAt;
+  String updatedAt;
+  int v;
+
+  factory Zone.fromJson(Map<String, dynamic> json) => Zone(
+    id: json["_id"] ?? "",
+    name: json["Name"] ?? "",
+    coordinates: json["Coordinates"] ?? "",
+    isActive: json["IsActive"] ?? false,
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
+    v: json["__v"] ?? 0,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "Name": name,
+    "Coordinates": coordinates,
+    "IsActive": isActive,
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "__v": v,
   };
 }

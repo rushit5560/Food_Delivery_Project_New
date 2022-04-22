@@ -3,4 +3,5 @@ class StoreDetails {
   static String storeToken = "";
   static String storeId = "";
   static String storeRole = "";
+  static String storeEmail = "";
 }

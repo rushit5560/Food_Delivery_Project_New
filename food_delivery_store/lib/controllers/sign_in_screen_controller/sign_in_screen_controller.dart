@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/constants/api_url.dart';
-import 'package:food_delivery_admin/common/sharedpreference_data/sharedpreference_data.dart';
 import 'package:food_delivery_admin/models/sign_in_model/sign_in_model.dart';
 import 'package:food_delivery_admin/screens/new_order_screen/new_order_screen.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+
+import '../../common/sharedpreference_data/sharedpreference_data.dart';
 
 class SignInScreenController extends GetxController{
   RxBool isLoading = false.obs;
@@ -21,6 +22,7 @@ class SignInScreenController extends GetxController{
   RxBool isSuccessStatus = false.obs;
   SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
+
   @override
   void onInit() {
     super.onInit();
@@ -29,6 +31,7 @@ class SignInScreenController extends GetxController{
 
   userSignInFunction({required String email, required String password}) async {
     isLoading(true);
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String url = ApiUrl.SignInApi;
     print('Url : $url');
@@ -49,7 +52,7 @@ class SignInScreenController extends GetxController{
       if(isSuccessStatus.value) {
         String userToken = signInModel.token;
         print('userToken : $userToken');
-        await sharedPreferenceData.setUserLoginDetailsInPrefs(userToken: "$userToken");
+        await sharedPreferenceData.setUserLoginDetailsInPrefs(userToken: "$userToken", userEmail: email);
         Get.offAll(() => NewOrderScreen());
         Get.snackbar('User LoggedIn Successfully.', '');
       } else {

@@ -58,6 +58,9 @@ class User {
     required this.minDeliveryTime,
     required this.tax,
     required this.zone,
+    required this.numberOfReviews,
+    required this.rating,
+    required this.campaignjoin,
   });
 
   String id;
@@ -73,7 +76,7 @@ class User {
   String endTime;
   String image;
   String coverImage;
-  String roleId;
+  RoleId roleId;
   bool isActive;
   bool isApproved;
   String createdBy;
@@ -88,36 +91,42 @@ class User {
   String minDeliveryTime;
   String tax;
   Zone zone;
+  int numberOfReviews;
+  double rating;
+  List<String> campaignjoin;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-    id: json["_id"] ?? "",
-    storeName: json["StoreName"] ?? "",
-    address: json["Address"] ?? "",
-    firstName: json["FirstName"] ?? "",
-    lastName: json["LastName"] ?? "",
-    email: json["Email"] ?? "",
-    password: json["Password"] ?? "",
+    id: json["_id"],
+    storeName: json["StoreName"],
+    address: json["Address"],
+    firstName: json["FirstName"],
+    lastName: json["LastName"],
+    email: json["Email"],
+    password: json["Password"],
     phone: json["Phone"] ?? 0,
-    deliveryRange: json["DeliveryRange"] ?? "",
-    startTime: json["StartTime"] ?? "",
-    endTime: json["EndTime"] ?? "",
-    image: json["Image"] ?? "",
-    coverImage: json["CoverImage"] ?? "",
-    roleId: json["RoleId"] ?? "",
+    deliveryRange: json["DeliveryRange"],
+    startTime: json["StartTime"],
+    endTime: json["EndTime"],
+    image: json["Image"],
+    coverImage: json["CoverImage"],
+    roleId: RoleId.fromJson(json["RoleId"] ?? {}),
     isActive: json["IsActive"] ?? false,
     isApproved: json["IsApproved"] ?? false,
-    createdBy: json["CreatedBy"] ?? "",
-    updatedBy: json["UpdatedBy"] ?? "",
-    approvedOn: json["ApprovedOn"] ?? "",
-    createdAt: json["createdAt"] ?? "",
-    updatedAt: json["updatedAt"] ?? "",
+    createdBy: json["CreatedBy"],
+    updatedBy: json["UpdatedBy"],
+    approvedOn: json["ApprovedOn"],
+    createdAt: json["createdAt"],
+    updatedAt: json["updatedAt"],
     v: json["__v"] ?? 0,
-    latitude: json["Latitude"] ?? "",
-    longitude: json["Longitude"] ?? "",
-    maxDeliveryTime: json["MaxDeliveryTime"] ?? "",
-    minDeliveryTime: json["MinDeliveryTime"] ?? "",
-    tax: json["Tax"] ?? "",
+    latitude: json["Latitude"],
+    longitude: json["Longitude"],
+    maxDeliveryTime: json["MaxDeliveryTime"],
+    minDeliveryTime: json["MinDeliveryTime"],
+    tax: json["Tax"],
     zone: Zone.fromJson(json["Zone"] ?? {}),
+    numberOfReviews: json["NumberOfReviews"] ?? 0,
+    rating: json["Rating"].toDouble(),
+    campaignjoin: List<String>.from(json["campaignjoin"].map((x) => x) ?? ""),
   );
 
   Map<String, dynamic> toJson() => {
@@ -134,7 +143,7 @@ class User {
     "EndTime": endTime,
     "Image": image,
     "CoverImage": coverImage,
-    "RoleId": roleId,
+    "RoleId": roleId.toJson(),
     "IsActive": isActive,
     "IsApproved": isApproved,
     "CreatedBy": createdBy,
@@ -149,6 +158,49 @@ class User {
     "MinDeliveryTime": minDeliveryTime,
     "Tax": tax,
     "Zone": zone.toJson(),
+    "NumberOfReviews": numberOfReviews,
+    "Rating": rating,
+    "campaignjoin": List<dynamic>.from(campaignjoin.map((x) => x)),
+  };
+}
+
+class RoleId {
+  RoleId({
+    required this.id,
+    required this.roleName,
+    required this.isActive,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+    required this.rolestatus,
+  });
+
+  String id;
+  String roleName;
+  bool isActive;
+  String createdAt;
+  String updatedAt;
+  int v;
+  int rolestatus;
+
+  factory RoleId.fromJson(Map<String, dynamic> json) => RoleId(
+    id: json["_id"] ?? "",
+    roleName: json["RoleName"] ?? "",
+    isActive: json["IsActive"] ?? false,
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
+    v: json["__v"] ?? 0,
+    rolestatus: json["Rolestatus"] ?? 0,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "RoleName": roleName,
+    "IsActive": isActive,
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "__v": v,
+    "Rolestatus": rolestatus,
   };
 }
 

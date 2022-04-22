@@ -6,6 +6,7 @@ import '../../common/constants/app_colors.dart';
 import '../../common/constants/field_validation.dart';
 import '../../common/text_fields_decorations/add_product_textfield_decoration.dart';
 import '../../controllers/store_profile_screen_controller/store_profile_screen_controller.dart';
+import '../change_password_screen/change_password_screen.dart';
 
 
 class StoreProfileModule extends StatelessWidget {
@@ -338,6 +339,40 @@ class SubmitButtonModule extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ChangePassTextModule extends StatelessWidget {
+  ChangePassTextModule({Key? key}) : super(key: key);
+  // final accountScreenController = Get.find<AccountScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          GestureDetector(
+            onTap: () => Get.to(
+                  () => ChangePasswordScreen(),
+              transition: Transition.rightToLeft,
+              // arguments: "${accountScreenController.userEmail}",
+            ),
+            child: Text(
+              "Change Password?",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: AppColors.colorDarkPink,
+                fontSize: 14,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

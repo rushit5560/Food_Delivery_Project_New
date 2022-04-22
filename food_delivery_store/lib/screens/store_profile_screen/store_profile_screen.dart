@@ -52,6 +52,9 @@ class StoreProfileScreen extends StatelessWidget {
 
 
                     SubmitButtonModule(),
+                    const SizedBox(height: 20),
+
+                    ChangePassTextModule(),
                     const SizedBox(height: 10),
 
                   ],
