@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/controllers/my_wishlist_screen_controller/my_wishlist_screen_controller.dart';
 import 'package:get/get.dart';
+
+import '../../models/my_wishlist_model/get_wishlist_food_model.dart';
 
 
 class WishListModule extends StatelessWidget {
@@ -17,6 +20,8 @@ class WishListModule extends StatelessWidget {
           scrollDirection: Axis.vertical,
           itemCount: screenController.wishList.length,
           itemBuilder: (context, index) {
+            WishListElement singleItem = screenController.wishList[index];
+            String imgUrl = ApiUrl.ApiMainPath + screenController.wishList[index].productId.image;
             return Container(
               margin: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
               padding: EdgeInsets.only(left: 5, right: 5),
@@ -24,20 +29,15 @@ class WishListModule extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   color: AppColors.colorGrey),
               child: Row(
-//mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     flex: 7,
                     child: Row(
-//mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
                             flex: 2,
-                            child: Image.asset(
-                                screenController.wishList[index].img)),
-                        SizedBox(
-                          width: 5,
-                        ),
+                            child: Image.network(imgUrl)),
+                        SizedBox(width: 5),
                         Expanded(
                           flex: 8,
                           child: Container(
@@ -47,7 +47,7 @@ class WishListModule extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  screenController.wishList[index].name,
+                                  "${singleItem.productId.productName}",
                                   style: TextStyle(
                                       color: AppColors.colorDarkPink,
                                       fontSize: 20,
@@ -57,30 +57,24 @@ class WishListModule extends StatelessWidget {
                                   height: 10,
                                 ),
                                 Row(
-//mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
                                       flex: 1,
                                       child: Text(
-                                        screenController
-                                            .wishList[index].price,
+                                        "${singleItem.productId.price}",
                                         maxLines: 1,
                                         style: TextStyle(
                                             fontSize: 19,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
+                                    SizedBox(width: 5),
                                     Expanded(
                                       flex: 3,
                                       child: Row(
                                         children: [
                                           Text(
-                                            "Type - " +
-                                                screenController
-                                                    .wishList[index].type,
+                                            "Type - ${singleItem.productId.productType.value}",
                                             style: TextStyle(
                                               fontSize: 14,
                                             ),
@@ -89,9 +83,7 @@ class WishListModule extends StatelessWidget {
                                             width: 5,
                                           ),
                                           Text(
-                                            "Qty - " +
-                                                screenController
-                                                    .wishList[index].qty,
+                                            "Qty - ${singleItem.productId.quantity}",
                                             style: TextStyle(fontSize: 14),
                                           ),
                                         ],

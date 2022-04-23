@@ -12,7 +12,8 @@ class MyWishListScreenController extends GetxController{
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
 
-  List<WishListModel> wishList = [];
+  // List<WishListModel> wishList = [];
+  List<WishListElement> wishList = [];
 
  getWishlistFoodFunction() async {
    isLoading(true);
@@ -28,7 +29,8 @@ class MyWishListScreenController extends GetxController{
      log("isSuccessStatus :: $isSuccessStatus");
 
      if(isSuccessStatus.value) {
-        log("Wishlist List ::: ${getWishlistFoodModel.list}");
+       wishList = getWishlistFoodModel.list;
+       log("Get Wishlist Length : ${wishList.length}");
      } else {
        log("getWishlistFoodFunction Else Else");
      }

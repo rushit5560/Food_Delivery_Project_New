@@ -17,12 +17,12 @@ class GetWishlistFoodModel {
 
   bool status;
   String message;
-  List<ListElement> list;
+  List<WishListElement> list;
 
   factory GetWishlistFoodModel.fromJson(Map<String, dynamic> json) => GetWishlistFoodModel(
     status: json["status"] ?? false,
     message: json["message"] ?? "",
-    list: List<ListElement>.from(json["List"].map((x) => ListElement.fromJson(x)) ?? {}),
+    list: List<WishListElement>.from(json["List"].map((x) => WishListElement.fromJson(x)) ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
@@ -32,8 +32,8 @@ class GetWishlistFoodModel {
   };
 }
 
-class ListElement {
-  ListElement({
+class WishListElement {
+  WishListElement({
     required this.id,
     required this.userId,
     required this.restaurantId,
@@ -53,7 +53,7 @@ class ListElement {
   String updatedAt;
   int v;
 
-  factory ListElement.fromJson(Map<String, dynamic> json) => ListElement(
+  factory WishListElement.fromJson(Map<String, dynamic> json) => WishListElement(
     id: json["_id"] ?? "",
     userId: json["UserId"] ?? "",
     restaurantId: RestaurantId.fromJson(json["RestaurantId"] ?? {}),
