@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
+import 'package:food_delivery/common/field_validation.dart';
 import 'package:food_delivery/controllers/contact_us_screen_controller/contact_us_screen_controller.dart';
 import 'package:get/get.dart';
 
@@ -128,17 +129,17 @@ class FormFieldsModule extends StatelessWidget {
         children: [
           FullNameFieldModule(
             name: 'Full name',
-          hintText: 'John Deo',
+          //hintText: 'John Deo',
           ),
           PhoneNoFieldModule(
             name: 'Phone No',
-            hintText: '123456890',
+            //hintText: '123456890',
             index: 1,
           ),
 
           FeedbackFieldModule(
             name: 'Feedback',
-            hintText: 'Enter Your Message',
+            //hintText: 'Enter Your Message',
           ),
 
         ],
@@ -151,9 +152,9 @@ class FormFieldsModule extends StatelessWidget {
 
 class FullNameFieldModule extends StatelessWidget {
   final String name;
-  final String hintText;
+  //final String hintText;
 
-  FullNameFieldModule({required this.name, required this.hintText});
+  FullNameFieldModule({required this.name, /*required this.hintText*/});
 
   final screenController = Get.find<ContactUsScreenController>();
 
@@ -173,14 +174,9 @@ class FullNameFieldModule extends StatelessWidget {
               child: TextFormField(
                 controller: screenController.fullNameFieldController,
                 cursorColor: Colors.black,
-                decoration: inputDecoration(hintText: '$hintText'),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Field can\'t Empty';
-                  } else {
-                    return null;
-                  }
-                },
+                decoration: inputDecoration(),
+                validator: (value) => FieldValidator().validateFullName(value!),
+
               ),
             ),
           ),
@@ -192,12 +188,12 @@ class FullNameFieldModule extends StatelessWidget {
 
 class PhoneNoFieldModule extends StatelessWidget {
   final String name;
-  final String hintText;
+  //final String hintText;
   final int index;
 
   PhoneNoFieldModule({
     required this.name,
-    required this.hintText,
+    //required this.hintText,
     required this.index,
   });
 
@@ -219,18 +215,10 @@ class PhoneNoFieldModule extends StatelessWidget {
               child: TextFormField(
                 controller: screenController.phoneNoFieldController,
                 cursorColor: Colors.black,
-                decoration: inputDecoration(hintText: '$hintText', index: 1),
+                decoration: inputDecoration(/*hintText: '$hintText',*/ index: 1),
                 maxLength: 10,
                 keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Field can\'t Empty';
-                  } else if (value.length != 10) {
-                    return 'Phone No. should be valid';
-                  } else {
-                    return null;
-                  }
-                },
+                validator: (value) => FieldValidator().validateMobile(value!),
               ),
             ),
           ),
@@ -242,9 +230,9 @@ class PhoneNoFieldModule extends StatelessWidget {
 
 class FeedbackFieldModule extends StatelessWidget {
   final String name;
-  final String hintText;
+  //final String hintText;
 
-  FeedbackFieldModule({required this.name, required this.hintText});
+  FeedbackFieldModule({required this.name, /*required this.hintText*/});
 
   final screenController = Get.find<ContactUsScreenController>();
 
@@ -264,14 +252,8 @@ class FeedbackFieldModule extends StatelessWidget {
               child: TextFormField(
                 controller: screenController.messageFieldController,
                 cursorColor: Colors.black,
-                decoration: inputDecoration(hintText: '$hintText'),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Field can\'t Empty';
-                  } else {
-                    return null;
-                  }
-                },
+                decoration: inputDecoration(/*hintText: '$hintText'*/),
+                validator: (value) => FieldValidator().validateFeedback(value!),
               ),
             ),
           ),
@@ -316,13 +298,13 @@ class SubmitButtonModule extends StatelessWidget {
   }
 }
 
-InputDecoration inputDecoration({required String hintText, int index =0}) {
+InputDecoration inputDecoration({/*required String hintText,*/ int index =0}) {
   return InputDecoration(
     isDense: true,
     contentPadding: EdgeInsets.all(12),
     filled: true,
     fillColor: Colors.grey.shade200,
-    hintText: '$hintText',
+    //hintText: '$hintText',
     counterText: '',
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.grey.shade200),

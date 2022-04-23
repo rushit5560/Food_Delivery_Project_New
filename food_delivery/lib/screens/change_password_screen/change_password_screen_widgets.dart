@@ -16,7 +16,7 @@ class OldPasswordFieldModule extends StatelessWidget {
         controller: screenController.oldPasswordFieldController,
         cursorColor: AppColors.colorDarkPink,
         obscureText: screenController.isOldPassVisible.value,
-        validator: (value) => FieldValidator().validatePassword(value!),
+        validator: (value) => FieldValidator().validateOldPassword(value!),
         decoration:
             changePassInputDecoration('Old Password', 1, screenController),
       ),
@@ -35,7 +35,7 @@ class NewPasswordFieldModule extends StatelessWidget {
         controller: screenController.newPasswordFieldController,
         cursorColor: AppColors.colorDarkPink,
         obscureText: screenController.isNewPassVisible.value,
-        validator: (value) => FieldValidator().validatePassword(value!),
+        validator: (value) => FieldValidator().validateNewPassword(value!),
         decoration:
             changePassInputDecoration('New Password', 2, screenController),
       ),
@@ -54,7 +54,18 @@ class CNewPasswordFieldModule extends StatelessWidget {
         controller: screenController.cNewPasswordFieldController,
         cursorColor: AppColors.colorDarkPink,
         obscureText: screenController.isCNewPassVisible.value,
-        validator: (value) => FieldValidator().validatePassword(value!),
+        //validator: (value) => FieldValidator().validatePassword(value!),
+        validator: (value){
+          if (value!.isEmpty) {
+            return "Please Enter Confirm Password";
+          } else if(value.length < 6){
+            return "Confirm Password must be at least 6 characters";
+          } else if(screenController.newPasswordFieldController.text != screenController.cNewPasswordFieldController.text){
+            return "New Password and Confirm Password Should be Same";
+          } else {
+            return null;
+          }
+        },
         decoration: changePassInputDecoration(
             'Confirm New Password', 3, screenController),
       ),
@@ -69,7 +80,12 @@ class SubmitButtonModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async => await screenController.updatePasswordFunction(),
+     // onTap: () async => await screenController.updatePasswordFunction(),
+      onTap: () async {
+        if(screenController.changePassFormKey.currentState!.validate()){
+          screenController.updatePasswordFunction();
+        }
+      },
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),

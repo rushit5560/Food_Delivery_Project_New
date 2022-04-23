@@ -7,6 +7,7 @@ import 'package:food_delivery/screens/about_us_screen/about_us_screen.dart';
 import 'package:food_delivery/screens/auth_screen/auth_screen.dart';
 import 'package:food_delivery/screens/change_password_screen/change_password_screen.dart';
 import 'package:food_delivery/screens/contact_us_screen/contact_us_screen.dart';
+import 'package:food_delivery/screens/invite_and_earn_screen/invite_and_earn_screen.dart';
 import 'package:food_delivery/screens/notification_screen/notification_screen.dart';
 import 'package:food_delivery/screens/order_screen/order_screen.dart';
 import 'package:food_delivery/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
@@ -349,7 +350,8 @@ class OtherInfoListModule extends StatelessWidget {
         Get.to(()=> ContactUsScreen());
         break;
       case 1:
-        clickedOnShareButton();
+        Get.to(() => InviteAndEarnScreen());
+        //clickedOnShareButton();
         break;
       case 2:
         Get.to(()=> TermsAndConditionScreen());

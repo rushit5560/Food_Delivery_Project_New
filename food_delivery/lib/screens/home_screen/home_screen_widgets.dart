@@ -223,7 +223,7 @@ class ProductTab extends StatelessWidget {
               isScrollable: true,
               indicatorColor: Colors.white,
               labelColor: AppColors.colorDarkPink,
-              labelPadding: EdgeInsets.only(right: 10, top: 5, bottom: 5),
+              //labelPadding: EdgeInsets.only(right: 10, top: 5, bottom: 5),
               unselectedLabelColor: Colors.grey,
               controller:  tabController,
 
@@ -305,6 +305,7 @@ class ProductTab extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 10),
           Expanded(
             child: Container(
               //height: Get.height * 0.35,
@@ -364,34 +365,39 @@ class FoodCampaignList extends StatelessWidget {
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index){
-            return Stack(
-              alignment: Alignment.centerLeft,
-              children: [
-                Container(
-                    height: Get.height/2,
-                    width: Get.width/2,
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColors.colorGrey
-                    ),
-                    child: Image.asset(Images.ic_offer1)
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Text(
-                    "${homeScreenController.foodCampaignList[index].title}",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                )
-              ],
+            return GestureDetector(
+              onTap: () {
+                Get.to(() => RestaurantListScreen());
+              },
+              child: Stack(
+                alignment: Alignment.centerLeft,
+                children: [
+                  Container(
+                      height: Get.height/2,
+                      width: Get.width/2,
+                      margin: EdgeInsets.only(left: 5, right: 5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.colorGrey
+                      ),
+                      child: Image.asset(Images.ic_offer1)
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: Text(
+                      "${homeScreenController.foodCampaignList[index].title}",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                  )
+                ],
 
+              ),
             );
           }),
     );

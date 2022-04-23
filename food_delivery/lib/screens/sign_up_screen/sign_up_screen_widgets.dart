@@ -32,7 +32,7 @@ class UserNameTextFieldModule extends StatelessWidget {
       keyboardType: TextInputType.text,
       controller: authScreenController.userNameTextFieldController,
       decoration: _inputDecoration(hintText: hintText),
-      validator: (value) => FieldValidator().validateFullName(value!),
+      validator: (value) => FieldValidator().validateUserName(value!),
     );
   }
 }
@@ -141,11 +141,11 @@ class _SelectCityDropDownModuleState extends State<SelectCityDropDownModule> {
           width: Get.width,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.grey.shade300
+              color: Colors.grey.shade200
           ),
           child: Theme(
             data: Theme.of(context).copyWith(
-                canvasColor: Colors.grey.shade100,
+                canvasColor: Colors.grey.shade200,
                 // background color for the dropdown items
                 buttonTheme: ButtonTheme.of(context).copyWith(
                   alignedDropdown: true, //If false (the default), then the dropdown's menu will be wider than its button.
@@ -204,10 +204,10 @@ class _SelectAreaDropDownModuleState extends State<SelectAreaDropDownModule> {
               width: Get.width,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Colors.grey.shade300),
+                  color: Colors.grey.shade200),
               child: Theme(
                 data: Theme.of(context).copyWith(
-                    canvasColor: Colors.grey.shade100,
+                    canvasColor: Colors.grey.shade200,
                     // background color for the dropdown items
                     buttonTheme: ButtonTheme.of(context).copyWith(
                       alignedDropdown:
@@ -266,7 +266,7 @@ class _SelectGenderDropDownModuleState extends State<SelectGenderDropDownModule>
       width: Get.width,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.grey.shade300
+          color: Colors.grey.shade200
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
@@ -275,7 +275,7 @@ class _SelectGenderDropDownModuleState extends State<SelectGenderDropDownModule>
           //elevation: 5,
           style: TextStyle(
               color: Colors.white,
-              decorationColor: Colors.grey.shade100
+              decorationColor: Colors.grey.shade200
           ),
 
           iconEnabledColor: Colors.black,

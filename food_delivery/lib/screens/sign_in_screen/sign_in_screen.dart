@@ -37,8 +37,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         //SignInText(),
                         SizedBox(height: 10),
                         authScreenController.isSignInEmailOption.value
-                            ? SignInTextField(hintText: "Enter Email")
-                            : MobileNumberTextField(hintText: "Enter Mobile Number"),
+                            ? SignInTextField(hintText: "Email")
+                            : MobileNumberTextField(hintText: "Mobile Number"),
                         SizedBox(height: 10),
                         GestureDetector(
                           onTap: () {

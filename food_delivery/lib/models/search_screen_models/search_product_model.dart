@@ -308,7 +308,7 @@ class Store {
   String tax;
   String zone;
   int numberOfReviews;
-  double rating;
+  int rating;
   List<String> campaignjoin;
 
   factory Store.fromJson(Map<String, dynamic> json) => Store(
@@ -341,7 +341,7 @@ class Store {
     tax: json["Tax"] ?? "",
     zone: json["Zone"] ?? "",
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"].toDouble() ?? 0.0,
+    rating: json["Rating"]/*.toDouble()*/ ?? 0,
     campaignjoin: List<String>.from(json["campaignjoin"].map((x) => x) ?? ""),
   );
 

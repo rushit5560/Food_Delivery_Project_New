@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
@@ -32,12 +33,12 @@ class ForgotPasswordScreenController extends GetxController {
       isSuccessStatus = forgotPasswordModel.status.obs;
 
       if(isSuccessStatus.value) {
-        Fluttertoast.showToast(msg: "${forgotPasswordModel.message}");
+        Fluttertoast.showToast(msg: "Reset Password Link Sent To Your Email", backgroundColor: AppColors.colorDarkPink, textColor: Colors.white);
         Get.back();
       } else {
         log("forgotPasswordFunction Else Else");
         if(forgotPasswordModel.message.contains("user not found")) {
-          Fluttertoast.showToast(msg: "${forgotPasswordModel.message}");
+          Fluttertoast.showToast(msg: "${forgotPasswordModel.message}", backgroundColor: AppColors.colorDarkPink, textColor: Colors.white);
         }
       }
 

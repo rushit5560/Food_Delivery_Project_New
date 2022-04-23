@@ -72,7 +72,7 @@ class ContactUsScreenController extends GetxController{
       isSuccessStatus = createContactUsModel.status.obs;
 
       if(isSuccessStatus.value) {
-        Fluttertoast.showToast(msg: '${createContactUsModel.message}');
+        Fluttertoast.showToast(msg: 'Created Successfully');
         Get.back();
       } else {
         print('fillContactUsFormFunction False False');

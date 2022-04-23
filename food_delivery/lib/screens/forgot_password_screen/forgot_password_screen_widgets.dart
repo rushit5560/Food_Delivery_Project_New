@@ -22,7 +22,7 @@ class ForgotPasswordFormModule extends StatelessWidget {
             cursorColor: AppColors.colorDarkPink,
             keyboardType: TextInputType.emailAddress,
             validator: (value) => FieldValidator().validateEmail(value!),
-            decoration: emailInputDecoration('Enter Email'),
+            decoration: emailInputDecoration('Email'),
           ),
           const SizedBox(height: 20),
           ForgotPassSubmitButtonModule(),

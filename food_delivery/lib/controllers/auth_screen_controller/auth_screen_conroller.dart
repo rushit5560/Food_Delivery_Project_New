@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
+import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/models/all_area_model/all_area_model.dart';
 import 'package:food_delivery/models/all_city_model/city_model.dart';
 import 'package:get/get.dart';
@@ -43,7 +44,7 @@ class AuthScreenController extends GetxController {
   RxBool signInObsecureValue = true.obs;
 
   RxBool signUpPasswordProtect = false.obs;
-  RxBool signUpObsecureValue = false.obs;
+  RxBool signUpObsecureValue = true.obs;
 
 
   /// Get City List
@@ -144,16 +145,16 @@ class AuthScreenController extends GetxController {
         isSuccessStatus = response1.status.obs;
 
         if (isSuccessStatus.value) {
-          Fluttertoast.showToast(msg: "${response1.message}");
+          Fluttertoast.showToast(msg: "Activation Link Send To Your Email Account, Kindly Activate And Login", backgroundColor: AppColors.colorDarkPink, textColor: Colors.white);
           clearSignUpFieldsFunction();
         } else {
-          Fluttertoast.showToast(msg: "Something went wrong!");
+          Fluttertoast.showToast(msg: "Something went wrong!", backgroundColor: AppColors.colorDarkPink, textColor: Colors.white);
           print('False False');
         }
       });
     } catch (e) {
       print('User SignUp Error : $e');
-      Fluttertoast.showToast(msg: "Something went wrong!");
+      Fluttertoast.showToast(msg: "Something went wrong!", backgroundColor: AppColors.colorDarkPink, textColor: Colors.white);
     } finally {
       isLoading(false);
     }
@@ -238,6 +239,8 @@ class AuthScreenController extends GetxController {
         Get.snackbar('User LoggedIn Successfully.', '');
       } else {
         print('SignIn False False');
+        Fluttertoast.showToast(msg: "Wrong Mobile Number / Email Id Or Password", backgroundColor: AppColors.colorDarkPink, textColor: Colors.white);
+        //Get.snackbar('Please Enter Valid Mobile Number Or Email', '');
       }
 
     } catch(e) {

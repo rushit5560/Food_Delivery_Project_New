@@ -11,7 +11,7 @@ class TabsModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       ()=> Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Row(
           children: [
             Expanded(
@@ -155,7 +155,6 @@ class TabsModule extends StatelessWidget {
     );
   }
 }
-
 
 /*class TodayOrdersModule extends StatelessWidget {
   final newOrderScreenController = Get.find<NewOrderScreenController>();
