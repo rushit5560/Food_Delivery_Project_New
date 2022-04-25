@@ -9,7 +9,7 @@ class FieldValidator {
 
   String? validateSellerName(String value) {
     if (value.isEmpty) {
-      return 'Seller name is Required';
+      return 'Please Enter Seller name';
     }
 
     return null;
@@ -17,7 +17,7 @@ class FieldValidator {
 
   String? validateStoreName(String value) {
     if (value.isEmpty) {
-      return 'Store name is Required';
+      return 'Please Enter Store name';
     }
 
     return null;
@@ -25,7 +25,7 @@ class FieldValidator {
 
   String? validateRange(String value) {
     if (value.isEmpty) {
-      return 'Delivery Range is Required';
+      return 'Please Enter Delivery Range';
     }
 
     return null;
@@ -74,7 +74,7 @@ class FieldValidator {
 
   String ? validateEmail(String value) {
     if (value.isEmpty) {
-      return "Email is Required";
+      return "Please Enter Email";
     } else if (!isNumeric(value) &&
         !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
             .hasMatch(value)) {
@@ -86,7 +86,7 @@ class FieldValidator {
 
   String ? validatePassword(String value) {
     if (value.isEmpty) {
-      return "password is Required";
+      return "Please Enter Password";
     } else if (value.length < 6) {
       return "Length should be 6 character";
     } else {
@@ -96,13 +96,16 @@ class FieldValidator {
 
   String ? validateMobile(String value) {
 // Indian Mobile number are of 10 digit only
+    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = new RegExp(pattern);
+// Indian Mobile number are of 10 digit only
     if (value.isEmpty) {
-      return "Mobile number is Required";
-    }
-    else if (value.length != 10){
-      return 'Mobile Number must be of 10 digit';
-    }
-    else{
+      return "Please Enter Mobile Number";
+    } else if (value.length != 10){
+      return 'Mobile Number Must be of 10 Digit';
+    } else if (!regExp.hasMatch(value)) {
+      return 'Only Numeric Character Should be Allow';
+    } else{
       return null;
     }
 
@@ -118,6 +121,20 @@ class FieldValidator {
   String? validateAddress(String value) {
     if (value.isEmpty) {
       return 'Address is Required';
+    }
+    return null;
+  }
+
+  String? validateCity(String value) {
+    if (value.isEmpty) {
+      return 'Please Select City';
+    }
+    return null;
+  }
+
+  String? validateStoreAddress(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Store Address';
     }
     return null;
   }

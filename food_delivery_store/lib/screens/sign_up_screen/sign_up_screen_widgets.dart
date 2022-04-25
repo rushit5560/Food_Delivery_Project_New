@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/constants/app_colors.dart';
 import 'package:food_delivery_admin/common/constants/field_validation.dart';
+import 'package:food_delivery_admin/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:get/get.dart';
 import '../../controllers/signup_screen_controller/signup_screen_controller.dart';
 
@@ -126,12 +127,14 @@ class PasswordTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: TextInputType.text,
-      controller: signupScreenController.passwordTextEditingController,
-      //  obscureText: true,
-      decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
-      validator: (value) => FieldValidator().validatePassword(value!),
+    return Obx(()=>
+       TextFormField(
+        keyboardType: TextInputType.text,
+        controller: signupScreenController.passwordTextEditingController,
+        obscureText: signupScreenController.signUpObsecureValue.value,
+        decoration: _passwordInputDecoration(hintText: hintText, signupScreenController: signupScreenController),
+        validator: (value) => FieldValidator().validatePassword(value!),
+      ),
     );
   }
 }
@@ -171,10 +174,34 @@ class StoreAddressTextField extends StatelessWidget {
       controller: signupScreenController.storeAddressTextEditingController,
       //  obscureText: true,
       decoration: _inputDecoration(hintText: hintText, /*icon: icon*/),
-      validator: (value) => FieldValidator().validateAddress(value!),
+      validator: (value) => FieldValidator().validateStoreAddress(value!),
     );
   }
 }
+
+class AlreadyRegisterText extends StatelessWidget {
+  const AlreadyRegisterText({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Text("Already Register?"),
+        SizedBox(width: 5),
+        GestureDetector(
+          onTap: (){
+            Get.to(() => SignInScreen());
+          },
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Text("Sign In", style: TextStyle(color: AppColors.colorDarkPink),),
+            ))
+      ],
+    );
+  }
+}
+
 
 
 class ContinueButton extends StatelessWidget {
@@ -236,6 +263,48 @@ InputDecoration _inputDecoration({hintText, icon}) {
     focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         borderSide: BorderSide(color: Colors.grey.shade200)
+    ),
+  );
+}
+
+InputDecoration _passwordInputDecoration({hintText, required SignUpScreenController signupScreenController}) {
+  return InputDecoration(
+    hintText: "$hintText",
+    isDense: true,
+    contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+    filled: true,
+    fillColor: Colors.grey.shade200,
+    counterText: '',
+    enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)
+    ),
+    focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)
+    ),
+    errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade200)
+    ),
+    suffixIcon: GestureDetector(
+      onTap: () {
+        signupScreenController.signUpPasswordProtect.value
+        = !signupScreenController.signUpPasswordProtect.value;
+        signupScreenController.signUpObsecureValue.value
+        = !signupScreenController.signUpObsecureValue.value;
+      },
+      child: Icon(
+        signupScreenController.signUpPasswordProtect.value == true
+            ? Icons.visibility_rounded
+            : Icons.visibility_off_rounded,
+        size: 20,
+        color: AppColors.colorDarkPink,
+      ),
     ),
   );
 }

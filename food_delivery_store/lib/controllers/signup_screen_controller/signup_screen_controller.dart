@@ -16,6 +16,8 @@ class SignUpScreenController extends GetxController{
   RxBool isSuccessStatus = false.obs;
   File? file;
   File? coverFile;
+  RxBool signUpPasswordProtect = false.obs;
+  RxBool signUpObsecureValue = true.obs;
 
   final GlobalKey<FormState> signupFormKey = GlobalKey();
 

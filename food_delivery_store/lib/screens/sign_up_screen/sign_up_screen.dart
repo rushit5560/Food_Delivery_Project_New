@@ -210,6 +210,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                 SizedBox(height: 15,),
+                AlreadyRegisterText(),
+                SizedBox(height: 15,),
                 ContinueButton(),
                 SizedBox(height: 15,),
               ],

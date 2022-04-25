@@ -131,7 +131,7 @@ class NotUserText extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Not a User?",
+        Text("Not a Store Admin?",
           style: TextStyle(color: Colors.black),),
         SizedBox(width: 5,),
         GestureDetector(
