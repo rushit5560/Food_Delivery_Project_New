@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/controllers/my_wishlist_screen_controller/my_wishlist_screen_controller.dart';
 import 'package:get/get.dart';
 
+import '../../common/constant/app_images.dart';
 import '../../models/my_wishlist_model/get_wishlist_food_model.dart';
 
 
@@ -101,11 +104,17 @@ class WishListModule extends StatelessWidget {
                   CircleAvatar(
                     radius: 15,
                     backgroundColor: AppColors.colorDarkPink,
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
+                    child: GestureDetector(
+                      onTap: () async {
+                        log("Click");
+                        await screenController.deleteFoodFromWishlistFunction(foodId: "${singleItem.id}");
+                      },
+                      child: Image.asset(
+                        Images.ic_wishlist,
+                        scale: 2.5,
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             );
