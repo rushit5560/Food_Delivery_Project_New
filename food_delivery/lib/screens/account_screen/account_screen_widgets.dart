@@ -9,6 +9,7 @@ import 'package:food_delivery/screens/change_password_screen/change_password_scr
 import 'package:food_delivery/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery/screens/invite_and_earn_screen/invite_and_earn_screen.dart';
 import 'package:food_delivery/screens/notification_screen/notification_screen.dart';
+import 'package:food_delivery/screens/offer_zone_screen/offer_zone_screen.dart';
 import 'package:food_delivery/screens/order_screen/order_screen.dart';
 import 'package:food_delivery/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
 import 'package:food_delivery/screens/wallet_screen/wallet_screen.dart';
@@ -264,8 +265,7 @@ class AccountInfoListModule extends StatelessWidget {
         Get.to(()=> WalletScreen());
         break;
       case 3:
-        // Get.to(()=> );
-        print('Offer Zone');
+        Get.to(()=> OfferZoneScreen());
         break;
       /*case 5:
         Get.to(()=> LanguageScreen());
