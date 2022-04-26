@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../../models/category_screen_model/all_category_model.dart';
 import '../../models/category_screen_model/restaurant_wise_category_model.dart';
+import '../../models/category_screen_model/search_category_model.dart';
 
 class CategoryScreenController extends GetxController {
   String restaurantId = Get.arguments;
@@ -12,6 +13,7 @@ class CategoryScreenController extends GetxController {
   RxBool isSuccessStatus = false.obs;
   TextEditingController searchFieldController = TextEditingController();
   List<Category> restaurantWiseCategoryList = [];
+  List<SearchCategory> searchCategoryList = [];
 
   getRestaurantWiseCategoryListFunction() async {
     isLoading(true);
@@ -35,6 +37,35 @@ class CategoryScreenController extends GetxController {
       }
     } catch(e) {
       print('Error : $e');
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  searchCategoryFunction() async {
+    isLoading(true);
+    String url = ApiUrl.SearchCategoryApi;
+    log("Search Category API URL : $url");
+
+    try {
+      Map<String, dynamic> data = {"searchdata" : "${searchFieldController.text.trim()}"};
+      log("Data :: $data");
+
+      http.Response response = await http.post(Uri.parse(url), body: data);
+      log("Search Category Response : ${response.body}");
+
+      SearchCategoryModel searchCategoryModel = SearchCategoryModel.fromJson(json.decode(response.body));
+      isSuccessStatus = searchCategoryModel.status.obs;
+
+      if(isSuccessStatus.value) {
+        searchCategoryList.clear();
+        searchCategoryList = searchCategoryModel.category;
+      } else {
+        log("searchCategoryFunction Else Else");
+      }
+
+    } catch(e) {
+      log("searchCategoryFunction Error ::: $e");
     } finally {
       isLoading(false);
     }

@@ -17,6 +17,7 @@ class ApiUrl {
   static const AllCategoryApi = ApiMainPath + "Category/getAllCategory";
   static const RestaurantWiseCategoryApi = ApiMainPath + "Category/Restaurant/find/";
   static const CategoryWiseSubCategoryApi = ApiMainPath + "Subcategory/find/category/";
+  static const SearchCategoryApi = ApiMainPath + "Category/getsearchdata";
 
   /// City, Area API
   static const AllCityApi = ApiMainPath + "city";
