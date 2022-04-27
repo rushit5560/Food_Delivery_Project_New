@@ -18,6 +18,7 @@ class ApiUrl {
   static const RestaurantWiseCategoryApi = ApiMainPath + "Category/Restaurant/find/";
   static const CategoryWiseSubCategoryApi = ApiMainPath + "Subcategory/find/category/";
   static const SearchCategoryApi = ApiMainPath + "Category/getsearchdata";
+  static const SearchSubCategoryApi = ApiMainPath + "Subcategory/getsearchdata";
 
   /// City, Area API
   static const AllCityApi = ApiMainPath + "city";
@@ -25,6 +26,7 @@ class ApiUrl {
 
   /// Campaign API
   static const FoodCampaignApi = ApiMainPath + "FoodCampaign/getAllFoodCampaign";
+  static const BasicCampaignApi = ApiMainPath + "BasicCampaign/getAllCampaign";
 
   /// Banner API
   static const BannerApi = ApiMainPath + "banner";

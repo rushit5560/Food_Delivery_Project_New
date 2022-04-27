@@ -60,7 +60,7 @@ class BannerList extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.grey,
                   image: DecorationImage(
-                    image: NetworkImage("${ApiUrl.ApiMainPath}${homeScreenController.bannerList[index].bannerImage}"),
+                    image: NetworkImage("${ApiUrl.ApiMainPath}${homeScreenController.bannerList[index].campaignImage}"),
                     fit: BoxFit.cover,
                   ),
                 ),

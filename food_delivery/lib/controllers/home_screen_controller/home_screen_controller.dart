@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:food_delivery/common/constant/api_url.dart';
-import 'package:food_delivery/models/banner_model/banner_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
+import '../../models/food_campaign_model/basic_campaign_model.dart';
 import '../../models/food_campaign_model/food_campaign_model.dart';
 import '../../models/home_screen_models/get_products_filter_wise_model.dart';
+
 
 
 class HomeScreenController extends GetxController {
@@ -15,7 +14,7 @@ class HomeScreenController extends GetxController {
   // List<CategoryModel> category = [];
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
-  List<GetList> bannerList = [];
+  List<BasicCampaignListElement> bannerList = [];
   List<GetCampaignList> foodCampaignList = [];
   List<BestReviewListElement> whatsNewList = [];
   List<BestReviewListElement> bestReviewList = [];
@@ -23,17 +22,17 @@ class HomeScreenController extends GetxController {
 
   getBannerList() async {
     isLoading(true);
-    String url =ApiUrl.BannerApi;
+    String url =ApiUrl.BasicCampaignApi;
     print('Url : $url');
 
     try{
       http.Response response = await http.get(Uri.parse(url));
 
-      BannerModel bannerModel = BannerModel.fromJson(json.decode(response.body));
-      isSuccessStatus = bannerModel.status.obs;
+      BasicCampaignModel basicCampaignModel = BasicCampaignModel.fromJson(json.decode(response.body));
+      isSuccessStatus = basicCampaignModel.status.obs;
 
       if(isSuccessStatus.value){
-        bannerList = bannerModel.getList;
+        bannerList = basicCampaignModel.list;
       } else {
         print('Get All Banner Else Else');
       }
