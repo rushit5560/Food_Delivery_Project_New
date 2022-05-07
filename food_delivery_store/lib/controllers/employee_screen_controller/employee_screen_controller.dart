@@ -17,6 +17,8 @@ class EmployeeScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   List<RestaurantEmployee> employeeList = [];
+  RxBool addEmployeeObsecureValue = true.obs;
+  RxBool employeePasswordProtect = false.obs;
 
   /// Add Employee Fields
   GlobalKey<FormState> addEmployeeFormKey = GlobalKey();
@@ -50,7 +52,7 @@ class EmployeeScreenController extends GetxController {
 
     try {
       http.Response response = await http.get(Uri.parse(url));
-      log("response : $response");
+      log("response : ${response.body}");
 
       GetAllRestaurantEmployeeModel getAllRestaurantEmployeeModel = GetAllRestaurantEmployeeModel.fromJson(json.decode(response.body));
       isSuccessStatus = getAllRestaurantEmployeeModel.status.obs;
@@ -84,7 +86,7 @@ class EmployeeScreenController extends GetxController {
 
     try {
       http.Response response = await http.get(Uri.parse(url));
-      log("response : $response");
+      log("response : ${response.body}");
 
       GetEmployeeRoleModel getEmployeeRoleModel = GetEmployeeRoleModel.fromJson(json.decode(response.body));
       isSuccessStatus = getEmployeeRoleModel.status.obs;
@@ -148,6 +150,7 @@ class EmployeeScreenController extends GetxController {
 
         if(isSuccessStatus.value){
           Fluttertoast.showToast(msg: "${addRestaurantEmployeeModel.message}");
+          clearAddEmployeeFieldsFunction();
           Get.back();
         } else {
           print('addRestaurantEmployeeFunction False False');
@@ -275,6 +278,14 @@ class EmployeeScreenController extends GetxController {
   loadUI() {
     isLoading(true);
     isLoading(false);
+  }
+
+  clearAddEmployeeFieldsFunction() {
+    fNameFieldController.clear();
+    lNameFieldController.clear();
+    phoneFieldController.clear();
+    emailFieldController.clear();
+    passwordFieldController.clear();
   }
 
 

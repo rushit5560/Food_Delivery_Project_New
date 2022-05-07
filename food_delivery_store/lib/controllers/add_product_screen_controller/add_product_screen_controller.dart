@@ -126,6 +126,8 @@ class AddProductScreenController extends GetxController {
 
       request.files.add(multiPart);
 
+      log('request.fields: ${request.fields}');
+
       var response = await request.send();
       print('response: ${response.request}');
 

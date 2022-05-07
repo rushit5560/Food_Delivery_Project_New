@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -394,7 +395,13 @@ class UpdateDeliveryManAlertDialog extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         if(screenController.updateDeliveryBoyFormKey.currentState!.validate()) {
-          screenController.updateDeliveryBoyByIdFunction(deliveryBoyId: singleDeliveryBoy.id);
+          //screenController.updateDeliveryBoyByIdFunction(deliveryBoyId: singleDeliveryBoy.id);
+         if(screenController.updateZoneDropDownValue.id == "0") {
+          Fluttertoast.showToast(msg: "Please Select Zone!");
+        } else {
+           screenController.updateDeliveryBoyByIdFunction(deliveryBoyId: singleDeliveryBoy.id);
+         }
+
         }
       },
       child: Container(

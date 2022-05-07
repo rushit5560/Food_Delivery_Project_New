@@ -329,7 +329,7 @@ class DiscountTypeDropDownModule extends StatelessWidget {
           keyboardType: TextInputType.number,
           controller: addProductScreenController.discountTextEditingController,
           decoration: addProductTextFieldDecoration(hintText: "Discount"),
-          validator: (value) => FieldValidator().validatePrice(value!),
+          validator: (value) => FieldValidator().validateDiscount(value!),
         ),
       ],
     );
@@ -483,7 +483,7 @@ class ItemPriceTextField extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 borderSide: BorderSide(color: Colors.grey.shade200)),
           ),
-          validator: (value) => FieldValidator().validatePrice(value!),
+          validator: (value) => FieldValidator().validateMrp(value!),
         )
       ],
     );
@@ -676,6 +676,10 @@ class AddProductButton extends StatelessWidget {
             .validate()) {
           if (addProductScreenController.productImage == null) {
             Fluttertoast.showToast(msg: 'Product Image required...!');
+          } else if(addProductScreenController.categoryDropDownValue.id == "0"){
+            Fluttertoast.showToast(msg: 'Please Select Category...!');
+          } else if(addProductScreenController.subCategoryDropDownValue!.id == "0"){
+            Fluttertoast.showToast(msg: 'Please Select Sub Category...!');
           } else {
             addProductScreenController.addProductFunction();
           }

@@ -7,6 +7,94 @@ class FieldValidator {
     return null;
   }
 
+  String? validateFood(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Food Name';
+    }
+
+    return null;
+  }
+
+  String? validateFoodDescription(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Food Description';
+    }
+
+    return null;
+  }
+
+  String? validateFoodPrice(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Food Price';
+    }
+
+    return null;
+  }
+
+  String? validateFoodMrp(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Food MRP';
+    }
+
+    return null;
+  }
+
+  String? validateFoodDiscount(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Food Discount';
+    }
+
+    return null;
+  }
+
+  String? validateFoodQty(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Food Quantity';
+    }
+
+    return null;
+  }
+
+  String? validateFirstName(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter First Name';
+    }
+
+    return null;
+  }
+
+  String? validateLastName(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Last Name';
+    }
+
+    return null;
+  }
+
+  String? validateAddonName(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Addon Name';
+    }
+
+    return null;
+  }
+
+  String? validateCategoryName(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Category Name';
+    }
+
+    return null;
+  }
+
+  String? validateSubCategoryName(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Sub Category Name';
+    }
+
+    return null;
+  }
+
   String? validateSellerName(String value) {
     if (value.isEmpty) {
       return 'Please Enter Seller name';
@@ -33,7 +121,7 @@ class FieldValidator {
 
   String? validateProduct(String value) {
     if (value.isEmpty) {
-      return 'Product Title is Required';
+      return 'Please Enter Product Title';
     }
 
     return null;
@@ -41,7 +129,15 @@ class FieldValidator {
 
   String? validateDescription(String value) {
     if (value.isEmpty) {
-      return 'Description is Required';
+      return 'Please Enter Description';
+    }
+
+    return null;
+  }
+
+  String? validateDiscount(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Discount';
     }
 
     return null;
@@ -49,7 +145,7 @@ class FieldValidator {
 
   String? validatePrice(String value) {
     if (value.isEmpty) {
-      return 'Field is Required';
+      return 'Please Enter Product Price';
     }
 
     return null;
@@ -57,7 +153,7 @@ class FieldValidator {
 
   String? validateMrp(String value) {
     if (value.isEmpty) {
-      return 'Mrp is Required';
+      return 'Please Enter Mrp';
     }
 
     return null;
@@ -65,7 +161,7 @@ class FieldValidator {
 
   String? validateQty(String value) {
     if (value.isEmpty) {
-      return 'Quantity is Required';
+      return 'Please Enter Quantity';
     }
 
     return null;

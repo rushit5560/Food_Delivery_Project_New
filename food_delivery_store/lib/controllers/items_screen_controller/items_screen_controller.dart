@@ -54,7 +54,7 @@ class ItemScreenController extends GetxController {
   /// Restaurant Sub Category DD
   RxList<AllSubcategory> getSubCategoryList =
       [AllSubcategory(name: "Select Sub Category", id: "0")].obs;
-  AllSubcategory? updateSubCategoryDropDownValue;
+  AllSubcategory ? updateSubCategoryDropDownValue;
 
   /// Attributes List DD
   RxList<ListElement1> allAttributesList =
@@ -319,6 +319,8 @@ class ItemScreenController extends GetxController {
 
       if (isSuccessStatus.value) {
         getRestaurantCategoryList.clear();
+        getRestaurantCategoryList
+            .add(RestaurantCategory(name: "Select Category", id: "0"));
         getRestaurantCategoryList.addAll(getRestaurantCategoryModel.category);
         updateCategoryDropDownValue = getRestaurantCategoryList[0];
         log("getRestaurantCategoryList Length : ${getRestaurantCategoryList.length}");

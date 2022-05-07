@@ -11,6 +11,7 @@ import 'package:food_delivery_admin/screens/employee_screen/employee_screen.dart
 import 'package:food_delivery_admin/screens/insight_screen/insight_screen.dart';
 import 'package:food_delivery_admin/screens/items_screen/items_screen.dart';
 import 'package:food_delivery_admin/screens/language_screen/language_screen.dart';
+import 'package:food_delivery_admin/screens/new_order_screen/new_order_screen.dart';
 import 'package:food_delivery_admin/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:food_delivery_admin/screens/store_profile_screen/store_profile_screen.dart';
 import 'package:food_delivery_admin/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
@@ -60,7 +61,7 @@ class DrawerList extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          // myOrders(),
+           myOrders(),
           // insight(),
           myItems(),
           addonModule(),
@@ -86,6 +87,7 @@ class DrawerList extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
+        Get.to(()=> NewOrderScreen());
       },
       leading: Image.asset(Images.ic_my_orders, color: Colors.white, scale: 3),
       title: Text(

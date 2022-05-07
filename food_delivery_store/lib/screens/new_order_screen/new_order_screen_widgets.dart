@@ -13,100 +13,31 @@ class TabsModule extends StatelessWidget {
       ()=> Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              flex: 3,
-              child: GestureDetector(
-                onTap: () {
-                  // newOrderScreenController.isTodayOrderSelected.value = true;
-                  // newOrderScreenController.isNewOrderSelected.value = false;
-                  newOrderScreenController.selectedTabIndex.value = 1;
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        color: AppColors.colorDarkPink,
-                        width: 2
-                    ),
-                    color: newOrderScreenController.selectedTabIndex.value == 1 ? AppColors.colorDarkPink : Colors.white,
+            GestureDetector(
+              onTap: () {
+                // newOrderScreenController.isTodayOrderSelected.value = true;
+                // newOrderScreenController.isNewOrderSelected.value = false;
+                newOrderScreenController.selectedTabIndex.value = 1;
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: AppColors.colorDarkPink,
+                      width: 2
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(/*horizontal:12, */vertical: 12),
-                    child: Center(
-                      child: Text(
-                        'All',
-                        textScaleFactor: 1.1,
-                        style: TextStyle(
-                          color: newOrderScreenController.selectedTabIndex.value == 1 ? Colors.white : AppColors.colorDarkPink,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                  color: newOrderScreenController.selectedTabIndex.value == 1 ? AppColors.colorDarkPink : Colors.white,
                 ),
-              ),
-            ),
-            SizedBox(width: 10,),
-            Expanded(
-              flex: 3,
-              child: GestureDetector(
-                onTap: () {
-                  // newOrderScreenController.isTodayOrderSelected.value = false;
-                  // newOrderScreenController.isNewOrderSelected.value = true;
-                  newOrderScreenController.selectedTabIndex.value = 2;
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        color: AppColors.colorDarkPink,
-                        width: 2
-                    ),
-                    color: newOrderScreenController.selectedTabIndex.value == 2 ? AppColors.colorDarkPink : Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
-                    child: Center(
-                      child: Text(
-                        'Pending',
-                        textScaleFactor: 1.1,
-                        style: TextStyle(
-                          color: newOrderScreenController.selectedTabIndex.value == 2 ? Colors.white : AppColors.colorDarkPink,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 10,),
-            Expanded(
-              flex: 4,
-              child: GestureDetector(
-                onTap: () {
-                  // newOrderScreenController.isTodayOrderSelected.value = true;
-                  // newOrderScreenController.isNewOrderSelected.value = false;
-                  newOrderScreenController.selectedTabIndex.value = 3;
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        color: AppColors.colorDarkPink,
-                        width: 2
-                    ),
-                    color: newOrderScreenController.selectedTabIndex.value == 3 ? AppColors.colorDarkPink : Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:8, vertical: 12),
+                  child: Center(
                     child: Text(
-                      'On The Way',
+                      'All',
                       textScaleFactor: 1.1,
-                      //maxLines: 1,
                       style: TextStyle(
-                        color: newOrderScreenController.selectedTabIndex.value == 3 ? Colors.white : AppColors.colorDarkPink,
+                        color: newOrderScreenController.selectedTabIndex.value == 1 ? Colors.white : AppColors.colorDarkPink,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -115,34 +46,92 @@ class TabsModule extends StatelessWidget {
               ),
             ),
             SizedBox(width: 10,),
-            Expanded(
-              flex: 3,
-              child: GestureDetector(
-                onTap: () {
-                  // newOrderScreenController.isTodayOrderSelected.value = false;
-                  // newOrderScreenController.isNewOrderSelected.value = true;
-                  newOrderScreenController.selectedTabIndex.value = 4;
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        color: AppColors.colorDarkPink,
-                        width: 2
-                    ),
-                    color: newOrderScreenController.selectedTabIndex.value == 4 ? AppColors.colorDarkPink : Colors.white,
+            GestureDetector(
+              onTap: () {
+                // newOrderScreenController.isTodayOrderSelected.value = false;
+                // newOrderScreenController.isNewOrderSelected.value = true;
+                newOrderScreenController.selectedTabIndex.value = 2;
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: AppColors.colorDarkPink,
+                      width: 2
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 12),
-                    child: Center(
-                      child: Text(
-                        'Delivered',
-                        textScaleFactor: 1.1,
-                        maxLines: 1,
-                        style: TextStyle(
-                          color: newOrderScreenController.selectedTabIndex.value == 4 ? Colors.white : AppColors.colorDarkPink,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  color: newOrderScreenController.selectedTabIndex.value == 2 ? AppColors.colorDarkPink : Colors.white,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+                  child: Center(
+                    child: Text(
+                      'Pending',
+                      textScaleFactor: 1.1,
+                      style: TextStyle(
+                        color: newOrderScreenController.selectedTabIndex.value == 2 ? Colors.white : AppColors.colorDarkPink,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 10,),
+            GestureDetector(
+              onTap: () {
+                // newOrderScreenController.isTodayOrderSelected.value = true;
+                // newOrderScreenController.isNewOrderSelected.value = false;
+                newOrderScreenController.selectedTabIndex.value = 3;
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: AppColors.colorDarkPink,
+                      width: 2
+                  ),
+                  color: newOrderScreenController.selectedTabIndex.value == 3 ? AppColors.colorDarkPink : Colors.white,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+                  child: Text(
+                    'On The Way',
+                    textScaleFactor: 1.1,
+                    //maxLines: 1,
+                    style: TextStyle(
+                      color: newOrderScreenController.selectedTabIndex.value == 3 ? Colors.white : AppColors.colorDarkPink,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 10,),
+            GestureDetector(
+              onTap: () {
+                // newOrderScreenController.isTodayOrderSelected.value = false;
+                // newOrderScreenController.isNewOrderSelected.value = true;
+                newOrderScreenController.selectedTabIndex.value = 4;
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: AppColors.colorDarkPink,
+                      width: 2
+                  ),
+                  color: newOrderScreenController.selectedTabIndex.value == 4 ? AppColors.colorDarkPink : Colors.white,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+                  child: Center(
+                    child: Text(
+                      'Delivered',
+                      textScaleFactor: 1.1,
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: newOrderScreenController.selectedTabIndex.value == 4 ? Colors.white : AppColors.colorDarkPink,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),

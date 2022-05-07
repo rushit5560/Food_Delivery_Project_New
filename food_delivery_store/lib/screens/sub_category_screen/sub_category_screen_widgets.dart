@@ -80,7 +80,7 @@ class AddSubCategoryModule extends StatelessWidget {
             keyboardType: TextInputType.text,
             controller: screenController.subCategoryFieldController,
             decoration: addProductTextFieldDecoration(hintText: "Sub Category Name"),
-            validator: (value) => FieldValidator().validateFullName(value!),
+            validator: (value) => FieldValidator().validateSubCategoryName(value!),
           ),
           SizedBox(height: 20),
           _addSubCategoryButtonModule(),
@@ -383,7 +383,7 @@ class SubCategoryListModule extends StatelessWidget {
                         _headingNameModule(name: "Sub Category Name"),
                         const SizedBox(height: 5),
                         TextFormField(
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.text,
                           controller: screenController.updateSubCategoryFieldController,
                           decoration: addProductTextFieldDecoration(hintText: "Sub Category Name"),
                           validator: (value) => FieldValidator().validateFullName(value!),

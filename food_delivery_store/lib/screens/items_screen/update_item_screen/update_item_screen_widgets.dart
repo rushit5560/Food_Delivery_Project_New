@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -128,7 +129,7 @@ class UpdateProductNameFieldModule extends StatelessWidget {
           keyboardType: TextInputType.text,
           controller: itemScreenController.updateFoodNameFieldController,
           decoration: addProductTextFieldDecoration(hintText: "Food name"),
-          validator: (value) => FieldValidator().validateFullName(value!),
+          validator: (value) => FieldValidator().validateFood(value!),
         ),
       ],
     );
@@ -157,7 +158,7 @@ class UpdateProductDescriptionFieldModule extends StatelessWidget {
           keyboardType: TextInputType.text,
           controller: itemScreenController.updateFoodDescriptionFieldController,
           decoration: addProductTextFieldDecoration(hintText: "Food Description"),
-          validator: (value) => FieldValidator().validateFullName(value!),
+          validator: (value) => FieldValidator().validateFoodDescription(value!),
         ),
       ],
     );
@@ -186,7 +187,7 @@ class UpdateProductPriceFieldModule extends StatelessWidget {
           keyboardType: TextInputType.number,
           controller: itemScreenController.updateFoodPriceFieldController,
           decoration: addProductTextFieldDecoration(hintText: "Food Price"),
-          validator: (value) => FieldValidator().validatePrice(value!),
+          validator: (value) => FieldValidator().validateFoodPrice(value!),
         ),
       ],
     );
@@ -273,7 +274,7 @@ class UpdateProductMrpFieldModule extends StatelessWidget {
           keyboardType: TextInputType.number,
           controller: itemScreenController.updateFoodMrpFieldController,
           decoration: addProductTextFieldDecoration(hintText: "Food MRP"),
-          validator: (value) => FieldValidator().validatePrice(value!),
+          validator: (value) => FieldValidator().validateFoodMrp(value!),
         ),
       ],
     );
@@ -749,7 +750,18 @@ class UpdateProductButtonModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        itemScreenController.updateProductByIdFunction(productId: productId);
+        if(itemScreenController.updateItemFormKey.currentState!.validate()){
+          /*if(itemScreenController.updateFoodImage == null){
+            Fluttertoast.showToast(msg: "Please Select Product Image");
+          } else*/ if(itemScreenController.updateCategoryDropDownValue.id == "0"){
+            Fluttertoast.showToast(msg: "Please Select Category");
+          } else if(itemScreenController.updateSubCategoryDropDownValue!.id == "0"){
+            Fluttertoast.showToast(msg: "Please Select Sub Category");
+          } else{
+            itemScreenController.updateProductByIdFunction(productId: productId);
+          }
+        }
+
       },
       child: Container(
         decoration: BoxDecoration(

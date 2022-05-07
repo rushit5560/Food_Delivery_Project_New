@@ -22,25 +22,26 @@ class ContactUsScreen extends StatelessWidget {
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: Get.height * 0.05),
-              LogoImage(),
-              SizedBox(height: Get.height * 0.03),
-              DropDown(),
-              SizedBox(height: Get.height * 0.02),
-              CallbackTextModule(),
-              CallBackButtonModule(),
-              FeedbackTextModule(),
-              FormFieldsModule(
-                formKey: formKey,
-                fullNameFieldController: fullNameFieldController,
-                phoneNoFieldController: phoneNoFieldController,
-                messageFieldController: messageFieldController,
+        child: Obx(()=> contactScreenController.isLoading.value
+            ? CustomCircularProgressIndicator():
+         SingleChildScrollView(
+            child: Form(
+              key: contactScreenController.formKey,
+              child: Column(
+                children: [
+                  SizedBox(height: Get.height * 0.05),
+                  LogoImage(),
+                  SizedBox(height: Get.height * 0.03),
+                  DropDown(),
+                  SizedBox(height: Get.height * 0.02),
+                  CallbackTextModule(),
+                  CallBackButtonModule(),
+                  FeedbackTextModule(),
+                  FormFieldsModule(),
+                  SubmitButtonModule(),
+                ],
               ),
-              SubmitButtonModule(formKey: formKey),
-            ],
+            ),
           ),
         ),
       ),

@@ -29,7 +29,7 @@ class AddAddonsModule extends StatelessWidget {
             keyboardType: TextInputType.text,
             controller: screenController.addonNameFieldController,
             decoration: addProductTextFieldDecoration(hintText: "Addon Name"),
-            validator: (value) => FieldValidator().validateFullName(value!),
+            validator: (value) => FieldValidator().validateAddonName(value!),
           ),
 
           const SizedBox(height: 10),

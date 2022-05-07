@@ -79,7 +79,7 @@ class AddCategoryModule extends StatelessWidget {
                       keyboardType: TextInputType.text,
                       controller: screenController.categoryFieldController,
                       decoration: addProductTextFieldDecoration(hintText: "Category Name"),
-                      validator: (value) => FieldValidator().validateFullName(value!),
+                      validator: (value) => FieldValidator().validateCategoryName(value!),
                     ),
                     SizedBox(height: 15),
                     _addCategoryButton(),
@@ -343,7 +343,7 @@ class AllCategoryListModule extends StatelessWidget {
                         _headingNameModule(name: "Category Name"),
                         const SizedBox(height: 5),
                         TextFormField(
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.text,
                           controller: screenController.updateCategoryFieldController,
                           decoration: addProductTextFieldDecoration(hintText: "Category Name"),
                           validator: (value) => FieldValidator().validateFullName(value!),

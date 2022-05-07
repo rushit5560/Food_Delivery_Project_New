@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -18,35 +19,38 @@ class AddEmployeeForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          EmployeeProfileImageModule(),
-          const SizedBox(height: 10),
+      child: Form(
+        key: screenController.addEmployeeFormKey,
+        child: Column(
+          children: [
+            EmployeeProfileImageModule(),
+            const SizedBox(height: 10),
 
-          Row(
-            children: [
-              Expanded(child: FNameTextFieldModule()),
-              const SizedBox(width: 15),
-              Expanded(child: LNameTextFieldModule()),
-            ],
-          ),
-          const SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(child: FNameTextFieldModule()),
+                const SizedBox(width: 15),
+                Expanded(child: LNameTextFieldModule()),
+              ],
+            ),
+            const SizedBox(height: 10),
 
-          PhoneTextFieldModule(),
-          const SizedBox(height: 10),
+            PhoneTextFieldModule(),
+            const SizedBox(height: 10),
 
-          EmailTextFieldModule(),
-          const SizedBox(height: 10),
+            EmailTextFieldModule(),
+            const SizedBox(height: 10),
 
-          PasswordTextFieldModule(),
-          const SizedBox(height: 10),
+            PasswordTextFieldModule(),
+            const SizedBox(height: 10),
 
-          EmployeeRoleDropDownModule(),
-          const SizedBox(height: 20),
+            EmployeeRoleDropDownModule(),
+            const SizedBox(height: 20),
 
-          SubmitButton(),
+            SubmitButton(),
 
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -159,7 +163,7 @@ class FNameTextFieldModule extends StatelessWidget {
       keyboardType: TextInputType.text,
       controller: screenController.fNameFieldController,
       decoration: addProductTextFieldDecoration(hintText: "First Name"),
-      validator: (value) => FieldValidator().validateFullName(value!),
+      validator: (value) => FieldValidator().validateFirstName(value!),
     );
   }
 }
@@ -174,7 +178,7 @@ class LNameTextFieldModule extends StatelessWidget {
       keyboardType: TextInputType.text,
       controller: screenController.lNameFieldController,
       decoration: addProductTextFieldDecoration(hintText: "Last Name"),
-      validator: (value) => FieldValidator().validateFullName(value!),
+      validator: (value) => FieldValidator().validateLastName(value!),
     );
   }
 }
@@ -215,11 +219,14 @@ class PasswordTextFieldModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: TextInputType.text,
-      controller: screenController.passwordFieldController,
-      decoration: addProductTextFieldDecoration(hintText: "Password"),
-      validator: (value) => FieldValidator().validatePassword(value!),
+    return Obx(()=>
+       TextFormField(
+        keyboardType: TextInputType.text,
+        controller: screenController.passwordFieldController,
+        obscureText: screenController.addEmployeeObsecureValue.value,
+        decoration: passwordInputDecoration(hintText: "Password", employeeScreenController: screenController),
+        validator: (value) => FieldValidator().validatePassword(value!),
+      ),
     );
   }
 }
@@ -289,8 +296,15 @@ class SubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await screenController.addRestaurantEmployeeFunction();
-      },
+        if(screenController.addEmployeeFormKey.currentState!.validate()){
+          if(screenController.employeeProfileImage == null){
+            Fluttertoast.showToast(msg: "Please Select Profile Image");
+          } else{
+            await screenController.addRestaurantEmployeeFunction();
+          }
+
+        }
+        },
       child: Container(
         // height: 40,
         decoration: BoxDecoration(
@@ -309,3 +323,5 @@ class SubmitButton extends StatelessWidget {
     );
   }
 }
+
+

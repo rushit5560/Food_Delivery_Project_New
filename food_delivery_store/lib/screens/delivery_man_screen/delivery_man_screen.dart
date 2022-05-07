@@ -13,7 +13,7 @@ class DeliveryManScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: commonAppBarModule(title: "DeliveryMan"),
+      appBar: commonAppBarModule(title: "Delivery Man"),
       body: Obx(
         () => deliveryManScreenController.isLoading.value
             ? CustomCircularProgressIndicator()

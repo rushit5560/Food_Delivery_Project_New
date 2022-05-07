@@ -277,7 +277,7 @@ class StoreProductsListModule extends StatelessWidget {
                       log("updateStartTimeString : ${itemScreenController.updateStartTimeString}");
                       log("updateEndTimeString : ${itemScreenController.updateEndTimeString}");
                       log("updateFoodTypeValue : ${itemScreenController.updateFoodTypeValue}");
-                      log("updateCategoryDropDownValue : ${itemScreenController.updateCategoryDropDownValue.name}");
+                      log("updateCategoryDropDownValue : ${itemScreenController.updateCategoryDropDownValue!.name}");
                       log("updateSubCategoryDropDownValue : ${itemScreenController.updateSubCategoryDropDownValue!.name}");
                       log("updateSubCategoryDropDownValue : ${itemScreenController.updateSelectedAttributes}");
                       log("updateSelectedAddonList : ${itemScreenController.updateSelectedAddons}");
@@ -360,7 +360,7 @@ class AdminProductsListModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return itemScreenController.adminProductsList.length == 0
-        ? Center(child: Text("There is No Store Products"))
+        ? Center(child: Text("There is No Admin Products"))
         : Padding(
             padding: const EdgeInsets.all(8.0),
             child: GridView.builder(

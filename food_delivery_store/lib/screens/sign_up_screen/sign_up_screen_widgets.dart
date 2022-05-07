@@ -216,7 +216,10 @@ class ContinueButton extends StatelessWidget {
           Fluttertoast.showToast(msg: 'Profile Image required...!');
         } else if(signupScreenController.coverFile == null){
           Fluttertoast.showToast(msg: 'Cover Image required...!');
-        } else{
+        } else if(signupScreenController.cityDropDownValue!.sId == null){
+          Fluttertoast.showToast(msg: 'Please Select City...!');
+        }
+        else{
           signupScreenController.adminSignUpFunction();
         }
 

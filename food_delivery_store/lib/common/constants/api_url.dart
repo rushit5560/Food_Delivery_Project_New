@@ -79,4 +79,7 @@ class ApiUrl {
 
   /// Change Password API
   static const ChangePasswordApi = ApiMainPath + "store/changepassword";
+
+  /// Contact Us API
+  static const ContactUsApi = ApiMainPath + "Contactus/create";
 }
