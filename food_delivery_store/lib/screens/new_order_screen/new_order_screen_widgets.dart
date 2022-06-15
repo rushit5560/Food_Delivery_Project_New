@@ -499,7 +499,7 @@ class AllOrderModule extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          newOrderScreenController.allOrderList[index].storeId.firstName +  " " + newOrderScreenController.allOrderList[index].storeId.lastName,
+          newOrderScreenController.allOrderList[index].restaurantId.firstName +  " " + newOrderScreenController.allOrderList[index].restaurantId.lastName,
           textScaleFactor: 1.2,
           maxLines: 1,
           style: TextStyle(
@@ -671,7 +671,7 @@ class PendingOrderModule extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          newOrderScreenController.pendingOrderList[index].storeId.firstName +  " " + newOrderScreenController.pendingOrderList[index].storeId.lastName,
+          newOrderScreenController.pendingOrderList[index].restaurantId.firstName +  " " + newOrderScreenController.pendingOrderList[index].restaurantId.lastName,
           textScaleFactor: 1.2,
           maxLines: 1,
           style: TextStyle(
@@ -843,7 +843,7 @@ class OnTheWayModule extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          newOrderScreenController.onTheWayList[index].storeId.firstName +  " " + newOrderScreenController.onTheWayList[index].storeId.lastName,
+          newOrderScreenController.onTheWayList[index].restaurantId.firstName +  " " + newOrderScreenController.onTheWayList[index].restaurantId.lastName,
           textScaleFactor: 1.2,
           maxLines: 1,
           style: TextStyle(
@@ -1015,7 +1015,7 @@ class DeliveredModule extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          newOrderScreenController.deliveredList[index].storeId.firstName +  " " + newOrderScreenController.deliveredList[index].storeId.lastName,
+          newOrderScreenController.deliveredList[index].restaurantId.firstName +  " " + newOrderScreenController.deliveredList[index].restaurantId.lastName,
           textScaleFactor: 1.2,
           maxLines: 1,
           style: TextStyle(
