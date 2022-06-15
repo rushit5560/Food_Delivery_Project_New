@@ -85,12 +85,12 @@ class EditProfileScreenController extends GetxController {
         print("Success");
         cityLists.clear();
         cityLists.addAll(allCityModel.getList!);
-        for(int i = 0; i < cityLists.length; i++) {
-          if(userCityId == cityLists[i].sId) {
-            cityDropDownValue = cityLists[i];
-          }
-        }
-        // cityDropDownValue = cityLists[0];
+        // for(int i = 0; i < cityLists.length; i++) {
+        //   if(userCityId == cityLists[i].sId) {
+        //     cityDropDownValue = cityLists[i];
+        //   }
+        // }
+         cityDropDownValue = cityLists[0];
         print('cityLists : ${cityLists.length}');
       } else {
         print('Get All City Else Else');

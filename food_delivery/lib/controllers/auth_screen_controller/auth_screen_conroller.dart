@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -72,7 +73,7 @@ class AuthScreenController extends GetxController {
       }
 
     } catch(e) {
-      print('Get All City False False');
+      print('Get All City False False False');
     } finally {
       isLoading(false);
     }
@@ -88,7 +89,7 @@ class AuthScreenController extends GetxController {
 
     try{
       http.Response response = await http.get(Uri.parse(finalUrl));
-      print('response : ${response.body}');
+      print('Area response : ${response.body}');
 
       CityWiseAreaModel cityWiseAreaModel = CityWiseAreaModel.fromJson(json.decode(response.body));
       isSuccessStatus = cityWiseAreaModel.status!.obs;
@@ -114,44 +115,88 @@ class AuthScreenController extends GetxController {
     print('url : $url');
 
     try {
-      var request = http.MultipartRequest('POST', Uri.parse(url));
+      if(file != null){
+        var request = http.MultipartRequest('POST', Uri.parse(url));
 
-      var stream = http.ByteStream(file!.openRead());
-      stream.cast();
-      var length = await file!.length();
+        var stream = http.ByteStream(file!.openRead());
+        stream.cast();
+        var length = await file!.length();
 
-      request.files.add(await http.MultipartFile.fromPath("Photo", file!.path));
+        request.files.add(await http.MultipartFile.fromPath("Photo", file!.path));
 
-      request.fields['UserName'] = "${userNameTextFieldController.text.trim()}";
-      request.fields['FullName'] = "${fullNameTextFieldController.text.trim()}";
-      request.fields['Phone'] = "${phoneNoTextFieldController.text.trim()}";
-      request.fields['Password'] = "${passwordTextFieldController.text.trim()}";
-      request.fields['Address'] = "${addressTextFieldController.text.trim()}";
-      request.fields['Gender'] = "$selectedGenderValue";
-      request.fields['CityId'] = "${cityDropDownValue.sId}";
-      request.fields['AreaId'] = "${areaDropDownValue!.id}";
-      request.fields['Email'] = "${emailTextFieldController.text.trim().toLowerCase()}";
-      // request.fields['RoleId'] = "6179367e616b99f3c785a68e";
+        request.fields['UserName'] = "${userNameTextFieldController.text.trim()}";
+        request.fields['FullName'] = "${fullNameTextFieldController.text.trim()}";
+        request.fields['Phone'] = "${phoneNoTextFieldController.text.trim()}";
+        request.fields['Password'] = "${passwordTextFieldController.text.trim()}";
+        request.fields['Address'] = "${addressTextFieldController.text.trim()}";
+        request.fields['Gender'] = "$selectedGenderValue";
+        request.fields['CityId'] = "${cityDropDownValue.sId}";
+        request.fields['AreaId'] = "${areaDropDownValue!.id}";
+        request.fields['Email'] = "${emailTextFieldController.text.trim().toLowerCase()}";
+        // request.fields['RoleId'] = "6179367e616b99f3c785a68e";
 
-      var multiPart = http.MultipartFile('Photo', stream, length);
+        var multiPart = http.MultipartFile('Photo', stream, length);
 
-      request.files.add(multiPart);
+        request.files.add(multiPart);
 
-      var response = await request.send();
+        var response = await request.send();
 
-      response.stream.transform(utf8.decoder).listen((value) {
-        RegistrationUserModel response1 = RegistrationUserModel.fromJson(json.decode(value));
-        print('response1 ::::::${response1.status}');
-        isSuccessStatus = response1.status.obs;
+        response.stream.transform(utf8.decoder).listen((value) {
+          RegistrationUserModel response1 = RegistrationUserModel.fromJson(json.decode(value));
+          print('response1 ::::::${response1.status}');
+          isSuccessStatus = response1.status.obs;
+          log('isSuccessStatus: $isSuccessStatus');
 
-        if (isSuccessStatus.value) {
-          Fluttertoast.showToast(msg: "Activation Link Send To Your Email Account, Kindly Activate And Login", backgroundColor: AppColors.colorDarkPink, textColor: Colors.white);
-          clearSignUpFieldsFunction();
-        } else {
-          Fluttertoast.showToast(msg: "Something went wrong!", backgroundColor: AppColors.colorDarkPink, textColor: Colors.white);
-          print('False False');
-        }
-      });
+          if (isSuccessStatus.value) {
+            Fluttertoast.showToast(msg: "Activation Link Send To Your Email Account, Kindly Activate And Login", backgroundColor: AppColors.colorDarkPink, textColor: Colors.white);
+            clearSignUpFieldsFunction();
+          } else {
+            Fluttertoast.showToast(msg: "Something went wrong!", backgroundColor: AppColors.colorDarkPink, textColor: Colors.white);
+            print('False False');
+          }
+        });
+      } else{
+        var request = http.MultipartRequest('POST', Uri.parse(url));
+
+        //var stream = http.ByteStream(file!.openRead());
+        //stream.cast();
+        //var length = await file!.length();
+
+        //request.files.add(await http.MultipartFile.fromPath("Photo", file!.path));
+
+        request.fields['UserName'] = "${userNameTextFieldController.text.trim()}";
+        request.fields['FullName'] = "${fullNameTextFieldController.text.trim()}";
+        request.fields['Phone'] = "${phoneNoTextFieldController.text.trim()}";
+        request.fields['Password'] = "${passwordTextFieldController.text.trim()}";
+        request.fields['Address'] = "${addressTextFieldController.text.trim()}";
+        request.fields['Gender'] = "$selectedGenderValue";
+        request.fields['CityId'] = "${cityDropDownValue.sId}";
+        request.fields['AreaId'] = "${areaDropDownValue!.id}";
+        request.fields['Email'] = "${emailTextFieldController.text.trim().toLowerCase()}";
+        // request.fields['RoleId'] = "6179367e616b99f3c785a68e";
+
+        //var multiPart = http.MultipartFile('Photo', stream, length);
+
+        //request.files.add(multiPart);
+
+        var response = await request.send();
+
+        response.stream.transform(utf8.decoder).listen((value) {
+          RegistrationUserModel response1 = RegistrationUserModel.fromJson(json.decode(value));
+          print('response1 ::::::${response1.status}');
+          isSuccessStatus = response1.status.obs;
+          log('isSuccessStatus: $isSuccessStatus');
+
+          if (isSuccessStatus.value) {
+            Fluttertoast.showToast(msg: "Activation Link Send To Your Email Account, Kindly Activate And Login", backgroundColor: AppColors.colorDarkPink, textColor: Colors.white);
+            clearSignUpFieldsFunction();
+          } else {
+            Fluttertoast.showToast(msg: "Something went wrong!", backgroundColor: AppColors.colorDarkPink, textColor: Colors.white);
+            print('False False');
+          }
+        });
+      }
+
     } catch (e) {
       print('User SignUp Error : $e');
       Fluttertoast.showToast(msg: "Something went wrong!", backgroundColor: AppColors.colorDarkPink, textColor: Colors.white);
@@ -169,6 +214,9 @@ class AuthScreenController extends GetxController {
     addressTextFieldController.clear();
     emailTextFieldController.clear();
     selectedGenderValue = "Male";
+
+    //cityDropDownValue.sId = "";
+    //areaDropDownValue!.id = "";
   }
 
   /// Create User Wallet API

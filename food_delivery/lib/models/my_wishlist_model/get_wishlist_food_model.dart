@@ -263,7 +263,7 @@ class ProductId {
   bool isFeatured;
   String description;
   int numberOfReviews;
-  int rating;
+  double rating;
   String image;
   bool isApproved;
   bool isActive;
@@ -290,7 +290,7 @@ class ProductId {
     isFeatured: json["IsFeatured"] ?? false,
     description: json["Description"] ?? "",
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"] ?? 0,
+    rating: json["Rating"] ?? 0.0,
     image: json["Image"] ?? "",
     isApproved: json["IsApproved"] ?? false,
     isActive: json["IsActive"] ?? false,

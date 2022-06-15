@@ -344,7 +344,7 @@ class PopularProductButton extends StatelessWidget {
         ),
         child: Center(
           child: Text("View All Popular Product",
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17)),
         ),
       ),
     );

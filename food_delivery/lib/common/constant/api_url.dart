@@ -1,5 +1,5 @@
 class ApiUrl {
-  static const ApiMainPath = "http://5.189.147.159:9501/";
+  static const ApiMainPath = "http://192.168.29.93:4000/";
 
   /// SignIn & SignUp API
   static const RegisterApi = ApiMainPath + "user/signUp";
@@ -40,6 +40,9 @@ class ApiUrl {
 
   /// User Orders API
   static const UserAllOrderApi = ApiMainPath + "order/getAllOrder/Customer/";
+
+  /// Create Orders API
+  static const UserCreateOrderApi = ApiMainPath + "order/create";
 
   /// User Account API
   static const UserAccountApi = ApiMainPath + "user/find/";

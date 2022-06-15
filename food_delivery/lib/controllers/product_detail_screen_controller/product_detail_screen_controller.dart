@@ -148,7 +148,7 @@ class ProductDetailScreenController extends GetxController{
 
       CreateCartModel createCartModel = CreateCartModel.fromJson(json.decode(response.body));
       isSuccessStatus = createCartModel.status.obs;
-
+      log('create cart isSuccessStatus: $isSuccessStatus');
       if(isSuccessStatus.value) {
         log("Cart Added Details : ${createCartModel.cart.quantity}");
         Fluttertoast.showToast(msg: "Product Added in Cart!");

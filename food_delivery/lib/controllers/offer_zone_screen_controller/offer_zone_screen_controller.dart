@@ -9,7 +9,7 @@ class OfferZoneScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
 
-  List<GetCampaignList> offerZoneList = [];
+  List<GetList> offerZoneList = [];
 
   getCampaignFunction() async {
     isLoading(true);

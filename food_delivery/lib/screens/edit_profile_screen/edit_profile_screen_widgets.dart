@@ -194,15 +194,23 @@ class _CityDropDownModuleState extends State<CityDropDownModule> {
                   "Select City",
                 ),
                 onChanged: (newValue) {
-                  editProfileScreenController.cityDropDownValue!.cityName = newValue!.cityName;
-                  editProfileScreenController.cityDropDownValue!.sId = newValue.sId;
+                  // editProfileScreenController.cityDropDownValue!.cityName = newValue!.cityName;
+                  // editProfileScreenController.cityDropDownValue!.sId = newValue.sId;
+                  // editProfileScreenController.areaList.clear();
+                  // editProfileScreenController.areaList.add(GetAreaList(areaName: 'Select Area'));
+                  // editProfileScreenController.getAreaUsingCityId(cityId: "${editProfileScreenController.cityDropDownValue!.sId}");
+                  // print("cityDropDownValue : ${editProfileScreenController.cityDropDownValue}");
+                  // print('newValue.name : ${newValue.cityName}');
+                  // print('city: ${newValue.sId!}');
+                  // editProfileScreenController.loading();
+
+                  editProfileScreenController.isLoading(true);
+                  editProfileScreenController.cityDropDownValue = newValue!;
                   editProfileScreenController.areaList.clear();
                   editProfileScreenController.areaList.add(GetAreaList(areaName: 'Select Area'));
                   editProfileScreenController.getAreaUsingCityId(cityId: "${editProfileScreenController.cityDropDownValue!.sId}");
                   print("cityDropDownValue : ${editProfileScreenController.cityDropDownValue}");
-                  print('newValue.name : ${newValue.cityName}');
-                  print('city: ${newValue.sId!}');
-                  editProfileScreenController.loading();
+                  editProfileScreenController.isLoading(false);
                 },
               ),
             ),
@@ -253,11 +261,16 @@ class AreaDropDownModule extends StatelessWidget {
                   );
                 }).toList(),
                 onChanged: (newValue) {
-                  editProfileScreenController.areaDropDownValue!.areaName = newValue!.areaName;
-                  editProfileScreenController.areaDropDownValue!.id = newValue.id;
-                  print('newValue.name : ${newValue.areaName}');
-                  print('area: ${newValue.id}');
-                  editProfileScreenController.loading();
+                  // editProfileScreenController.areaDropDownValue!.areaName = newValue!.areaName;
+                  // editProfileScreenController.areaDropDownValue!.id = newValue.id;
+                  // print('newValue.name : ${newValue.areaName}');
+                  // print('area: ${newValue.id}');
+                  // editProfileScreenController.loading();
+
+                  editProfileScreenController.isLoading(true);
+                  editProfileScreenController.areaDropDownValue = newValue;
+                  editProfileScreenController.isLoading(false);
+
                 },
               ),
             ),

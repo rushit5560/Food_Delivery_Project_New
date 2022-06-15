@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'dart:ffi';
+
 GetProductsFilterWiseModel getProductsFilterWiseModelFromJson(String str) => GetProductsFilterWiseModel.fromJson(json.decode(str));
 
 String getProductsFilterWiseModelToJson(GetProductsFilterWiseModel data) => json.encode(data.toJson());
@@ -56,7 +58,7 @@ class BestReviewListElement {
     required this.isFeatured,
     required this.description,
     required this.numberOfReviews,
-    required this.rating,
+    //required this.rating,
     required this.image,
     required this.isApproved,
     required this.isActive,
@@ -83,7 +85,7 @@ class BestReviewListElement {
   bool isFeatured;
   String description;
   int numberOfReviews;
-  int rating;
+  //double rating;
   String image;
   bool isApproved;
   bool isActive;
@@ -92,31 +94,31 @@ class BestReviewListElement {
   int v;
 
   factory BestReviewListElement.fromJson(Map<String, dynamic> json) => BestReviewListElement(
-    productType: TType.fromJson(json["ProductType"]),
-    discountType: TType.fromJson(json["DiscountType"]),
-    id: json["_id"],
-    category: ReviewCategory.fromJson(json["Category"]),
-    subCategory: ReviewSubCategory.fromJson(json["SubCategory"]),
-    store: ReviewStore.fromJson(json["Store"]),
-    discount: json["Discount"],
-    productName: json["ProductName"],
-    quantity: json["Quantity"],
-    mrp: json["MRP"],
-    price: json["Price"],
-    startTime: json["StartTime"],
-    endTime: json["EndTime"],
-    attribute: List<BestReviewAttribute>.from(json["Attribute"].map((x) => BestReviewAttribute.fromJson(x))),
-    addon: List<BestReviewAddon>.from(json["Addon"].map((x) => BestReviewAddon.fromJson(x))),
-    isFeatured: json["IsFeatured"],
-    description: json["Description"],
-    numberOfReviews: json["NumberOfReviews"],
-    rating: json["Rating"],
-    image: json["Image"],
-    isApproved: json["IsApproved"],
-    isActive: json["IsActive"],
-    createdAt: json["createdAt"],
-    updatedAt: json["updatedAt"],
-    v: json["__v"],
+    productType: TType.fromJson(json["ProductType"] ?? {}),
+    discountType: TType.fromJson(json["DiscountType"] ?? {}),
+    id: json["_id"] ?? "",
+    category: ReviewCategory.fromJson(json["Category"] ?? {}),
+    subCategory: ReviewSubCategory.fromJson(json["SubCategory"] ?? {}),
+    store: ReviewStore.fromJson(json["Store"] ?? {}),
+    discount: json["Discount"] ?? 0,
+    productName: json["ProductName"] ?? "",
+    quantity: json["Quantity"] ?? 0,
+    mrp: json["MRP"] ?? 0,
+    price: json["Price"] ?? 0,
+    startTime: json["StartTime"] ?? "",
+    endTime: json["EndTime"] ?? "",
+    attribute: List<BestReviewAttribute>.from(json["Attribute"].map((x) => BestReviewAttribute.fromJson(x)) ?? {}),
+    addon: List<BestReviewAddon>.from(json["Addon"].map((x) => BestReviewAddon.fromJson(x)) ?? {}),
+    isFeatured: json["IsFeatured"] ?? false,
+    description: json["Description"] ?? "",
+    numberOfReviews: json["NumberOfReviews"] ?? 0,
+    //rating: json["Rating"] ?? 0.0,
+    image: json["Image"] ?? "",
+    isApproved: json["IsApproved"] ?? false,
+    isActive: json["IsActive"] ?? false,
+    createdAt: json["createdAt"]?? "",
+    updatedAt: json["updatedAt"] ?? "",
+    v: json["__v"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {
@@ -138,7 +140,7 @@ class BestReviewListElement {
     "IsFeatured": isFeatured,
     "Description": description,
     "NumberOfReviews": numberOfReviews,
-    "Rating": rating,
+    //"Rating": rating,
     "Image": image,
     "IsApproved": isApproved,
     "IsActive": isActive,
@@ -289,7 +291,7 @@ class ReviewStore {
     required this.zone,
     required this.campaignjoin,
     required this.numberOfReviews,
-    required this.rating,
+   // required this.rating,
   });
 
   String reseLink;
@@ -323,7 +325,7 @@ class ReviewStore {
   String zone;
   List<String> campaignjoin;
   int numberOfReviews;
-  double rating;
+  //int rating;
 
   factory ReviewStore.fromJson(Map<String, dynamic> json) => ReviewStore(
     reseLink: json["reseLink"] ?? "",
@@ -350,14 +352,14 @@ class ReviewStore {
     updatedAt: json["updatedAt"] ?? "",
     v: json["__v"] ?? 0,
     latitude: json["Latitude"] ?? "",
-    longitude: json["Longitude"] ?? "",
+    longitude:json["Longitude"] ?? "",
     maxDeliveryTime: json["MaxDeliveryTime"] ?? "",
     minDeliveryTime: json["MinDeliveryTime"] ?? "",
     tax: json["Tax"] ?? "",
     zone: json["Zone"] ?? "",
-    campaignjoin: List<String>.from(json["campaignjoin"].map((x) => x) ?? ""),
+    campaignjoin: List<String>.from(json["campaignjoin"].map((x) => x) ?? {}),
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: double.parse(json["Rating"].toString()),
+    //rating: json["Rating"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {
@@ -392,7 +394,7 @@ class ReviewStore {
     "Zone": zone,
     "campaignjoin": List<dynamic>.from(campaignjoin.map((x) => x)),
     "NumberOfReviews": numberOfReviews,
-    "Rating": rating,
+    //"Rating": rating,
   };
 }
 

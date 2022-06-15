@@ -31,7 +31,7 @@ class CategoryScreenController extends GetxController {
 
       if(isSuccessStatus.value){
         restaurantWiseCategoryList = restaurantWiseCategoryModel.category;
-        print('allCategoryList : $restaurantWiseCategoryList');
+        print('Restaurant wise allCategoryList : $restaurantWiseCategoryList');
       } else {
         print('Get All Category Else Else');
       }

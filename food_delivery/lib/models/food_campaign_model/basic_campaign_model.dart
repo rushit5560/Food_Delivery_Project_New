@@ -94,140 +94,22 @@ class BasicCampaignListElement {
 
 class Restaurant {
   Restaurant({
-    required this.reseLink,
+    required this.value,
     required this.id,
-    required this.storeName,
-    required this.address,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.password,
-    required this.phone,
-    required this.deliveryRange,
-    required this.startTime,
-    required this.endTime,
-    required this.image,
-    required this.coverImage,
-    required this.roleId,
-    required this.isActive,
-    required this.isApproved,
-    required this.createdBy,
-    required this.updatedBy,
-    required this.approvedOn,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.v,
-    required this.latitude,
-    required this.longitude,
-    required this.maxDeliveryTime,
-    required this.minDeliveryTime,
-    required this.tax,
-    required this.zone,
-    required this.campaignjoin,
-    required this.numberOfReviews,
-    required this.rating,
   });
 
-  String reseLink;
+  String value;
   String id;
-  String storeName;
-  String address;
-  String firstName;
-  String lastName;
-  String email;
-  String password;
-  int phone;
-  String deliveryRange;
-  String startTime;
-  String endTime;
-  String image;
-  String coverImage;
-  String roleId;
-  bool isActive;
-  bool isApproved;
-  String createdBy;
-  String updatedBy;
-  String approvedOn;
-  String createdAt;
-  String updatedAt;
-  int v;
-  String latitude;
-  String longitude;
-  String maxDeliveryTime;
-  String minDeliveryTime;
-  String tax;
-  String zone;
-  List<String> campaignjoin;
-  int numberOfReviews;
-  double rating;
 
-  factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
-    reseLink: json["reseLink"] ?? "",
-    id: json["_id"] ?? "",
-    storeName: json["StoreName"] ?? "",
-    address: json["Address"] ?? "",
-    firstName: json["FirstName"] ?? "",
-    lastName: json["LastName"] ?? "",
-    email: json["Email"] ?? "",
-    password: json["Password"] ?? "",
-    phone: json["Phone"] ?? 0,
-    deliveryRange: json["DeliveryRange"] ?? "",
-    startTime: json["StartTime"] ?? "",
-    endTime: json["EndTime"] ?? "",
-    image: json["Image"] ?? "",
-    coverImage: json["CoverImage"] ?? "",
-    roleId: json["RoleId"] ?? "",
-    isActive: json["IsActive"] ?? false,
-    isApproved: json["IsApproved"] ?? false,
-    createdBy: json["CreatedBy"] ?? "",
-    updatedBy: json["UpdatedBy"] ?? "",
-    approvedOn: json["ApprovedOn"] ?? "",
-    createdAt: json["createdAt"] ?? "",
-    updatedAt: json["updatedAt"] ?? "",
-    v: json["__v"] ?? 0,
-    latitude: json["Latitude"] ?? "",
-    longitude: json["Longitude"] ?? "",
-    maxDeliveryTime: json["MaxDeliveryTime"] ?? "",
-    minDeliveryTime: json["MinDeliveryTime"] ?? "",
-    tax: json["Tax"] ?? "",
-    zone: json["Zone"] ?? "",
-    campaignjoin: List<String>.from(json["campaignjoin"].map((x) => x) ?? ""),
-    numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"].toDouble(),
-  );
+  factory Restaurant.fromJson(Map<String, dynamic> json) =>
+      Restaurant(
+        value: json["value"] ?? "",
+        id: json["_id"] ?? "",
+      );
 
-  Map<String, dynamic> toJson() => {
-    "reseLink": reseLink,
-    "_id": id,
-    "StoreName": storeName,
-    "Address": address,
-    "FirstName": firstName,
-    "LastName": lastName,
-    "Email": email,
-    "Password": password,
-    "Phone": phone,
-    "DeliveryRange": deliveryRange,
-    "StartTime": startTime,
-    "EndTime": endTime,
-    "Image": image,
-    "CoverImage": coverImage,
-    "RoleId": roleId,
-    "IsActive": isActive,
-    "IsApproved": isApproved,
-    "CreatedBy": createdBy,
-    "UpdatedBy": updatedBy,
-    "ApprovedOn": approvedOn,
-    "createdAt": createdAt,
-    "updatedAt": updatedAt,
-    "__v": v,
-    "Latitude": latitude,
-    "Longitude": longitude,
-    "MaxDeliveryTime": maxDeliveryTime,
-    "MinDeliveryTime": minDeliveryTime,
-    "Tax": tax,
-    "Zone": zone,
-    "campaignjoin": List<dynamic>.from(campaignjoin.map((x) => x)),
-    "NumberOfReviews": numberOfReviews,
-    "Rating": rating,
-  };
+  Map<String, dynamic> toJson() =>
+      {
+        "value": value,
+        "_id": id,
+      };
 }

@@ -15,7 +15,7 @@ class HomeScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   List<BasicCampaignListElement> bannerList = [];
-  List<GetCampaignList> foodCampaignList = [];
+  List<GetList> foodCampaignList = [];
   List<BestReviewListElement> whatsNewList = [];
   List<BestReviewListElement> bestReviewList = [];
 
@@ -30,9 +30,10 @@ class HomeScreenController extends GetxController {
 
       BasicCampaignModel basicCampaignModel = BasicCampaignModel.fromJson(json.decode(response.body));
       isSuccessStatus = basicCampaignModel.status.obs;
-
+      log('Banner isSuccessStatus: $isSuccessStatus');
       if(isSuccessStatus.value){
         bannerList = basicCampaignModel.list;
+        log('bannerList: $bannerList');
       } else {
         print('Get All Banner Else Else');
       }

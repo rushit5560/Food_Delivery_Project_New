@@ -67,7 +67,7 @@ class SingleFoodItem {
   bool isFeatured;
   String description;
   int numberOfReviews;
-  int rating;
+  double rating;
   bool isApproved;
   bool isActive;
   List<Attribute> attribute;
@@ -94,7 +94,7 @@ class SingleFoodItem {
     isFeatured: json["IsFeatured"] ?? false,
     description: json["Description"] ?? "",
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"] ?? 0,
+    rating: double.parse(json["Rating"].toString()),
     isApproved: json["IsApproved"] ?? false,
     isActive: json["IsActive"] ?? false,
     attribute: List<Attribute>.from(json["Attribute"].map((x) => Attribute.fromJson(x)) ?? {}),

@@ -18,8 +18,8 @@ class RegistrationUserModel {
   String message;
 
   factory RegistrationUserModel.fromJson(Map<String, dynamic> json) => RegistrationUserModel(
-    status: json["status"] == null ? false : json["status"],
-    message: json["message"] == null ? "Something went wrong!" : json["message"],
+    status: json["status"] ?? false,
+    message: json["message"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
