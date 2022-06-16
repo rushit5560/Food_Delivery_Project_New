@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
@@ -7,6 +9,7 @@ import 'package:food_delivery/screens/home_screen/best_in_review_tab/best_in_rev
 import 'package:food_delivery/screens/home_screen/whats_new_tab/whats_new_tab.dart';
 import 'package:food_delivery/screens/products_list_screen/products_list_screen.dart';
 import 'package:food_delivery/screens/restaurant_list_screen/restaurant_list_screen.dart';
+import 'package:food_delivery/screens/restaurant_wise_category_screen/restaurant_wise_category_screen.dart';
 import 'package:food_delivery/screens/search_screen/search_screen.dart';
 import 'package:get/get.dart';
 import '../../common/constant/app_images.dart';
@@ -118,6 +121,85 @@ class CarouselIndicator extends StatelessWidget {
           ),
         ),
         ),
+      ),
+    );
+  }
+}
+
+class CategoryList extends StatelessWidget {
+  CategoryList({Key? key}) : super(key: key);
+  final homeScreenController = Get.find<HomeScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 15, right: 15),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Category",
+                style: TextStyle(color: Colors.black, fontSize: 20),),
+
+              GestureDetector(
+                onTap: () {
+                  Get.to(()=> RestaurantListScreen());
+                },
+                child: Text("View All",
+                  style: TextStyle(color: Colors.black, fontSize: 20),),
+              )
+            ],
+          ),
+
+          SizedBox(height: 10,),
+          Container(
+            height: Get.height * 0.2,
+            child: ListView.builder(
+                itemCount: homeScreenController.categoryList.length > 8
+                    ? 7
+                    : homeScreenController.categoryList.length,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index){
+                  return GestureDetector(
+                    onTap: () {
+                      log('homeScreenController.categoryList[index].id: ${homeScreenController.categoryList[index].sId}');
+                      Get.to(()=> RestaurantWiseCategoryScreen(), arguments: homeScreenController.categoryList[index].sId);
+                    },
+                    child: Container(
+                      width: 125,
+                      margin: EdgeInsets.only(left: 5, right: 5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.colorGrey
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 8,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: NetworkImage("${ApiUrl.ApiMainPath}${homeScreenController.categoryList[index].image}"),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+
+                          ),
+                          const SizedBox(height: 10),
+                          Expanded(
+                              flex: 2,
+                              child: Text(homeScreenController.categoryList[index].name!))
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+          )
+        ],
       ),
     );
   }

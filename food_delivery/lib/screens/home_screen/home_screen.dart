@@ -53,6 +53,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 ],
               ),
               SizedBox(height: 15),
+              CategoryList(),
+              SizedBox(height: 15),
               RestaurantList(),
               SizedBox(height: 15),
               ProductTab(tabController: _tabController),

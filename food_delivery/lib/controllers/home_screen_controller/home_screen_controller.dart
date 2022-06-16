@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:food_delivery/common/constant/api_url.dart';
+import 'package:food_delivery/models/category_screen_model/all_category_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../models/food_campaign_model/basic_campaign_model.dart';
@@ -18,7 +19,7 @@ class HomeScreenController extends GetxController {
   List<GetList> foodCampaignList = [];
   List<BestReviewListElement> whatsNewList = [];
   List<BestReviewListElement> bestReviewList = [];
-
+  List<AllCategory> categoryList = [];
 
   getBannerList() async {
     isLoading(true);
@@ -103,10 +104,43 @@ class HomeScreenController extends GetxController {
     } catch(e) {
       log("getFilterWiseProductListFunction Error :: $e");
     } finally {
-      isLoading(false);
+      //isLoading(false);
+      getAllCategoryList();
     }
 
   }
+
+  getAllCategoryList() async {
+    isLoading(true);
+    String url = ApiUrl.AllCategoryApi;
+    log("Category List API URL : $url");
+
+    try {
+      http.Response response = await http.get(Uri.parse(url));
+      log("Category List Response : $response");
+
+      AllCategoryModel allCategoryModel = AllCategoryModel.fromJson(json.decode(response.body));
+      isSuccessStatus = allCategoryModel.status!.obs;
+
+      log("isSuccessStatus :: $isSuccessStatus");
+
+      if(isSuccessStatus.value) {
+
+        categoryList = allCategoryModel.allCategory!;
+
+        log("categoryList :: ${categoryList.length}");
+      } else {
+        log("categoryList Else Else");
+      }
+
+    } catch(e) {
+      log("categoryList Error :: $e");
+    } finally {
+      isLoading(false);
+    }
+  }
+
+
 
   @override
   void onInit() {

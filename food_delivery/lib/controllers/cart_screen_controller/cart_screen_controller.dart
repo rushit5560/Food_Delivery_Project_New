@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/user_cart_details.dart';
@@ -24,6 +25,8 @@ class CartScreenController extends GetxController {
   RxInt cartTotalItems = 0.obs;
   SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
+  TextEditingController couponFieldController = TextEditingController();
+
   /// Get Cart Details
   getUserCartDetailsByIdFunction() async {
     log("User Id : ${UserDetails.userId}");
@@ -38,7 +41,10 @@ class CartScreenController extends GetxController {
        isSuccessStatus = getUserCartModel.status.obs;
 
        if(isSuccessStatus.value) {
-         cartItemRestaurantId = getUserCartModel.cart.restaurantId.id.obs;
+         for(int i=0 ; i< getUserCartModel.cartItem.length ; i++){
+           cartItemRestaurantId = getUserCartModel.cartItem[i].id.obs;
+         }
+
 
          cartItemsList.clear();
          cartItemsList.addAll(getUserCartModel.cartItem);
@@ -121,7 +127,10 @@ class CartScreenController extends GetxController {
     log("Delete User Cart Item API URL : $url");
 
     try{
-      Map<String, dynamic> data = {"CartId" : "${UserCartDetails.userCartId}"};
+      Map<String, dynamic> data = {
+        "cartitemid" : "$cartItemRestaurantId",
+        "cartid" : "${UserCartDetails.userCartId}"
+      };
       log("data : $data");
 
       http.Response response = await http.post(Uri.parse(url), body: data);

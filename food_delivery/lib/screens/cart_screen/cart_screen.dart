@@ -7,9 +7,22 @@ import '../../common/custom_appbar.dart';
 import '../../controllers/cart_screen_controller/cart_screen_controller.dart';
 import 'cart_screen_widgets.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   CartScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
   final cartScreenController = Get.put(CartScreenController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    cartScreenController.getUserCartDetailsByIdFunction();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +47,7 @@ class CartScreen extends StatelessWidget {
                 : Column(
                     children: [
                       SavingModule(),
+                      CouponCodeTextFieldModule(),
                       ContinueModule(),
                       Expanded(
                         child: CartItemsList(),

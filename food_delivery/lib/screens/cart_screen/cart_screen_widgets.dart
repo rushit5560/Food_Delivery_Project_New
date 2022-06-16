@@ -46,6 +46,71 @@ class SavingModule extends StatelessWidget {
   }
 }
 
+class CouponCodeTextFieldModule extends StatelessWidget {
+  CouponCodeTextFieldModule({Key? key}) : super(key: key);
+  final screenController = Get.find<CartScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextFormField(
+              cursorColor: Colors.black,
+              controller: screenController.couponFieldController,
+              decoration: _inputDecoration(),
+              onTap: (){
+
+              },
+            ),
+          ),
+          SizedBox(width: 10),
+          GestureDetector(
+            // onTap: () => Get.to(()=> EditProfileScreen())!.then((value) async {
+            //   await accountScreenController.getUserAccount();
+            // }),
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.colorDarkPink,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                child: Text(
+                  'Submit',
+                  textScaleFactor: 1.1,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  InputDecoration _inputDecoration() {
+    return InputDecoration(
+      isDense: true,
+      contentPadding: EdgeInsets.all(15),
+      filled: true,
+      fillColor: Colors.grey.shade200,
+      hintText: 'Coupon code',
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey.shade200),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey.shade200),
+      ),
+    );
+  }
+}
+
+
 
 class CartItemsList extends StatelessWidget {
   final screenController = Get.find<CartScreenController>();

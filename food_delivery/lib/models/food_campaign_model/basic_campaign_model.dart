@@ -53,7 +53,7 @@ class BasicCampaignListElement {
   String dailyEndTime;
   String description;
   String campaignImage;
-  Restaurant restaurant;
+  List<Restaurant> restaurant;
   bool isActive;
   String createdAt;
   String updatedAt;
@@ -68,7 +68,7 @@ class BasicCampaignListElement {
     dailyEndTime: json["DailyEndTime"] ?? "",
     description: json["Description"] ?? "",
     campaignImage: json["CampaignImage"] ?? "",
-    restaurant: Restaurant.fromJson(json["Restaurant"] ?? {}),
+    restaurant: List<Restaurant>.from(json["Restaurant"].map((x) => Restaurant.fromJson(x)) ?? {}),
     isActive: json["IsActive"] ?? false,
     createdAt: json["createdAt"] ?? "",
     updatedAt: json["updatedAt"] ?? "",
@@ -84,7 +84,7 @@ class BasicCampaignListElement {
     "DailyEndTime": dailyEndTime,
     "Description": description,
     "CampaignImage": campaignImage,
-    "Restaurant": restaurant.toJson(),
+    "Restaurant": List<dynamic>.from(restaurant.map((x) => x.toJson())),
     "IsActive": isActive,
     "createdAt": createdAt,
     "updatedAt": updatedAt,
