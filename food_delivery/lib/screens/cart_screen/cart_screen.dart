@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/common_widgets.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
+import 'package:food_delivery/controllers/account_screen_controller/order_screen_controller.dart';
 import 'package:get/get.dart';
 
 import '../../common/custom_appbar.dart';
@@ -16,6 +17,7 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   final cartScreenController = Get.put(CartScreenController());
+  final orderScreenController = Get.put(OrderScreenController());
 
   @override
   void initState() {

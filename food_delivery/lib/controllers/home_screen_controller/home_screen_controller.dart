@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/models/category_screen_model/all_category_model.dart';
+import 'package:food_delivery/models/get_food_review_model/get_food_review_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../models/food_campaign_model/basic_campaign_model.dart';
@@ -20,6 +21,7 @@ class HomeScreenController extends GetxController {
   List<BestReviewListElement> whatsNewList = [];
   List<BestReviewListElement> bestReviewList = [];
   List<AllCategory> categoryList = [];
+  List<List1> reviewList = [];
 
   getBannerList() async {
     isLoading(true);
@@ -136,11 +138,41 @@ class HomeScreenController extends GetxController {
     } catch(e) {
       log("categoryList Error :: $e");
     } finally {
-      isLoading(false);
+      //isLoading(false);
+      getClientReviewList();
     }
   }
 
+  getClientReviewList()async{
+    isLoading(true);
+    String url = ApiUrl.GetFoodReviewAPI;
+    log("Food Review List API URL : $url");
 
+    try {
+      http.Response response = await http.get(Uri.parse(url));
+      log("Food Review List Response : $response");
+
+      GetFoodReviewModel getFoodReviewModel = GetFoodReviewModel.fromJson(json.decode(response.body));
+      isSuccessStatus = getFoodReviewModel.status!.obs;
+
+      log("isSuccessStatus :: $isSuccessStatus");
+
+      if(isSuccessStatus.value) {
+
+        reviewList = getFoodReviewModel.list!;
+
+        log("reviewList :: ${reviewList.length}");
+      } else {
+        log("reviewList Else Else");
+      }
+
+    } catch(e) {
+      log("reviewList Error :: $e");
+    } finally {
+      isLoading(false);
+      //getClientReviewList();
+    }
+  }
 
   @override
   void onInit() {

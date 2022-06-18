@@ -8,6 +8,7 @@ import 'package:food_delivery/controllers/home_screen_controller/home_screen_con
 import 'package:food_delivery/screens/home_screen/best_in_review_tab/best_in_review_tab.dart';
 import 'package:food_delivery/screens/home_screen/whats_new_tab/whats_new_tab.dart';
 import 'package:food_delivery/screens/products_list_screen/products_list_screen.dart';
+import 'package:food_delivery/screens/restaurant_detail_screen/restaurant_details_screen.dart';
 import 'package:food_delivery/screens/restaurant_list_screen/restaurant_list_screen.dart';
 import 'package:food_delivery/screens/restaurant_wise_category_screen/restaurant_wise_category_screen.dart';
 import 'package:food_delivery/screens/search_screen/search_screen.dart';
@@ -243,7 +244,8 @@ class RestaurantList extends StatelessWidget {
                 itemBuilder: (context, index){
                   return GestureDetector(
                     onTap: () {
-                      Get.to(()=> CategoryScreen(), arguments: restaurantListScreenController.allRestaurantList[index].id);
+                      log('restaurantListScreenController.allRestaurantList[index].id: ${restaurantListScreenController.allRestaurantList[index].id}');
+                      Get.to(()=> RestaurantDetailsScreen(), arguments: restaurantListScreenController.allRestaurantList[index].id);
                     },
                     child: Container(
                       width: 125,
@@ -282,6 +284,67 @@ class RestaurantList extends StatelessWidget {
     );
   }
 }
+
+class ClientReviewList extends StatelessWidget {
+   ClientReviewList({Key? key}) : super(key: key);
+  final homeScreenController = Get.find<HomeScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text("Client Review",
+          style: TextStyle(color: Colors.black, fontSize: 20)),
+
+        SizedBox(height: 10,),
+        ListView.builder(
+            itemCount: homeScreenController.reviewList.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index){
+              return GestureDetector(
+                onTap: () {
+
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Container(
+                    width: 125,
+                   // margin: EdgeInsets.only(left: 10, right: 10),
+                    // decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(10),
+                    //     color: AppColors.colorGrey
+                    // ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: AppColors.colorGrey
+                      ),
+                        child: Row(
+                          children: [
+                            // homeScreenController.reviewList[index].customer!.photo!.isNotEmpty ?
+                            // Image.network(homeScreenController.reviewList[index].customer!.photo!) : Container(),
+
+
+                            Column(
+                              children: [
+                                // homeScreenController.reviewList[index].customer!.userName!.isNotEmpty ?
+                                // Text("${homeScreenController.reviewList[index].customer!.userName}") :Container(),
+                                Text("${homeScreenController.reviewList[index].review}"),
+                              ],
+                            ),
+                          ],
+                        )),
+                  ),
+                ),
+              );
+            })
+      ],
+    );
+  }
+}
+
 
 
 class ProductTab extends StatelessWidget {

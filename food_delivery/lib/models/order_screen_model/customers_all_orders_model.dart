@@ -232,6 +232,7 @@ class Order {
     required this.deliveryBy,
     required this.subTotal,
     required this.amount,
+    required this.paymentStatus,
     required this.details,
     required this.isActive,
     required this.orderDate,
@@ -250,6 +251,7 @@ class Order {
   DeliveryBy deliveryBy;
   int subTotal;
   int amount;
+  String paymentStatus;
   String details;
   bool isActive;
   DateTime orderDate;
@@ -267,6 +269,7 @@ class Order {
     deliveryBy: DeliveryBy.fromJson(json["DeliveryBy"] ?? {}),
     subTotal: json["SubTotal"] ?? 0,
     amount: json["Amount"] ?? 0,
+    paymentStatus: json["PaymentStatus"] ?? "",
     details: json["Details"] ?? "",
     isActive: json["IsActive"] ?? false,
     orderDate: DateTime.parse(json["OrderDate"] ?? DateTime.now()),
@@ -285,6 +288,7 @@ class Order {
     "DeliveryBy": deliveryBy.toJson(),
     "SubTotal": subTotal,
     "Amount": amount,
+    "PaymentStatus": paymentStatus,
     "Details": details,
     "IsActive": isActive,
     "OrderDate": orderDate.toIso8601String(),
@@ -352,7 +356,7 @@ class DeliveryBy {
     required this.isVerified,
     required this.v,
     required this.restaurant,
-    required this.rating,
+    //required this.rating,
     required this.numberOfReviews,
     required this.isSuspended,
     required this.image,
@@ -377,7 +381,7 @@ class DeliveryBy {
   bool isVerified;
   int v;
   String restaurant;
-  double rating;
+  //double rating;
   int numberOfReviews;
   bool isSuspended;
   String image;
@@ -402,7 +406,7 @@ class DeliveryBy {
     isVerified: json["IsVerified"] ?? false,
     v: json["__v"] ?? 0,
     restaurant: json["Restaurant"] ?? "",
-    rating: json["Rating"] ?? 0.0,
+    //rating: json["Rating"] ?? 0.0,
     numberOfReviews: json["NumberOfReviews"] ?? 0,
     isSuspended: json["IsSuspended"] ?? false,
     image: json["Image"] ?? "",
@@ -428,7 +432,7 @@ class DeliveryBy {
     "IsVerified": isVerified,
     "__v": v,
     "Restaurant": restaurant,
-    "Rating": rating,
+    //"Rating": rating,
     "NumberOfReviews": numberOfReviews,
     "IsSuspended": isSuspended,
     "Image": image,

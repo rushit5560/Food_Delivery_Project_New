@@ -107,11 +107,16 @@ class AllOrderListModule extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
+            Text(
+              'Payment status: ${orderScreenController.userOrderList[index].paymentStatus}',
+              style: TextStyle(color: Colors.black),
+            ),
+            SizedBox(height: 10),
             Row(
               children: [
                 // Date And Time Module
                 Text(
-                  '${orderScreenController.userOrderList[index].orderDate.day} ${orderScreenController.userOrderList[index].orderDate.month}, ${orderScreenController.userOrderList[index].orderDate.hour}:${orderScreenController.userOrderList[index].orderDate.minute}',
+                  '${orderScreenController.userOrderList[index].orderDate.day} ${orderScreenController.userOrderList[index].orderDate.month}:${orderScreenController.userOrderList[index].orderDate.hour}:${orderScreenController.userOrderList[index].orderDate.minute}',
                   textScaleFactor: 0.8,
                 ),
                 SizedBox(width: 10),

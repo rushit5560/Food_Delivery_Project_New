@@ -264,9 +264,9 @@ class AccountInfoListModule extends StatelessWidget {
       case 2:
         Get.to(()=> WalletScreen());
         break;
-      case 3:
-        Get.to(()=> OfferZoneScreen());
-        break;
+      // case 3:
+      //   Get.to(()=> OfferZoneScreen());
+      //   break;
       /*case 5:
         Get.to(()=> LanguageScreen());
         break;*/

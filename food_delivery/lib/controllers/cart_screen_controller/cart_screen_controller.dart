@@ -5,6 +5,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/user_cart_details.dart';
 import 'package:food_delivery/common/constant/user_details.dart';
+import 'package:food_delivery/models/create_order_model/create_order_model.dart';
+import 'package:food_delivery/models/order_screen_model/customers_all_orders_model.dart';
+import 'package:food_delivery/screens/delivery_option_screen/delivery_option_screen.dart';
+import 'package:food_delivery/screens/order_details_screen/order_details_screen.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../common/sharedpreference_data/sharedpreference_data.dart';
@@ -19,13 +23,14 @@ class CartScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   List<CartItem> cartItemsList = [];
-  CartDetail? userCartDetail;
+  Cart? userCartDetail;
   RxString cartItemRestaurantId = "".obs;
   RxInt cartSubTotalAmount = 0.obs;
   RxInt cartTotalItems = 0.obs;
   SharedPreferenceData sharedPreferenceData = SharedPreferenceData();
 
   TextEditingController couponFieldController = TextEditingController();
+  String ? orderId;
 
   /// Get Cart Details
   getUserCartDetailsByIdFunction() async {
@@ -36,9 +41,11 @@ class CartScreenController extends GetxController {
 
     try{
        http.Response response = await http.get(Uri.parse(url));
+       log('User Cart response body: ${response.body}');
 
        GetUserCartModel getUserCartModel = GetUserCartModel.fromJson(json.decode(response.body));
        isSuccessStatus = getUserCartModel.status.obs;
+       log('isSuccessStatus:$isSuccessStatus');
 
        if(isSuccessStatus.value) {
          for(int i=0 ; i< getUserCartModel.cartItem.length ; i++){
@@ -184,6 +191,57 @@ class CartScreenController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  createOrderFunction() async {
+    isLoading(true);
+    String url = ApiUrl.UserCreateOrderApi;
+    String finalUrl = url;
+    print('finalUrl : $finalUrl');
+
+    // Map<String, dynamic> body = {
+    //   "StoreId" : UserCartDetails.userCartRestaurantId,
+    //   "UserId" : UserDetails.userId,
+    //   "OrderStatusId" : "62a2f4628c396e9e28b696a2",
+    //   "Amount" : cartSubTotalAmount,
+    //   "Cart" : UserCartDetails.userCartId,
+    //   "Details" : "Orders list"
+    // };
+    Map<String, dynamic> body = {
+        "cartid": UserCartDetails.userCartId,
+        "Amount": "${cartSubTotalAmount.value}",
+        "OrderType": "cash on delivery",
+        "PaymentStatus": "Done",
+        "Details": "testing details",
+        "OrderStatusId": "62a2f4628c396e9e28b696a2"
+    };
+
+    log('body: $body');
+
+    try{
+      http.Response response = await http.post(Uri.parse(finalUrl), body: body);
+      print('create order response : ${response.body}');
+
+      CreateOrderModel createOrderModel = CreateOrderModel.fromJson(json.decode(response.body));
+      isSuccessStatus = createOrderModel.status.obs;
+      log('isSuccessStatus: $isSuccessStatus');
+      if(isSuccessStatus.value){
+        orderId = createOrderModel.order.id;
+        log('orderId: $orderId');
+        Fluttertoast.showToast(msg: createOrderModel.message);
+        Get.to(()=> OrderDetailsScreen(), arguments: orderId);
+        //print('userOrderList : $userOrderList');
+      } else {
+        Fluttertoast.showToast(msg: createOrderModel.message);
+        print('Get User All Address Else Else');
+      }
+
+    } catch(e) {
+      print('User Create Order Error: $e');
+    } finally {
+      isLoading(false);
+    }
+
   }
 
   @override

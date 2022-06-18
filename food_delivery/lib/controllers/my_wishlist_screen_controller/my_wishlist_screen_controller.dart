@@ -22,7 +22,7 @@ class MyWishListScreenController extends GetxController{
 
    try {
      http.Response response = await http.get(Uri.parse(url));
-     // log("Get Wishlist Food Response : ${response.body}");
+      log("Get Wishlist Food Response : ${response.body}");
 
      GetWishlistFoodModel getWishlistFoodModel = GetWishlistFoodModel.fromJson(json.decode(response.body));
      isSuccessStatus = getWishlistFoodModel.status.obs;

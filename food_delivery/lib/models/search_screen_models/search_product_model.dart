@@ -40,7 +40,7 @@ class SingleFoodItem {
     required this.isFeatured,
     required this.description,
     required this.numberOfReviews,
-    required this.rating,
+    //required this.rating,
     required this.isApproved,
     required this.isActive,
     required this.attribute,
@@ -67,7 +67,7 @@ class SingleFoodItem {
   bool isFeatured;
   String description;
   int numberOfReviews;
-  double rating;
+  //double rating;
   bool isApproved;
   bool isActive;
   List<Attribute> attribute;
@@ -94,7 +94,7 @@ class SingleFoodItem {
     isFeatured: json["IsFeatured"] ?? false,
     description: json["Description"] ?? "",
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: double.parse(json["Rating"].toString()),
+    //rating: double.parse(json["Rating"].toString()),
     isApproved: json["IsApproved"] ?? false,
     isActive: json["IsActive"] ?? false,
     attribute: List<Attribute>.from(json["Attribute"].map((x) => Attribute.fromJson(x)) ?? {}),
@@ -122,7 +122,7 @@ class SingleFoodItem {
     "IsFeatured": isFeatured,
     "Description": description,
     "NumberOfReviews": numberOfReviews,
-    "Rating": rating,
+    //"Rating": rating,
     "IsApproved": isApproved,
     "IsActive": isActive,
     "Attribute": List<dynamic>.from(attribute.map((x) => x.toJson())),
@@ -275,7 +275,7 @@ class Store {
     required this.tax,
     required this.zone,
     required this.numberOfReviews,
-    required this.rating,
+    //required this.rating,
     required this.campaignjoin,
   });
 
@@ -308,7 +308,7 @@ class Store {
   String tax;
   String zone;
   int numberOfReviews;
-  int rating;
+  //int rating;
   List<String> campaignjoin;
 
   factory Store.fromJson(Map<String, dynamic> json) => Store(
@@ -341,7 +341,7 @@ class Store {
     tax: json["Tax"] ?? "",
     zone: json["Zone"] ?? "",
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"]/*.toDouble()*/ ?? 0,
+    //rating: json["Rating"]/*.toDouble()*/ ?? 0,
     campaignjoin: List<String>.from(json["campaignjoin"].map((x) => x) ?? ""),
   );
 
@@ -375,7 +375,7 @@ class Store {
     "Tax": tax,
     "Zone": zone,
     "NumberOfReviews": numberOfReviews,
-    "Rating": rating,
+    //"Rating": rating,
     "campaignjoin": List<dynamic>.from(campaignjoin.map((x) => x)),
   };
 }

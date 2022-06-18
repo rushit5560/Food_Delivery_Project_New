@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/extension_methods/extension_methods.dart';
@@ -23,7 +25,7 @@ class RestaurantWiseCategoryListModule extends StatelessWidget {
       itemBuilder: (context, i){
         return GestureDetector(
           onTap: () {
-            // log("Id : ${screenController.allRestaurantList[i].id}");
+             log("screenController.restaurantWiseCategoryList[i].value.id : ${screenController.restaurantWiseCategoryList[i].value.id}");
             Get.to(()=> RestaurantDetailsScreen(), arguments: screenController.restaurantWiseCategoryList[i].value.id);
           },
           child: Container(

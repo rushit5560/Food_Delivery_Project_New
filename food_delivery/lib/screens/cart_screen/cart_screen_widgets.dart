@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
+import 'package:food_delivery/controllers/account_screen_controller/order_screen_controller.dart';
 import 'package:get/get.dart';
 import '../../common/constant/app_colors.dart';
 import '../../common/constant/app_images.dart';
@@ -164,11 +165,14 @@ class CartItemsList extends StatelessWidget {
   }
 
   Widget _imageModule(String imgUrl) {
-    return Image(
-      height: Get.height * 0.09,
-      width: Get.height * 0.09,
-      image: NetworkImage('$imgUrl'),
-    );
+    // return Image(
+    //   height: Get.height * 0.09,
+    //   width: Get.height * 0.09,
+    //   image: NetworkImage('$imgUrl'),
+    // );
+    return Container(
+        height: 40, width: 40,
+        child: Image.network('$imgUrl'));
   }
 
   Widget _nameModule(CartItem singleItem) {
@@ -289,6 +293,7 @@ class CartItemsList extends StatelessWidget {
 class ContinueModule extends StatelessWidget {
   ContinueModule({Key? key}) : super(key: key);
   final screenController = Get.find<CartScreenController>();
+  final orderScreenController = Get.find<OrderScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -331,6 +336,7 @@ class ContinueModule extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   // Get.to(()=> DeliveryOptionScreen());
+                  screenController.createOrderFunction();
                 },
                 child: Container(
                   decoration: BoxDecoration(
