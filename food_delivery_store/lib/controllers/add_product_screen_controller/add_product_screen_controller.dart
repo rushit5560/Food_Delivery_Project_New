@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:food_delivery_admin/models/add_product_model/add_product_model.dart';
+import 'package:food_delivery_admin/models/category_models/get_all_category_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -38,9 +39,9 @@ class AddProductScreenController extends GetxController {
   RxString endTimeString = "".obs;
 
   /// Restaurant Category DD
-  RxList<RestaurantCategory> getRestaurantCategoryList =
-      [RestaurantCategory(name: "Select Category", id: "0")].obs;
-  RestaurantCategory categoryDropDownValue = RestaurantCategory();
+  RxList<AllCategory> getRestaurantCategoryList =
+      [AllCategory(name: "Select Category", id: "0")].obs;
+  AllCategory categoryDropDownValue = AllCategory();
 
   /// Restaurant Sub Category DD
   RxList<SubCategory1> getSubCategoryList =
@@ -154,7 +155,7 @@ class AddProductScreenController extends GetxController {
   }
 
   /// Get Restaurant Category Function
-  getRestaurantCategoryFunction() async {
+  /*getRestaurantCategoryFunction() async {
     isLoading(true);
     String url = ApiUrl.GetRestaurantCategoryApi + StoreDetails.storeId;
     log("URL : $url");
@@ -177,7 +178,34 @@ class AddProductScreenController extends GetxController {
       // isLoading(false);
       await getAllAttributesFunction();
     }
+  }*/
+
+  /// Get All Category Function
+  Future<void> getAllCategoryFunction() async {
+    isLoading(true);
+    String url = ApiUrl.GetAllCategoryApi;
+    log("All Category Url Api : $url");
+
+    try {
+      http.Response response = await http.get(Uri.parse(url));
+
+      AllCategoryModel allCategoryModel =
+      AllCategoryModel.fromJson(json.decode(response.body));
+      isSuccessStatus = allCategoryModel.status.obs;
+
+      if (isSuccessStatus.value) {
+        getRestaurantCategoryList.addAll(allCategoryModel.allCategory);
+        categoryDropDownValue = getRestaurantCategoryList[0];
+        log("getRestaurantCategoryList Length : ${getRestaurantCategoryList.length}");
+      }
+    } catch (e) {
+      log("getRestaurantCategoryFunction : $e");
+    } finally {
+      // isLoading(false);
+      await getAllAttributesFunction();
+    }
   }
+
 
   /// Get Restaurant Sub Category Function
   getRestaurantSubCategoryFunction({required String catId}) async {
@@ -376,7 +404,7 @@ class AddProductScreenController extends GetxController {
 
   @override
   void onInit() {
-    getRestaurantCategoryFunction();
+    getAllCategoryFunction();
 
     /// Give Initial Value of DropDown
     subCategoryDropDownValue = getSubCategoryList[0];

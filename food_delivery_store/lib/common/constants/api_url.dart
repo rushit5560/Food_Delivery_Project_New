@@ -1,6 +1,6 @@
 class ApiUrl {
   // static const ApiMainPath = "http://5.189.147.159:9501/";
-  static const ApiMainPath = "http://5.189.147.159:9501/";
+  static const ApiMainPath = "http://192.168.29.94:4000/";
 
   static const SignUpApi = ApiMainPath + "store/create";
   static const SignInApi = ApiMainPath + "store/SignIn";
@@ -22,6 +22,7 @@ class ApiUrl {
   static const GetRestaurantAddonsApi = ApiMainPath + "Addon/find/Restaurant/";
 
   /// Category API
+  static const GetAllCategoryApi = ApiMainPath + "Category/getAllCategory";
   static const GetRestaurantCategoryApi = ApiMainPath + "Category/Restaurant/find/";
   static const CreateRestaurantCategoryApi = ApiMainPath + "Category/create";
   static const UpdateRestaurantCategoryApi = ApiMainPath + "Category/updatecategory/";
@@ -73,6 +74,12 @@ class ApiUrl {
 
   /// Campaign API
   static const GetAllCampaignApi = ApiMainPath + "BasicCampaign/getAllCampaign";
+  static const JoinedCampaignApi = ApiMainPath + "BasicCampaign/Campaignbystore/";
+  static const CampaignJoinApi = ApiMainPath + "BasicCampaign/storejoin";
+
+
+  /// Update Order Status
+  static const UpdateOrderStatus = ApiMainPath + "order/update/";
 
   /// Forgot Password API
   static const ForgotPasswordApi = ApiMainPath + "store/forgotpassword";

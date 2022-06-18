@@ -1,103 +1,99 @@
-// To parse this JSON data, do
-//
-//     final getAllCampaignModel = getAllCampaignModelFromJson(jsonString);
-
 import 'dart:convert';
 
-GetAllCampaignModel getAllCampaignModelFromJson(String str) => GetAllCampaignModel.fromJson(json.decode(str));
+AllCategoryModel allCategoryModelFromJson(String str) => AllCategoryModel.fromJson(json.decode(str));
 
-String getAllCampaignModelToJson(GetAllCampaignModel data) => json.encode(data.toJson());
+String allCategoryModelToJson(AllCategoryModel data) => json.encode(data.toJson());
 
-class GetAllCampaignModel {
-  GetAllCampaignModel({
+class AllCategoryModel {
+  AllCategoryModel({
     required this.status,
     required this.message,
-    required this.list,
+    required this.allCategory,
   });
 
   bool status;
   String message;
-  List<CampaignListElement> list;
+  List<AllCategory> allCategory;
 
-  factory GetAllCampaignModel.fromJson(Map<String, dynamic> json) => GetAllCampaignModel(
+  factory AllCategoryModel.fromJson(Map<String, dynamic> json) => AllCategoryModel(
     status: json["status"] ?? false,
     message: json["message"] ?? "",
-    list: List<CampaignListElement>.from(json["List"].map((x) => CampaignListElement.fromJson(x)) ?? {}),
+    allCategory: List<AllCategory>.from(json["allCategory"].map((x) => AllCategory.fromJson(x ?? {})) ?? []),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "List": List<dynamic>.from(list.map((x) => x.toJson())),
+    "allCategory": List<dynamic>.from(allCategory.map((x) => x.toJson())),
   };
 }
 
-class CampaignListElement {
-  CampaignListElement({
-    required this.id,
-    required this.title,
-    required this.startDate,
-    required this.endDate,
-    required this.dailyStartTime,
-    required this.description,
-    required this.campaignImage,
-    required this.isActive,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.v,
-    required this.dailyEndTime,
-    // required this.restaurant,
+class AllCategory {
+  AllCategory({
+    this.id,
+    this.name,
+    // this.restaurants,
+    this.image,
+    this.isActive,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
   });
 
-  String id;
-  String title;
-  String startDate;
-  String endDate;
-  String dailyStartTime;
-  String description;
-  String campaignImage;
-  bool isActive;
-  String createdAt;
-  String updatedAt;
-  int v;
-  String dailyEndTime;
-  // Restaurant restaurant;
+  String? id;
+  String? name;
+  // List<Restaurant>? restaurants;
+  String? image;
+  bool? isActive;
+  String? createdAt;
+  String? updatedAt;
+  int? v;
 
-  factory CampaignListElement.fromJson(Map<String, dynamic> json) => CampaignListElement(
+  factory AllCategory.fromJson(Map<String, dynamic> json) => AllCategory(
     id: json["_id"] ?? "",
-    title: json["Title"] ?? "",
-    startDate: json["StartDate"] ?? "",
-    endDate: json["EndDate"] ?? "",
-    dailyStartTime: json["DailyStartTime"] ?? "",
-    description: json["Description"] ?? "",
-    campaignImage: json["CampaignImage"] ?? "",
+    name: json["Name"] ?? "",
+    // restaurants: List<Restaurant>.from(json["Restaurants"].map((x) => Restaurant.fromJson(x ?? {})) ?? []),
+    image: json["Image"] ?? "",
     isActive: json["IsActive"] ?? false,
     createdAt: json["createdAt"] ?? "",
     updatedAt: json["updatedAt"] ?? "",
     v: json["__v"] ?? 0,
-    dailyEndTime: json["DailyEndTime"] ?? "",
-    // restaurant: Restaurant.fromJson(json["Restaurant"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
     "_id": id,
-    "Title": title,
-    "StartDate": startDate,
-    "EndDate": endDate,
-    "DailyStartTime": dailyStartTime,
-    "Description": description,
-    "CampaignImage": campaignImage,
+    "Name": name,
+    // "Restaurants": List<dynamic>.from(restaurants!.map((x) => x.toJson())),
+    "Image": image,
     "IsActive": isActive,
     "createdAt": createdAt,
     "updatedAt": updatedAt,
     "__v": v,
-    "DailyEndTime": dailyEndTime,
-    // "Restaurant": restaurant.toJson(),
   };
 }
 
 class Restaurant {
   Restaurant({
+    required this.value,
+    required this.id,
+  });
+
+  Value value;
+  String id;
+
+  factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
+    value: Value.fromJson(json["value"] ?? {}),
+    id: json["_id"] ?? "",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "value": value.toJson(),
+    "_id": id,
+  };
+}
+
+class Value {
+  Value({
     required this.id,
     required this.storeName,
     required this.address,
@@ -128,6 +124,7 @@ class Restaurant {
     required this.zone,
     required this.numberOfReviews,
     required this.rating,
+    required this.campaignjoin,
   });
 
   String id;
@@ -159,9 +156,10 @@ class Restaurant {
   String tax;
   String zone;
   int numberOfReviews;
-  double rating;
+  String rating;
+  List<String> campaignjoin;
 
-  factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
+  factory Value.fromJson(Map<String, dynamic> json) => Value(
     id: json["_id"] ?? "",
     storeName: json["StoreName"] ?? "",
     address: json["Address"] ?? "",
@@ -191,7 +189,8 @@ class Restaurant {
     tax: json["Tax"] ?? "",
     zone: json["Zone"] ?? "",
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"].toDouble() ?? 0.0,
+    rating: json["Rating"].toString(),
+    campaignjoin: List<String>.from(json["campaignjoin"].map((x) => x ?? "")),
   );
 
   Map<String, dynamic> toJson() => {
@@ -225,5 +224,7 @@ class Restaurant {
     "Zone": zone,
     "NumberOfReviews": numberOfReviews,
     "Rating": rating,
+    "campaignjoin": List<dynamic>.from(campaignjoin.map((x) => x)),
   };
 }
+

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeScreenController extends GetxController with GetSingleTickerProviderStateMixin {
+class OrderStatusWiseScreenController extends GetxController with GetSingleTickerProviderStateMixin {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
 
@@ -10,6 +10,9 @@ class HomeScreenController extends GetxController with GetSingleTickerProviderSt
   List acceptedList = ["1", "2", "3"];
   List pickedUpList = ["1", "2", "3"];
   List doneList = ["1", "2", "3"];
+
+
+
 
 
   @override
@@ -23,5 +26,4 @@ class HomeScreenController extends GetxController with GetSingleTickerProviderSt
     tabController.dispose();
     super.dispose();
   }
-
 }

@@ -244,7 +244,7 @@ class ContinueButton extends StatelessWidget {
       },
       child: Container(
         height: 40,
-        width: MediaQuery.of(context).size.width / 2.5,
+        width: Get.width / 2.5,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: AppColors.colorDarkPink),

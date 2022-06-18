@@ -5,15 +5,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_admin/common/constants/app_colors.dart';
 import 'package:food_delivery_admin/common/constants/app_images.dart';
 import 'package:food_delivery_admin/common/constants/field_validation.dart';
+import 'package:food_delivery_admin/models/category_models/get_all_category_model.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../../common/text_fields_decorations/add_product_textfield_decoration.dart';
 import '../../controllers/add_product_screen_controller/add_product_screen_controller.dart';
 import '../../models/add_product_model/all_attributes_model.dart';
-import '../../models/category_models/get_restaurants_category.dart';
 import '../../models/add_product_model/get_restaurant_sub_category_model.dart';
 import '../../models/add_product_model/restaurants_all_addons_model.dart';
+
+
+
 
 /// Add Product Image From Device Module
 class ProductImage extends StatefulWidget {
@@ -161,13 +164,13 @@ class ItemCategoryTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Item Category & Sub Category",
+          "Item Category",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         SizedBox(height: 10),
         categoryDropDown(context),
-        SizedBox(height: 10),
-        subCategoryDropDown(context),
+        // SizedBox(height: 10),
+        // subCategoryDropDown(context),
       ],
     );
   }
@@ -190,12 +193,12 @@ class ItemCategoryTextField extends StatelessWidget {
                 ButtonTheme.of(context).copyWith(alignedDropdown: true),
           ),
           child: DropdownButtonHideUnderline(
-            child: DropdownButton<RestaurantCategory>(
+            child: DropdownButton<AllCategory>(
               value: addProductScreenController.categoryDropDownValue,
               items: addProductScreenController.getRestaurantCategoryList
-                  .map<DropdownMenuItem<RestaurantCategory>>(
-                      (RestaurantCategory restaurantCategory) {
-                return DropdownMenuItem<RestaurantCategory>(
+                  .map<DropdownMenuItem<AllCategory>>(
+                      (AllCategory restaurantCategory) {
+                return DropdownMenuItem<AllCategory>(
                   value: restaurantCategory,
                   child: Text(
                     "${restaurantCategory.name}",

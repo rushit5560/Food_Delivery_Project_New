@@ -10,7 +10,7 @@ import 'new_order_screen_widgets.dart';
 
 class NewOrderScreen extends StatelessWidget {
   // const NewOrderScreen({Key? key}) : super(key: key);
-  NewOrderScreenController newOrderScreenController = Get.put(NewOrderScreenController());
+  final newOrderScreenController = Get.put(NewOrderScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +28,26 @@ class NewOrderScreen extends StatelessWidget {
             const SizedBox(height: 20),
             TabsModule(),
             const SizedBox(height: 20),
+
             Expanded(
               child: Container(
-                child: newOrderScreenController.selectedTabIndex.value == 1
-                       //? TodayOrdersModule() : NewOrderModule(),
-                      ? AllOrderModule()
-                      : newOrderScreenController.selectedTabIndex.value == 2
-                      ? PendingOrderModule()
-                      : newOrderScreenController.selectedTabIndex.value == 3
-                      ? OnTheWayModule()
-                      : DeliveredModule()
+                child: TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
+                  controller: newOrderScreenController.tabController,
+                  children: [
+                    NewOrderModule(),
+                    AcceptedOrderModule(),
+                    PreparingModule(),
+                    PreparedModule(),
+                    OnTheWayModule(),
+                    DeliveredModule(),
+                    CancelModule(),
+                    // AllModule(),
+                  ],
+                ),
               ),
             ),
+
 
           ],
         ),

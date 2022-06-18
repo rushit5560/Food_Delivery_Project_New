@@ -28,30 +28,30 @@ PreferredSizeWidget commonAppBarModule({required title, index = 0}) {
       ),
     ),
     backgroundColor: AppColors.colorLightPink,
-    actions: [
-      index == 1
-          ? GestureDetector(
-              onTap: () {
-
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 10),
-                child: Container(
-                  width: 80,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: AppColors.colorDarkPink
-                  ),
-                  child: Center(
-                    child: Text("GO ONLINE", style: TextStyle(
-                      color: Colors.white, fontSize: 14
-                    ),),
-                  ),
-                ),
-              )
-            )
-          : Container(),
-      SizedBox(width: 20)
-    ],
+    // actions: [
+    //   index == 1
+    //       ? GestureDetector(
+    //           onTap: () {
+    //
+    //           },
+    //           child: Padding(
+    //             padding: const EdgeInsets.only(top: 10, bottom: 10),
+    //             child: Container(
+    //               width: 80,
+    //               decoration: BoxDecoration(
+    //                 borderRadius: BorderRadius.circular(5),
+    //                 color: AppColors.colorDarkPink
+    //               ),
+    //               child: Center(
+    //                 child: Text("GO ONLINE", style: TextStyle(
+    //                   color: Colors.white, fontSize: 14
+    //                 ),),
+    //               ),
+    //             ),
+    //           )
+    //         )
+    //       : Container(),
+    //   SizedBox(width: 20)
+    // ],
   );
 }

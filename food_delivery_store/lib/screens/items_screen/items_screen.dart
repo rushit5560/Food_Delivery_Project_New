@@ -21,15 +21,16 @@ class ItemsScreen extends StatelessWidget {
         CustomCircularProgressIndicator():
         Column(
           children: [
-            const SizedBox(height: 20),
-            MainTabsModule(),
             const SizedBox(height: 10),
+            // MainTabsModule(),
+            // const SizedBox(height: 10),
             Expanded(
-              child: Container(
+              child: StoreProductsModule(),
+              /*child: Container(
                 child: itemScreenController.isStoreProductsSelected.value
                     ? StoreProductsModule()
                     : AdminProductsModule(),
-              ),
+              ),*/
             ),
           ],
         ),

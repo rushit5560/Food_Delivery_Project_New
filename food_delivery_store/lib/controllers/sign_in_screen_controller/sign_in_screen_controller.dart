@@ -57,7 +57,7 @@ class SignInScreenController extends GetxController{
         Get.snackbar('User LoggedIn Successfully.', '');
       } else {
         print('SignIn False False');
-        Fluttertoast.showToast(msg: "Wrong Email Id Or Password");
+        Fluttertoast.showToast(msg: "Wrong email id or password");
       }
 
     } catch(e) {
@@ -163,8 +163,6 @@ class SignInScreenController extends GetxController{
         }
       }
 
-
-      //
     }
 
     //setState(() {

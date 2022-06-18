@@ -113,7 +113,7 @@ class StoreProductsListModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return itemScreenController.storeProductList.length == 0
-        ? Center(child: Text("There is No Store Products"))
+        ? Center(child: Text("There is no store products"))
         : Padding(
             padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
@@ -138,8 +138,8 @@ class StoreProductsListModule extends StatelessWidget {
                             alignment: Alignment.bottomCenter,
                             clipBehavior: Clip.none,
                             children: [
-                              _categoryItemImageModule(index),
-                              _categoryItemNameModule(index),
+                              _categoryItemImageModule(storeSingleItem),
+                              _categoryItemNameModule(storeSingleItem),
                             ],
                           ),
                         ),
@@ -156,7 +156,7 @@ class StoreProductsListModule extends StatelessWidget {
           );
   }
 
-  Widget _categoryItemImageModule(int index) {
+  Widget _categoryItemImageModule(StoreFood storeSingleItem) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
@@ -167,14 +167,14 @@ class StoreProductsListModule extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           child: Image(
             image: NetworkImage('${ApiUrl.ApiMainPath}' +
-                '${itemScreenController.storeProductList[index].image}'),
+                '${storeSingleItem.image}'),
           ),
         ),
       ),
     );
   }
 
-  Widget _categoryItemNameModule(int index) {
+  Widget _categoryItemNameModule(StoreFood storeSingleItem) {
     return Positioned(
       bottom: -18,
       child: Container(
@@ -191,7 +191,7 @@ class StoreProductsListModule extends StatelessWidget {
             children: [
               Flexible(
                 child: Text(
-                  '${itemScreenController.storeProductList[index].productName}',
+                  '${storeSingleItem.productName}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   textScaleFactor: 0.85,
@@ -203,7 +203,7 @@ class StoreProductsListModule extends StatelessWidget {
               ),
               const SizedBox(width: 5),
               Text(
-                'Qty ${itemScreenController.storeProductList[index].quantity}',
+                'Qty ${storeSingleItem.quantity}',
                 textScaleFactor: 0.60,
                 style: TextStyle(
                   color: Colors.white,
@@ -277,7 +277,7 @@ class StoreProductsListModule extends StatelessWidget {
                       log("updateStartTimeString : ${itemScreenController.updateStartTimeString}");
                       log("updateEndTimeString : ${itemScreenController.updateEndTimeString}");
                       log("updateFoodTypeValue : ${itemScreenController.updateFoodTypeValue}");
-                      log("updateCategoryDropDownValue : ${itemScreenController.updateCategoryDropDownValue!.name}");
+                      log("updateCategoryDropDownValue : ${itemScreenController.updateCategoryDropDownValue.name}");
                       log("updateSubCategoryDropDownValue : ${itemScreenController.updateSubCategoryDropDownValue!.name}");
                       log("updateSubCategoryDropDownValue : ${itemScreenController.updateSelectedAttributes}");
                       log("updateSelectedAddonList : ${itemScreenController.updateSelectedAddons}");
