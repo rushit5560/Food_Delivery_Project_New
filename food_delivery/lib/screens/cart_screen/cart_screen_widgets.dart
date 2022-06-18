@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
+import 'package:food_delivery/controllers/account_screen_controller/order_screen_controller.dart';
 import 'package:get/get.dart';
 import '../../common/constant/app_colors.dart';
 import '../../common/constant/app_images.dart';
@@ -45,6 +46,71 @@ class SavingModule extends StatelessWidget {
     );
   }
 }
+
+class CouponCodeTextFieldModule extends StatelessWidget {
+  CouponCodeTextFieldModule({Key? key}) : super(key: key);
+  final screenController = Get.find<CartScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextFormField(
+              cursorColor: Colors.black,
+              controller: screenController.couponFieldController,
+              decoration: _inputDecoration(),
+              onTap: (){
+
+              },
+            ),
+          ),
+          SizedBox(width: 10),
+          GestureDetector(
+            // onTap: () => Get.to(()=> EditProfileScreen())!.then((value) async {
+            //   await accountScreenController.getUserAccount();
+            // }),
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.colorDarkPink,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                child: Text(
+                  'Submit',
+                  textScaleFactor: 1.1,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  InputDecoration _inputDecoration() {
+    return InputDecoration(
+      isDense: true,
+      contentPadding: EdgeInsets.all(15),
+      filled: true,
+      fillColor: Colors.grey.shade200,
+      hintText: 'Coupon code',
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey.shade200),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey.shade200),
+      ),
+    );
+  }
+}
+
 
 
 class CartItemsList extends StatelessWidget {
@@ -99,11 +165,14 @@ class CartItemsList extends StatelessWidget {
   }
 
   Widget _imageModule(String imgUrl) {
-    return Image(
-      height: Get.height * 0.09,
-      width: Get.height * 0.09,
-      image: NetworkImage('$imgUrl'),
-    );
+    // return Image(
+    //   height: Get.height * 0.09,
+    //   width: Get.height * 0.09,
+    //   image: NetworkImage('$imgUrl'),
+    // );
+    return Container(
+        height: 40, width: 40,
+        child: Image.network('$imgUrl'));
   }
 
   Widget _nameModule(CartItem singleItem) {
@@ -224,6 +293,7 @@ class CartItemsList extends StatelessWidget {
 class ContinueModule extends StatelessWidget {
   ContinueModule({Key? key}) : super(key: key);
   final screenController = Get.find<CartScreenController>();
+  final orderScreenController = Get.find<OrderScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -266,6 +336,7 @@ class ContinueModule extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   // Get.to(()=> DeliveryOptionScreen());
+                  screenController.createOrderFunction();
                 },
                 child: Container(
                   decoration: BoxDecoration(

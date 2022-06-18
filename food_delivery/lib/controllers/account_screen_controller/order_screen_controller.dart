@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:food_delivery/common/constant/api_url.dart';
+import 'package:food_delivery/common/constant/user_cart_details.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../common/constant/user_details.dart';
@@ -10,6 +12,10 @@ class OrderScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   List<Order> userOrderList = [];
+
+
+  String orderNumber = "";
+  String orderStatusId = "";
 
   getUserAllOrderList() async {
     isLoading(true);
@@ -26,6 +32,11 @@ class OrderScreenController extends GetxController {
 
       if(isSuccessStatus.value){
         userOrderList = customersAllOrdersModel.order;
+        for(int i=0; i < userOrderList.length ; i++){
+          orderNumber = userOrderList[i].orderNumber;
+          orderStatusId = userOrderList[i].orderStatusId.id;
+        }
+
         print('userOrderList : $userOrderList');
       } else {
         print('Get User All Address Else Else');
@@ -38,6 +49,10 @@ class OrderScreenController extends GetxController {
     }
 
   }
+
+
+
+
 
   /*List<OrderModel> orderList = [
     OrderModel(

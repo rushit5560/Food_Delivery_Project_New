@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/controllers/account_screen_controller/order_screen_controller.dart';
 import 'package:food_delivery/screens/order_detail_screen/order_detail_screen.dart';
@@ -62,7 +63,7 @@ class AllOrderListModule extends StatelessWidget {
         padding: const EdgeInsets.all(2),
         child: Center(
           child: Image(
-            image: AssetImage(Images.ic_category2),
+            image: NetworkImage(ApiUrl.ApiMainPath + orderScreenController.userOrderList[index].restaurantId.image),
           ),
         ),
       ),
@@ -98,7 +99,7 @@ class AllOrderListModule extends StatelessWidget {
                   Expanded(
                     flex: 3,
                     child: Text(
-                      '1 Items',
+                      '${orderScreenController.userOrderList[index].quantity} Items',
                       textScaleFactor: 0.9,
                     ),
                   ),
@@ -106,11 +107,16 @@ class AllOrderListModule extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
+            Text(
+              'Payment status: ${orderScreenController.userOrderList[index].paymentStatus}',
+              style: TextStyle(color: Colors.black),
+            ),
+            SizedBox(height: 10),
             Row(
               children: [
                 // Date And Time Module
                 Text(
-                  '${orderScreenController.userOrderList[index].orderDate.day} ${orderScreenController.userOrderList[index].orderDate.month}, ${orderScreenController.userOrderList[index].orderDate.hour}:${orderScreenController.userOrderList[index].orderDate.minute}',
+                  '${orderScreenController.userOrderList[index].orderDate.day} ${orderScreenController.userOrderList[index].orderDate.month}:${orderScreenController.userOrderList[index].orderDate.hour}:${orderScreenController.userOrderList[index].orderDate.minute}',
                   textScaleFactor: 0.8,
                 ),
                 SizedBox(width: 10),
@@ -124,11 +130,11 @@ class AllOrderListModule extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 8),
-            Text(
-              'Payment Method - ${orderScreenController.userOrderList[index].orderType}',
-              textScaleFactor: 0.8,
-            ),
+            // SizedBox(height: 8),
+            // Text(
+            //   'Payment Method - ${orderScreenController.userOrderList[index].orderType}',
+            //   textScaleFactor: 0.8,
+            // ),
           ],
         ),
       ),
@@ -150,24 +156,24 @@ class AllOrderListModule extends StatelessWidget {
               ),
             ),
 
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: AppColors.colorDarkPink,
-              ),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
-                  child: Text(
-                    '${orderScreenController.userOrderList[index].orderType}',
-                    textScaleFactor: 0.9,
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Container(
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(8),
+            //     color: AppColors.colorDarkPink,
+            //   ),
+            //   child: Center(
+            //     child: Padding(
+            //       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+            //       child: Text(
+            //         '${orderScreenController.userOrderList[index].orderType}',
+            //         textScaleFactor: 0.9,
+            //         style: TextStyle(
+            //           color: Colors.white,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

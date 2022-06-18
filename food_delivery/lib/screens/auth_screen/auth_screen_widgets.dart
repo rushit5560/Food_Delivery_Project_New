@@ -113,11 +113,11 @@ class ContinueButton extends StatelessWidget {
         }
         else {
           if(authScreenController.signUpFormKey.currentState!.validate()) {
-            if(authScreenController.file == null){
-              Fluttertoast.showToast(msg: 'Profile Image required...!');
-            } else {
+            // if(authScreenController.file == null){
+            //   Fluttertoast.showToast(msg: 'Profile Image required...!');
+            // } else {
               await authScreenController.userSignUpFunction();
-            }
+            //}
           }
         }
       },

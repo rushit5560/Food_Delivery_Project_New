@@ -17,7 +17,7 @@ class ProductDetailScreenController extends GetxController{
   String productId = Get.arguments;
 
   /// Use For Get Cart API Call
-  final cartScreenController = Get.find<CartScreenController>();
+  //final cartScreenController = Get.find<CartScreenController>();
 
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
@@ -148,11 +148,11 @@ class ProductDetailScreenController extends GetxController{
 
       CreateCartModel createCartModel = CreateCartModel.fromJson(json.decode(response.body));
       isSuccessStatus = createCartModel.status.obs;
-
+      log('create cart isSuccessStatus: $isSuccessStatus');
       if(isSuccessStatus.value) {
         log("Cart Added Details : ${createCartModel.cart.quantity}");
         Fluttertoast.showToast(msg: "Product Added in Cart!");
-        await cartScreenController.getUserCartDetailsByIdFunction();
+        //await cartScreenController.getUserCartDetailsByIdFunction();
       } else {
         log("addUserCartItemFunction Else Else");
         if(createCartModel.message.contains("This product has already been used")) {

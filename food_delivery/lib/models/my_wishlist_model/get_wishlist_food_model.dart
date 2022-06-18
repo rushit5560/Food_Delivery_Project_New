@@ -109,7 +109,7 @@ class RestaurantId {
     required this.zone,
     required this.campaignjoin,
     required this.numberOfReviews,
-    required this.rating,
+    //required this.rating,
   });
 
   String reseLink;
@@ -143,7 +143,7 @@ class RestaurantId {
   String zone;
   List<String> campaignjoin;
   int numberOfReviews;
-  int rating;
+  //double rating;
 
   factory RestaurantId.fromJson(Map<String, dynamic> json) => RestaurantId(
     reseLink: json["reseLink"] ?? "",
@@ -177,7 +177,7 @@ class RestaurantId {
     zone: json["Zone"] ?? "",
     campaignjoin: List<String>.from(json["campaignjoin"].map((x) => x) ?? ""),
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"] ?? 0,
+    //rating: json["Rating"] ?? 0.0,
   );
 
   Map<String, dynamic> toJson() => {
@@ -212,7 +212,7 @@ class RestaurantId {
     "Zone": zone,
     "campaignjoin": List<dynamic>.from(campaignjoin.map((x) => x)),
     "NumberOfReviews": numberOfReviews,
-    "Rating": rating,
+    //"Rating": rating,
   };
 }
 
@@ -236,7 +236,7 @@ class ProductId {
     required this.isFeatured,
     required this.description,
     required this.numberOfReviews,
-    required this.rating,
+    //required this.rating,
     required this.image,
     required this.isApproved,
     required this.isActive,
@@ -263,7 +263,7 @@ class ProductId {
   bool isFeatured;
   String description;
   int numberOfReviews;
-  int rating;
+  //double rating;
   String image;
   bool isApproved;
   bool isActive;
@@ -290,7 +290,7 @@ class ProductId {
     isFeatured: json["IsFeatured"] ?? false,
     description: json["Description"] ?? "",
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"] ?? 0,
+    //rating: json["Rating"] ?? 0.0,
     image: json["Image"] ?? "",
     isApproved: json["IsApproved"] ?? false,
     isActive: json["IsActive"] ?? false,
@@ -318,7 +318,7 @@ class ProductId {
     "IsFeatured": isFeatured,
     "Description": description,
     "NumberOfReviews": numberOfReviews,
-    "Rating": rating,
+    //"Rating": rating,
     "Image": image,
     "IsApproved": isApproved,
     "IsActive": isActive,

@@ -57,7 +57,7 @@ class SearchFieldModule extends StatelessWidget {
 }
 
 
-class CategoryListModule extends StatelessWidget {
+/*class CategoryListModule extends StatelessWidget {
   final categoryScreenController = Get.find<CategoryScreenController>();
   // CategoryListModule({required this.categoryScreenController});
 
@@ -156,7 +156,7 @@ class CategoryListModule extends StatelessWidget {
     log("Cat Id : ${categoryScreenController.restaurantWiseCategoryList[index].id}");
     Get.to(()=> SubCategoryScreen(), arguments: categoryScreenController.restaurantWiseCategoryList[index].id);
   }
-}
+}*/
 
 class SearchCategoryListModule extends StatelessWidget {
   SearchCategoryListModule({Key? key}) : super(key: key);

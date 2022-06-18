@@ -1,5 +1,7 @@
+import 'package:food_delivery/models/category_screen_model/restaurant_wise_category_model.dart';
+
 class ApiUrl {
-  static const ApiMainPath = "http://5.189.147.159:9501/";
+  static const ApiMainPath = "http://192.168.29.93:4000/";
 
   /// SignIn & SignUp API
   static const RegisterApi = ApiMainPath + "user/signUp";
@@ -15,10 +17,12 @@ class ApiUrl {
 
   /// Category & Sub Category API
   static const AllCategoryApi = ApiMainPath + "Category/getAllCategory";
-  static const RestaurantWiseCategoryApi = ApiMainPath + "Category/Restaurant/find/";
+  static const RestaurantWiseCategoryApi = ApiMainPath + "Category/find/";
   static const CategoryWiseSubCategoryApi = ApiMainPath + "Subcategory/find/category/";
   static const SearchCategoryApi = ApiMainPath + "Category/getsearchdata";
   static const SearchSubCategoryApi = ApiMainPath + "Subcategory/getsearchdata";
+  static const RestaurantByIdApi = ApiMainPath + "store/find/"; // Restaurant details
+  static const GetAllProductOfRestaurantApi = ApiMainPath + "product/getAll/Restaurant/"; // Get All Product List Of Restaurant
 
   /// City, Area API
   static const AllCityApi = ApiMainPath + "city";
@@ -41,6 +45,9 @@ class ApiUrl {
   /// User Orders API
   static const UserAllOrderApi = ApiMainPath + "order/getAllOrder/Customer/";
 
+  /// Create Orders API
+  static const UserCreateOrderApi = ApiMainPath + "order/create";
+
   /// User Account API
   static const UserAccountApi = ApiMainPath + "user/find/";
 
@@ -54,7 +61,7 @@ class ApiUrl {
   /// Cart API
   static const GetUserCartApi = ApiMainPath + "cart/user/find/";
   static const CreateUserCartApi = ApiMainPath + "cart/create";
-  static const DeleteUserCartApi = ApiMainPath + "cart/delete/Cart";
+  static const DeleteUserCartApi = ApiMainPath + "cart/delete";
   static const UpdateCartItemQuantityApi = ApiMainPath + "cart/quantity";
   static const DeleteCartItemApi = ApiMainPath + "cart/delete/CartItem";
 
@@ -71,4 +78,10 @@ class ApiUrl {
   static const AddFoodInWishlistApi = ApiMainPath + "Wishlist/create";
   static const GetWishlistFoodApi = ApiMainPath + "Wishlist/GetAll/";
   static const DeleteWishlistFoodApi = ApiMainPath + "Wishlist/delete/";
+
+  /// Food Review
+  static const GetFoodReviewAPI = ApiMainPath + "FoodReview/getAllReview";
+
+  /// Get orders by id(Order details)
+  static const GetOrdersByIdAPI = ApiMainPath + "order/find/";
 }

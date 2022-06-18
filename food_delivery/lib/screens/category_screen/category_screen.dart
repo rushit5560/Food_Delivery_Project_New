@@ -26,7 +26,8 @@ class CategoryScreen extends StatelessWidget {
                     ? CustomCircularProgressIndicator()
                     : categoryScreenController.searchCategoryList.isNotEmpty
                         ? SearchCategoryListModule()
-                        : CategoryListModule(),
+                        //: CategoryListModule(),
+                :Container()
               ),
             ),
           ],

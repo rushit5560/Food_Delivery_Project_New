@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
+import 'package:food_delivery/models/category_screen_model/restaurant_wise_category_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../../models/category_screen_model/restaurant_wise_category_model.dart';
 import '../../models/category_screen_model/search_category_model.dart';
 
 class CategoryScreenController extends GetxController {
@@ -12,7 +12,7 @@ class CategoryScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   TextEditingController searchFieldController = TextEditingController();
-  List<Category> restaurantWiseCategoryList = [];
+  //List<Restaurant> restaurantWiseCategoryList = [];
   List<SearchCategory> searchCategoryList = [];
 
   getRestaurantWiseCategoryListFunction() async {
@@ -30,8 +30,8 @@ class CategoryScreenController extends GetxController {
       isSuccessStatus = restaurantWiseCategoryModel.status.obs;
 
       if(isSuccessStatus.value){
-        restaurantWiseCategoryList = restaurantWiseCategoryModel.category;
-        print('allCategoryList : $restaurantWiseCategoryList');
+        //restaurantWiseCategoryList = restaurantWiseCategoryModel.category.restaurants;
+        //print('Restaurant wise allCategoryList : $restaurantWiseCategoryList');
       } else {
         print('Get All Category Else Else');
       }

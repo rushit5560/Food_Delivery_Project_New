@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final getUserCartModel = getUserCartModelFromJson(jsonString);
+
 import 'dart:convert';
 
 GetUserCartModel getUserCartModelFromJson(String str) => GetUserCartModel.fromJson(json.decode(str));
@@ -12,12 +16,12 @@ class GetUserCartModel {
   });
 
   bool status;
-  CartDetail cart;
+  Cart cart;
   List<CartItem> cartItem;
 
   factory GetUserCartModel.fromJson(Map<String, dynamic> json) => GetUserCartModel(
     status: json["status"] ?? false,
-    cart: CartDetail.fromJson(json["Cart"] ?? {}),
+    cart: Cart.fromJson(json["Cart"] ?? {}),
     cartItem: List<CartItem>.from(json["CartItem"].map((x) => CartItem.fromJson(x)) ?? {}),
   );
 
@@ -28,8 +32,8 @@ class GetUserCartModel {
   };
 }
 
-class CartDetail {
-  CartDetail({
+class Cart {
+  Cart({
     required this.id,
     required this.userId,
     required this.restaurantId,
@@ -51,7 +55,7 @@ class CartDetail {
   String updatedAt;
   int v;
 
-  factory CartDetail.fromJson(Map<String, dynamic> json) => CartDetail(
+  factory Cart.fromJson(Map<String, dynamic> json) => Cart(
     id: json["_id"] ?? "",
     userId: json["UserId"] ?? "",
     restaurantId: RestaurantId.fromJson(json["RestaurantId"] ?? {}),
@@ -78,10 +82,17 @@ class CartDetail {
 
 class RestaurantId {
   RestaurantId({
-    required this.campaignjoin,
+    required this.numberOfReviews,
+    //required this.rating,
     required this.id,
     required this.storeName,
+    required this.tax,
     required this.address,
+    required this.minDeliveryTime,
+    required this.maxDeliveryTime,
+    required this.zone,
+    required this.latitude,
+    required this.longitude,
     required this.firstName,
     required this.lastName,
     required this.email,
@@ -95,26 +106,24 @@ class RestaurantId {
     required this.roleId,
     required this.isActive,
     required this.isApproved,
-    required this.createdBy,
-    required this.updatedBy,
     required this.approvedOn,
     required this.createdAt,
     required this.updatedAt,
     required this.v,
-    required this.latitude,
-    required this.longitude,
-    required this.maxDeliveryTime,
-    required this.minDeliveryTime,
-    required this.tax,
-    required this.zone,
-    required this.numberOfReviews,
-    required this.rating,
+    required this.campaignjoin,
   });
 
-  List<String> campaignjoin;
+  int numberOfReviews;
+  //int rating;
   String id;
   String storeName;
+  String tax;
   String address;
+  String minDeliveryTime;
+  String maxDeliveryTime;
+  String zone;
+  String latitude;
+  String longitude;
   String firstName;
   String lastName;
   String email;
@@ -128,26 +137,24 @@ class RestaurantId {
   String roleId;
   bool isActive;
   bool isApproved;
-  String createdBy;
-  String updatedBy;
   String approvedOn;
   String createdAt;
   String updatedAt;
   int v;
-  String latitude;
-  String longitude;
-  String maxDeliveryTime;
-  String minDeliveryTime;
-  String tax;
-  String zone;
-  int numberOfReviews;
-  double rating;
+  List<dynamic> campaignjoin;
 
   factory RestaurantId.fromJson(Map<String, dynamic> json) => RestaurantId(
-    campaignjoin: List<String>.from(json["campaignjoin"].map((x) => x) ?? ""),
+    numberOfReviews: json["NumberOfReviews"] ?? 0,
+    //rating: json["Rating"] ?? 0,
     id: json["_id"] ?? "",
     storeName: json["StoreName"] ?? "",
+    tax: json["Tax"] ?? "",
     address: json["Address"] ?? "",
+    minDeliveryTime: json["MinDeliveryTime"] ?? "",
+    maxDeliveryTime: json["MaxDeliveryTime"] ?? "",
+    zone: json["Zone"] ?? "",
+    latitude: json["Latitude"] ?? "",
+    longitude: json["Longitude"] ?? "",
     firstName: json["FirstName"] ?? "",
     lastName: json["LastName"] ?? "",
     email: json["Email"] ?? "",
@@ -161,27 +168,25 @@ class RestaurantId {
     roleId: json["RoleId"] ?? "",
     isActive: json["IsActive"] ?? false,
     isApproved: json["IsApproved"] ?? false,
-    createdBy: json["CreatedBy"] ?? "",
-    updatedBy: json["UpdatedBy"] ?? "",
     approvedOn: json["ApprovedOn"] ?? "",
     createdAt: json["createdAt"] ?? "",
     updatedAt: json["updatedAt"] ?? "",
     v: json["__v"] ?? 0,
-    latitude: json["Latitude"] ?? "",
-    longitude: json["Longitude"] ?? "",
-    maxDeliveryTime: json["MaxDeliveryTime"] ?? "",
-    minDeliveryTime: json["MinDeliveryTime"] ?? "",
-    tax: json["Tax"] ?? "",
-    zone: json["Zone"] ?? "",
-    numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"].toDouble() ?? 0.0,
+    campaignjoin: List<dynamic>.from(json["campaignjoin"].map((x) => x) ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
-    "campaignjoin": List<dynamic>.from(campaignjoin.map((x) => x)),
+    "NumberOfReviews": numberOfReviews,
+    //"Rating": rating,
     "_id": id,
     "StoreName": storeName,
+    "Tax": tax,
     "Address": address,
+    "MinDeliveryTime": minDeliveryTime,
+    "MaxDeliveryTime": maxDeliveryTime,
+    "Zone": zone,
+    "Latitude": latitude,
+    "Longitude": longitude,
     "FirstName": firstName,
     "LastName": lastName,
     "Email": email,
@@ -195,23 +200,13 @@ class RestaurantId {
     "RoleId": roleId,
     "IsActive": isActive,
     "IsApproved": isApproved,
-    "CreatedBy": createdBy,
-    "UpdatedBy": updatedBy,
     "ApprovedOn": approvedOn,
     "createdAt": createdAt,
     "updatedAt": updatedAt,
     "__v": v,
-    "Latitude": latitude,
-    "Longitude": longitude,
-    "MaxDeliveryTime": maxDeliveryTime,
-    "MinDeliveryTime": minDeliveryTime,
-    "Tax": tax,
-    "Zone": zone,
-    "NumberOfReviews": numberOfReviews,
-    "Rating": rating,
+    "campaignjoin": List<dynamic>.from(campaignjoin.map((x) => x)),
   };
 }
-
 
 class CartItem {
   CartItem({
@@ -273,8 +268,6 @@ class ProductId {
   ProductId({
     required this.productType,
     required this.discountType,
-    required this.numberOfReviews,
-    required this.rating,
     required this.id,
     required this.category,
     required this.subCategory,
@@ -286,10 +279,12 @@ class ProductId {
     required this.price,
     required this.startTime,
     required this.endTime,
-    required this.attribute,
-    required this.addon,
+    //required this.attribute,
+    //required this.addon,
     required this.isFeatured,
     required this.description,
+    required this.numberOfReviews,
+    required this.rating,
     required this.image,
     required this.isApproved,
     required this.isActive,
@@ -300,8 +295,6 @@ class ProductId {
 
   TType productType;
   TType discountType;
-  int numberOfReviews;
-  double rating;
   String id;
   String category;
   String subCategory;
@@ -313,10 +306,12 @@ class ProductId {
   int price;
   String startTime;
   String endTime;
-  List<Addon> attribute;
-  List<Addon> addon;
+  //List<Addon> attribute;
+  //List<Addon> addon;
   bool isFeatured;
   String description;
+  int numberOfReviews;
+  int rating;
   String image;
   bool isApproved;
   bool isActive;
@@ -327,8 +322,6 @@ class ProductId {
   factory ProductId.fromJson(Map<String, dynamic> json) => ProductId(
     productType: TType.fromJson(json["ProductType"] ?? {}),
     discountType: TType.fromJson(json["DiscountType"] ?? {}),
-    numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"].toDouble() ?? 0.0,
     id: json["_id"] ?? "",
     category: json["Category"] ?? "",
     subCategory: json["SubCategory"] ?? "",
@@ -340,10 +333,12 @@ class ProductId {
     price: json["Price"] ?? 0,
     startTime: json["StartTime"] ?? "",
     endTime: json["EndTime"] ?? "",
-    attribute: List<Addon>.from(json["Attribute"].map((x) => Addon.fromJson(x)) ?? {}),
-    addon: List<Addon>.from(json["Addon"].map((x) => Addon.fromJson(x)) ?? {}),
+    //attribute: List<Addon>.from(json["Attribute"].map((x) => Addon.fromJson(x)) ?? {}),
+    //addon: List<Addon>.from(json["Addon"].map((x) => Addon.fromJson(x)) ?? {}),
     isFeatured: json["IsFeatured"] ?? false,
     description: json["Description"] ?? "",
+    numberOfReviews: json["NumberOfReviews"] ?? 0,
+    rating: json["Rating"] ?? 0,
     image: json["Image"] ?? "",
     isApproved: json["IsApproved"] ?? false,
     isActive: json["IsActive"] ?? false,
@@ -355,8 +350,6 @@ class ProductId {
   Map<String, dynamic> toJson() => {
     "ProductType": productType.toJson(),
     "DiscountType": discountType.toJson(),
-    "NumberOfReviews": numberOfReviews,
-    "Rating": rating,
     "_id": id,
     "Category": category,
     "SubCategory": subCategory,
@@ -368,10 +361,12 @@ class ProductId {
     "Price": price,
     "StartTime": startTime,
     "EndTime": endTime,
-    "Attribute": List<dynamic>.from(attribute.map((x) => x.toJson())),
-    "Addon": List<dynamic>.from(addon.map((x) => x.toJson())),
+    //"Attribute": List<dynamic>.from(attribute.map((x) => x.toJson())),
+    //"Addon": List<dynamic>.from(addon.map((x) => x.toJson())),
     "IsFeatured": isFeatured,
     "Description": description,
+    "NumberOfReviews": numberOfReviews,
+    "Rating": rating,
     "Image": image,
     "IsApproved": isApproved,
     "IsActive": isActive,

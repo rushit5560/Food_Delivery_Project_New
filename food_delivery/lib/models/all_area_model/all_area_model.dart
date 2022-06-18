@@ -22,7 +22,7 @@ class CityWiseAreaModel {
   factory CityWiseAreaModel.fromJson(Map<String, dynamic> json) => CityWiseAreaModel(
     status: json["status"] ?? false,
     message: json["message"] ?? "",
-    getList: List<GetAreaList>.from(json["getList"].map((x) => GetAreaList.fromJson(x))),
+    getList: List<GetAreaList>.from(json["getList"].map((x) => GetAreaList.fromJson(x)) ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
