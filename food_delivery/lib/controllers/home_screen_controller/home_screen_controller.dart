@@ -23,6 +23,8 @@ class HomeScreenController extends GetxController {
   List<AllCategory> categoryList = [];
   List<List1> reviewList = [];
 
+  String image= "";
+
   getBannerList() async {
     isLoading(true);
     String url =ApiUrl.BasicCampaignApi;
@@ -150,7 +152,8 @@ class HomeScreenController extends GetxController {
 
     try {
       http.Response response = await http.get(Uri.parse(url));
-      log("Food Review List Response : $response");
+      log("Food Review List Response : ${response.body}");
+
 
       GetFoodReviewModel getFoodReviewModel = GetFoodReviewModel.fromJson(json.decode(response.body));
       isSuccessStatus = getFoodReviewModel.status!.obs;
@@ -160,6 +163,7 @@ class HomeScreenController extends GetxController {
       if(isSuccessStatus.value) {
 
         reviewList = getFoodReviewModel.list!;
+        //image= reviewList[18].customer!.photo!;
 
         log("reviewList :: ${reviewList.length}");
       } else {

@@ -1,5 +1,5 @@
 class ApiUrl {
-  static const ApiMainPath = "http://192.168.29.94:4000/";
+  static const ApiMainPath = "http://192.168.0.105:4000/";
 
   static const SignInApi = ApiMainPath + "deliveryperson/signIn";
   static const SignUpApi = ApiMainPath + "deliveryperson/signUp";
@@ -16,5 +16,8 @@ class ApiUrl {
 
   /// Forgot Password API
   static const ForgotPasswordApi = ApiMainPath + "deliveryperson/forgotpassword";
+
+  /// Get orders status wise
+  static const RestaurantAllOrdersApi = ApiMainPath + "order/getAllOrder/Restaurant/";
 
 }

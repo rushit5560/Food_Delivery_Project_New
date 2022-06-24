@@ -6,6 +6,7 @@ import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/common/extension_methods/extension_methods.dart';
 import 'package:food_delivery/screens/category_screen/category_screen.dart';
+import 'package:food_delivery/screens/restaurant_detail_screen/restaurant_details_screen.dart';
 import 'package:get/get.dart';
 import '../../controllers/restaurant_list_screen_controller/restaurant_list_screen_controller.dart';
 
@@ -79,7 +80,8 @@ class AllRestaurantListModule extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             // log("Id : ${screenController.allRestaurantList[i].id}");
-            Get.to(()=> CategoryScreen(), arguments: screenController.allRestaurantList[i].id);
+            Get.to(()=> RestaurantDetailsScreen(), arguments: screenController.allRestaurantList[i].id);
+            //Get.to(()=> CategoryScreen(), arguments: screenController.allRestaurantList[i].id);
           },
           child: Container(
             decoration: BoxDecoration(
@@ -167,7 +169,8 @@ class SearchRestaurantListModule extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             // log("Id : ${screenController.allRestaurantList[i].id}");
-            Get.to(()=> CategoryScreen(), arguments: screenController.searchRestaurantList[i].id);
+            Get.to(()=> RestaurantDetailsScreen(), arguments: screenController.allRestaurantList[i].id);
+            //Get.to(()=> CategoryScreen(), arguments: screenController.searchRestaurantList[i].id);
           },
           child: Container(
             decoration: BoxDecoration(

@@ -8,14 +8,14 @@ import 'package:http/http.dart' as http;
 import '../../models/category_screen_model/search_category_model.dart';
 
 class CategoryScreenController extends GetxController {
-  String restaurantId = Get.arguments;
+  //String restaurantId = Get.arguments;
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   TextEditingController searchFieldController = TextEditingController();
   //List<Restaurant> restaurantWiseCategoryList = [];
   List<SearchCategory> searchCategoryList = [];
 
-  getRestaurantWiseCategoryListFunction() async {
+  /*getRestaurantWiseCategoryListFunction() async {
     isLoading(true);
     String url =ApiUrl.RestaurantWiseCategoryApi;
     String finalUrl = url + restaurantId;
@@ -40,7 +40,7 @@ class CategoryScreenController extends GetxController {
     } finally {
       isLoading(false);
     }
-  }
+  }*/
 
   searchCategoryFunction() async {
     isLoading(true);
@@ -74,7 +74,7 @@ class CategoryScreenController extends GetxController {
 
   @override
   void onInit() {
-    getRestaurantWiseCategoryListFunction();
+    //getRestaurantWiseCategoryListFunction();
     super.onInit();
   }
 }

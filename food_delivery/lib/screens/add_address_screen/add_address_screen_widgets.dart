@@ -27,25 +27,28 @@ class AddAddressModule extends StatelessWidget {
       ),
       child: Column(
         children: [
-          addressTypeDropDown(context),
-          SizedBox(height: 10,),
-          receiverNameTextField(),
-          SizedBox(height: 10,),
-          receiverPhoneTextField(),
-          SizedBox(height: 10,),
-          cityTypeDropDown(context),
-          SizedBox(height: 10,),
-          societyDropDown(context),
-          SizedBox(height: 10,),
-          pincodeTextField(),
-          SizedBox(height: 10,),
-          houseTextField(),
-          SizedBox(height: 10,),
-          stateTextField(),
-          SizedBox(height: 10,),
+          //addressTypeDropDown(context),
+          //SizedBox(height: 10,),
+          //receiverNameTextField(),
+          //SizedBox(height: 10,),
+          //receiverPhoneTextField(),
+          //SizedBox(height: 10,),
+          //cityTypeDropDown(context),
+          //SizedBox(height: 10,),
+          //societyDropDown(context),
+          //SizedBox(height: 10,),
           address1TextField(),
           SizedBox(height: 10,),
           address2TextField(),
+          SizedBox(height: 10,),
+          landmarkTextField(),
+          SizedBox(height: 10,),
+          pincodeTextField(),
+
+          // SizedBox(height: 10,),
+          // stateTextField(),
+
+
 
         ],
       ),
@@ -293,6 +296,7 @@ class AddAddressModule extends StatelessWidget {
     return Container(
       child: TextFormField(
         cursorColor: Colors.grey,
+        controller: addAddressScreenController.pincodeFieldController,
         decoration: InputDecoration(
           hintText: 'PinCde',
           fillColor: Colors.grey.shade200,
@@ -319,12 +323,13 @@ class AddAddressModule extends StatelessWidget {
     );
   }
 
-  houseTextField(){
+  landmarkTextField(){
     return Container(
       child: TextFormField(
         cursorColor: Colors.grey,
+        controller: addAddressScreenController.landmarkFieldController,
         decoration: InputDecoration(
-          hintText: 'House/Flat Number',
+          hintText: 'Landmark',
           fillColor: Colors.grey.shade200,
           filled: true,
           isDense: true,
@@ -383,6 +388,7 @@ class AddAddressModule extends StatelessWidget {
     return Container(
       child: TextFormField(
         cursorColor: Colors.grey,
+        controller: addAddressScreenController.address1FieldController,
         decoration: InputDecoration(
           hintText: 'Address Line 1',
           fillColor: Colors.grey.shade200,
@@ -413,6 +419,7 @@ class AddAddressModule extends StatelessWidget {
     return Container(
       child: TextFormField(
         cursorColor: Colors.grey,
+        controller: addAddressScreenController.address2FieldController,
         decoration: InputDecoration(
           hintText: 'Address Line 2',
           fillColor: Colors.grey.shade200,
@@ -442,12 +449,14 @@ class AddAddressModule extends StatelessWidget {
 
 class ContinueButton extends StatelessWidget {
   ContinueButton({Key? key}) : super(key: key);
+  AddAddressScreenController addAddressScreenController = Get.find<AddAddressScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
         //Get.offAll(() => IndexScreen());
+        addAddressScreenController.addAddressFunction();
       },
       child: Container(
         height: 40,

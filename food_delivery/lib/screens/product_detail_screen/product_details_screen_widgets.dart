@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
@@ -295,6 +296,14 @@ class ProductDetails extends StatelessWidget {
                           fontSize: 23,
                           fontWeight: FontWeight.w500),
                     ),
+                    //SizedBox(width: 40),
+                    Text(
+                      "Type -${productDetailScreenController.productType} ",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18
+                      ),
+                    ),
                     Row(
                       children: [
                         _decrementButton(),
@@ -305,41 +314,51 @@ class ProductDetails extends StatelessWidget {
                   ],
                 ),
 
+                // SizedBox(height: 10,),
+
+
+                // Text(
+                //   "Qty - 150gms",
+                //   style: TextStyle(
+                //       color: Colors.black,fontSize: 18
+                //   ),
+                // ),
+                // Container(width: 60,),
+
                 SizedBox(height: 10,),
+
+                // Text(
+                //   "Item Details",
+                //   style: TextStyle(
+                //       color: AppColors.colorDarkPink,
+                //       fontSize: 23,
+                //       fontWeight: FontWeight.bold),
+                // ),
+                //
+                // SizedBox(height: 10,),
+
+
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Type - Regular",
+                      "Description:",
                       style: TextStyle(
+                        color: AppColors.colorDarkPink,
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    SizedBox(width: 5),
+                    Expanded(
+                      child: Text(
+                        "${productDetailScreenController.productDescription}",
+                        style: TextStyle(
                           color: Colors.black,
-                          fontSize: 18
+                        ),
                       ),
                     ),
-
-                    Text(
-                      "Qty - 150gms",
-                      style: TextStyle(
-                          color: Colors.black,fontSize: 18
-                      ),
-                    ),
-                    Container(width: 60,)
-
                   ],
                 ),
-
-                SizedBox(height: 10,),
-
-                Text(
-                  "Item Details",
-                  style: TextStyle(
-                      color: AppColors.colorDarkPink,
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold),
-                ),
-
-                SizedBox(height: 10,),
-
+                SizedBox(height: 10),
                 Row(
                   children: [
                     Container(
@@ -387,21 +406,66 @@ class ProductDetails extends StatelessWidget {
                     )
                   ],
                 ),
-
                 SizedBox(height: 10),
+                Expanded(child: addonsList())
 
-                Text(
-                  "${productDetailScreenController.productDescription}",
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Widget addonsList(){
+    return ListView.builder(
+      itemCount: 5,
+        shrinkWrap: true,
+        physics: AlwaysScrollableScrollPhysics(),
+        itemBuilder: (context, index){
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  new BoxShadow(
+                    color: Colors.grey.shade100,
+                    blurRadius: 5.0,
+                    offset: Offset.zero
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Image.asset(Images.ic_about_us),
+
+                          SizedBox(width: 10),
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Cheese"),
+                              SizedBox(height: 5),
+                              Text("\10.00"),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+
+                    Icon(Icons.add)
+                  ],
+                ),
+              ),
+            ),
+          );
+    });
   }
 
   Widget _decrementButton() {

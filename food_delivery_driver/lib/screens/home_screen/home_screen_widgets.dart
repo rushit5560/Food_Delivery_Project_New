@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/constant/app_colors.dart';
+import 'package:food_delivery_driver/common/constant/app_images.dart';
 import 'package:food_delivery_driver/common/extension_methods/extension_methods.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -156,62 +157,169 @@ class PendingListModule extends StatelessWidget {
   }
 
   Widget _pendingListTile() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10),
-      width: Get.width,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15), color: AppColors.colorGrey),
-      child: Column(
-        children: [
-          Row(
-            children: [],
-          ),
-
-          /// Buttons Module
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        //margin: EdgeInsets.only(bottom: 10),
+        width: Get.width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15), color: AppColors.colorGrey),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
             children: [
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  height: 40,
-                  // width: Get.width / 2.5,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.colorDarkPink),
-                  child: Center(
-                    child: Text(
-                      "Accept",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                  ).commonSymmetricPadding(horizontal: 20),
-                ),
+              Row(
+                children: [
+                  _orderImage(),
+                  const SizedBox(width: 10),
+                  Expanded(child: _orderName()),
+                  const SizedBox(width: 10),
+                  _amountAndButton(),
+                ],
               ),
-
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  height: 40,
-                  // width: Get.width / 2.5,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColors.colorDarkPink),
-                    // color: AppColors.colorDarkPink,
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Cancel",
-                      style: TextStyle(
-                          color: AppColors.colorDarkPink, fontWeight: FontWeight.bold, fontSize: 18),
+              SizedBox(height: 10),
+              /// Buttons Module
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      height: 40,
+                      // width: Get.width / 2.5,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.colorDarkPink),
+                      child: Center(
+                        child: Text(
+                          "Accept",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                      ).commonSymmetricPadding(horizontal: 20),
                     ),
-                  ).commonSymmetricPadding(horizontal: 20),
-                ),
+                  ),
+
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      height: 40,
+                      // width: Get.width / 2.5,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: AppColors.colorDarkPink),
+                        // color: AppColors.colorDarkPink,
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(
+                              color: AppColors.colorDarkPink, fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                      ).commonSymmetricPadding(horizontal: 20),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
+    );
+  }
+
+  Widget _orderImage() {
+    return Image.asset('${Images.ic_category1}', scale: 2.5);
+  }
+
+  Widget _orderName() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "hdsm" /* + " " + singleOrder.storeId.lastName*/,
+          textScaleFactor: 1.2,
+          maxLines: 1,
+          style: TextStyle(
+              color: AppColors.colorDarkPink, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "123456",
+          textScaleFactor: 1.2,
+          maxLines: 1,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "Status: " + "Pending",
+          textScaleFactor: 0.7,
+          maxLines: 1,
+          //style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "details",
+          maxLines: 2,
+          textScaleFactor: 0.7,
+        ),
+
+        SizedBox(height: 5),
+
+        Text(
+          'Order On ${22-2-22}',
+          maxLines: 1,
+          textScaleFactor: 0.7,
+        ),
+        SizedBox(height: 5),
+        Text(
+          'Order ID 123456',
+          maxLines: 1,
+          textScaleFactor: 0.7,
+        ),
+        // SizedBox(height: 5,),
+        // Text(
+        //   'Payment Method - Wallet',
+        //   maxLines: 1,
+        //   textScaleFactor: 0.7,
+        // ),
+      ],
+    );
+  }
+
+  Widget _amountAndButton() {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Text(
+          "\$" + "100",
+          textScaleFactor: 1.3,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        // const SizedBox(height: 20),
+        // GestureDetector(
+        //   onTap: () {},
+        //   child: Container(
+        //     decoration: BoxDecoration(
+        //       color: AppColors.colorDarkPink,
+        //       borderRadius: BorderRadius.circular(8),
+        //     ),
+        //     child: Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        //       child: Text(
+        //         'Confirm',
+        //         textScaleFactor: 0.8,
+        //         style: TextStyle(
+        //           color: Colors.white,
+        //           fontWeight: FontWeight.bold,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+      ],
     );
   }
 }
@@ -236,44 +344,151 @@ class AcceptedListModule extends StatelessWidget {
   }
 
   Widget _acceptedListTile() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10),
-      width: Get.width,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15), color: AppColors.colorGrey),
-      child: Column(
-        children: [
-          Row(
-            children: [],
-          ),
-
-          /// Buttons Module
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        margin: EdgeInsets.only(bottom: 10),
+        width: Get.width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15), color: AppColors.colorGrey),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
             children: [
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  height: 40,
-                  // width: Get.width / 2.5,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.colorDarkPink),
-                  child: Center(
-                    child: Text(
-                      "PickedUp",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+              Row(
+                children: [
+                  _orderImage(),
+                  const SizedBox(width: 10),
+                  Expanded(child: _orderName()),
+                  const SizedBox(width: 10),
+                  _amountAndButton(),
+                ],
+              ),
+              SizedBox(height: 10),
+              /// Buttons Module
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      height: 40,
+                      // width: Get.width / 2.5,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.colorDarkPink),
+                      child: Center(
+                        child: Text(
+                          "PickedUp",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                      ).commonSymmetricPadding(horizontal: 20),
                     ),
-                  ).commonSymmetricPadding(horizontal: 20),
-                ),
+                  ),
+
+                ],
               ),
 
             ],
           ),
-
-        ],
+        ),
       ),
+    );
+  }
+
+  Widget _orderImage() {
+    return Image.asset('${Images.ic_category1}', scale: 2.5);
+  }
+
+  Widget _orderName() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "hdsm" /* + " " + singleOrder.storeId.lastName*/,
+          textScaleFactor: 1.2,
+          maxLines: 1,
+          style: TextStyle(
+              color: AppColors.colorDarkPink, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "123456",
+          textScaleFactor: 1.2,
+          maxLines: 1,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "Status: " + "Pending",
+          textScaleFactor: 0.7,
+          maxLines: 1,
+          //style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "details",
+          maxLines: 2,
+          textScaleFactor: 0.7,
+        ),
+
+        SizedBox(height: 5),
+
+        Text(
+          'Order On ${22-2-22}',
+          maxLines: 1,
+          textScaleFactor: 0.7,
+        ),
+        SizedBox(height: 5),
+        Text(
+          'Order ID 123456',
+          maxLines: 1,
+          textScaleFactor: 0.7,
+        ),
+        // SizedBox(height: 5,),
+        // Text(
+        //   'Payment Method - Wallet',
+        //   maxLines: 1,
+        //   textScaleFactor: 0.7,
+        // ),
+      ],
+    );
+  }
+
+  Widget _amountAndButton() {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Text(
+          "\$" + "100",
+          textScaleFactor: 1.3,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        // const SizedBox(height: 20),
+        // GestureDetector(
+        //   onTap: () {},
+        //   child: Container(
+        //     decoration: BoxDecoration(
+        //       color: AppColors.colorDarkPink,
+        //       borderRadius: BorderRadius.circular(8),
+        //     ),
+        //     child: Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        //       child: Text(
+        //         'Confirm',
+        //         textScaleFactor: 0.8,
+        //         style: TextStyle(
+        //           color: Colors.white,
+        //           fontWeight: FontWeight.bold,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+      ],
     );
   }
 }
@@ -298,43 +513,151 @@ class PickedUpListModule extends StatelessWidget {
   }
 
   Widget _pickedUpListTile() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10),
-      width: Get.width,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15), color: AppColors.colorGrey),
-      child: Column(
-        children: [
-          Row(
-            children: [],
-          ),
-
-          /// Buttons Module
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        margin: EdgeInsets.only(bottom: 10),
+        width: Get.width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15), color: AppColors.colorGrey),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
             children: [
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  height: 40,
-                  // width: Get.width / 2.5,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.colorDarkPink),
-                  child: Center(
-                    child: Text(
-                      "Delivered",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                  ).commonSymmetricPadding(horizontal: 20),
-                ),
-              ),
+              Row(
+                children: [
+                  _orderImage(),
+                  const SizedBox(width: 10),
+                  Expanded(child: _orderName()),
+                  const SizedBox(width: 10),
+                  _amountAndButton(),
 
+                ],
+              ),
+              SizedBox(height: 10),
+              /// Buttons Module
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      height: 40,
+                      // width: Get.width / 2.5,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.colorDarkPink),
+                      child: Center(
+                        child: Text(
+                          "Delivered",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                      ).commonSymmetricPadding(horizontal: 20),
+                    ),
+                  ),
+
+                ],
+              ),
             ],
           ),
-        ],
+        ),
       ),
+    );
+  }
+
+  Widget _orderImage() {
+    return Image.asset('${Images.ic_category1}', scale: 2.5);
+  }
+
+  Widget _orderName() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "hdsm" /* + " " + singleOrder.storeId.lastName*/,
+          textScaleFactor: 1.2,
+          maxLines: 1,
+          style: TextStyle(
+              color: AppColors.colorDarkPink, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "123456",
+          textScaleFactor: 1.2,
+          maxLines: 1,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "Status: " + "Pending",
+          textScaleFactor: 0.7,
+          maxLines: 1,
+          //style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "details",
+          maxLines: 2,
+          textScaleFactor: 0.7,
+        ),
+
+        SizedBox(height: 5),
+
+        Text(
+          'Order On ${22-2-22}',
+          maxLines: 1,
+          textScaleFactor: 0.7,
+        ),
+        SizedBox(height: 5),
+        Text(
+          'Order ID 123456',
+          maxLines: 1,
+          textScaleFactor: 0.7,
+        ),
+        // SizedBox(height: 5,),
+        // Text(
+        //   'Payment Method - Wallet',
+        //   maxLines: 1,
+        //   textScaleFactor: 0.7,
+        // ),
+      ],
+    );
+  }
+
+  Widget _amountAndButton() {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Text(
+          "\$" + "100",
+          textScaleFactor: 1.3,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        // const SizedBox(height: 20),
+        // GestureDetector(
+        //   onTap: () {},
+        //   child: Container(
+        //     decoration: BoxDecoration(
+        //       color: AppColors.colorDarkPink,
+        //       borderRadius: BorderRadius.circular(8),
+        //     ),
+        //     child: Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        //       child: Text(
+        //         'Confirm',
+        //         textScaleFactor: 0.8,
+        //         style: TextStyle(
+        //           color: Colors.white,
+        //           fontWeight: FontWeight.bold,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+      ],
     );
   }
 }
@@ -359,14 +682,121 @@ class DeliveredListModule extends StatelessWidget {
   }
 
   Widget _doneListTile() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10),
-      width: Get.width,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15), color: AppColors.colorGrey),
-      child: Row(
-        children: [],
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+       // / margin: EdgeInsets.only(bottom: 10),
+        width: Get.width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15), color: AppColors.colorGrey),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            children: [
+              _orderImage(),
+              const SizedBox(width: 10),
+              Expanded(child: _orderName()),
+              const SizedBox(width: 10),
+              _amountAndButton(),
+            ],
+          ),
+        ),
       ),
+    );
+  }
+
+  Widget _orderImage() {
+    return Image.asset('${Images.ic_category1}', scale: 2.5);
+  }
+
+  Widget _orderName() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "hdsm" /* + " " + singleOrder.storeId.lastName*/,
+          textScaleFactor: 1.2,
+          maxLines: 1,
+          style: TextStyle(
+              color: AppColors.colorDarkPink, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "123456",
+          textScaleFactor: 1.2,
+          maxLines: 1,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "Status: " + "Pending",
+          textScaleFactor: 0.7,
+          maxLines: 1,
+          //style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "details",
+          maxLines: 2,
+          textScaleFactor: 0.7,
+        ),
+
+        SizedBox(height: 5),
+
+        Text(
+          'Order On ${22-2-22}',
+          maxLines: 1,
+          textScaleFactor: 0.7,
+        ),
+        SizedBox(height: 5),
+        Text(
+          'Order ID 123456',
+          maxLines: 1,
+          textScaleFactor: 0.7,
+        ),
+        // SizedBox(height: 5,),
+        // Text(
+        //   'Payment Method - Wallet',
+        //   maxLines: 1,
+        //   textScaleFactor: 0.7,
+        // ),
+      ],
+    );
+  }
+
+  Widget _amountAndButton() {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Text(
+          "\$" + "100",
+          textScaleFactor: 1.3,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        // const SizedBox(height: 20),
+        // GestureDetector(
+        //   onTap: () {},
+        //   child: Container(
+        //     decoration: BoxDecoration(
+        //       color: AppColors.colorDarkPink,
+        //       borderRadius: BorderRadius.circular(8),
+        //     ),
+        //     child: Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        //       child: Text(
+        //         'Confirm',
+        //         textScaleFactor: 0.8,
+        //         style: TextStyle(
+        //           color: Colors.white,
+        //           fontWeight: FontWeight.bold,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+      ],
     );
   }
 }

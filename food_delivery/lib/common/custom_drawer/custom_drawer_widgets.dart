@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/app_images.dart';
+import 'package:food_delivery/screens/Invoice_screen/invoice_screen.dart';
 import 'package:food_delivery/screens/about_us_screen/about_us_screen.dart';
 import 'package:food_delivery/screens/account_screen/account_screen.dart';
+import 'package:food_delivery/screens/addresses_screen/addresses_screen.dart';
 import 'package:food_delivery/screens/auth_screen/auth_screen.dart';
 import 'package:food_delivery/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:food_delivery/screens/invite_and_earn_screen/invite_and_earn_screen.dart';
+import 'package:food_delivery/screens/privacy_policy_screen/privacy_policy_screen.dart';
 import 'package:food_delivery/screens/profile_screen/profile_screen.dart';
 import 'package:food_delivery/screens/reward_point/reward_point.dart';
 import 'package:food_delivery/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
@@ -57,10 +60,12 @@ class DrawerList extends StatelessWidget {
           myProfile(),
           wishList(),
           aboutUs(),
+          //invoice(),
           termsCondition(),
+          privacyPolicy(),
           helpCenter(),
           inviteEarn(),
-          // language(),
+          addAddress(),
           rewardPoint(),
           SizedBox(height: 10),
           logout()
@@ -124,6 +129,20 @@ class DrawerList extends StatelessWidget {
     );
   }
 
+  // Widget invoice() {
+  //   return ListTile(
+  //     onTap: () {
+  //       Get.back();
+  //       Get.to(() => InvoiceScreen());
+  //     },
+  //     leading: Image.asset(Images.ic_terms_condition, color: Colors.white,scale: 2.5,),
+  //     title: Text('Invoice',
+  //       textScaleFactor: 1,
+  //       style: TextStyle(color: Colors.white),
+  //     ),
+  //   );
+  // }
+
   Widget termsCondition() {
     return ListTile(
       onTap: () {
@@ -132,6 +151,20 @@ class DrawerList extends StatelessWidget {
       },
       leading: Image.asset(Images.ic_terms_condition, color: Colors.white,scale: 2.5,),
       title: Text('Terms & Condition',
+        textScaleFactor: 1,
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
+
+  Widget privacyPolicy() {
+    return ListTile(
+      onTap: () {
+        Get.back();
+        Get.to(() => PrivacyPolicyScreen());
+      },
+      leading: Image.asset(Images.ic_terms_condition, color: Colors.white,scale: 2.5,),
+      title: Text('Privacy Policy',
         textScaleFactor: 1,
         style: TextStyle(color: Colors.white),
       ),
@@ -166,19 +199,19 @@ class DrawerList extends StatelessWidget {
     );
   }
 
-  /*Widget language(){
+  Widget addAddress(){
     return ListTile(
       onTap: () {
         Get.back();
-        Get.to(() => LanguageScreen());
+        Get.to(() => AddressesScreen());
       },
       leading: Image.asset(Images.ic_language, color: Colors.white,scale: 2.5,),
-      title: Text('Language',
+      title: Text('Add Address',
         textScaleFactor: 1,
         style: TextStyle(color: Colors.white),
       ),
     );
-  }*/
+  }
 
   Widget account(){
     return ListTile(

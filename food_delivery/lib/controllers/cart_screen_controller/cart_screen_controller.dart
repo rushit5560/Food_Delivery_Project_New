@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
+import 'package:food_delivery/common/constant/order_status.dart';
 import 'package:food_delivery/common/constant/user_cart_details.dart';
 import 'package:food_delivery/common/constant/user_details.dart';
 import 'package:food_delivery/models/create_order_model/create_order_model.dart';
@@ -213,7 +214,7 @@ class CartScreenController extends GetxController {
         "OrderType": "cash on delivery",
         "PaymentStatus": "Done",
         "Details": "testing details",
-        "OrderStatusId": "62a2f4628c396e9e28b696a2"
+        "OrderStatusId": OrderStatus.pendingId
     };
 
     log('body: $body');

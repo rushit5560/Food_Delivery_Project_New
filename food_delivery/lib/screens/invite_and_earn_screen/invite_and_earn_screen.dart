@@ -16,11 +16,11 @@ class InviteAndEarnScreen extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(height: Get.height * 0.1),
-          HeaderAndContentModule(
-            header: 'Refer & Earn Wallet Amount Upto From 1 To 15',
-            content: 'Lorem ipsum is simply text of the printing and type setting. Lorem ipsum is simply text of the printing and type setting industry. Lorem ipsum is simply text of the printing and type setting industry. Lorem ipsum is simply text of the printing and type setting industry. Lorem ipsum is simply text of the printing and type setting industry. Lorem ipsum is simply text of the printing and type setting industry.',
-            index: 1,
-          ),
+          // HeaderAndContentModule(
+          //   header: 'Refer & Earn Wallet Amount Upto From 1 To 15',
+          //   content: 'Lorem ipsum is simply text of the printing and type setting. Lorem ipsum is simply text of the printing and type setting industry. Lorem ipsum is simply text of the printing and type setting industry. Lorem ipsum is simply text of the printing and type setting industry. Lorem ipsum is simply text of the printing and type setting industry. Lorem ipsum is simply text of the printing and type setting industry.',
+          //   index: 1,
+          // ),
           SizedBox(height: Get.height * 0.08),
 
           CodeModule(),

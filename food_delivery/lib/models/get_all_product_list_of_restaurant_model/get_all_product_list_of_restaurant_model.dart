@@ -48,7 +48,7 @@ class Food {
     required this.isFeatured,
     required this.description,
     required this.numberOfReviews,
-    required this.rating,
+    //required this.rating,
     required this.image,
     required this.isApproved,
     required this.isActive,
@@ -75,7 +75,7 @@ class Food {
   bool isFeatured;
   String description;
   int numberOfReviews;
-  int rating;
+  //int rating;
   String image;
   bool isApproved;
   bool isActive;
@@ -102,7 +102,7 @@ class Food {
     isFeatured: json["IsFeatured"] ?? false,
     description: json["Description"] ?? "",
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"] ?? 0,
+    //rating: json["Rating"] ?? 0,
     image: json["Image"] ?? "",
     isApproved: json["IsApproved"] ?? false,
     isActive: json["IsActive"] ?? false,
@@ -130,7 +130,7 @@ class Food {
     "IsFeatured": isFeatured,
     "Description": description,
     "NumberOfReviews": numberOfReviews,
-    "Rating": rating,
+    //"Rating": rating,
     "Image": image,
     "IsApproved": isApproved,
     "IsActive": isActive,

@@ -284,6 +284,7 @@ class UserId {
     required this.phone,
     required this.email,
     required this.password,
+    required this.address,
     required this.isActive,
     required this.roleId,
     required this.isVerified,
@@ -300,6 +301,7 @@ class UserId {
   String phone;
   String email;
   String password;
+  String address;
   bool isActive;
   String roleId;
   bool isVerified;
@@ -316,6 +318,7 @@ class UserId {
     phone: json["Phone"] ?? "",
     email: json["Email"] ?? "",
     password: json["Password"] ?? "",
+    address: json["Address"] ?? "",
     isActive: json["IsActive"] ?? false,
     roleId: json["RoleId"] ?? "",
     isVerified: json["IsVerified"] ?? false,
@@ -333,6 +336,7 @@ class UserId {
     "Phone": phone,
     "Email": email,
     "Password": password,
+    "Address": address,
     "IsActive": isActive,
     "RoleId": roleId,
     "IsVerified": isVerified,

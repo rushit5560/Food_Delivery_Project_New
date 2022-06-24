@@ -16,6 +16,7 @@ class OrderScreenController extends GetxController {
 
   String orderNumber = "";
   String orderStatusId = "";
+  String orderId = "";
 
   getUserAllOrderList() async {
     isLoading(true);
@@ -33,6 +34,7 @@ class OrderScreenController extends GetxController {
       if(isSuccessStatus.value){
         userOrderList = customersAllOrdersModel.order;
         for(int i=0; i < userOrderList.length ; i++){
+          orderId = userOrderList[i].id;
           orderNumber = userOrderList[i].orderNumber;
           orderStatusId = userOrderList[i].orderStatusId.id;
         }

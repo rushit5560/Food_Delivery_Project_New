@@ -21,9 +21,21 @@ class OrderDetailsScreenController extends GetxController{
   int orderAmount = 0;
   String paymentStatus = "";
 
+  /// Shipping Address
+  String storeAddress= "";
+  String storeMobile= "";
+  String storeEmail= "";
+
+  /// Billing Address
+  String billingName= "";
+  String billingAddress= "";
+  String billingMobile= "";
+  String billingEmail= "";
 
   String date = "";
   String time = "";
+
+  List<Orderitem> productList = [];
 
   /// Order details
   getOrdersByOrderId() async {
@@ -52,20 +64,30 @@ class OrderDetailsScreenController extends GetxController{
           orderAmount= orderDetailsScreenModel.order.amount;
           paymentStatus = orderDetailsScreenModel.order.paymentStatus;
 
-          date = orderDate.substring(0, orderDate.length - 14);
-          time = orderDate.substring(12, orderDate.length - 19);
+          //date = orderDate.substring(0, orderDate.length - 14);
+          //time = orderDate.substring(12, orderDate.length - 19);
           log('orderImage: $orderImage');
           log('orderDetail: $orderDetail');
           log('orderId1: $orderId1');
-          log('orderDate: $date');
-          log('orderTime: $time');
+         // log('orderDate: $date');
+          //log('orderTime: $time');
 
         }
-        // for(int i=0; i< orderDetailsScreenModel.order.length; i++){
-        //   orderDetail =orderDetailsScreenModel.order.details
-        // }
 
-       // log('restaurantImage: $restaurantImage');
+        /// Shipping Address
+        storeAddress = orderDetailsScreenModel.order.restaurantId.address;
+        storeMobile = orderDetailsScreenModel.order.restaurantId.phone.toString();
+        storeEmail = orderDetailsScreenModel.order.restaurantId.email;
+
+        /// Billing Address
+        billingName = orderDetailsScreenModel.order.userId.fullName;
+        billingAddress = orderDetailsScreenModel.order.userId.address;
+        billingMobile = orderDetailsScreenModel.order.userId.phone.toString();
+        billingEmail = orderDetailsScreenModel.order.userId.email;
+
+        productList = orderDetailsScreenModel.orderitem;
+        log('productList: $productList');
+
       } else {
         print('Get Product By Id Else Else');
       }

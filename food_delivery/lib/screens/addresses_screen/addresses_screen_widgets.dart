@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/common/constant/app_images.dart';
+import 'package:food_delivery/controllers/get_all_address_screen_controller/get_all_address_screen_controller.dart';
 import 'package:food_delivery/screens/add_address_screen/add_address_screen.dart';
 import 'package:get/get.dart';
 
 class AddressListModule extends StatelessWidget {
-  const AddressListModule({Key? key}) : super(key: key);
+  AddressListModule({Key? key}) : super(key: key);
+
+  GetAllAddressScreenController getAllAddressScreenController = Get.find<GetAllAddressScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 13,
+      itemCount: getAllAddressScreenController.allAddressList.length,
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index){
@@ -25,41 +28,44 @@ class AddressListModule extends StatelessWidget {
               padding: const EdgeInsets.all(15),
               child: Row(
                 children: [
-                  Image.asset('${Images.ic_account_info_1}'),
-                  SizedBox(width: 15),
+                  // Image.asset('${Images.ic_account_info_1}'),
+                  // SizedBox(width: 15),
                   Expanded(
                     child: Container(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Lorem ipsum is simply dummy text of the printing and type setting industry.',
+                            "Address1: ${getAllAddressScreenController.allAddressList[index].address1}",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                  child: Text(
-                                      'Lorem Ipsum is 545751 asa s asas as asa s',
-                                    maxLines: 1,
-                                  ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  print('Edit');
-                                },
-                                child: Text(
-                                    'Edit',
-                                  textScaleFactor: 1.1,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
+                          SizedBox(height: 5),
+
+                          Text(
+                            "Address2: ${getAllAddressScreenController.allAddressList[index].address2}",
+                            maxLines: 1,
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            "Pincode: ${getAllAddressScreenController.allAddressList[index].pincode}",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  GestureDetector(
+                    onTap: () {
+                      print('Edit');
+                    },
+                    child: Text(
+                      'Edit',
+                      textScaleFactor: 1.1,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),

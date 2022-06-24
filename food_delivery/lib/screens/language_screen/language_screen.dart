@@ -19,10 +19,10 @@ class LanguageScreen extends StatelessWidget {
           SizedBox(height: Get.height * 0.05),
           LogoImage(),
           SizedBox(height: Get.height * 0.05),
-          HeaderAndContentModule(
-            header: 'Choose a language',
-            content: 'Select Your Preferred Language while using this app',
-          ),
+          // HeaderAndContentModule(
+          //   header: 'Choose a language',
+          //   content: 'Select Your Preferred Language while using this app',
+          // ),
           Expanded(
               child: LanguageListModule(),
           ),

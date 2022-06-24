@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/controllers/cart_screen_controller/cart_screen_controller.dart';
 import 'package:food_delivery/controllers/order_details_screen_controller/order_details_screen_controller.dart';
+import 'package:food_delivery/screens/Invoice_screen/invoice_screen.dart';
 import 'package:get/get.dart';
 
 class OrderTab extends StatelessWidget {
@@ -266,24 +267,50 @@ class HistoryOrderTab extends StatelessWidget {
           ],
         ),
         SizedBox(height: 10),
-        GestureDetector(
-          onTap: (){
-            //cartScreenController.createOrderFunction();
-          },
-          child: Container(
-            height: 40,
-            width: MediaQuery.of(context).size.width / 3,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: AppColors.colorDarkPink),
-            child: Center(
-              child: Text(
-                "Re-Order",
-                style: TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: (){
+                //cartScreenController.createOrderFunction();
+              },
+              child: Container(
+                height: 40,
+                width: MediaQuery.of(context).size.width / 3,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColors.colorDarkPink),
+                child: Center(
+                  child: Text(
+                    "Re-Order",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
             ),
-          ),
+            SizedBox(width: 10),
+            GestureDetector(
+              onTap: (){
+                //cartScreenController.createOrderFunction();
+                Get.to(()=> InvoiceScreen(), arguments: screenController.orderId);
+              },
+              child: Container(
+                height: 40,
+                width: MediaQuery.of(context).size.width / 3,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColors.colorDarkPink),
+                child: Center(
+                  child: Text(
+                    "Invoice",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
 
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/controllers/terms_condition_screen_controller/terms_condition_screen_controller.dart';
 import 'package:get/get.dart';
 
 import 'constant/app_images.dart';
@@ -24,6 +25,8 @@ class HeaderAndContentModule extends StatelessWidget {
   String content;
   int index;
   HeaderAndContentModule({required this.header, required this.content, this.index = 0});
+
+  TermsAndConditionScreenController termsAndConditionScreenController = Get.find<TermsAndConditionScreenController>();
 
   @override
   Widget build(BuildContext context) {

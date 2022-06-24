@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/controllers/category_screen_controller/category_screen_controller.dart';
+import 'package:food_delivery/controllers/home_screen_controller/home_screen_controller.dart';
+import 'package:food_delivery/screens/restaurant_wise_category_screen/restaurant_wise_category_screen.dart';
 import 'package:food_delivery/screens/sub_category_screen/sub_category_screen.dart';
 import 'package:get/get.dart';
 
@@ -57,20 +59,20 @@ class SearchFieldModule extends StatelessWidget {
 }
 
 
-/*class CategoryListModule extends StatelessWidget {
-  final categoryScreenController = Get.find<CategoryScreenController>();
+class CategoryListModule extends StatelessWidget {
+  //final categoryScreenController = Get.find<CategoryScreenController>();
   // CategoryListModule({required this.categoryScreenController});
-
+  final homeScreenController = Get.find<HomeScreenController>();
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: categoryScreenController.restaurantWiseCategoryList.isEmpty
+      child: homeScreenController.categoryList.isEmpty
       ? Center(child: Text("No Category Available!"))
       : GridView.builder(
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
-        itemCount: categoryScreenController.restaurantWiseCategoryList.length,
+        itemCount: homeScreenController.categoryList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           mainAxisSpacing: 10,
@@ -116,7 +118,7 @@ class SearchFieldModule extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Image(
-            image: NetworkImage("${ApiUrl.ApiMainPath}${categoryScreenController.restaurantWiseCategoryList[index].image}"),
+            image: NetworkImage("${ApiUrl.ApiMainPath}${homeScreenController.categoryList[index].image}"),
             fit: BoxFit.cover,
           ),
         ),
@@ -137,7 +139,7 @@ class SearchFieldModule extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Center(
             child: Text(
-              '${categoryScreenController.restaurantWiseCategoryList[index].name}',
+              '${homeScreenController.categoryList[index].name}',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textScaleFactor: 0.85,
@@ -153,10 +155,12 @@ class SearchFieldModule extends StatelessWidget {
   }
 
   void _onItemClick(int index) {
-    log("Cat Id : ${categoryScreenController.restaurantWiseCategoryList[index].id}");
-    Get.to(()=> SubCategoryScreen(), arguments: categoryScreenController.restaurantWiseCategoryList[index].id);
+    //log("Cat Id : ${homeScreenController.categoryList[index].id}");
+    //Get.to(()=> SubCategoryScreen(), arguments: homeScreenController.categoryList[index].id);
+    log('homeScreenController.categoryList[index].id: ${homeScreenController.categoryList[index].sId}');
+    Get.to(()=> RestaurantWiseCategoryScreen(), arguments: homeScreenController.categoryList[index].sId);
   }
-}*/
+}
 
 class SearchCategoryListModule extends StatelessWidget {
   SearchCategoryListModule({Key? key}) : super(key: key);

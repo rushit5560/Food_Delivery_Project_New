@@ -32,7 +32,7 @@ class List1 {
   Product? product;
   Customer? customer;
   String? review;
-  //double? rating;
+  String? rating;
   String? date;
   bool? isActive;
   String? createdAt;
@@ -44,7 +44,7 @@ class List1 {
         this.product,
         this.customer,
         this.review,
-        //this.rating,
+        this.rating,
         this.date,
         this.isActive,
         this.createdAt,
@@ -56,7 +56,7 @@ class List1 {
     product = Product.fromJson(json['Product'] ?? {});
     customer = Customer.fromJson(json['Customer'] ?? {});
     review = json['Review'] ?? "";
-    //rating = json['Rating'] ?? 0.0;
+    rating = json['Rating'].toString();
     date = json['Date'] ?? "";
     isActive = json['IsActive'] ?? false;
     createdAt = json['createdAt'] ?? "";
@@ -74,7 +74,7 @@ class List1 {
       data['Customer'] = this.customer!.toJson();
     }
     data['Review'] = this.review;
-    //data['Rating'] = this.rating;
+    data['Rating'] = this.rating;
     data['Date'] = this.date;
     data['IsActive'] = this.isActive;
     data['createdAt'] = this.createdAt;

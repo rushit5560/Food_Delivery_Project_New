@@ -50,7 +50,7 @@ class RestaurantDetailsScreenController extends GetxController{
         print('Get Product By Id Else Else');
       }
     } catch (e) {
-      print('Error : $e');
+      print('Restaurant details Error : $e');
     } finally {
       //isLoading(false);
       getAllProductListOfRestaurant();
@@ -87,7 +87,7 @@ class RestaurantDetailsScreenController extends GetxController{
         print('Get Product By Id Else Else');
       }
     } catch (e) {
-      print('Error : $e');
+      print('getAllProductListOfRestaurant Error : $e');
     } finally {
       isLoading(false);
     }

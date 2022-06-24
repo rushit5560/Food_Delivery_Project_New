@@ -70,7 +70,7 @@ class GetList {
   String endTime;
   String price;
   String discount;
-  String category;
+  Category category;
   SubCategory subCategory;
   List<Addon> attribute;
   List<Addon> addon;
@@ -94,7 +94,7 @@ class GetList {
     endTime: json["EndTime"] ?? "",
     price: json["Price"] ?? "",
     discount: json["Discount"] ?? "",
-    category: json["Category"] ?? "",
+    category: Category.fromJson(json["Category"]),
     subCategory: SubCategory.fromJson(json["SubCategory"] ?? {}),
     attribute: List<Addon>.from(json["Attribute"].map((x) => Addon.fromJson(x)) ?? {}),
     addon: List<Addon>.from(json["Addon"].map((x) => Addon.fromJson(x)) ?? {}),
@@ -119,7 +119,7 @@ class GetList {
     "EndTime": endTime,
     "Price": price,
     "Discount": discount,
-    "Category": category,
+    "Category": category.toJson(),
     "SubCategory": subCategory.toJson(),
     "Attribute": List<dynamic>.from(attribute.map((x) => x.toJson())),
     "Addon": List<dynamic>.from(addon.map((x) => x.toJson())),
@@ -129,6 +129,74 @@ class GetList {
     "createdAt": createdAt,
     "updatedAt": updatedAt,
     "__v": v,
+  };
+}
+
+class Category {
+  Category({
+    required this.id,
+    required this.name,
+    required this.restaurants,
+    required this.image,
+    required this.isActive,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+    required this.coordinates,
+  });
+
+  String id;
+  String name;
+  List<RestaurantElement> restaurants;
+  String image;
+  bool isActive;
+  String createdAt;
+  String updatedAt;
+  int v;
+  String coordinates;
+
+  factory Category.fromJson(Map<String, dynamic> json) => Category(
+    id: json["_id"] ?? "",
+    name: json["Name"] ?? "",
+    restaurants: List<RestaurantElement>.from(json["Restaurants"].map((x) => RestaurantElement.fromJson(x))),
+    image: json["Image"] ?? "",
+    isActive: json["IsActive"] ?? false,
+    createdAt: json["createdAt"] ?? "",
+    updatedAt: json["updatedAt"] ?? "",
+    v: json["__v"] ?? 0,
+    coordinates: json["Coordinates"] ?? "",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "Name": name,
+    "Restaurants": restaurants == null ? null : List<dynamic>.from(restaurants.map((x) => x.toJson())),
+    "Image": image == null ? null : image,
+    "IsActive": isActive,
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "__v": v,
+    "Coordinates": coordinates == null ? null : coordinates,
+  };
+}
+
+class RestaurantElement {
+  RestaurantElement({
+    required this.value,
+    required this.id,
+  });
+
+  String value;
+  String id;
+
+  factory RestaurantElement.fromJson(Map<String, dynamic> json) => RestaurantElement(
+    value: json["value"] ?? "",
+    id: json["_id"] ?? "",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "value": value,
+    "_id": id,
   };
 }
 

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:food_delivery/common/constant/api_url.dart';
 import 'package:food_delivery/common/constant/app_colors.dart';
 import 'package:food_delivery/controllers/home_screen_controller/home_screen_controller.dart';
@@ -145,7 +146,8 @@ class CategoryList extends StatelessWidget {
 
               GestureDetector(
                 onTap: () {
-                  Get.to(()=> RestaurantListScreen());
+                  //Get.to(()=> RestaurantListScreen());
+                  Get.to(() => CategoryScreen());
                 },
                 child: Text("View All",
                   style: TextStyle(color: Colors.black, fontSize: 20),),
@@ -297,49 +299,122 @@ class ClientReviewList extends StatelessWidget {
           style: TextStyle(color: Colors.black, fontSize: 20)),
 
         SizedBox(height: 10,),
-        ListView.builder(
-            itemCount: homeScreenController.reviewList.length,
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index){
-              return GestureDetector(
-                onTap: () {
 
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+        CarouselSlider.builder(
+          itemCount: homeScreenController.reviewList.length,
+          itemBuilder: (context, index, realIndex) {
+            return GestureDetector(
+              onTap: () {
+
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  width: Get.width,
+                  // margin: EdgeInsets.only(left: 10, right: 10),
+                  // decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(10),
+                  //     color: AppColors.colorGrey
+                  // ),
                   child: Container(
-                    width: 125,
-                   // margin: EdgeInsets.only(left: 10, right: 10),
-                    // decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(10),
-                    //     color: AppColors.colorGrey
-                    // ),
-                    child: Container(
                       decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: AppColors.colorGrey
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.colorGrey
                       ),
-                        child: Row(
-                          children: [
-                            // homeScreenController.reviewList[index].customer!.photo!.isNotEmpty ?
-                            // Image.network(homeScreenController.reviewList[index].customer!.photo!) : Container(),
-
-
-                            Column(
-                              children: [
-                                // homeScreenController.reviewList[index].customer!.userName!.isNotEmpty ?
-                                // Text("${homeScreenController.reviewList[index].customer!.userName}") :Container(),
-                                Text("${homeScreenController.reviewList[index].review}"),
-                              ],
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // homeScreenController.reviewList[index].customer!.userName!.isNotEmpty ?
+                          // Text("${homeScreenController.reviewList[index].customer!.userName}") :Container(),
+                          RatingBar.builder(
+                            itemSize: 20,
+                            initialRating: 3,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: int.parse(homeScreenController.reviewList[index].rating!),
+                            glow: false,
+                            itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Colors.amber,
                             ),
-                          ],
-                        )),
-                  ),
+                            onRatingUpdate: (rating) {
+                              print(rating);
+                              //productDetailScreenController.giveProductReview(rating);
+                            },
+                          ),
+                          SizedBox(height: 10),
+                          Text("${homeScreenController.reviewList[index].review}"),
+                        ],
+                      )),
                 ),
-              );
-            })
+              ),
+            );
+          },
+          options: CarouselOptions(
+              height: 100,
+              autoPlay: true,
+              viewportFraction: 1,
+              onPageChanged: (index, reason) {
+                homeScreenController.activeIndex.value = index;
+              }),
+        )
+        // ListView.builder(
+        //     itemCount: homeScreenController.reviewList.length,
+        //     shrinkWrap: true,
+        //     scrollDirection: Axis.vertical,
+        //     physics: NeverScrollableScrollPhysics(),
+        //     itemBuilder: (context, index){
+        //       return GestureDetector(
+        //         onTap: () {
+        //
+        //         },
+        //         child: Padding(
+        //           padding: const EdgeInsets.all(15.0),
+        //           child: Container(
+        //             width: 125,
+        //            // margin: EdgeInsets.only(left: 10, right: 10),
+        //             // decoration: BoxDecoration(
+        //             //     borderRadius: BorderRadius.circular(10),
+        //             //     color: AppColors.colorGrey
+        //             // ),
+        //             child: Container(
+        //               decoration: BoxDecoration(
+        //                     borderRadius: BorderRadius.circular(10),
+        //                     color: AppColors.colorGrey
+        //               ),
+        //                 child: Column(
+        //                   children: [
+        //                     // homeScreenController.reviewList[index].customer!.userName!.isNotEmpty ?
+        //                     // Text("${homeScreenController.reviewList[index].customer!.userName}") :Container(),
+        //                     // RatingBar.builder(
+        //                     //   itemSize: 20,
+        //                     //   initialRating: 3,
+        //                     //   minRating: 1,
+        //                     //   direction: Axis.horizontal,
+        //                     //   allowHalfRating: true,
+        //                     //   itemCount: homeScreenController.reviewList[index].rating!,
+        //                     //   glow: false,
+        //                     //   itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+        //                     //   itemBuilder: (context, _) => Icon(
+        //                     //     Icons.star,
+        //                     //     color: Colors.amber,
+        //                     //   ),
+        //                     //   onRatingUpdate: (rating) {
+        //                     //     print(rating);
+        //                     //     //productDetailScreenController.giveProductReview(rating);
+        //                     //   },
+        //                     // ),
+        //                     // SizedBox(height: 10),
+        //                     Text("${homeScreenController.reviewList[index].review}"),
+        //                   ],
+        //                 )),
+        //           ),
+        //         ),
+        //       );
+        //     })
       ],
     );
   }

@@ -1,7 +1,7 @@
 import 'package:food_delivery/models/category_screen_model/restaurant_wise_category_model.dart';
 
 class ApiUrl {
-  static const ApiMainPath = "http://192.168.29.93:4000/";
+  static const ApiMainPath = "http://192.168.0.105:4000/";
 
   /// SignIn & SignUp API
   static const RegisterApi = ApiMainPath + "user/signUp";
@@ -84,4 +84,11 @@ class ApiUrl {
 
   /// Get orders by id(Order details)
   static const GetOrdersByIdAPI = ApiMainPath + "order/find/";
+
+  /// Address API
+  static const addAddressAPI = ApiMainPath + "address/create";
+  static const getAllAddressAPI = ApiMainPath + "address/getAllAddress";
+
+  ///Terms & Condition, Privacy, About us API
+  static const termsAndConditionAPI = ApiMainPath + "PageSetup/find/";
 }

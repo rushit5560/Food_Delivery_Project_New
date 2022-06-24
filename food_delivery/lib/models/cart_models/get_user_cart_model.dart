@@ -83,7 +83,7 @@ class Cart {
 class RestaurantId {
   RestaurantId({
     required this.numberOfReviews,
-    //required this.rating,
+    required this.rating,
     required this.id,
     required this.storeName,
     required this.tax,
@@ -114,7 +114,7 @@ class RestaurantId {
   });
 
   int numberOfReviews;
-  //int rating;
+  String rating;
   String id;
   String storeName;
   String tax;
@@ -145,7 +145,7 @@ class RestaurantId {
 
   factory RestaurantId.fromJson(Map<String, dynamic> json) => RestaurantId(
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    //rating: json["Rating"] ?? 0,
+    rating: json["Rating"].toString(),
     id: json["_id"] ?? "",
     storeName: json["StoreName"] ?? "",
     tax: json["Tax"] ?? "",
@@ -177,7 +177,7 @@ class RestaurantId {
 
   Map<String, dynamic> toJson() => {
     "NumberOfReviews": numberOfReviews,
-    //"Rating": rating,
+    "Rating": rating,
     "_id": id,
     "StoreName": storeName,
     "Tax": tax,
@@ -311,7 +311,7 @@ class ProductId {
   bool isFeatured;
   String description;
   int numberOfReviews;
-  int rating;
+  String rating;
   String image;
   bool isApproved;
   bool isActive;
@@ -338,7 +338,7 @@ class ProductId {
     isFeatured: json["IsFeatured"] ?? false,
     description: json["Description"] ?? "",
     numberOfReviews: json["NumberOfReviews"] ?? 0,
-    rating: json["Rating"] ?? 0,
+    rating: json["Rating"].toString(),
     image: json["Image"] ?? "",
     isApproved: json["IsApproved"] ?? false,
     isActive: json["IsActive"] ?? false,

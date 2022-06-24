@@ -26,6 +26,7 @@ class ProductDetailScreenController extends GetxController{
   String productName = '';
   String productRestaurantId = '';
   int productPrice = 0;
+  String productType = "";
   String productDescription = '';
 
   RxDouble subTotalAmount = 0.0.obs;
@@ -108,6 +109,7 @@ class ProductDetailScreenController extends GetxController{
         productRestaurantId = productDetailsModel.product.store.id;
         productName = productDetailsModel.product.productName;
         productPrice = productDetailsModel.product.price;
+        productType = productDetailsModel.product.productType.label;
         productDescription = productDetailsModel.product.description;
         subTotalAmount.value = (productPrice * qty.value).toDouble();
         selectedProductRestaurantId = productDetailsModel.product.store.id;
