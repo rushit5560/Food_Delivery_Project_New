@@ -266,7 +266,7 @@ class EmployeeRoleDropDownModule extends StatelessWidget {
                     return DropdownMenuItem<ListElementRole>(
                       value: listElementRole,
                       child: Text(
-                        "${listElementRole.name}",
+                        "${listElementRole.roleName}",
                         style: TextStyle(color: Colors.black),
                       ),
                     );
@@ -275,7 +275,7 @@ class EmployeeRoleDropDownModule extends StatelessWidget {
                   onChanged: (listElementRole){
                     screenController.isLoading(true);
                     screenController.employeeRoleDropDownValue = listElementRole!;
-                    log("categoryDropDownValue : ${screenController.employeeRoleDropDownValue.name}");
+                    log("categoryDropDownValue : ${screenController.employeeRoleDropDownValue.roleName}");
                     screenController.isLoading(false);
                   },
                 ),

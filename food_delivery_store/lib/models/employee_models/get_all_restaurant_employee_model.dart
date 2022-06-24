@@ -96,32 +96,30 @@ class RestaurantEmployee {
   };
 }
 
+
 class EmployeeRole {
   EmployeeRole({
-    required this.permission,
     required this.id,
-    required this.name,
-    required this.store,
+    required this.restaurant,
+    required this.roleName,
     required this.isActive,
     required this.createdAt,
     required this.updatedAt,
     required this.v,
   });
 
-  Map<String, bool> permission;
   String id;
-  String name;
-  String store;
+  String restaurant;
+  String roleName;
   bool isActive;
   String createdAt;
   String updatedAt;
   int v;
 
   factory EmployeeRole.fromJson(Map<String, dynamic> json) => EmployeeRole(
-    permission: Map.from(json["Permission"] ?? {}).map((k, v) => MapEntry<String, bool>(k, v)),
     id: json["_id"] ?? "",
-    name: json["Name"] ?? "Role",
-    store: json["Store"] ?? "",
+    restaurant: json["Restaurant"] ?? "",
+    roleName: json["RoleName"] ?? "",
     isActive: json["IsActive"] ?? false,
     createdAt: json["createdAt"] ?? "",
     updatedAt: json["updatedAt"] ?? "",
@@ -129,10 +127,9 @@ class EmployeeRole {
   );
 
   Map<String, dynamic> toJson() => {
-    "Permission": Map.from(permission).map((k, v) => MapEntry<String, dynamic>(k, v)),
     "_id": id,
-    "Name": name,
-    "Store": store,
+    "Restaurant": restaurant,
+    "RoleName": roleName,
     "IsActive": isActive,
     "createdAt": createdAt,
     "updatedAt": updatedAt,
