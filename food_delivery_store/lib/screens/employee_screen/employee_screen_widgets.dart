@@ -43,7 +43,7 @@ class EmployeeListModule extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: NetworkImage("${ApiUrl.ApiMainPath}""${singleEmployee.image}"),
+                          image: NetworkImage("${ApiUrl.ApiMainPath}" + "${singleEmployee.image}"),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -67,7 +67,7 @@ class EmployeeListModule extends StatelessWidget {
                               ),
                               const SizedBox(height: 5),
                               Text(
-                                "${singleEmployee.employeeRole.name}",
+                                "${singleEmployee.employeeRole.roleName}",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 13),

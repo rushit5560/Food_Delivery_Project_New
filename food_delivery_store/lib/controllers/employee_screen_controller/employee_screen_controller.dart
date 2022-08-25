@@ -31,7 +31,7 @@ class EmployeeScreenController extends GetxController {
 
 
   /// Get Employee Role DD List
-  RxList<ListElementRole> getEmployeeRoleList = [ListElementRole(name: "Select Role", id: "0")].obs;
+  RxList<ListElementRole> getEmployeeRoleList = [ListElementRole(roleName: "Select Role", id: "0")].obs;
   ListElementRole employeeRoleDropDownValue = ListElementRole();
   ListElementRole updateEmployeeRoleDropDownValue = ListElementRole();
 
