@@ -60,8 +60,6 @@ class StoreProfileScreenController extends GetxController {
     } finally {
       isLoading(false);
     }
-
-
   }
 
   updateStoreProfileByIdFunction() async {

@@ -105,6 +105,7 @@ class AllCampaignListModule extends StatelessWidget {
       return GestureDetector(
         onTap: () {
           log("singleItem Id : ${singleItem.id}");
+          screenController.joinCampaignFunction(campaignId: singleItem.id);
         },
         child: Container(
           decoration: BoxDecoration(

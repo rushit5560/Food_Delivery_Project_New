@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/constants/api_url.dart';
 import 'package:food_delivery_admin/common/constants/order_status.dart';
 import 'package:food_delivery_admin/common/store_details.dart';
+import 'package:food_delivery_admin/models/status_wise_order_delivery_boy_model/status_wise_order_delivery_boy_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -32,6 +33,9 @@ class NewOrderScreenController extends GetxController with GetSingleTickerProvid
   List<Order> preparingList = [];
   List<Order> preparedList = [];
   List<Order> allOrdersList = [];
+
+  RxList<GetList> deliveryBoyLists = [GetList(firstName: "Select Name")].obs;
+  GetList? deliveryBoyDropDownValue;
 
   @override
   void onInit() {
@@ -73,7 +77,7 @@ class NewOrderScreenController extends GetxController with GetSingleTickerProvid
             newOrderList.add(getRestaurantOrderModel.order[i]);
           }
         }
-        log("pendingOrderList : ${newOrderList.length}");
+        log("newOrderList : ${newOrderList.length}");
 
         // Accepted Order List
         for(int i = 0; i < getRestaurantOrderModel.order.length; i++) {
@@ -132,7 +136,8 @@ class NewOrderScreenController extends GetxController with GetSingleTickerProvid
     } catch(e) {
       log('Error : $e');
     } finally {
-       isLoading(false);
+       //isLoading(false);
+      getAllStatusWiseDeliveryBoyList();
     }
   }
 
@@ -158,4 +163,43 @@ class NewOrderScreenController extends GetxController with GetSingleTickerProvid
 
   }
 
+  getAllStatusWiseDeliveryBoyList() async {
+    isLoading(true);
+    String url = ApiUrl.StatusWiseDeliveryBoyApi + "61fb6435f0a739b8f2dc65d6";
+    print('Url : $url');
+
+    try{
+      http.Response response = await http.get(Uri.parse(url));
+      print('Get All Status Wise Order Response : ${response.body}');
+
+      StatusWiseOrderDeliveryBoyModel statusWiseOrderDeliveryBoyModel = StatusWiseOrderDeliveryBoyModel.fromJson(json.decode(response.body));
+      print('statusWiseOrderDeliveryBoyModel : $statusWiseOrderDeliveryBoyModel');
+      isSuccessStatus = statusWiseOrderDeliveryBoyModel.status!.obs;
+      print('allStatusWiseOrder : $isSuccessStatus');
+
+      if(isSuccessStatus.value){
+        print("Success");
+        for(int i =0; i < statusWiseOrderDeliveryBoyModel.getList!.length; i++){
+          deliveryBoyLists.add(statusWiseOrderDeliveryBoyModel.getList![i]);
+
+        }
+        // deliveryBoyLists.add(statusWiseOrderDeliveryBoyModel.getList![i]);
+         deliveryBoyDropDownValue = deliveryBoyLists[0];
+        print('deliveryBoyLists : ${deliveryBoyLists.length}');
+      } else {
+        print('Get All Delivery Boy Else Else');
+      }
+
+    } catch(e) {
+      print('Get All Delivery Boy False False');
+    } finally {
+      isLoading(false);
+    }
+  }
+
+
+  loading() {
+    isLoading(true);
+    isLoading(false);
+  }
 }

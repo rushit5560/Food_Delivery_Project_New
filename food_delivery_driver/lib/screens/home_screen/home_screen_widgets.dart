@@ -144,19 +144,19 @@ class PendingListModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return screenController.pendingList.isEmpty
+    return screenController.pendingOrderList.isEmpty
         ? Center(child: Text("No Pending Orders"))
         : ListView.builder(
-      itemCount: screenController.pendingList.length,
+      itemCount: screenController.pendingOrderList.length,
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, i) {
-        return _pendingListTile();
+        return _pendingListTile(i);
       },
     );
   }
 
-  Widget _pendingListTile() {
+  Widget _pendingListTile(i) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -172,9 +172,9 @@ class PendingListModule extends StatelessWidget {
                 children: [
                   _orderImage(),
                   const SizedBox(width: 10),
-                  Expanded(child: _orderName()),
+                  Expanded(child: _orderName(i)),
                   const SizedBox(width: 10),
-                  _amountAndButton(),
+                  _amountAndButton(i),
                 ],
               ),
               SizedBox(height: 10),
@@ -232,12 +232,12 @@ class PendingListModule extends StatelessWidget {
     return Image.asset('${Images.ic_category1}', scale: 2.5);
   }
 
-  Widget _orderName() {
+  Widget _orderName(i) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "hdsm" /* + " " + singleOrder.storeId.lastName*/,
+          screenController.pendingOrderList[i].restaurantId.storeName /* + " " + singleOrder.storeId.lastName*/,
           textScaleFactor: 1.2,
           maxLines: 1,
           style: TextStyle(
@@ -252,14 +252,14 @@ class PendingListModule extends StatelessWidget {
         ),
         SizedBox(height: 5),
         Text(
-          "Status: " + "Pending",
+          "Status: " + "${screenController.pendingOrderList[i].orderStatusId.status}",
           textScaleFactor: 0.7,
           maxLines: 1,
           //style: TextStyle(fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 5),
         Text(
-          "details",
+          screenController.pendingOrderList[i].details,
           maxLines: 2,
           textScaleFactor: 0.7,
         ),
@@ -267,13 +267,13 @@ class PendingListModule extends StatelessWidget {
         SizedBox(height: 5),
 
         Text(
-          'Order On ${22-2-22}',
+          'Order On ${screenController.pendingOrderList[i].orderDate}',
           maxLines: 1,
           textScaleFactor: 0.7,
         ),
         SizedBox(height: 5),
         Text(
-          'Order ID 123456',
+          'Order ID ${screenController.pendingOrderList[i].id}',
           maxLines: 1,
           textScaleFactor: 0.7,
         ),
@@ -287,12 +287,12 @@ class PendingListModule extends StatelessWidget {
     );
   }
 
-  Widget _amountAndButton() {
+  Widget _amountAndButton(i) {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
         Text(
-          "\$" + "100",
+          screenController.pendingOrderList[i].amount.toString(),
           textScaleFactor: 1.3,
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -331,19 +331,19 @@ class AcceptedListModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return screenController.acceptedList.isEmpty
+    return screenController.preparingOrderList.isEmpty
         ? Center(child: Text("No Accepted Orders"))
         : ListView.builder(
-      itemCount: screenController.acceptedList.length,
+      itemCount: screenController.preparingOrderList.length,
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, i) {
-        return _acceptedListTile();
+        return _acceptedListTile(i);
       },
     );
   }
 
-  Widget _acceptedListTile() {
+  Widget _acceptedListTile(i) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -359,9 +359,9 @@ class AcceptedListModule extends StatelessWidget {
                 children: [
                   _orderImage(),
                   const SizedBox(width: 10),
-                  Expanded(child: _orderName()),
+                  Expanded(child: _orderName(i)),
                   const SizedBox(width: 10),
-                  _amountAndButton(),
+                  _amountAndButton(i),
                 ],
               ),
               SizedBox(height: 10),
@@ -401,12 +401,12 @@ class AcceptedListModule extends StatelessWidget {
     return Image.asset('${Images.ic_category1}', scale: 2.5);
   }
 
-  Widget _orderName() {
+  Widget _orderName(i) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "hdsm" /* + " " + singleOrder.storeId.lastName*/,
+          screenController.preparingOrderList[i].restaurantId.storeName /* + " " + singleOrder.storeId.lastName*/,
           textScaleFactor: 1.2,
           maxLines: 1,
           style: TextStyle(
@@ -421,14 +421,14 @@ class AcceptedListModule extends StatelessWidget {
         ),
         SizedBox(height: 5),
         Text(
-          "Status: " + "Pending",
+          "Status: ${screenController.preparingOrderList[i].orderStatusId.status}",
           textScaleFactor: 0.7,
           maxLines: 1,
           //style: TextStyle(fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 5),
         Text(
-          "details",
+          screenController.preparingOrderList[i].details,
           maxLines: 2,
           textScaleFactor: 0.7,
         ),
@@ -436,13 +436,13 @@ class AcceptedListModule extends StatelessWidget {
         SizedBox(height: 5),
 
         Text(
-          'Order On ${22-2-22}',
+          'Order On ${screenController.preparingOrderList[i].orderDate}',
           maxLines: 1,
           textScaleFactor: 0.7,
         ),
         SizedBox(height: 5),
         Text(
-          'Order ID 123456',
+          'Order ID ${screenController.preparingOrderList[i].id}',
           maxLines: 1,
           textScaleFactor: 0.7,
         ),
@@ -456,12 +456,12 @@ class AcceptedListModule extends StatelessWidget {
     );
   }
 
-  Widget _amountAndButton() {
+  Widget _amountAndButton(i) {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
         Text(
-          "\$" + "100",
+          screenController.preparingOrderList[i].amount.toString(),
           textScaleFactor: 1.3,
           style: TextStyle(
             fontWeight: FontWeight.bold,

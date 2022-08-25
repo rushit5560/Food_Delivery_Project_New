@@ -131,7 +131,7 @@ class ItemScreenController extends GetxController {
         print('Get All Store Products Else Else');
       }
     } catch (e) {
-      print('Error : $e');
+      print('All Products Error : $e');
     } finally {
       isLoading(false);
     }
@@ -323,6 +323,7 @@ class ItemScreenController extends GetxController {
             .add(RestaurantCategory(name: "Select Category", id: "0"));
         getRestaurantCategoryList.addAll(getRestaurantCategoryModel.category);
         updateCategoryDropDownValue = getRestaurantCategoryList[0];
+        log('updateCategoryDropDownValue: ${updateCategoryDropDownValue}');
         log("getRestaurantCategoryList Length : ${getRestaurantCategoryList.length}");
       }
     } catch (e) {

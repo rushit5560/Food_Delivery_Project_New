@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin/common/store_details.dart';
+import 'package:food_delivery_admin/models/campaign_models/join_campaign_model.dart';
 import 'package:food_delivery_admin/models/campaign_models/joined_campaign_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
@@ -97,25 +98,59 @@ class CampaignScreenController extends GetxController
       Map<String, dynamic> data = {
         "Restaurant" : "${StoreDetails.storeId}",
         "CampaignID" : "$campaignId",
-        "IsActive" : true
+        "IsActive" : "true"
       };
       log("Data = $data");
       http.Response response = await http.post(Uri.parse(url), body: data);
+      log('campaign join response: ${response.body}');
 
-      // JoinedCampaignModel joinedCampaignModel = JoinedCampaignModel.fromJson(json.decode(response.body));
-      // isSuccessStatus = joinedCampaignModel.status.obs;
-      //
-      // if(isSuccessStatus.value) {
-      //
-      // } else {
-      //   log("Joined Campaign Function Else Else");
-      // }
+      JoinCampaignScreenModel joinCampaignScreenModel = JoinCampaignScreenModel.fromJson(json.decode(response.body));
+      isSuccessStatus = joinCampaignScreenModel.status.obs;
+
+      if(isSuccessStatus.value) {
+        Fluttertoast.showToast(msg: joinCampaignScreenModel.message);
+      } else {
+        log("Join Campaign Function Else Else");
+      }
 
 
     } catch(e) {
       log("joinCampaignFunction Error ::: $e");
     } finally {
       await getAllCampaignFunction();
+    }
+  }
+
+  /// Delete Join Campaign
+  Future<void> deleteJoinCampaignFunction({required String campaignId}) async {
+    isLoading(true);
+    String url = ApiUrl.DeleteCampaignJoinApi;
+    log("Delete Campaign Join Api Url : $url");
+
+    try {
+      Map<String, dynamic> data = {
+        "Restaurant" : "${StoreDetails.storeId}",
+        "CampaignID" : "$campaignId",
+        "IsActive" : true
+      };
+      log("Data = $data");
+      http.Response response = await http.post(Uri.parse(url), body: data);
+
+      JoinedCampaignModel joinedCampaignModel = JoinedCampaignModel.fromJson(json.decode(response.body));
+      isSuccessStatus = joinedCampaignModel.status.obs;
+
+      if(isSuccessStatus.value) {
+
+      } else {
+        log("Delete Joined Campaign Function Else Else");
+      }
+
+
+    } catch(e) {
+      log("Delete joinCampaignFunction Error ::: $e");
+    } finally {
+      isLoading(false);
+      //await getAllCampaignFunction();
     }
   }
 

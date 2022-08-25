@@ -681,9 +681,9 @@ class AddProductButton extends StatelessWidget {
             Fluttertoast.showToast(msg: 'Product Image required...!');
           } else if(addProductScreenController.categoryDropDownValue.id == "0"){
             Fluttertoast.showToast(msg: 'Please Select Category...!');
-          } else if(addProductScreenController.subCategoryDropDownValue!.id == "0"){
+          }/* else if(addProductScreenController.subCategoryDropDownValue!.id == "0"){
             Fluttertoast.showToast(msg: 'Please Select Sub Category...!');
-          } else {
+          } */else {
             addProductScreenController.addProductFunction();
           }
         }

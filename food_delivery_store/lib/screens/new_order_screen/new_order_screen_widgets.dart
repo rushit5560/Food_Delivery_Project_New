@@ -5,6 +5,7 @@ import 'package:food_delivery_admin/common/constants/app_colors.dart';
 import 'package:food_delivery_admin/common/constants/app_images.dart';
 import 'package:food_delivery_admin/common/constants/order_status.dart';
 import 'package:food_delivery_admin/models/get_restaurant_order_model/get_restaurant_order_model.dart';
+import 'package:food_delivery_admin/models/status_wise_order_delivery_boy_model/status_wise_order_delivery_boy_model.dart';
 import 'package:get/get.dart';
 import '../../controllers/new_order_screen_controller/new_order_screen_controller.dart';
 
@@ -320,12 +321,12 @@ class NewOrderModule extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, i) {
               Order singleOrder = newOrderScreenController.newOrderList[i];
-              return _todayOrderListTile(singleOrder);
+              return _todayOrderListTile(singleOrder, context);
             },
           );
   }
 
-  Widget _todayOrderListTile(Order singleOrder) {
+  Widget _todayOrderListTile(Order singleOrder, context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -351,6 +352,9 @@ class NewOrderModule extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   _acceptAndCancelButton(singleOrder),
+                  const SizedBox(height: 15),
+                  _addStatusWiseDeliveryBoyDropDown(context)
+
                 ],
               ),
             ),
@@ -521,6 +525,55 @@ class NewOrderModule extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _addStatusWiseDeliveryBoyDropDown(context) {
+    return Obx(()=>
+      Container(
+            padding: const EdgeInsets.only(left: 10),
+            height: 45,  //gives the height of the dropdown button
+            width: MediaQuery.of(context).size.width, //gives the width of the dropdown button
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.grey.shade200
+              //border: Border.all(color: Colors.grey),
+            ),
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                  canvasColor: Colors.grey.shade100, // background color for the dropdown items
+                  buttonTheme: ButtonTheme.of(context).copyWith(
+                    alignedDropdown: true,  //If false (the default), then the dropdown's menu will be wider than its button.
+                  )
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<GetList>(
+                  // focusColor:Colors.white,
+                  value: newOrderScreenController.deliveryBoyDropDownValue,
+                  //elevation: 5,
+                  // style: TextStyle(color: Colors.white),
+                  // iconEnabledColor:Colors.black,
+
+                  items:newOrderScreenController.deliveryBoyLists
+                      .map<DropdownMenuItem<GetList>>((GetList value) {
+                    return DropdownMenuItem<GetList>(
+                      value: value,
+                      child: Text(value.firstName!,style:TextStyle(color:Colors.black),),
+                    );
+                  }).toList(),
+                  // hint:Text(
+                  //   "Select City",
+                  // ),
+                  onChanged: (newValue) {
+                    newOrderScreenController.deliveryBoyDropDownValue = newValue!;
+                    print("cityDropDownValue : ${newOrderScreenController.deliveryBoyDropDownValue}");
+                    newOrderScreenController.loading();
+                  },
+                ),
+              ),
+            ),
+
+      ),
     );
   }
 

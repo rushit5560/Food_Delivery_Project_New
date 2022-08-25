@@ -1,7 +1,7 @@
 class ApiUrl {
   // static const ApiMainPath = "http://5.189.147.159:9501/";
 
-  static const ApiMainPath = "http://192.168.29.94:4000/";
+  static const ApiMainPath = "http://192.168.0.105:4000/";
 
 
   static const SignUpApi = ApiMainPath + "store/create";
@@ -78,7 +78,7 @@ class ApiUrl {
   static const GetAllCampaignApi = ApiMainPath + "BasicCampaign/getAllCampaign";
   static const JoinedCampaignApi = ApiMainPath + "BasicCampaign/Campaignbystore/";
   static const CampaignJoinApi = ApiMainPath + "BasicCampaign/storejoin";
-
+  static const DeleteCampaignJoinApi = ApiMainPath + "deletejoin/";
 
   /// Update Order Status
   static const UpdateOrderStatus = ApiMainPath + "order/update/";
@@ -91,4 +91,7 @@ class ApiUrl {
 
   /// Contact Us API
   static const ContactUsApi = ApiMainPath + "Contactus/create";
+
+  /// Status wise Order Delivery boy add
+  static const StatusWiseDeliveryBoyApi = ApiMainPath + "deliveryperson/zone/find/";
 }

@@ -1,5 +1,5 @@
 class ApiUrl {
-  static const ApiMainPath = "http://192.168.0.105:4000/";
+  static const ApiMainPath = "http://192.168.29.93:4000/";
 
   static const SignInApi = ApiMainPath + "deliveryperson/signIn";
   static const SignUpApi = ApiMainPath + "deliveryperson/signUp";

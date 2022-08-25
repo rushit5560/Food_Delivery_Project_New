@@ -166,6 +166,7 @@ class DeliveryManScreenController extends GetxController {
       print('response: ${response.request}');
 
       response.stream.transform(utf8.decoder).listen((value) {
+        log('value1: $value');
         AddDeliveryManModel addDeliveryManModel =
             AddDeliveryManModel.fromJson(json.decode(value));
         print('response1 ::::::${addDeliveryManModel.status}');

@@ -274,9 +274,12 @@ class EmployeeRoleDropDownModule extends StatelessWidget {
 
                   onChanged: (listElementRole){
                     screenController.isLoading(true);
+                    log('listElementRole: $listElementRole');
                     screenController.employeeRoleDropDownValue = listElementRole!;
+                    log("employeeRoleDropDownValue1 : ${screenController.employeeRoleDropDownValue.id}");
                     log("categoryDropDownValue : ${screenController.employeeRoleDropDownValue.roleName}");
                     screenController.isLoading(false);
+                    //screenController.loadUI();
                   },
                 ),
               ),

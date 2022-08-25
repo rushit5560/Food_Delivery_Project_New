@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:food_delivery_driver/common/constant/api_url.dart';
+import 'package:food_delivery_driver/common/constant/order_status.dart';
+import 'package:food_delivery_driver/models/get_restaurant_order_model/get_restaurant_order_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,8 +18,15 @@ class HomeScreenController extends GetxController with GetSingleTickerProviderSt
   List pickedUpList = ["1", "2", "3"];
   List doneList = ["1", "2", "3"];
 
+  List<Order> pendingOrderList = [];
+  List<Order> preparingOrderList = [];
+  List<Order> pickedUpOrderList = [];
+  List<Order> deliveredOrderList = [];
 
-  /*getStatusWiseAllOrdersList()async{
+  List<Order> allOrdersList = [];
+
+
+  getStatusWiseAllOrdersList()async{
     //log("Store Id: ${StoreDetails.storeId}");
     isLoading(true);
     String url = ApiUrl.RestaurantAllOrdersApi + "622b09a668395c49dcb4aa73";
@@ -37,63 +47,37 @@ class HomeScreenController extends GetxController with GetSingleTickerProviderSt
         allOrdersList.addAll(getRestaurantOrderModel.order);
         log("allOrderList : $allOrdersList");
 
-        // New Orders List
+        // Pending Orders List
         for(int i = 0; i < getRestaurantOrderModel.order.length; i++) {
           if(getRestaurantOrderModel.order[i].orderStatusId.id == OrderStatus.pendingId) {
-            newOrderList.add(getRestaurantOrderModel.order[i]);
+            pendingOrderList.add(getRestaurantOrderModel.order[i]);
           }
         }
-        log("newOrderList : ${newOrderList.length}");
+        log("pendingOrderList : ${pendingOrderList.length}");
 
         // Accepted Order List
         for(int i = 0; i < getRestaurantOrderModel.order.length; i++) {
-          if(getRestaurantOrderModel.order[i].orderStatusId.id == OrderStatus.orderAcceptedId) {
-            acceptedOrderList.add(getRestaurantOrderModel.order[i]);
-          }
-        }
-        log("pendingOrderList : ${preparingList.length}");
-
-        // Preparing Order List
-        for(int i = 0; i < getRestaurantOrderModel.order.length; i++) {
           if(getRestaurantOrderModel.order[i].orderStatusId.id == OrderStatus.preparingId) {
-            preparingList.add(getRestaurantOrderModel.order[i]);
+            preparingOrderList.add(getRestaurantOrderModel.order[i]);
           }
         }
-        log("pendingOrderList : ${preparingList.length}");
+        log("preparingOrderList : ${preparingOrderList.length}");
 
-        // Prepared Order List
-        for(int i = 0; i < getRestaurantOrderModel.order.length; i++) {
-          if(getRestaurantOrderModel.order[i].orderStatusId.id == OrderStatus.preparedId) {
-            preparedList.add(getRestaurantOrderModel.order[i]);
-          }
-        }
-        log("pendingOrderList : ${preparedList.length}");
-
-        // Canceled Order List
-        for(int i = 0; i < getRestaurantOrderModel.order.length; i++) {
-          if(getRestaurantOrderModel.order[i].orderStatusId.id == OrderStatus.cancelOrderId) {
-            canceledList.add(getRestaurantOrderModel.order[i]);
-          }
-        }
-        log("pendingOrderList : ${canceledList.length}");
-
-        // PickedUp Order List
+        // Picked up Order List
         for(int i = 0; i < getRestaurantOrderModel.order.length; i++) {
           if(getRestaurantOrderModel.order[i].orderStatusId.id == OrderStatus.pickedUpId) {
-            onTheWayList.add(getRestaurantOrderModel.order[i]);
+            pickedUpOrderList.add(getRestaurantOrderModel.order[i]);
           }
         }
-        log("pendingOrderList : ${onTheWayList.length}");
-
+        log("pickedUpOrderList : ${pickedUpOrderList.length}");
 
         // Delivered Order List
         for(int i = 0; i < getRestaurantOrderModel.order.length; i++) {
           if(getRestaurantOrderModel.order[i].orderStatusId.id == OrderStatus.deliveredId) {
-            deliveredList.add(getRestaurantOrderModel.order[i]);
+            deliveredOrderList.add(getRestaurantOrderModel.order[i]);
           }
         }
-        log("pendingOrderList : ${deliveredList.length}");
-
+        log("deliveredOrderList : ${deliveredOrderList.length}");
 
 
       } else {
@@ -102,14 +86,15 @@ class HomeScreenController extends GetxController with GetSingleTickerProviderSt
     } catch(e) {
       log('Error : $e');
     } finally {
-      //isLoading(false);
-      getAllStatusWiseDeliveryBoyList();
+      isLoading(false);
+      //getAllStatusWiseDeliveryBoyList();
     }
-  }*/
+  }
 
   @override
   void onInit() {
     tabController = TabController(vsync: this, length: 4);
+    getStatusWiseAllOrdersList();
     super.onInit();
   }
 

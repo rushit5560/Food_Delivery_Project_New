@@ -23,6 +23,7 @@ class CustomerReviewScreenController extends GetxController {
 
       GetProductReviewModel getProductReviewModel = GetProductReviewModel.fromJson(json.decode(response.body));
       isSuccessStatus = getProductReviewModel.status.obs;
+      log('isSuccessStatus: $isSuccessStatus');
 
       if(isSuccessStatus.value) {
         reviewList.clear();

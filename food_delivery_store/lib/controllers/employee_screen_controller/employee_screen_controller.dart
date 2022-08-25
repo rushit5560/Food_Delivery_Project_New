@@ -92,15 +92,17 @@ class EmployeeScreenController extends GetxController {
       isSuccessStatus = getEmployeeRoleModel.status.obs;
 
       if(isSuccessStatus.value) {
-        getEmployeeRoleList.clear();
+        //getEmployeeRoleList.clear();
 
         for(int i = 0; i < getEmployeeRoleModel.list.length; i++) {
           if(getEmployeeRoleModel.list[i].isActive == true) {
             getEmployeeRoleList.add(getEmployeeRoleModel.list[i]);
           }
+          employeeRoleDropDownValue = getEmployeeRoleList[i];
         }
 
-        employeeRoleDropDownValue = getEmployeeRoleList[0];
+
+        log('employeeRoleDropDownValue: ${employeeRoleDropDownValue.id}');
         log("getEmployeeRoleList : ${getEmployeeRoleList.length}");
       } else {
         log("getAllEmployeeRoleFunction Else Else");
@@ -138,6 +140,8 @@ class EmployeeScreenController extends GetxController {
       request.fields['Password'] = "${passwordFieldController.text.trim()}";
       request.fields['EmployeeRole'] = "${employeeRoleDropDownValue.id}";
       request.fields['Restaurant'] = "${StoreDetails.storeId}";
+
+      log('request.fields: ${request.fields}');
 
       var multiPart = http.MultipartFile('Image', stream, length);
 
